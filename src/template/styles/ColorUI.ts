@@ -6,6 +6,7 @@ export const ColorsUI = {
     main: '#999999',
     light: '#C1C1C1',
     disabled: '#DCDCDC',
+    line: '#E7E7E7',
   },
   firm: '#A5EE68',
   lightGreen: '#BFFFD1',

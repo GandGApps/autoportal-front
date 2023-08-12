@@ -8,7 +8,7 @@ import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 export const InitScreen = () => {
   useEffect(() => {
     setTimeout(() => {
-      Navigation.navigate(Screens.CATEGORIES);
+      Navigation.replace(Screens.CATEGORIES);
     }, 2000);
   }, []);
   return (
