@@ -24,6 +24,10 @@ export const RowContainerBeetwen = styled(RowContainer)`
   align-items: center;
 `;
 
+export const RowContainerBeetwenFlex = styled(RowContainerBeetwen)`
+  flex: 1;
+`;
+
 export const RowContainerBeetwenEnd = styled(RowContainerBeetwen)`
   align-items: flex-end;
 `;

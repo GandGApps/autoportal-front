@@ -17,8 +17,8 @@ class NavigationModel {
 
   initialRoute: string = Screens.INIT;
 
-  setInitialRoute = (route: string) => {
-    this.initialRoute = route;
+  getCurrentScreen = () => {
+    return this.navigationRef.current?.getCurrentRoute()?.name;
   };
 
   navigate = (routeName: string, params?: NavigationParams) => {

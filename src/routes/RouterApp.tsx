@@ -1,6 +1,10 @@
-import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  NavigationContext,
+} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {StatusBar} from 'react-native';
+import {BackHandler, StatusBar} from 'react-native';
 import {InitScreen} from '../screens/_init/InitScreen';
 import {createStackNavigator} from '@react-navigation/stack';
 import {MainStack} from './stacks/MainStack';

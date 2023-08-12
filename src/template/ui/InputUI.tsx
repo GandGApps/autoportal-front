@@ -17,7 +17,7 @@ export interface InputUIProps extends TextInputProps {
 
 export const InputUI = (props: InputUIProps) => {
   return (
-    <InputContainerStyled $widthPRC={100} {...props.containerStyles}>
+    <InputContainerStyled {...props.containerStyles}>
       {props.leftIcon ? props.leftIcon : null}
       {props.isSelect ? (
         <TextUI ag={Ag['400_16']}>{props.value}</TextUI>
