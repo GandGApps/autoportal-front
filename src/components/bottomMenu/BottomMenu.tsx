@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import {ColorsUI} from '../../template/styles/ColorUI';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -7,6 +7,7 @@ import {BottomTabs, BottomTabsKey} from './values/BottomTabs';
 import {Dimensions, TouchableOpacity} from 'react-native';
 import {BottomIcons} from './icons/BottomIcons';
 import Navigation from '../../routes/navigation/Navigation';
+import {BottomTab} from './BottomTab';
 
 export const BottomMenu = () => {
   const insets = useSafeAreaInsets();
@@ -17,6 +18,8 @@ export const BottomMenu = () => {
     Navigation.navigate(screen);
   };
 
+  useEffect(() => {}, []);
+
   return (
     <BottomMenuStyled
       $widthPX={width}
@@ -24,14 +27,12 @@ export const BottomMenu = () => {
       $pv={8}
       $bottom={Math.max(insets.bottom, 20)}>
       {Object.entries(BottomTabs).map(([key, value]) => (
-        <TouchableOpacity
+        <BottomTab
           key={`${key}-${value}`}
-          onPress={() => handleNavigate(value)}>
-          <BottomIcons
-            bottomKey={key as BottomTabsKey}
-            isActive={Navigation.getCurrentScreen() === value}
-          />
-        </TouchableOpacity>
+          value={value}
+          keyTab={key}
+          onNavigate={() => handleNavigate(value)}
+        />
       ))}
     </BottomMenuStyled>
   );

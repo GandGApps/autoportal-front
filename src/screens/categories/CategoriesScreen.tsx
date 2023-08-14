@@ -1,19 +1,17 @@
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Carousel from 'react-native-reanimated-carousel';
 
-import {selectOrganizationsValues} from '../../modules/organizations/OrganizationsSlice';
-import {useAppSelector} from '../../settings/redux/hooks';
-import {CenterContainerFlex} from '../../template/containers/CenterContainer';
-import {MockBanners} from './mock/MockBanners';
-import {Dimensions, View} from 'react-native';
-import {MainContainer} from '../../template/containers/MainContainer';
 import {
-  ColumnContainerBetweenFlex,
-  ColumnContainerFlex,
-} from '../../template/containers/ColumnContainer';
+  filterChangeForm,
+  selectOrganizationsValues,
+} from '../../modules/organizations/OrganizationsSlice';
+import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
+import {MockBanners} from './mock/MockBanners';
+import {Dimensions} from 'react-native';
+import {MainContainer} from '../../template/containers/MainContainer';
+import {ColumnContainerFlex} from '../../template/containers/ColumnContainer';
 import {InputSelectUI} from '../../template/ui/InputSelectUI';
 import {SearchIcon} from '../../template/icons/SearchIcon';
-import {SelectUI} from '../../template/ui/SelectUI';
 import {MockCategories} from './mock/MockCategories';
 import {ThreeMenuItem} from '../../components/ThreeMenuItem';
 import {IconContainerUI} from '../../template/ui/IconContainerUI';
@@ -21,9 +19,12 @@ import {ScrollViewScreen} from '../../template/containers/ScrollViewScreen';
 import {BottomMenu} from '../../components/bottomMenu/BottomMenu';
 import Navigation from '../../routes/navigation/Navigation';
 import {Screens} from '../../routes/models/Screens';
+import {Category} from '../../modules/organizations/models/Category';
 
 export const CategoriesScreen = () => {
   const {banners} = useAppSelector(selectOrganizationsValues);
+
+  const dispatch = useAppDispatch();
 
   const insets = useSafeAreaInsets();
 
@@ -32,6 +33,12 @@ export const CategoriesScreen = () => {
 
   const handleGoToSearch = () => {
     Navigation.navigate(Screens.CATEGORIES_SEARCH);
+  };
+
+  const handlePickCategory = (category: Category) => {
+    dispatch(filterChangeForm({key: 'category', value: category}));
+
+    Navigation.navigate(Screens.CAT_ORGANIZATIONS);
   };
 
   return (
@@ -58,9 +65,6 @@ export const CategoriesScreen = () => {
               rightIcon={<SearchIcon />}
               onPress={handleGoToSearch}
             />
-            <MainContainer $mt={10} $widthPRC={50}>
-              <SelectUI text={'Местоположение'} />
-            </MainContainer>
           </MainContainer>
         </MainContainer>
 
@@ -70,7 +74,7 @@ export const CategoriesScreen = () => {
               key={item._id}
               leftIcon={<IconContainerUI />}
               title={item.title}
-              onPress={() => {}}
+              onPress={() => handlePickCategory(item as Category)}
             />
           ))}
         </MainContainer>
