@@ -5,6 +5,7 @@ import {IHandles} from 'react-native-modalize/lib/options';
 import {Portal} from 'react-native-portalize';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ColorsUI} from '../template/styles/ColorUI';
+import {MainContainer} from '../template/containers/MainContainer';
 
 interface ISwipeableModalProps extends ModalizeProps {
   children: JSX.Element | JSX.Element[];
@@ -53,7 +54,9 @@ export const SwipeableModal = (props: ISwipeableModalProps) => {
           barStyle={'light-content'}
           backgroundColor={ColorsUI.black}
         />
-        <View style={[styles.container, {width: width}]}>{children}</View>
+        <MainContainer $widthPX={width} $ph={30} $pv={20}>
+          {children}
+        </MainContainer>
       </Modalize>
     </Portal>
   );
@@ -62,9 +65,5 @@ export const SwipeableModal = (props: ISwipeableModalProps) => {
 const styles = StyleSheet.create({
   modal: {
     minHeight: '100%',
-  },
-  container: {
-    paddingVertical: 20,
-    paddingHorizontal: 10,
   },
 });

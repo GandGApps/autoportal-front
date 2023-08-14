@@ -1,10 +1,6 @@
-import {
-  DefaultTheme,
-  NavigationContainer,
-  NavigationContext,
-} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {BackHandler, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 import {InitScreen} from '../screens/_init/InitScreen';
 import {createStackNavigator} from '@react-navigation/stack';
 import {MainStack} from './stacks/MainStack';
@@ -31,7 +27,17 @@ export const RouterApp = () => {
       }}>
       <StatusBar barStyle={'dark-content'} backgroundColor={ColorsUI.white} />
 
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator
+        initialRouteName={Screens.INIT}
+        screenOptions={{headerShown: false}}
+        screenListeners={{
+          beforeRemove: e => {
+            //@ts-ignore
+            if (e.data.action.type === 'POP') {
+              // Navigation.pop();
+            }
+          },
+        }}>
         <Stack.Screen
           name={Screens.INIT}
           component={InitScreen}

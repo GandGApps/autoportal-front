@@ -39,6 +39,13 @@ class NavigationModel {
     );
   };
 
+  defaultBack = () => {
+    //@ts-ignore
+    this.navigationRef.current?.addListener('gestureEnd', () => {
+      console.log('test');
+    });
+  };
+
   resetScreens = () => {
     const filterScreens: string[] = [];
 
