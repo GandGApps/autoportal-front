@@ -39,19 +39,12 @@ class NavigationModel {
     );
   };
 
-  defaultBack = () => {
-    //@ts-ignore
-    this.navigationRef.current?.addListener('gestureEnd', () => {
-      console.log('test');
-    });
-  };
-
-  resetScreens = () => {
-    const filterScreens: string[] = [];
+  resetScreens = (screens: string[] = []) => {
+    const filterScreens: string[] = screens;
 
     this.navigationRef.current?.dispatch(state => {
-      const routes = state.routes.filter(route =>
-        filterScreens.includes(route.name),
+      const routes = state.routes.filter(
+        route => !filterScreens.includes(route.name),
       );
 
       return CommonActions.reset({

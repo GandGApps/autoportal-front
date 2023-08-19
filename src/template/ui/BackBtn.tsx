@@ -5,8 +5,16 @@ import {ContainerProps} from '../ui-types/UITypes';
 import {defaultContainerCSS} from '../containers/MainContainer';
 import Navigation from '../../routes/navigation/Navigation';
 
-export const BackBtn = (props: ContainerProps) => {
+interface BackBtnProps extends ContainerProps {
+  callback?: () => void;
+}
+
+export const BackBtn = (props: BackBtnProps) => {
   const handleBackNavigation = () => {
+    if (props.callback) {
+      props.callback();
+    }
+
     Navigation.pop();
   };
 

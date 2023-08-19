@@ -5,9 +5,11 @@ import {Ag, TextUI} from '../template/ui/TextUI';
 import {ScrollView, TouchableOpacity} from 'react-native';
 import {BorderTopUI} from '../template/ui/BorderTopUI';
 import {MainContainer} from '../template/containers/MainContainer';
-import {useAppDispatch} from '../settings/redux/hooks';
-import {filterChangeForm} from '../modules/organizations/OrganizationsSlice';
-import {MockCategories} from '../screens/categories/mock/MockCategories';
+import {useAppDispatch, useAppSelector} from '../settings/redux/hooks';
+import {
+  filterChangeForm,
+  selectOrganizationsValues,
+} from '../modules/organizations/OrganizationsSlice';
 import {Category} from '../modules/organizations/models/Category';
 
 interface CitiesFilterProps {
@@ -15,6 +17,7 @@ interface CitiesFilterProps {
 }
 
 export const CategoriesModal = (props: CitiesFilterProps) => {
+  const {categories} = useAppSelector(selectOrganizationsValues);
   const dispatch = useAppDispatch();
 
   const handlePickCity = (city: Category) => {
@@ -30,7 +33,7 @@ export const CategoriesModal = (props: CitiesFilterProps) => {
           {'Выберите категорию'}
         </TextUI>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {MockCategories.map(category => (
+          {categories.map(category => (
             <BorderTopUI key={`category-${category._id}`}>
               <TouchableOpacity
                 onPress={() => handlePickCity(category as Category)}>

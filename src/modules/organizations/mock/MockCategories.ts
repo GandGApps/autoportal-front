@@ -35,7 +35,7 @@ export const MockCategories = [
     },
   },
   {
-    _id: '',
+    _id: 'vfvdcew',
     title: 'Автомойки',
     icon: {
       url: '',
