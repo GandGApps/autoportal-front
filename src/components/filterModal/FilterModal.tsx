@@ -23,7 +23,6 @@ import {ButtonUI} from '../../template/ui/ButtonUI';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../Loader';
 import {mockSchedule} from '../../modules/organizations/mock/MockSchedule';
-import {MockCategories} from '../../screens/categories/mock/MockCategories';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;

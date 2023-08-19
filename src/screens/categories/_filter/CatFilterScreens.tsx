@@ -12,10 +12,7 @@ import {BackBtn} from '../../../template/ui/BackBtn';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
 import {InputSelectUI} from '../../../template/ui/InputSelectUI';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
-import {
-  getOrganizationFilter,
-  selectOrganizationsValues,
-} from '../../../modules/organizations/OrganizationsSlice';
+import {selectOrganizationsValues} from '../../../modules/organizations/OrganizationsSlice';
 import {FilterModal} from '../../../components/filterModal/FilterModal';
 import {FilterFormKeys} from '../../../modules/organizations/form/FilterForm';
 import {Nullable} from '../../../settings/types/BaseTypes';
@@ -23,6 +20,7 @@ import {Modalize} from 'react-native-modalize';
 import {CitiesModal} from '../../../components/CitiesModal';
 import {CategoriesModal} from '../../../components/CategoriesModal';
 import {ButtonUI} from '../../../template/ui/ButtonUI';
+import {getOrganizationFilter} from '../../../modules/organizations/thunks/OrganizationsThunks';
 
 export const CatFilterScreens = () => {
   const {filterForm, organizationFilter} = useAppSelector(

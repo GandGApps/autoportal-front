@@ -1,11 +1,12 @@
 import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 import {Nullable} from '../../../settings/types/BaseTypes';
-import {File} from '../../files/models/File';
+import {UnitsFilter} from '../types/OrganizationTypes';
+import {Category} from './Category';
 
-export class Category extends AbstractModel {
+export class SearchServices extends AbstractModel {
   _id: string = '';
   title: string = '';
-  icon?: Nullable<File> = null;
+  category: Nullable<Category> = null;
 
   constructor(props: any) {
     super();

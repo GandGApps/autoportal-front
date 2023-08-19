@@ -1,7 +1,6 @@
 import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {File} from '../../files/models/File';
-import {UnitsFilter} from '../types/OrganizationTypes';
 
 export class OrganizationList extends AbstractModel {
   _id: string = '';

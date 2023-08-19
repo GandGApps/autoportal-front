@@ -1,30 +1,72 @@
 export const MockOrganizationFilter = {
   typeService: [
     {
-      _id: 'fergergef',
-      title: 'Двигатель',
+      _id: 'xvzzfev',
+      title: 'Колеса',
     },
     {
-      _id: 'fewfsdfsv',
+      _id: 'vlwlkrwlk',
       title: 'Покрас',
       subServices: [
         {
-          _id: 'xvzzfev',
+          _id: 'drere',
           title: 'Матовый',
         },
         {
-          _id: 'hnfbefv',
+          _id: 'okrgpe',
           title: 'Глянцевый',
         },
         {
-          _id: 'plfeplf2',
+          _id: 'vkemvkne',
           title: 'Акриловый',
         },
       ],
     },
     {
-      _id: 'vcxvrvrv',
+      _id: 'xieorre',
       title: 'Двигатель',
+    },
+    {
+      _id: 'fewfsdfsv',
+      title: 'Запчасти',
+      subServices: [
+        {
+          _id: 'hnfbefv',
+          title: 'Замена колес',
+        },
+        {
+          _id: 'wefwbvw',
+          title: 'Заменя поршня',
+        },
+        {
+          _id: 'vrvrblw',
+          title: 'Замена лобового стекла',
+        },
+        {
+          _id: 'phjklmnbvs',
+          title: 'Правка колесных дисков',
+        },
+      ],
+    },
+    {
+      _id: 'vcxvrvrv',
+      title: 'Мойка колес',
+    },
+    {
+      _id: 'qwertyuioz',
+      title: 'Колесные крепления',
+    },
+    {
+      _id: 'fergnhrjkl',
+      title: 'Диагностика колесных подшипников',
+    },
+    {
+      _id: 'fergergef',
+      title: 'Колесные болты и гайки',
+    },
+    {
+      _id: 'plfeplf2',
+      title: 'Колесные диски',
     },
   ],
   brandCar: [
