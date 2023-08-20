@@ -6,6 +6,7 @@ import {
   getBanners,
   getCategories,
   getOrganizationFilter,
+  getOrganizationList,
   getSearchServices,
 } from './thunks/OrganizationsThunks';
 
@@ -15,11 +16,13 @@ const initialState: OrganizationsStateModel = {
   filterForm: DefaultFilterForm,
   organizationFilter: null,
   searchServices: [],
+  organizationList: [],
 
   isSearchLoad: false,
   isBannersLoad: false,
   isCategoriesLoad: false,
   isOrganizationFilter: false,
+  isOrganizationListLoad: false,
 };
 
 const organizationsSlice = createSlice({
@@ -48,6 +51,9 @@ const organizationsSlice = createSlice({
     },
     setIsOrganizationFilter: (state, action: PayloadAction<boolean>) => {
       state.isOrganizationFilter = action.payload;
+    },
+    setIsOrganizationList: (state, action: PayloadAction<boolean>) => {
+      state.isOrganizationListLoad = action.payload;
     },
   },
   extraReducers: builder => {
@@ -85,6 +91,15 @@ const organizationsSlice = createSlice({
       }
 
       state.searchServices = action.payload;
+    });
+
+    // GET Organizations List
+    builder.addCase(getOrganizationList.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      state.organizationList = action.payload;
     });
   },
 });

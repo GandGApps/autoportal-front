@@ -87,3 +87,21 @@ export const getOrganizationFilter = createAsyncThunk(
       });
   },
 );
+
+export const getOrganizationList = createAsyncThunk(
+  'organizations/list',
+  async (_, {getState, dispatch}) => {
+    const {isOrganizationListLoad} = (getState() as RootState)
+      .organizationsSlice;
+
+    if (isOrganizationListLoad) {
+      return null;
+    }
+
+    dispatch(setIsOrganizationFilter(true));
+
+    return await organizationService.getOrganizationList().finally(() => {
+      setIsOrganizationFilter(false);
+    });
+  },
+);

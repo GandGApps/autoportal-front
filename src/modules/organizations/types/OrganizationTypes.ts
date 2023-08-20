@@ -4,6 +4,7 @@ import {FiltertFormModel} from '../form/FilterForm';
 import {Category} from '../models/Category';
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {SearchServices} from '../models/SearchServices';
+import {OrganizationList} from '../models/OrganizationList';
 
 export interface OrganizationsStateModel {
   categories: Category[];
@@ -11,11 +12,13 @@ export interface OrganizationsStateModel {
   filterForm: FiltertFormModel;
   organizationFilter: Nullable<OrganizationFilter>;
   searchServices: SearchServices[];
+  organizationList: OrganizationList[];
 
   isOrganizationFilter: boolean;
   isBannersLoad: boolean;
   isCategoriesLoad: boolean;
   isSearchLoad: boolean;
+  isOrganizationListLoad: boolean;
 }
 
 export interface UnitsFilter {
