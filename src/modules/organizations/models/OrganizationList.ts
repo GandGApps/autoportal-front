@@ -1,10 +1,9 @@
 import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 import {Nullable} from '../../../settings/types/BaseTypes';
-import {File} from '../../files/models/File';
 
 export class OrganizationList extends AbstractModel {
   _id: string = '';
-  logo: Nullable<File> = null;
+  logo: string = '';
   name: string = '';
   address: string = '';
   categoryName: string = '';

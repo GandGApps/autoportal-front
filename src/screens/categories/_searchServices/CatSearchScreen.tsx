@@ -45,8 +45,6 @@ export const CatSearchScreen = () => {
   useFocusEffect(
     useCallback(() => {
       if (!search.length) {
-        console.log(search);
-        console.log('test');
         dispatch(getSearchServices(''));
       }
     }, [search]),
