@@ -26,6 +26,12 @@ export class ApiOrganizationsService extends AbstractApiRepository {
   };
 
   getOrganizationList = async () => {
+    return this.apiClient.post({
+      url: '',
+    });
+  };
+
+  getCurrentOrganization = async (_id: string) => {
     return this.apiClient.get({
       url: '',
     });

@@ -4,6 +4,7 @@ import {OrganizationsService} from '../services/OrganizationsService';
 import {
   setIsBannersLoad,
   setIsCategoriesLoad,
+  setIsCurrentOrganizationLoad,
   setIsOrganizationFilter,
   setIsSearchLoad,
 } from '../OrganizationsSlice';
@@ -101,7 +102,25 @@ export const getOrganizationList = createAsyncThunk(
     dispatch(setIsOrganizationFilter(true));
 
     return await organizationService.getOrganizationList().finally(() => {
-      setIsOrganizationFilter(false);
+      dispatch(setIsOrganizationFilter(false));
+    });
+  },
+);
+
+export const getCurrentOrganization = createAsyncThunk(
+  'organization/current',
+  async (_id: string, {getState, dispatch}) => {
+    const {isCurrentOrganizationLoad} = (getState() as RootState)
+      .organizationsSlice;
+
+    if (isCurrentOrganizationLoad) {
+      return null;
+    }
+
+    dispatch(setIsCurrentOrganizationLoad(true));
+
+    return await organizationService.getCurrentOrganization(_id).finally(() => {
+      dispatch(setIsCurrentOrganizationLoad(false));
     });
   },
 );

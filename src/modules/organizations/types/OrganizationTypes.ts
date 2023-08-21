@@ -5,6 +5,9 @@ import {Category} from '../models/Category';
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {SearchServices} from '../models/SearchServices';
 import {OrganizationList} from '../models/OrganizationList';
+import {CurrentOrganization} from '../models/CurrentOrganization';
+
+export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
 export interface OrganizationsStateModel {
   categories: Category[];
@@ -19,6 +22,9 @@ export interface OrganizationsStateModel {
   isCategoriesLoad: boolean;
   isSearchLoad: boolean;
   isOrganizationListLoad: boolean;
+  isCurrentOrganizationLoad: boolean;
+
+  currentOrganization: Nullable<CurrentOrganization>;
 }
 
 export interface UnitsFilter {
@@ -26,4 +32,20 @@ export interface UnitsFilter {
   title: string;
 }
 
-export type SortFilterType = 'ratingASC' | 'ratingDESC';
+export interface ContactInfoModel {
+  mainPhone: string;
+  whatsApp: string;
+}
+
+export interface EmployeerModel {
+  _id: string;
+  position: string;
+  name: string;
+  phone: string;
+}
+
+export interface ScheduleModel {
+  title: string;
+  to: string;
+  do: string;
+}

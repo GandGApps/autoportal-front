@@ -10,6 +10,8 @@ import {File} from '../../files/models/File';
 import {MockSearchServices} from '../mock/MockSearchServices';
 import {OrganizationList} from '../models/OrganizationList';
 import {MockOrganizationList} from '../mock/MockOrganizationList';
+import {CurrentOrganization} from '../models/CurrentOrganization';
+import {MockCurrentOrganization} from '../mock/MockOrganization';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -57,5 +59,13 @@ export class OrganizationsService extends AbstractServiceRepository {
     const data = MockOrganizationList;
 
     return this.createList<OrganizationList>(OrganizationList, data);
+  };
+
+  getCurrentOrganization = async (_id: string) => {
+    // const {data} = await this.api.getCurrentOrganization(_id);
+
+    const data = MockCurrentOrganization;
+
+    return this.create<CurrentOrganization>(CurrentOrganization, data);
   };
 }

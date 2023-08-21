@@ -5,6 +5,7 @@ import {DefaultFilterForm, FilterFormProps} from './form/FilterForm';
 import {
   getBanners,
   getCategories,
+  getCurrentOrganization,
   getOrganizationFilter,
   getOrganizationList,
   getSearchServices,
@@ -23,6 +24,9 @@ const initialState: OrganizationsStateModel = {
   isCategoriesLoad: false,
   isOrganizationFilter: false,
   isOrganizationListLoad: false,
+  isCurrentOrganizationLoad: false,
+
+  currentOrganization: null,
 };
 
 const organizationsSlice = createSlice({
@@ -54,6 +58,9 @@ const organizationsSlice = createSlice({
     },
     setIsOrganizationList: (state, action: PayloadAction<boolean>) => {
       state.isOrganizationListLoad = action.payload;
+    },
+    setIsCurrentOrganizationLoad: (state, action: PayloadAction<boolean>) => {
+      state.isCurrentOrganizationLoad = action.payload;
     },
   },
   extraReducers: builder => {
@@ -101,6 +108,15 @@ const organizationsSlice = createSlice({
 
       state.organizationList = action.payload;
     });
+
+    // GET Current Organization
+    builder.addCase(getCurrentOrganization.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      state.currentOrganization = action.payload;
+    });
   },
 });
 
@@ -113,6 +129,7 @@ export const {
   setIsBannersLoad,
   setIsCategoriesLoad,
   setIsOrganizationFilter,
+  setIsCurrentOrganizationLoad,
 } = organizationsSlice.actions;
 
 export default organizationsSlice.reducer;
