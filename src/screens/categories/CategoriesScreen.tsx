@@ -6,7 +6,7 @@ import {
   selectOrganizationsValues,
 } from '../../modules/organizations/OrganizationsSlice';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
-import {Dimensions} from 'react-native';
+import {Dimensions, TouchableOpacity} from 'react-native';
 import {MainContainer} from '../../template/containers/MainContainer';
 import {ColumnContainerFlex} from '../../template/containers/ColumnContainer';
 import {InputSelectUI} from '../../template/ui/InputSelectUI';

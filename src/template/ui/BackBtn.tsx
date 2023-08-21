@@ -7,6 +7,7 @@ import Navigation from '../../routes/navigation/Navigation';
 
 interface BackBtnProps extends ContainerProps {
   callback?: () => void;
+  color?: string;
 }
 
 export const BackBtn = (props: BackBtnProps) => {
@@ -20,7 +21,7 @@ export const BackBtn = (props: BackBtnProps) => {
 
   return (
     <BackBtnStyles $pr={10} $pv={5} {...props} onPress={handleBackNavigation}>
-      <LefiIcon />
+      <LefiIcon color={props.color} />
     </BackBtnStyles>
   );
 };

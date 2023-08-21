@@ -19,6 +19,10 @@ export const RowContainerJustEnd = styled(RowContainer)`
   justify-content: end;
 `;
 
+export const RowContainerCenter = styled(RowContainer)`
+  justify-content: center;
+`;
+
 export const RowContainerBeetwen = styled(RowContainer)`
   justify-content: space-between;
   align-items: center;

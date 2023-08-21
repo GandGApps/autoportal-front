@@ -18,7 +18,9 @@ interface OrganizationItemProps {
 
 export const OrganizationItem = ({item}: OrganizationItemProps) => {
   const handleGoToOrganization = () => {
-    Navigation.navigate(Screens.ORGANIZATION);
+    Navigation.navigate(Screens.ORGANIZATION, {
+      _id: item._id,
+    });
   };
 
   return (
