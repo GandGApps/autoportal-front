@@ -5,7 +5,7 @@ import {NoLogoIcon} from '../template/icons/NoLogoIcon';
 import {ImageUI} from '../template/ui/ImageUI';
 
 interface LogoUIProps extends ContainerProps {
-  url: string;
+  url?: string;
 }
 
 export const LogoUI = (props: LogoUIProps) => {

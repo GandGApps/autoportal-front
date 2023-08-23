@@ -7,6 +7,7 @@ import {
   UnitsFilter,
 } from '../types/OrganizationTypes';
 import {Promotion} from './Promotion';
+import {Review} from './Review';
 import {TypeService} from './TypeService';
 
 export class CurrentOrganization extends AbstractModel {
@@ -19,14 +20,16 @@ export class CurrentOrganization extends AbstractModel {
   countReviews: Nullable<number> = null;
 
   isFavorite: boolean = false;
+  description: string = '';
   city: string = '';
   previews: string[] = [];
-  promotion: Nullable<Promotion> = null;
+  promo: Nullable<Promotion> = null;
   contactInfo: Nullable<ContactInfoModel> = null;
   employeers: EmployeerModel[] = [];
   services: TypeService[] = [];
   brandsCars: UnitsFilter[] = [];
   schedule: ScheduleModel[] = [];
+  lastReview: Nullable<Review> = null;
 
   constructor(props: any) {
     super();

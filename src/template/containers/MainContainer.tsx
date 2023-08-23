@@ -17,6 +17,8 @@ export const defaultContainerCSS = css<ContainerProps>`
   padding-left: ${({$pl, $ph}) => $pl || $ph || 0}px;
   padding-right: ${({$pr, $ph}) => $pr || $ph || 0}px;
 
+  ${({$br}) => ($br ? `border-radius: ${$br}px;` : '')}
+
   padding-top: ${({$pt, $pv}) => $pt || $pv || 0}px;
   padding-bottom: ${({$pb, $pv}) => $pb || $pv || 0}px;
 
@@ -33,6 +35,8 @@ export const defaultContainerCSS = css<ContainerProps>`
   ${({$bg}) => ($bg ? `background-color: ${$bg};` : '')}
 
   ${({$heightPX}) => ($heightPX ? `height: ${$heightPX}px;` : '')}
+
+  ${({$isFlex}) => ($isFlex ? 'flex: 1;' : '')}
 `;
 
 export const MainContainer = styled.View<ContainerProps>`

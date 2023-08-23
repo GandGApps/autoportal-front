@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import {ColorsUI} from '../styles/ColorUI';
 import {FontHelper} from '../helper/FontHelper';
 import {TextProps} from 'react-native';
+import {forwardRef} from 'react';
 
 type TAlign = 'start' | 'center' | 'right' | 'left';
 export type TWeight = 700 | 600 | 500 | 400;
@@ -13,6 +14,7 @@ export enum Ag {
   '600_16' = '600_16',
   '600_14' = '600_14',
   '600_13' = '600_13',
+  '600_12' = '600_12',
   '600_22' = '600_22',
   '600_20' = '600_20',
   '500_20' = '500_20',
@@ -26,7 +28,7 @@ export enum Ag {
   '400_10' = '400_10',
 }
 
-interface TTextUI extends TStyledP {
+export interface TTextUI extends TStyledP {
   ag: Ag;
   color?: string;
   isNoSelect?: boolean;
