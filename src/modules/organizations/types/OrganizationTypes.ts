@@ -46,6 +46,7 @@ export interface EmployeerModel {
 
 export interface ScheduleModel {
   title: string;
-  to: string;
-  do: string;
+  to?: string;
+  do?: string;
+  isAllDay?: boolean;
 }

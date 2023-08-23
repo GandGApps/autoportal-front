@@ -11,6 +11,8 @@ export interface ContainerProps {
   $pr?: number;
   $ph?: number;
 
+  $br?: number;
+
   $isPointer?: boolean;
   $isRelative?: boolean;
 
@@ -23,4 +25,6 @@ export interface ContainerProps {
   $widthPRC?: number;
 
   $bg?: string;
+
+  $isFlex?: boolean;
 }

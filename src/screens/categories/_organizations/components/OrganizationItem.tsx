@@ -1,7 +1,11 @@
 import React from 'react';
 import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
 import {TouchableOpacity} from 'react-native';
-import {RowContainer} from '../../../../template/containers/RowContainer';
+import {
+  RowContainer,
+  RowContainerBeetwenEnd,
+  RowContainerEnd,
+} from '../../../../template/containers/RowContainer';
 import {LogoUI} from '../../../../components/LogoUI';
 import {MainContainer} from '../../../../template/containers/MainContainer';
 import {Ag, TextUI} from '../../../../template/ui/TextUI';
@@ -49,12 +53,14 @@ export const OrganizationItem = ({item}: OrganizationItemProps) => {
       </AbsoluteContainer>
 
       <AbsoluteContainer $bottom={5} $right={20}>
-        <RowContainer>
-          <StarIcon size={20} />
+        <RowContainerBeetwenEnd>
+          <MainContainer $mr={3}>
+            <StarIcon />
+          </MainContainer>
           <TextUI ag={Ag['400_12']}>
             {`${item.rating} (${item.countReviews})`}
           </TextUI>
-        </RowContainer>
+        </RowContainerBeetwenEnd>
       </AbsoluteContainer>
     </BorderTopUI>
   );

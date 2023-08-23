@@ -6,7 +6,7 @@ export const RowContainer = styled(MainContainer)`
   align-items: center;
 `;
 
-export const RowContainerFlex = styled(RowContainer)`
+export const RowContainerStartFlex = styled(RowContainer)`
   flex: 1;
   align-items: start;
 `;
@@ -16,7 +16,7 @@ export const RowContainerEnd = styled(RowContainer)`
 `;
 
 export const RowContainerJustEnd = styled(RowContainer)`
-  justify-content: end;
+  justify-content: flex-end;
 `;
 
 export const RowContainerCenter = styled(RowContainer)`
@@ -28,13 +28,18 @@ export const RowContainerBeetwen = styled(RowContainer)`
   align-items: center;
 `;
 
+export const RowContainerBeetwenStart = styled(RowContainerBeetwen)`
+  align-items: start;
+`;
+
 export const RowContainerBeetwenFlex = styled(RowContainerBeetwen)`
   flex: 1;
 `;
 
 export const RowContainerBeetwenEnd = styled(RowContainerBeetwen)`
-  align-items: flex-end;
+  align-items: end;
 `;
+
 export const RowContainerBeetwenEndFlex = styled(RowContainerBeetwenEnd)`
   flex: 1;
 `;
