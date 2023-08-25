@@ -36,4 +36,16 @@ export class ApiOrganizationsService extends AbstractApiRepository {
       url: '',
     });
   };
+
+  getPromotionsList = async () => {
+    return this.apiClient.get({
+      url: '',
+    });
+  };
+
+  getFavoritesList = async () => {
+    return this.apiClient.get({
+      url: '',
+    });
+  };
 }

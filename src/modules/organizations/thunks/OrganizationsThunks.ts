@@ -5,7 +5,9 @@ import {
   setIsBannersLoad,
   setIsCategoriesLoad,
   setIsCurrentOrganizationLoad,
+  setIsFavoritesListLoad,
   setIsOrganizationFilter,
+  setIsPromotionListLoad,
   setIsSearchLoad,
 } from '../OrganizationsSlice';
 
@@ -121,6 +123,40 @@ export const getCurrentOrganization = createAsyncThunk(
 
     return await organizationService.getCurrentOrganization(_id).finally(() => {
       dispatch(setIsCurrentOrganizationLoad(false));
+    });
+  },
+);
+
+export const getPromotionsList = createAsyncThunk(
+  'organization/promotions/list',
+  async (_, {getState, dispatch}) => {
+    const {isPromotionListLoad} = (getState() as RootState).organizationsSlice;
+
+    if (isPromotionListLoad) {
+      return null;
+    }
+
+    dispatch(setIsPromotionListLoad(true));
+
+    return await organizationService.getPromotionsList().finally(() => {
+      dispatch(setIsPromotionListLoad(false));
+    });
+  },
+);
+
+export const getFavoritesList = createAsyncThunk(
+  'organization/favorites/list',
+  async (_, {getState, dispatch}) => {
+    const {isFavoritesListLoad} = (getState() as RootState).organizationsSlice;
+
+    if (isFavoritesListLoad) {
+      return null;
+    }
+
+    dispatch(setIsFavoritesListLoad(true));
+
+    return await organizationService.getFavoritesList().finally(() => {
+      dispatch(setIsFavoritesListLoad(false));
     });
   },
 );

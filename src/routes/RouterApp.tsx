@@ -8,6 +8,8 @@ import {Screens} from './models/Screens';
 import Navigation from './navigation/Navigation';
 import {ColorsUI} from '../template/styles/ColorUI';
 import RNBootSplash from 'react-native-bootsplash';
+import {PromotionsStack} from './stacks/PromotionsStack';
+import {FavoritiesStack} from './stacks/FavoritesStack';
 
 const Stack = createStackNavigator();
 
@@ -29,15 +31,7 @@ export const RouterApp = () => {
 
       <Stack.Navigator
         initialRouteName={Screens.INIT}
-        screenOptions={{headerShown: false}}
-        screenListeners={{
-          beforeRemove: e => {
-            //@ts-ignore
-            if (e.data.action.type === 'POP') {
-              // Navigation.pop();
-            }
-          },
-        }}>
+        screenOptions={{headerShown: false}}>
         <Stack.Screen
           name={Screens.INIT}
           component={InitScreen}
@@ -48,6 +42,8 @@ export const RouterApp = () => {
         />
 
         {MainStack()}
+        {PromotionsStack()}
+        {FavoritiesStack()}
       </Stack.Navigator>
     </NavigationContainer>
   );

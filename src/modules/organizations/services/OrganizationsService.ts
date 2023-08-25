@@ -1,3 +1,4 @@
+import {PromotionList} from './../models/PromotionList';
 import {SearchServices} from './../models/SearchServices';
 import {MockCategories} from '../mock/MockCategories';
 import AbstractServiceRepository from '../../../settings/abstrcations/repositories/AbstractServiceRepository';
@@ -12,6 +13,7 @@ import {OrganizationList} from '../models/OrganizationList';
 import {MockOrganizationList} from '../mock/MockOrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
 import {MockCurrentOrganization} from '../mock/MockOrganization';
+import {MockPromotions} from '../mock/MockPromotions';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -67,5 +69,21 @@ export class OrganizationsService extends AbstractServiceRepository {
     const data = MockCurrentOrganization;
 
     return this.create<CurrentOrganization>(CurrentOrganization, data);
+  };
+
+  getPromotionsList = async () => {
+    // const {data} = await this.api.getPromotionsList();
+
+    const data = MockPromotions;
+
+    return this.createList<PromotionList>(PromotionList, data);
+  };
+
+  getFavoritesList = async () => {
+    // const {data} = await this.api.getFavoritesList();
+
+    const data = MockOrganizationList;
+
+    return this.createList<OrganizationList>(OrganizationList, data);
   };
 }

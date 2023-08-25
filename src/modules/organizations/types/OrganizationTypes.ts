@@ -6,16 +6,22 @@ import {Nullable} from '../../../settings/types/BaseTypes';
 import {SearchServices} from '../models/SearchServices';
 import {OrganizationList} from '../models/OrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
+import {Promotion} from '../models/Promotion';
+import {PromotionList} from '../models/PromotionList';
 
 export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
 export interface OrganizationsStateModel {
   categories: Category[];
   banners: File[];
+
   filterForm: FiltertFormModel;
+
   organizationFilter: Nullable<OrganizationFilter>;
   searchServices: SearchServices[];
   organizationList: OrganizationList[];
+  promotionsList: PromotionList[];
+  favoritesList: OrganizationList[];
 
   isOrganizationFilter: boolean;
   isBannersLoad: boolean;
@@ -23,6 +29,8 @@ export interface OrganizationsStateModel {
   isSearchLoad: boolean;
   isOrganizationListLoad: boolean;
   isCurrentOrganizationLoad: boolean;
+  isPromotionListLoad: boolean;
+  isFavoritesListLoad: boolean;
 
   currentOrganization: Nullable<CurrentOrganization>;
 }

@@ -4,7 +4,6 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MainContainer} from '../../../template/containers/MainContainer';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {ColorsUI} from '../../../template/styles/ColorUI';
-import {ButtonUI} from '../../../template/ui/ButtonUI';
 import {RouteIcon} from '../../../template/icons/RouteIcon';
 import {
   RowContainer,
