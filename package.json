@@ -23,6 +23,7 @@
     "react-native-device-info": "10.3.0",
     "react-native-gesture-handler": "2.12.1",
     "react-native-image-viewing": "^0.2.2",
+    "react-native-linear-gradient": "^2.8.2",
     "react-native-modalize": "2.1.1",
     "react-native-portalize": "1.0.7",
     "react-native-reanimated": "3.4.2",

@@ -6,18 +6,24 @@ import {
   getBanners,
   getCategories,
   getCurrentOrganization,
+  getFavoritesList,
   getOrganizationFilter,
   getOrganizationList,
+  getPromotionsList,
   getSearchServices,
 } from './thunks/OrganizationsThunks';
 
 const initialState: OrganizationsStateModel = {
   banners: [],
   categories: [],
+
   filterForm: DefaultFilterForm,
+
   organizationFilter: null,
   searchServices: [],
   organizationList: [],
+  promotionsList: [],
+  favoritesList: [],
 
   isSearchLoad: false,
   isBannersLoad: false,
@@ -25,6 +31,8 @@ const initialState: OrganizationsStateModel = {
   isOrganizationFilter: false,
   isOrganizationListLoad: false,
   isCurrentOrganizationLoad: false,
+  isPromotionListLoad: false,
+  isFavoritesListLoad: false,
 
   currentOrganization: null,
 };
@@ -61,6 +69,12 @@ const organizationsSlice = createSlice({
     },
     setIsCurrentOrganizationLoad: (state, action: PayloadAction<boolean>) => {
       state.isCurrentOrganizationLoad = action.payload;
+    },
+    setIsPromotionListLoad: (state, action: PayloadAction<boolean>) => {
+      state.isPromotionListLoad = action.payload;
+    },
+    setIsFavoritesListLoad: (state, action: PayloadAction<boolean>) => {
+      state.isFavoritesListLoad = action.payload;
     },
   },
   extraReducers: builder => {
@@ -117,6 +131,24 @@ const organizationsSlice = createSlice({
 
       state.currentOrganization = action.payload;
     });
+
+    // GET Promotions List
+    builder.addCase(getPromotionsList.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      state.promotionsList = action.payload;
+    });
+
+    // GET Favorites List
+    builder.addCase(getFavoritesList.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      state.favoritesList = action.payload;
+    });
   },
 });
 
@@ -130,6 +162,8 @@ export const {
   setIsCategoriesLoad,
   setIsOrganizationFilter,
   setIsCurrentOrganizationLoad,
+  setIsPromotionListLoad,
+  setIsFavoritesListLoad,
 } = organizationsSlice.actions;
 
 export default organizationsSlice.reducer;

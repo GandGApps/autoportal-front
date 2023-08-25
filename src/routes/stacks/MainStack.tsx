@@ -1,4 +1,4 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import {TransitionPresets, createStackNavigator} from '@react-navigation/stack';
 import {Screens} from '../models/Screens';
 import {CategoriesScreen} from '../../screens/categories/CategoriesScreen';
 import {CatSearchScreen} from '../../screens/categories/_searchServices/CatSearchScreen';
@@ -11,14 +11,15 @@ const Stack = createStackNavigator();
 export const MainStack = () => {
   return (
     <Stack.Group screenOptions={{headerShown: false}}>
-      <Stack.Screen name={Screens.CATEGORIES} component={CategoriesScreen} />
       <Stack.Screen
-        name={Screens.CAT_SEARCH}
-        component={CatSearchScreen}
-        listeners={{
-          beforeRemove: e => {},
+        name={Screens.CATEGORIES}
+        component={CategoriesScreen}
+        options={{
+          gestureEnabled: true,
+          ...TransitionPresets.ModalFadeTransition,
         }}
       />
+      <Stack.Screen name={Screens.CAT_SEARCH} component={CatSearchScreen} />
       <Stack.Screen
         name={Screens.CAT_ORGANIZATIONS}
         component={CatOrganizationsScreens}

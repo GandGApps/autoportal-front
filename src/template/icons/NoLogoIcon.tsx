@@ -1,9 +1,13 @@
 import React from 'react';
 import Svg, {Circle, G, Mask, Path} from 'react-native-svg';
 
-export const NoLogoIcon = () => {
+interface NoLogoIconProps {
+  size?: number;
+}
+
+export const NoLogoIcon = ({size}: NoLogoIconProps) => {
   return (
-    <Svg width="70" height="70" viewBox="0 0 90 90" fill="none">
+    <Svg width={size || 70} height={size || 70} viewBox="0 0 90 90" fill="none">
       <Circle
         cx="44.4362"
         cy="45.1516"

@@ -3,9 +3,8 @@ import styled from 'styled-components/native';
 import {ColorsUI} from '../../template/styles/ColorUI';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {RowContainerBeetwen} from '../../template/containers/RowContainer';
-import {BottomTabs, BottomTabsKey} from './values/BottomTabs';
-import {Dimensions, TouchableOpacity} from 'react-native';
-import {BottomIcons} from './icons/BottomIcons';
+import {BottomTabs} from './values/BottomTabs';
+import {Dimensions} from 'react-native';
 import Navigation from '../../routes/navigation/Navigation';
 import {BottomTab} from './BottomTab';
 
