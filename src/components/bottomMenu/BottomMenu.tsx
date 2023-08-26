@@ -17,8 +17,6 @@ export const BottomMenu = () => {
     Navigation.navigate(screen);
   };
 
-  useEffect(() => {}, []);
-
   return (
     <BottomMenuStyled
       $widthPX={width}

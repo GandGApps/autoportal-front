@@ -1,8 +1,8 @@
 import {useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {StatusBar} from 'react-native';
+import {Platform, StatusBar} from 'react-native';
 import {OrganizationParams} from '../../routes/params/RouteParams';
-import {getCurrentOrganization} from '../../modules/organizations/thunks/OrganizationsThunks';
+import {getCurrentOrganization} from '../../modules/organizations/_thunks';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
 import {selectOrganizationsValues} from '../../modules/organizations/OrganizationsSlice';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
@@ -24,6 +24,7 @@ import {OrgSchedules} from './components/_Schedules';
 import {OrgReview} from './components/_Review';
 import {OrgReport} from './components/_Report';
 import {OrgBottomMenu} from './components/_BottomMenu';
+import {ColorsUI} from '../../template/styles/ColorUI';
 
 export const OrganizationScreen = () => {
   const {_id} = useRoute<OrganizationParams>().params;
@@ -38,10 +39,16 @@ export const OrganizationScreen = () => {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [previewIndex, setPreviewIndex] = useState(0);
 
+  const [isLoad, setIsLoad] = useState(true);
+
   const [visiblePreview, setIsVisiblePreview] = useState(false);
 
   useEffect(() => {
-    dispatch(getCurrentOrganization(_id));
+    setTimeout(() => {
+      dispatch(getCurrentOrganization(_id)).finally(() => {
+        setIsLoad(false);
+      });
+    }, 0);
   }, []);
 
   const handlePressImage = () => {
@@ -49,7 +56,7 @@ export const OrganizationScreen = () => {
     setIsVisiblePreview(true);
   };
 
-  if (isCurrentOrganizationLoad || !currentOrganization) {
+  if (isCurrentOrganizationLoad || !currentOrganization || isLoad) {
     return (
       <CenterContainerFlex>
         <Loader size={20} />
@@ -59,11 +66,13 @@ export const OrganizationScreen = () => {
 
   return (
     <ColumnContainerFlex>
+      <StatusBar
+        barStyle={Platform.OS === 'android' ? 'dark-content' : 'light-content'}
+        backgroundColor={ColorsUI.white}
+      />
       <ScrollViewScreen
         contentContainerStyle={{paddingBottom: insets.bottom + 70}}
         showsVerticalScrollIndicator={false}>
-        <StatusBar barStyle={'light-content'} />
-
         <OrganizationPreview
           isFavorite={currentOrganization?.isFavorite}
           previews={currentOrganization?.previews}

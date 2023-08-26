@@ -10,6 +10,7 @@ import {ColorsUI} from '../template/styles/ColorUI';
 import RNBootSplash from 'react-native-bootsplash';
 import {PromotionsStack} from './stacks/PromotionsStack';
 import {FavoritiesStack} from './stacks/FavoritesStack';
+import {ProfileStack} from './stacks/ProfileStack';
 
 const Stack = createStackNavigator();
 
@@ -44,6 +45,7 @@ export const RouterApp = () => {
         {MainStack()}
         {PromotionsStack()}
         {FavoritiesStack()}
+        {ProfileStack()}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -5,9 +5,13 @@ import {MainContainer} from '../template/containers/MainContainer';
 import {AbsoluteContainer} from '../template/containers/AbsoluteContainer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Platform} from 'react-native';
+import {RowContainer} from '../template/containers/RowContainer';
+import Navigation from '../routes/navigation/Navigation';
+import {BackBtn} from '../template/ui/BackBtn';
 
 interface GradientHeaderProps {
   title: string;
+  isBack?: boolean;
 }
 
 export const GradientHeader = (props: GradientHeaderProps) => {
@@ -19,11 +23,20 @@ export const GradientHeader = (props: GradientHeaderProps) => {
         <MainContainer $pt={insets.top} $bg={ColorsUI.black} />
       ) : null}
       <LinearGradient colors={[ColorsUI.black, ColorsUI.seriy]}>
-        <MainContainer $pv={20}>
-          <TextUI $align={'center'} ag={Ag['600_16']} color={ColorsUI.white}>
+        <RowContainer $pv={20} $ph={20}>
+          {props.isBack ? (
+            <MainContainer $mr={20}>
+              <BackBtn color={ColorsUI.white} />
+            </MainContainer>
+          ) : null}
+          <TextUI
+            $isFlex
+            $align={props.isBack ? 'left' : 'center'}
+            ag={Ag['600_16']}
+            color={ColorsUI.white}>
             {props.title}
           </TextUI>
-        </MainContainer>
+        </RowContainer>
       </LinearGradient>
     </MainContainer>
   );
