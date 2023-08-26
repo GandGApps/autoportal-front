@@ -6,7 +6,7 @@ import {
   selectOrganizationsValues,
 } from '../../modules/organizations/OrganizationsSlice';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
-import {Dimensions, TouchableOpacity} from 'react-native';
+import {Dimensions, StatusBar, TouchableOpacity} from 'react-native';
 import {MainContainer} from '../../template/containers/MainContainer';
 import {ColumnContainerFlex} from '../../template/containers/ColumnContainer';
 import {InputSelectUI} from '../../template/ui/InputSelectUI';
@@ -19,10 +19,8 @@ import Navigation from '../../routes/navigation/Navigation';
 import {Screens} from '../../routes/models/Screens';
 import {Category} from '../../modules/organizations/models/Category';
 import {useEffect} from 'react';
-import {
-  getBanners,
-  getCategories,
-} from '../../modules/organizations/thunks/OrganizationsThunks';
+import {getBanners, getCategories} from '../../modules/organizations/_thunks';
+import {ColorsUI} from '../../template/styles/ColorUI';
 
 export const CategoriesScreen = () => {
   const {banners, categories} = useAppSelector(selectOrganizationsValues);
@@ -51,6 +49,7 @@ export const CategoriesScreen = () => {
 
   return (
     <ColumnContainerFlex $isRelative>
+      <StatusBar barStyle={'dark-content'} backgroundColor={ColorsUI.white} />
       <ScrollViewScreen
         $mt={Math.max(insets.top, 20)}
         showsVerticalScrollIndicator={false}>

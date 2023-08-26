@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ColumnContainerFlex} from '../../template/containers/ColumnContainer';
 import {BottomMenu} from '../../components/bottomMenu/BottomMenu';
 import {ScrollViewScreen} from '../../template/containers/ScrollViewScreen';
@@ -13,15 +13,19 @@ import {CategoriesModal} from '../../components/CategoriesModal';
 import {Modalize} from 'react-native-modalize';
 import {MainContainer} from '../../template/containers/MainContainer';
 import {SelectUI} from '../../template/ui/SelectUI';
-import {getPromotionsList} from '../../modules/organizations/thunks/OrganizationsThunks';
 import {PromoOrganization} from './components/_Organization';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {getPromotionsList} from '../../modules/organizations/_thunks';
+import {CenterContainerFlex} from '../../template/containers/CenterContainer';
+import {Loader} from '../../components/Loader';
 
 export const PromotionsScreen = () => {
-  const {filterForm, promotionsList} = useAppSelector(
+  const {filterForm, promotionsList, isPromotionListLoad} = useAppSelector(
     selectOrganizationsValues,
   );
   const dispatch = useAppDispatch();
+
+  const [isLoad, setIsLoad] = useState(true);
 
   const citiesModalRef = useRef<Modalize>(null);
   const categoriesModalRef = useRef<Modalize>(null);
@@ -36,7 +40,11 @@ export const PromotionsScreen = () => {
   };
 
   useEffect(() => {
-    dispatch(getPromotionsList());
+    setTimeout(() => {
+      dispatch(getPromotionsList()).finally(() => {
+        setIsLoad(false);
+      });
+    }, 0);
   }, []);
 
   return (
@@ -61,15 +69,22 @@ export const PromotionsScreen = () => {
           </MainContainer>
         </RowContainerBeetwen>
 
-        {promotionsList.map(item => (
-          <PromoOrganization
-            key={`promo-${item.organization?._id}`}
-            promotion={item.promo!}
-            organization={item.organization!}
-          />
-        ))}
+        {isLoad || isPromotionListLoad ? (
+          <CenterContainerFlex>
+            <Loader size={20} />
+          </CenterContainerFlex>
+        ) : (
+          <>
+            {promotionsList.map(item => (
+              <PromoOrganization
+                key={`promo-${item.organization?._id}`}
+                promotion={item.promo!}
+                organization={item.organization!}
+              />
+            ))}
+          </>
+        )}
       </ScrollViewScreen>
-
       <BottomMenu />
 
       <CitiesModal modalizeRef={citiesModalRef} />

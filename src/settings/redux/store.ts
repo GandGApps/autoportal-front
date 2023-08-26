@@ -1,9 +1,11 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
 import OrganizationsSlice from '../../modules/organizations/OrganizationsSlice';
+import UserSlice from '../../modules/user/UserSlice';
 
 export const store = configureStore({
   reducer: {
     organizationsSlice: OrganizationsSlice,
+    userSlice: UserSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

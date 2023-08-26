@@ -11,7 +11,7 @@ import {
   getOrganizationList,
   getPromotionsList,
   getSearchServices,
-} from './thunks/OrganizationsThunks';
+} from './_thunks';
 
 const initialState: OrganizationsStateModel = {
   banners: [],
@@ -24,6 +24,9 @@ const initialState: OrganizationsStateModel = {
   organizationList: [],
   promotionsList: [],
   favoritesList: [],
+  personalOrganizations: [],
+
+  createdStatus: null,
 
   isSearchLoad: false,
   isBannersLoad: false,
@@ -33,6 +36,8 @@ const initialState: OrganizationsStateModel = {
   isCurrentOrganizationLoad: false,
   isPromotionListLoad: false,
   isFavoritesListLoad: false,
+  isPersonalOrganizationsLoad: false,
+  isCreatedStatusLoad: false,
 
   currentOrganization: null,
 };
@@ -75,6 +80,12 @@ const organizationsSlice = createSlice({
     },
     setIsFavoritesListLoad: (state, action: PayloadAction<boolean>) => {
       state.isFavoritesListLoad = action.payload;
+    },
+    setIsPersonalOrganizationsLoad: (state, action: PayloadAction<boolean>) => {
+      state.isPersonalOrganizationsLoad = action.payload;
+    },
+    setIsCreatedStatusLoad: (state, action: PayloadAction<boolean>) => {
+      state.isCreatedStatusLoad = action.payload;
     },
   },
   extraReducers: builder => {
@@ -164,6 +175,8 @@ export const {
   setIsCurrentOrganizationLoad,
   setIsPromotionListLoad,
   setIsFavoritesListLoad,
+  setIsPersonalOrganizationsLoad,
+  setIsCreatedStatusLoad,
 } = organizationsSlice.actions;
 
 export default organizationsSlice.reducer;

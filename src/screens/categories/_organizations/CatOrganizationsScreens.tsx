@@ -6,7 +6,7 @@ import {RowContainerBeetwen} from '../../../template/containers/RowContainer';
 import {BackBtn} from '../../../template/ui/BackBtn';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MainContainer} from '../../../template/containers/MainContainer';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StatusBar, StyleSheet, TouchableOpacity} from 'react-native';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
 import {InputUI} from '../../../template/ui/InputUI';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
@@ -16,12 +16,15 @@ import {FilterIcon} from '../../../template/icons/FilterIcon';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import {CategoriesModal} from '../../../components/CategoriesModal';
-import {getOrganizationList} from '../../../modules/organizations/thunks/OrganizationsThunks';
+import {getOrganizationList} from '../../../modules/organizations/_thunks';
 import {ScrollViewScreen} from '../../../template/containers/ScrollViewScreen';
 import {OrganizationItem} from './components/OrganizationItem';
+import {CenterContainerFlex} from '../../../template/containers/CenterContainer';
+import {Loader} from '../../../components/Loader';
+import {ColorsUI} from '../../../template/styles/ColorUI';
 
 export const CatOrganizationsScreens = () => {
-  const {filterForm, organizationList} = useAppSelector(
+  const {filterForm, organizationList, isOrganizationListLoad} = useAppSelector(
     selectOrganizationsValues,
   );
 
@@ -34,8 +37,14 @@ export const CatOrganizationsScreens = () => {
 
   const [search, setSearch] = useState('');
 
+  const [isLoad, setIsLoad] = useState(true);
+
   useEffect(() => {
-    dispatch(getOrganizationList());
+    setTimeout(() => {
+      dispatch(getOrganizationList()).finally(() => {
+        setIsLoad(false);
+      });
+    }, 0);
   }, []);
 
   const handleOpenModalCity = () => {
@@ -94,9 +103,17 @@ export const CatOrganizationsScreens = () => {
       <ScrollViewScreen
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
-        {organizationList.map(item => (
-          <OrganizationItem key={item._id} item={item} />
-        ))}
+        {isLoad || isOrganizationListLoad ? (
+          <CenterContainerFlex>
+            <Loader size={20} />
+          </CenterContainerFlex>
+        ) : (
+          <>
+            {organizationList.map(item => (
+              <OrganizationItem key={item._id} item={item} />
+            ))}
+          </>
+        )}
       </ScrollViewScreen>
 
       <CitiesModal modalizeRef={citiesModalRef} />

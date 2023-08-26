@@ -48,4 +48,16 @@ export class ApiOrganizationsService extends AbstractApiRepository {
       url: '',
     });
   };
+
+  getCreatedStatus = async () => {
+    return this.apiClient.get({
+      url: '',
+    });
+  };
+
+  getPersonalOrganizations = async () => {
+    return this.apiClient.get({
+      url: '',
+    });
+  };
 }

@@ -1,15 +1,17 @@
-import {RootState} from './../../../settings/redux/store';
+import {RootState} from '../../settings/redux/store';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {OrganizationsService} from '../services/OrganizationsService';
+import {OrganizationsService} from './services/OrganizationsService';
 import {
   setIsBannersLoad,
   setIsCategoriesLoad,
+  setIsCreatedStatusLoad,
   setIsCurrentOrganizationLoad,
   setIsFavoritesListLoad,
   setIsOrganizationFilter,
+  setIsPersonalOrganizationsLoad,
   setIsPromotionListLoad,
   setIsSearchLoad,
-} from '../OrganizationsSlice';
+} from './OrganizationsSlice';
 
 const organizationService = new OrganizationsService();
 
@@ -157,6 +159,41 @@ export const getFavoritesList = createAsyncThunk(
 
     return await organizationService.getFavoritesList().finally(() => {
       dispatch(setIsFavoritesListLoad(false));
+    });
+  },
+);
+
+export const getPersonalOrganizations = createAsyncThunk(
+  'organization/favorites/list',
+  async (_, {getState, dispatch}) => {
+    const {isPersonalOrganizationsLoad} = (getState() as RootState)
+      .organizationsSlice;
+
+    if (isPersonalOrganizationsLoad) {
+      return null;
+    }
+
+    dispatch(setIsPersonalOrganizationsLoad(true));
+
+    return await organizationService.getPersonalOrganizations().finally(() => {
+      dispatch(setIsPersonalOrganizationsLoad(false));
+    });
+  },
+);
+
+export const getCreatedStatus = createAsyncThunk(
+  'organization/my/created',
+  async (_, {getState, dispatch}) => {
+    const {isCreatedStatusLoad} = (getState() as RootState).organizationsSlice;
+
+    if (isCreatedStatusLoad) {
+      return null;
+    }
+
+    dispatch(setIsCreatedStatusLoad(true));
+
+    return await organizationService.getCreatedStatus().finally(() => {
+      dispatch(setIsCreatedStatusLoad(false));
     });
   },
 );

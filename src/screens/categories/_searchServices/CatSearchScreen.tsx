@@ -13,7 +13,7 @@ import {
   filterChangeForm,
   selectOrganizationsValues,
 } from '../../../modules/organizations/OrganizationsSlice';
-import {getSearchServices} from '../../../modules/organizations/thunks/OrganizationsThunks';
+import {getSearchServices} from '../../../modules/organizations/_thunks';
 import {TouchableOpacity} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {CenterContainerFlex} from '../../../template/containers/CenterContainer';

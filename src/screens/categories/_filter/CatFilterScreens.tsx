@@ -20,7 +20,7 @@ import {Modalize} from 'react-native-modalize';
 import {CitiesModal} from '../../../components/CitiesModal';
 import {CategoriesModal} from '../../../components/CategoriesModal';
 import {ButtonUI} from '../../../template/ui/ButtonUI';
-import {getOrganizationFilter} from '../../../modules/organizations/thunks/OrganizationsThunks';
+import {getOrganizationFilter} from '../../../modules/organizations/_thunks';
 
 export const CatFilterScreens = () => {
   const {filterForm, organizationFilter} = useAppSelector(

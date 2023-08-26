@@ -1,3 +1,4 @@
+import {PersonalOrganizations} from './../models/PersonalOrganizations';
 import {OrganizationFilter} from './../models/OrganizationFilter';
 import {File} from '../../files/models/File';
 import {FiltertFormModel} from '../form/FilterForm';
@@ -8,6 +9,7 @@ import {OrganizationList} from '../models/OrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
 import {Promotion} from '../models/Promotion';
 import {PromotionList} from '../models/PromotionList';
+import {CreatedStatus} from '../models/CreatedStatus';
 
 export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
@@ -22,6 +24,8 @@ export interface OrganizationsStateModel {
   organizationList: OrganizationList[];
   promotionsList: PromotionList[];
   favoritesList: OrganizationList[];
+  personalOrganizations: PersonalOrganizations[];
+  createdStatus: Nullable<CreatedStatus>;
 
   isOrganizationFilter: boolean;
   isBannersLoad: boolean;
@@ -31,6 +35,8 @@ export interface OrganizationsStateModel {
   isCurrentOrganizationLoad: boolean;
   isPromotionListLoad: boolean;
   isFavoritesListLoad: boolean;
+  isPersonalOrganizationsLoad: boolean;
+  isCreatedStatusLoad: boolean;
 
   currentOrganization: Nullable<CurrentOrganization>;
 }
