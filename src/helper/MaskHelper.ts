@@ -28,10 +28,10 @@ export class MaskHelper {
       }
     }
 
-    if (formattedPhoneNumber.length === 5) {
-      formattedPhoneNumber = formattedPhoneNumber.slice(0, 4) + '7';
-    }
-
     return formattedPhoneNumber;
+  };
+
+  static clearFormat = (phone: string) => {
+    return '+' + phone.replace(/\D/g, '');
   };
 }

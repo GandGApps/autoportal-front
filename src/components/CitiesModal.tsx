@@ -10,13 +10,19 @@ import {filterChangeForm} from '../modules/organizations/OrganizationsSlice';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
+
+  onPickCity?: (city: string) => void;
 }
 
 export const CitiesModal = (props: CitiesFilterProps) => {
   const dispatch = useAppDispatch();
 
   const handlePickCity = (city: string) => {
-    dispatch(filterChangeForm({key: 'city', value: city}));
+    if (props.onPickCity) {
+      props.onPickCity(city);
+    } else {
+      dispatch(filterChangeForm({key: 'city', value: city}));
+    }
 
     props.modalizeRef.current?.close();
   };

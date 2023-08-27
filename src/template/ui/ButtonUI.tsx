@@ -9,7 +9,7 @@ export type TButton = 'border' | 'border-white' | 'firm' | 'black';
 
 interface ButtonUIProps extends ContainerProps {
   $type?: TButton;
-  btnDisabled?: boolean;
+  $btnDisabled?: boolean;
   title: string;
   onPress?: () => void;
 }
@@ -20,7 +20,7 @@ export const ButtonUI = (props: ButtonUIProps) => {
   return (
     <ButtonUIStyled
       activeOpacity={0.7}
-      disabled={props.btnDisabled}
+      disabled={props.$btnDisabled}
       {...props}
       $type={type}
       $pv={props.$pv || 15}>
@@ -52,4 +52,6 @@ const ButtonUIStyled = styled.TouchableOpacity<ButtonUIProps>`
     ButtonHelper.checkIsBorder($type!)
       ? `border: 1px solid ${ButtonHelper.getBorderColor($type!)};`
       : ''}
+
+  ${({$btnDisabled}) => ($btnDisabled ? 'opacity: 0.6;' : '')}
 `;

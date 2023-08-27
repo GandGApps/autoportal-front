@@ -3,7 +3,6 @@ import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
 import {TouchableOpacity} from 'react-native';
 import {
   RowContainer,
-  RowContainerBeetwenEnd,
   RowContainerEnd,
 } from '../../../../template/containers/RowContainer';
 import {LogoUI} from '../../../../components/LogoUI';
@@ -53,14 +52,14 @@ export const OrganizationItem = ({item}: OrganizationItemProps) => {
       </AbsoluteContainer>
 
       <AbsoluteContainer $bottom={5} $right={20}>
-        <RowContainerBeetwenEnd>
+        <RowContainerEnd>
           <MainContainer $mr={3}>
             <StarIcon />
           </MainContainer>
           <TextUI ag={Ag['400_12']}>
             {`${item.rating} (${item.countReviews})`}
           </TextUI>
-        </RowContainerBeetwenEnd>
+        </RowContainerEnd>
       </AbsoluteContainer>
     </BorderTopUI>
   );

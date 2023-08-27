@@ -33,15 +33,13 @@ export const InfoScreen = () => {
     }, 0);
   }, []);
 
-  const handleGoToEdit = () => {
-    Navigation.navigate(Screens.PROFILE_EDIT);
+  const handleGoToScreen = (screen: string) => {
+    Navigation.navigate(screen);
   };
 
   return (
     <ColumnContainerFlex>
-      <MainContainer>
-        <GradientHeader isBack title="Мои данные" />
-      </MainContainer>
+      <GradientHeader isBack title="Мои данные" />
 
       {isLoad || isUserInfoLoad ? (
         <CenterContainerFlex>
@@ -51,7 +49,7 @@ export const InfoScreen = () => {
         <ColumnContainerBetweenFlex>
           <MainContainer $ph={20} $pv={30}>
             <TextUI $mb={20} ag={Ag['400_16']}>
-              {userInfo?._id}
+              {`ID: ${userInfo?._id}`}
             </TextUI>
             <TextUI $mb={20} ag={Ag['400_16']}>
               {`г. ${userInfo?.city}`}
@@ -68,7 +66,7 @@ export const InfoScreen = () => {
           <BorderTopUI $isFlex>
             <MainContainer $pt={20} $ph={20}>
               <InputSelectUI
-                onPress={handleGoToEdit}
+                onPress={() => handleGoToScreen(Screens.PROFILE_EDIT)}
                 leftIcon={<MainContainer />}
                 value={'Редактировать'}
                 rightIcon={<MainContainer />}
@@ -82,6 +80,7 @@ export const InfoScreen = () => {
                 text={'Выход из аккаунта'}
                 colorLine={ColorsUI.red}
                 colorText={ColorsUI.red}
+                onPress={() => handleGoToScreen(Screens.LOGOUT_MODAL)}
               />
               <UnderLineText $mb={15} text={'Договор публичной оферты'} />
               <UnderLineText $mb={15} text={'Политика конфиденциальности'} />
@@ -89,7 +88,10 @@ export const InfoScreen = () => {
                 $mb={15}
                 text={'Договор на обработку персональных данных'}
               />
-              <UnderLineText text={'Удалить аккаунт'} />
+              <UnderLineText
+                text={'Удалить аккаунт'}
+                onPress={() => handleGoToScreen(Screens.REMOVE_PROFILE_MODAL)}
+              />
             </MainContainer>
           </BorderTopUI>
         </ColumnContainerBetweenFlex>
