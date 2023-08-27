@@ -20,3 +20,9 @@ export const ColumnContainerBetween = styled(MainContainer)`
 export const ColumnContainerBetweenFlex = styled(ColumnContainerBetween)`
   flex: 1;
 `;
+
+export const ColumnContainerBetweenAlignCenter = styled(
+  ColumnContainerBetweenFlex,
+)`
+  align-items: center;
+`;

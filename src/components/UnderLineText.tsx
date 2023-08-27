@@ -11,6 +11,7 @@ interface UnderLineText extends ContainerProps {
   text: string;
   colorText?: string;
   colorLine?: string;
+  onPress?: () => void;
 }
 
 export const UnderLineText = (props: UnderLineText) => {

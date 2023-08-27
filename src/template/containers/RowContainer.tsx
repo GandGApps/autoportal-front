@@ -6,6 +6,10 @@ export const RowContainer = styled(MainContainer)`
   align-items: center;
 `;
 
+export const RowContainerStart = styled(RowContainer)`
+  align-items: start;
+`;
+
 export const RowContainerStartFlex = styled(RowContainer)`
   flex: 1;
   align-items: start;
@@ -37,13 +41,9 @@ export const RowContainerBeetwenFlex = styled(RowContainerBeetwen)`
 `;
 
 export const RowContainerBeetwenEnd = styled(RowContainerBeetwen)`
-  align-items: end;
+  justify-content: flex-end;
 `;
 
 export const RowContainerBeetwenEndFlex = styled(RowContainerBeetwenEnd)`
   flex: 1;
-`;
-
-export const RowContainerStart = styled(RowContainer)`
-  align-items: start;
 `;
