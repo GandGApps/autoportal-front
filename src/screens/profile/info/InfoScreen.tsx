@@ -78,8 +78,7 @@ export const InfoScreen = () => {
               <UnderLineText
                 $mb={15}
                 text={'Выход из аккаунта'}
-                colorLine={ColorsUI.red}
-                colorText={ColorsUI.red}
+                color={ColorsUI.red}
                 onPress={() => handleGoToScreen(Screens.LOGOUT_MODAL)}
               />
               <UnderLineText $mb={15} text={'Договор публичной оферты'} />

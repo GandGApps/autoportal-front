@@ -16,6 +16,7 @@ import {MockCurrentOrganization} from '../mock/MockOrganization';
 import {MockPromotions} from '../mock/MockPromotions';
 import {ApiOrganizationsService} from './_api_organizations';
 import {CreatedStatus} from '../models/CreatedStatus';
+import {MockPersonalOrganizations} from '../mock/MockPersonalOrganizations';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -90,8 +91,8 @@ export class OrganizationsService extends AbstractServiceRepository {
   };
 
   getPersonalOrganizations = async () => {
-    const {data} = await this.api.getPersonalOrganizations();
-    // const data = MockPersonalOrganizations
+    // const {data} = await this.api.getPersonalOrganizations();
+    const data = MockPersonalOrganizations;
 
     return this.createList<PersonalOrganizations>(PersonalOrganizations, data);
   };

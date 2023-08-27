@@ -1,6 +1,11 @@
+import {PersonalOrganizations} from './../models/PersonalOrganizations';
 import {UnitsFilter} from './../types/OrganizationTypes';
 import {FilterFormKeys} from '../form/FilterForm';
-import {TypeService} from '../models/TypeService';
+
+interface FormattedPersonal {
+  activeList: PersonalOrganizations[];
+  disabledList: PersonalOrganizations[];
+}
 
 export class OrganizationHelper {
   static getModalTitle = (typeModal: FilterFormKeys) => {
@@ -39,5 +44,14 @@ export class OrganizationHelper {
     return (
       _list.filter(item => tempSubs.includes(item)).length === tempSubs.length
     );
+  };
+
+  static formattedMyOrganizations = (
+    list: PersonalOrganizations[],
+  ): FormattedPersonal => {
+    return {
+      activeList: list.filter(item => item.isActive),
+      disabledList: list.filter(item => !item.isActive),
+    };
   };
 }

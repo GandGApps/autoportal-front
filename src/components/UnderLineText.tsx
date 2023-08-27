@@ -9,8 +9,8 @@ import {ContainerProps} from '../template/ui-types/UITypes';
 
 interface UnderLineText extends ContainerProps {
   text: string;
-  colorText?: string;
-  colorLine?: string;
+  color?: string;
+  ag?: Ag;
   onPress?: () => void;
 }
 
@@ -19,10 +19,10 @@ export const UnderLineText = (props: UnderLineText) => {
     <ViewPress {...props}>
       <RowContainer>
         <MainContainer>
-          <TextUI color={props.colorText} ag={Ag['400_12']}>
+          <TextUI color={props.color} ag={props.ag || Ag['400_12']}>
             {props.text}
           </TextUI>
-          <BorderTopUI $colorLine={props.colorLine || ColorsUI.black} />
+          <BorderTopUI $colorLine={props.color || ColorsUI.black} />
         </MainContainer>
       </RowContainer>
     </ViewPress>

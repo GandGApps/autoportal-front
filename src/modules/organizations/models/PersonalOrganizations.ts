@@ -1,3 +1,4 @@
+import {Promotion} from './Promotion';
 import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 import {Nullable} from '../../../settings/types/BaseTypes';
 
@@ -11,9 +12,12 @@ export class PersonalOrganizations extends AbstractModel {
   countReviews: Nullable<number> = null;
 
   isSubscribe: boolean = false;
+  isActive: boolean = false;
   countSelect: number = 0;
   countFavorites: number = 0;
   isBaned: boolean = false;
+
+  promo: Nullable<Promotion> = null;
 
   constructor(props: any) {
     super();

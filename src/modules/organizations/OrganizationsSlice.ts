@@ -5,10 +5,12 @@ import {DefaultFilterForm, FilterFormProps} from './form/FilterForm';
 import {
   getBanners,
   getCategories,
+  getCreatedStatus,
   getCurrentOrganization,
   getFavoritesList,
   getOrganizationFilter,
   getOrganizationList,
+  getPersonalOrganizations,
   getPromotionsList,
   getSearchServices,
 } from './_thunks';
@@ -159,6 +161,24 @@ const organizationsSlice = createSlice({
       }
 
       state.favoritesList = action.payload;
+    });
+
+    // GET Created Status
+    builder.addCase(getCreatedStatus.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      state.createdStatus = action.payload;
+    });
+
+    // GET Personal Organizations
+    builder.addCase(getPersonalOrganizations.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      state.personalOrganizations = action.payload;
     });
   },
 });

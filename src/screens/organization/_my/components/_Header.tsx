@@ -17,6 +17,7 @@ export const MyOrganizationkHeader = () => {
           $br={50}
           $pv={5}
           $ph={20}
+          $mr={10}
           onPress={() => Navigation.navigate(Screens.ORGANIZATION_CREATE)}>
           <TextUI ag={Ag['500_14']}>{'Создать'}</TextUI>
         </ViewPress>

@@ -29,7 +29,7 @@ export const PromoOrganization = ({organization, promotion}: _Props) => {
   };
 
   return (
-    <BorderTopUI $bg={ColorsUI.blue} $pv={20} $ph={20}>
+    <BorderTopUI $bg={ColorsUI.blue.light} $pv={20} $ph={20}>
       <ViewPress onPress={handleGoToOrganization}>
         <RowContainerBeetwenStart $mb={20}>
           <RowContainer>
