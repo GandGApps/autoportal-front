@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react';
-import {RowContainer} from '../../../template/containers/RowContainer';
-import {MainContainer} from '../../../template/containers/MainContainer';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
+import {RowContainer} from '../../../../template/containers/RowContainer';
+import {MainContainer} from '../../../../template/containers/MainContainer';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
 
 interface _ContactInfoProps {
   icon: ReactNode;

@@ -1,16 +1,16 @@
 import React from 'react';
-import {AbsoluteContainer} from '../../../template/containers/AbsoluteContainer';
+import {AbsoluteContainer} from '../../../../template/containers/AbsoluteContainer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {MainContainer} from '../../../template/containers/MainContainer';
-import {ViewPress} from '../../../template/containers/ViewPress';
-import {ColorsUI} from '../../../template/styles/ColorUI';
-import {RouteIcon} from '../../../template/icons/RouteIcon';
+import {MainContainer} from '../../../../template/containers/MainContainer';
+import {ViewPress} from '../../../../template/containers/ViewPress';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
+import {RouteIcon} from '../../../../template/icons/RouteIcon';
 import {
   RowContainer,
   RowContainerBeetwen,
-} from '../../../template/containers/RowContainer';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {PhoneIcon} from '../../../template/icons/PhoneIcon';
+} from '../../../../template/containers/RowContainer';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
+import {PhoneIcon} from '../../../../template/icons/PhoneIcon';
 
 export const OrgBottomMenu = () => {
   const insets = useSafeAreaInsets();

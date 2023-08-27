@@ -1,9 +1,9 @@
 import React from 'react';
-import {MainContainer} from '../../../template/containers/MainContainer';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {RowContainerJustEnd} from '../../../template/containers/RowContainer';
-import {RatingCount} from '../../../components/RatingCount';
-import {Nullable} from '../../../settings/types/BaseTypes';
+import {MainContainer} from '../../../../template/containers/MainContainer';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
+import {RowContainerJustEnd} from '../../../../template/containers/RowContainer';
+import {RatingCount} from '../../../../components/RatingCount';
+import {Nullable} from '../../../../settings/types/BaseTypes';
 
 interface OrganizationTitleRatingProps {
   categoryName: string;

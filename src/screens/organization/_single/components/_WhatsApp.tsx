@@ -1,9 +1,9 @@
 import React from 'react';
-import {ViewPress} from '../../../template/containers/ViewPress';
-import {RowContainer} from '../../../template/containers/RowContainer';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {ColorsUI} from '../../../template/styles/ColorUI';
-import {WhatsAppIcon} from '../../../template/icons/WhatsAppIcon';
+import {ViewPress} from '../../../../template/containers/ViewPress';
+import {RowContainer} from '../../../../template/containers/RowContainer';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
+import {WhatsAppIcon} from '../../../../template/icons/WhatsAppIcon';
 
 export const OrganizationWhatsApp = () => {
   return (

@@ -1,15 +1,15 @@
 import React from 'react';
-import {Review} from '../../../modules/organizations/models/Review';
-import {BorderTopUI} from '../../../template/ui/BorderTopUI';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {MainContainer} from '../../../template/containers/MainContainer';
-import {RatingCount} from '../../../components/RatingCount';
+import {Review} from '../../../../modules/organizations/models/Review';
+import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
+import {MainContainer} from '../../../../template/containers/MainContainer';
+import {RatingCount} from '../../../../components/RatingCount';
 import {
   RowContainerBeetwen,
   RowContainerBeetwenStart,
-} from '../../../template/containers/RowContainer';
-import {ViewPress} from '../../../template/containers/ViewPress';
-import {ColorsUI} from '../../../template/styles/ColorUI';
+} from '../../../../template/containers/RowContainer';
+import {ViewPress} from '../../../../template/containers/ViewPress';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
 
 interface OrgReviewProps {
   review: Review;

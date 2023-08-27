@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {TypeService} from '../../../modules/organizations/models/TypeService';
-import {BorderTopUI} from '../../../template/ui/BorderTopUI';
-import {ColorsUI} from '../../../template/styles/ColorUI';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {MainContainer} from '../../../template/containers/MainContainer';
-import {ViewPress} from '../../../template/containers/ViewPress';
+import {TypeService} from '../../../../modules/organizations/models/TypeService';
+import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
+import {MainContainer} from '../../../../template/containers/MainContainer';
+import {ViewPress} from '../../../../template/containers/ViewPress';
 import {OrgService} from './_Service';
 
 interface OrgServicesProps {

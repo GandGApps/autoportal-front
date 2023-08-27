@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {BorderTopUI} from '../../../template/ui/BorderTopUI';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {ViewPress} from '../../../template/containers/ViewPress';
-import {ColorsUI} from '../../../template/styles/ColorUI';
+import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
+import {ViewPress} from '../../../../template/containers/ViewPress';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
 
 interface _DescriptionProps {
   description?: string;

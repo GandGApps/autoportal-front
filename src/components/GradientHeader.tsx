@@ -2,16 +2,23 @@ import LinearGradient from 'react-native-linear-gradient';
 import {ColorsUI} from '../template/styles/ColorUI';
 import {Ag, TextUI} from '../template/ui/TextUI';
 import {MainContainer} from '../template/containers/MainContainer';
-import {AbsoluteContainer} from '../template/containers/AbsoluteContainer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Platform} from 'react-native';
-import {RowContainer} from '../template/containers/RowContainer';
-import Navigation from '../routes/navigation/Navigation';
+import {
+  RowContainer,
+  RowContainerBeetwen,
+  RowContainerBeetwenEnd,
+} from '../template/containers/RowContainer';
 import {BackBtn} from '../template/ui/BackBtn';
+import {ButtonUI} from '../template/ui/ButtonUI';
+import {AbsoluteContainer} from '../template/containers/AbsoluteContainer';
+import {ViewPress} from '../template/containers/ViewPress';
+import {ReactNode} from 'react';
 
 interface GradientHeaderProps {
   title: string;
   isBack?: boolean;
+  rightComonent?: ReactNode;
 }
 
 export const GradientHeader = (props: GradientHeaderProps) => {
@@ -23,20 +30,23 @@ export const GradientHeader = (props: GradientHeaderProps) => {
         <MainContainer $pt={insets.top} $bg={ColorsUI.black} />
       ) : null}
       <LinearGradient colors={[ColorsUI.black, ColorsUI.seriy]}>
-        <RowContainer $pv={20} $ph={20}>
-          {props.isBack ? (
-            <MainContainer $mr={20}>
-              <BackBtn color={ColorsUI.white} />
-            </MainContainer>
-          ) : null}
-          <TextUI
-            $isFlex
-            $align={props.isBack ? 'left' : 'center'}
-            ag={Ag['600_16']}
-            color={ColorsUI.white}>
-            {props.title}
-          </TextUI>
-        </RowContainer>
+        <RowContainerBeetwen>
+          <RowContainer $pv={20} $ph={20}>
+            {props.isBack ? (
+              <MainContainer $mr={20}>
+                <BackBtn color={ColorsUI.white} />
+              </MainContainer>
+            ) : null}
+            <TextUI
+              $isFlex={!props.isBack}
+              $align={props.isBack ? 'left' : 'center'}
+              ag={Ag['600_16']}
+              color={ColorsUI.white}>
+              {props.title}
+            </TextUI>
+          </RowContainer>
+          {props.rightComonent ? props.rightComonent : null}
+        </RowContainerBeetwen>
       </LinearGradient>
     </MainContainer>
   );

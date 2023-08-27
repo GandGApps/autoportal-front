@@ -10,7 +10,7 @@ export type BottomTabsKey =
 export const BottomTabs = {
   categories: Screens.CATEGORIES,
   promotions: Screens.PROMOTIONS,
-  addOrganization: Screens.ADD_ORGANIZATION,
+  addOrganization: Screens.ORGANIZATION_CREATE,
   favorities: Screens.FAVORITIES,
   profile: Screens.PROFILE,
 };

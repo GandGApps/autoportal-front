@@ -1,9 +1,9 @@
-import {DateHelper} from '../../../helper/DateHelper';
-import {ScheduleModel} from '../../../modules/organizations/types/OrganizationTypes';
-import {MainContainer} from '../../../template/containers/MainContainer';
-import {RowContainer} from '../../../template/containers/RowContainer';
-import {BorderTopUI} from '../../../template/ui/BorderTopUI';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
+import {DateHelper} from '../../../../helper/DateHelper';
+import {ScheduleModel} from '../../../../modules/organizations/types/OrganizationTypes';
+import {MainContainer} from '../../../../template/containers/MainContainer';
+import {RowContainer} from '../../../../template/containers/RowContainer';
+import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
 
 interface OrgSchedulesProps {
   schedule: ScheduleModel[];

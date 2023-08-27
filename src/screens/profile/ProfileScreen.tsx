@@ -24,7 +24,9 @@ export const ProfileScreen = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getCreatedStatus());
+    setTimeout(() => {
+      dispatch(getCreatedStatus());
+    }, 0);
   }, []);
 
   const handleGoToScreen = (screen: string) => {
@@ -43,7 +45,10 @@ export const ProfileScreen = () => {
             title={'Мои данные'}
             onPress={() => handleGoToScreen(Screens.PROFILE_INFO)}
           />
-          <ThreeMenuItem title={'Мои организации'} onPress={() => {}} />
+          <ThreeMenuItem
+            title={'Мои организации'}
+            onPress={() => handleGoToScreen(Screens.ORGANIZATION_MY)}
+          />
           <ThreeMenuItem title={'Частые вопросы'} onPress={() => {}} />
           <ThreeMenuItem title={'О приложениие'} onPress={() => {}} />
           {createdStatus?.createdStatus ? (

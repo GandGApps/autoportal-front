@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
-import {MainContainer} from '../../../template/containers/MainContainer';
-import {AbsoluteContainer} from '../../../template/containers/AbsoluteContainer';
-import {RowContainerBeetwen} from '../../../template/containers/RowContainer';
-import {BackBtn} from '../../../template/ui/BackBtn';
-import {ViewPress} from '../../../template/containers/ViewPress';
-import {ColorsUI} from '../../../template/styles/ColorUI';
-import {HearthIcon} from '../../../template/icons/HearthIcon';
-import {CarouselUI} from '../../../components/carousel/CarouselUI';
-import {CenterContainer} from '../../../template/containers/CenterContainer';
-import {NoImage} from '../../../template/icons/NoImage';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {LogoUI} from '../../../components/LogoUI';
+import {MainContainer} from '../../../../template/containers/MainContainer';
+import {AbsoluteContainer} from '../../../../template/containers/AbsoluteContainer';
+import {RowContainerBeetwen} from '../../../../template/containers/RowContainer';
+import {BackBtn} from '../../../../template/ui/BackBtn';
+import {ViewPress} from '../../../../template/containers/ViewPress';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
+import {HearthIcon} from '../../../../template/icons/HearthIcon';
+import {CarouselUI} from '../../../../components/carousel/CarouselUI';
+import {CenterContainer} from '../../../../template/containers/CenterContainer';
+import {NoImage} from '../../../../template/icons/NoImage';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
+import {LogoUI} from '../../../../components/LogoUI';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Dimensions} from 'react-native';
 

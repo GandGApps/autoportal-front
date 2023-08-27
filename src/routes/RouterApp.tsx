@@ -11,6 +11,7 @@ import RNBootSplash from 'react-native-bootsplash';
 import {PromotionsStack} from './stacks/PromotionsStack';
 import {FavoritiesStack} from './stacks/FavoritesStack';
 import {ProfileStack} from './stacks/ProfileStack';
+import {OrganizationStack} from './stacks/OrganizationStack';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,7 @@ export const RouterApp = () => {
         />
 
         {MainStack()}
+        {OrganizationStack()}
         {PromotionsStack()}
         {FavoritiesStack()}
         {ProfileStack()}

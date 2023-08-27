@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import {TypeService} from '../../../modules/organizations/models/TypeService';
-import {BorderTopUI} from '../../../template/ui/BorderTopUI';
+import {TypeService} from '../../../../modules/organizations/models/TypeService';
+import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
 import {
   RowContainer,
   RowContainerBeetwen,
-} from '../../../template/containers/RowContainer';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {DownIcon} from '../../../template/icons/DownIcon';
-import {ViewPress} from '../../../template/containers/ViewPress';
-import {MainContainer} from '../../../template/containers/MainContainer';
-import {ColorsUI} from '../../../template/styles/ColorUI';
+} from '../../../../template/containers/RowContainer';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
+import {DownIcon} from '../../../../template/icons/DownIcon';
+import {ViewPress} from '../../../../template/containers/ViewPress';
+import {MainContainer} from '../../../../template/containers/MainContainer';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
 
 interface OrgServiceProps {
   service: TypeService;
