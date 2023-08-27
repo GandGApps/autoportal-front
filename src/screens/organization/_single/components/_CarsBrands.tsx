@@ -1,7 +1,7 @@
 import React from 'react';
-import {BorderTopUI} from '../../../template/ui/BorderTopUI';
-import {UnitsFilter} from '../../../modules/organizations/types/OrganizationTypes';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
+import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
+import {UnitsFilter} from '../../../../modules/organizations/types/OrganizationTypes';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
 
 interface OrgCarsBrandsProps {
   carsBrands: UnitsFilter[];

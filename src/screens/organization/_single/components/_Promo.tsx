@@ -1,8 +1,8 @@
 import React from 'react';
-import {BorderTopUI} from '../../../template/ui/BorderTopUI';
-import {MainContainer} from '../../../template/containers/MainContainer';
-import {ColorsUI} from '../../../template/styles/ColorUI';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
+import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
+import {MainContainer} from '../../../../template/containers/MainContainer';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
 
 interface OrganizationPromoProps {
   description: string;

@@ -1,23 +1,23 @@
 import React, {useState} from 'react';
-import {BorderTopUI} from '../../../template/ui/BorderTopUI';
+import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
 import {
   RowContainer,
   RowContainerBeetwen,
-} from '../../../template/containers/RowContainer';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
+} from '../../../../template/containers/RowContainer';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
 import {OrganizationWhatsApp} from './_WhatsApp';
 import {OrgContactInfoRow} from './_ContactInfoRow';
-import {LocationIcon} from '../../../template/icons/LocationIcon';
-import {PhoneIcon} from '../../../template/icons/PhoneIcon';
-import {ViewPress} from '../../../template/containers/ViewPress';
-import {ColorsUI} from '../../../template/styles/ColorUI';
-import {Nullable} from '../../../settings/types/BaseTypes';
+import {LocationIcon} from '../../../../template/icons/LocationIcon';
+import {PhoneIcon} from '../../../../template/icons/PhoneIcon';
+import {ViewPress} from '../../../../template/containers/ViewPress';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
+import {Nullable} from '../../../../settings/types/BaseTypes';
 import {
   ContactInfoModel,
   EmployeerModel,
-} from '../../../modules/organizations/types/OrganizationTypes';
-import {MaskHelper} from '../../../helper/MaskHelper';
-import {MainContainer} from '../../../template/containers/MainContainer';
+} from '../../../../modules/organizations/types/OrganizationTypes';
+import {MaskHelper} from '../../../../helper/MaskHelper';
+import {MainContainer} from '../../../../template/containers/MainContainer';
 
 interface ContactInfoContentProps {
   contactInfo: Nullable<ContactInfoModel>;

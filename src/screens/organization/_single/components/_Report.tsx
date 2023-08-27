@@ -1,14 +1,14 @@
 import React from 'react';
-import {BorderTopUI} from '../../../template/ui/BorderTopUI';
+import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
 import {
   RowContainer,
   RowContainerBeetwen,
-} from '../../../template/containers/RowContainer';
-import {ViewPress} from '../../../template/containers/ViewPress';
-import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {ColorsUI} from '../../../template/styles/ColorUI';
-import {ReportIcon} from '../../../template/icons/ReportIcon';
-import {MainContainer} from '../../../template/containers/MainContainer';
+} from '../../../../template/containers/RowContainer';
+import {ViewPress} from '../../../../template/containers/ViewPress';
+import {Ag, TextUI} from '../../../../template/ui/TextUI';
+import {ColorsUI} from '../../../../template/styles/ColorUI';
+import {ReportIcon} from '../../../../template/icons/ReportIcon';
+import {MainContainer} from '../../../../template/containers/MainContainer';
 
 interface ReportProps {
   organizationId: string;

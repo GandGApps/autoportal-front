@@ -24,10 +24,6 @@ export const MainStack = () => {
         name={Screens.CAT_ORGANIZATIONS}
         component={CatOrganizationsScreens}
       />
-      <Stack.Screen
-        name={Screens.ORGANIZATION}
-        component={OrganizationScreen}
-      />
       <Stack.Screen name={Screens.CAT_FILTER} component={CatFilterScreens} />
     </Stack.Group>
   );
