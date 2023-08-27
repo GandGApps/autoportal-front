@@ -1,9 +1,8 @@
 import React from 'react';
 import {LefiIcon} from '../icons/LefiIcon';
-import styled from 'styled-components/native';
 import {ContainerProps} from '../ui-types/UITypes';
-import {defaultContainerCSS} from '../containers/MainContainer';
 import Navigation from '../../routes/navigation/Navigation';
+import {ViewPress} from '../containers/ViewPress';
 
 interface BackBtnProps extends ContainerProps {
   callback?: () => void;
@@ -20,12 +19,8 @@ export const BackBtn = (props: BackBtnProps) => {
   };
 
   return (
-    <BackBtnStyles $pr={10} $pv={5} {...props} onPress={handleBackNavigation}>
+    <ViewPress $pr={10} $pv={5} {...props} onPress={handleBackNavigation}>
       <LefiIcon color={props.color} />
-    </BackBtnStyles>
+    </ViewPress>
   );
 };
-
-const BackBtnStyles = styled.TouchableOpacity<ContainerProps>`
-  ${defaultContainerCSS}
-`;

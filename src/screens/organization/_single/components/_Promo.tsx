@@ -13,7 +13,7 @@ interface OrganizationPromoProps {
 export const OrganizationPromo = (props: OrganizationPromoProps) => {
   return (
     <BorderTopUI>
-      <MainContainer $bg={ColorsUI.blue} $ph={20} $pv={20}>
+      <MainContainer $bg={ColorsUI.blue.light} $ph={20} $pv={20}>
         <TextUI $mb={15} ag={Ag['600_16']}>
           {'Акция'}
         </TextUI>

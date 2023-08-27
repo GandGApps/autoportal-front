@@ -7,12 +7,8 @@ import {Platform} from 'react-native';
 import {
   RowContainer,
   RowContainerBeetwen,
-  RowContainerBeetwenEnd,
 } from '../template/containers/RowContainer';
 import {BackBtn} from '../template/ui/BackBtn';
-import {ButtonUI} from '../template/ui/ButtonUI';
-import {AbsoluteContainer} from '../template/containers/AbsoluteContainer';
-import {ViewPress} from '../template/containers/ViewPress';
 import {ReactNode} from 'react';
 
 interface GradientHeaderProps {

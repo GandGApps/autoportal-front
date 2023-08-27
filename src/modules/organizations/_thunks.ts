@@ -164,7 +164,7 @@ export const getFavoritesList = createAsyncThunk(
 );
 
 export const getPersonalOrganizations = createAsyncThunk(
-  'organization/favorites/list',
+  'organization/my/list',
   async (_, {getState, dispatch}) => {
     const {isPersonalOrganizationsLoad} = (getState() as RootState)
       .organizationsSlice;

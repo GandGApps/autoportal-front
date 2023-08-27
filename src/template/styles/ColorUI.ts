@@ -2,7 +2,10 @@ export const ColorsUI = {
   black: '#000000',
   white: '#FFFFFF',
   seriy: '#555555',
-  blue: '#EFFBFF',
+  blue: {
+    light: '#EFFBFF',
+    main: '#C4D8FF',
+  },
   gray: {
     main: '#999999',
     light: '#C1C1C1',
