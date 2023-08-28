@@ -27,4 +27,6 @@ export interface ContainerProps {
   $bg?: string;
 
   $isFlex?: boolean;
+
+  $borderColor?: string;
 }

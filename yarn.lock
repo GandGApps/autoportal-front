@@ -1358,6 +1358,13 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
+"@babel/runtime@^7.21.0":
+  version "7.22.11"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.22.11.tgz#7a9ba3bbe406ad6f9e8dd4da2ece453eb23a77a4"
+  integrity sha512-ee7jVNlWN09+KftVOu9n7S8gQzD/Z6hN/I8VBRXW4P1+Xe7kJGXMwu8vds4aGIMHZnNbdpSWCfZZtinytpcAvA==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/template@^7.0.0", "@babel/template@^7.18.10", "@babel/template@^7.22.5", "@babel/template@^7.3.3":
   version "7.22.5"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.22.5.tgz#0c8c4d944509875849bd0344ff0050756eefc6ec"
@@ -3274,6 +3281,13 @@ csstype@^3.0.2, csstype@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.2.tgz#1d4bf9d572f11c14031f0436e1c10bc1f571f50b"
   integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
+
+date-fns@^2.30.0:
+  version "2.30.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
+  integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
 
 dayjs@^1.8.15:
   version "1.11.9"
@@ -6356,6 +6370,13 @@ react-native-bootsplash@4.7.5:
     picocolors "^1.0.0"
     sharp "^0.32.1"
 
+react-native-date-picker@^4.2.14:
+  version "4.2.14"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-4.2.14.tgz#ebeb3bf8d682268a4e405decde1e72ab95ecffb7"
+  integrity sha512-rP0ycj3I+8x4pIUGjeh7pL+cMPntKccLGX/OXx790bsIM0Hcyg0ZL86kGnnZu9fEUhXlgdr3OK/jhQue5L6kSQ==
+  dependencies:
+    prop-types "^15.8.1"
+
 react-native-device-info@10.3.0:
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.3.0.tgz#6bab64d84d3415dd00cc446c73ec5e2e61fddbe7"
@@ -6588,6 +6609,11 @@ regenerator-runtime@^0.13.10, regenerator-runtime@^0.13.11, regenerator-runtime@
   version "0.13.11"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
   integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
+
+regenerator-runtime@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.14.0.tgz#5e19d68eb12d486f797e15a3c6a918f7cec5eb45"
+  integrity sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==
 
 regenerator-transform@^0.15.1:
   version "0.15.1"

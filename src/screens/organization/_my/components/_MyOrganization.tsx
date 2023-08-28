@@ -27,9 +27,16 @@ interface OrganizationItemProps {
 
 export const MyOrganization = ({item}: OrganizationItemProps) => {
   const handleGoToScreen = (screen: string) => {
-    console.log('test');
     Navigation.navigate(screen, {
       _id: item._id,
+    });
+  };
+
+  const handleGoToPromo = () => {
+    Navigation.navigate(Screens.ORGANIZATION_PROMO, {
+      promo: item.promo && item.promo,
+      logo: item.logo && item.logo,
+      name: item.name,
     });
   };
 
@@ -95,7 +102,12 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
               {'Заблокирован'}
             </TextUI>
           ) : item.isSubscribe ? (
-            <ViewPress $bg={ColorsUI.blue.main} $br={47} $widthPX={130} $pv={8}>
+            <ViewPress
+              $bg={ColorsUI.blue.main}
+              $br={47}
+              $widthPX={130}
+              $pv={8}
+              onPress={handleGoToPromo}>
               <TextUI $align={'center'} ag={Ag['500_12']}>
                 {item.promo ? 'Ред.акцию' : 'Создать акцию'}
               </TextUI>
@@ -110,16 +122,14 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
                 <MainContainer $mr={5}>
                   <TelegramIcon size={16} />
                 </MainContainer>
-                <ViewPress>
-                  <TextUI ag={Ag['400_12']}>{'Тех.поддержка'}</TextUI>
-                </ViewPress>
+                <UnderLineText ag={Ag['400_12']} text={'Тех.поддержка'} />
               </RowContainer>
             ) : (
-              <ViewPress>
-                <TextUI ag={Ag['400_14']} color={ColorsUI.green}>
-                  {'Активировать'}
-                </TextUI>
-              </ViewPress>
+              <UnderLineText
+                ag={Ag['400_14']}
+                color={ColorsUI.green}
+                text={'Активировать'}
+              />
             )}
           </RowContainerBeetwenEnd>
         ) : (

@@ -3,6 +3,7 @@ import {InputUI, InputUIProps} from './InputUI';
 import {ContainerProps} from '../ui-types/UITypes';
 import styled from 'styled-components/native';
 import {ButtonWidthCSS} from './ButtonUI';
+import {Ag} from './TextUI';
 
 interface InputSelectUIProps extends InputUIProps {
   onPress?: () => void;

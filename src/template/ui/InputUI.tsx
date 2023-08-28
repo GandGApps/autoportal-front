@@ -13,6 +13,7 @@ export interface InputUIProps extends TextInputProps {
   rightIcon?: ReactNode;
   isSelect?: boolean;
   $size?: number;
+  ag?: Ag;
 }
 
 export const InputUI = (props: InputUIProps) => {
@@ -20,7 +21,7 @@ export const InputUI = (props: InputUIProps) => {
     <InputContainerStyled {...props.containerStyles}>
       {props.leftIcon ? props.leftIcon : null}
       {props.isSelect ? (
-        <TextUI ag={Ag['400_16']}>{props.value}</TextUI>
+        <TextUI ag={props.ag || Ag['400_16']}>{props.value}</TextUI>
       ) : (
         <InputTextStyled
           $size={16}

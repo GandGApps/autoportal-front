@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import {ContainerProps} from '../ui-types/UITypes';
 import {css} from 'styled-components/native';
+import {ColorsUI} from '../styles/ColorUI';
 
 export const defaultContainerCSS = css<ContainerProps>`
   display: flex;
@@ -37,6 +38,9 @@ export const defaultContainerCSS = css<ContainerProps>`
   ${({$heightPX}) => ($heightPX ? `height: ${$heightPX}px;` : '')}
 
   ${({$isFlex}) => ($isFlex ? 'flex: 1;' : '')}
+
+  ${({$borderColor}) =>
+    $borderColor ? `border: 1px solid ${$borderColor};` : ''}
 `;
 
 export const MainContainer = styled.View<ContainerProps>`
