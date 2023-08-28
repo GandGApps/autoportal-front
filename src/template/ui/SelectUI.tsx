@@ -17,7 +17,7 @@ export const SelectUI = (props: SelectUIProps) => {
   return (
     <SelectUIStyled {...props} $pv={8} $ph={8}>
       <RowContainerBeetwen>
-        <TextUI color={ColorsUI.seriy} ag={Ag['400_16']}>
+        <TextUI color={ColorsUI.seriy} ag={Ag['400_14']}>
           {props.text}
         </TextUI>
         <DownIcon />

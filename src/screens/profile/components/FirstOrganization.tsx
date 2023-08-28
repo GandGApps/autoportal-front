@@ -6,6 +6,8 @@ import {AbsoluteContainer} from '../../../template/containers/AbsoluteContainer'
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {BorderTopUI} from '../../../template/ui/BorderTopUI';
 import {ColorsUI} from '../../../template/styles/ColorUI';
+import Navigation from '../../../routes/navigation/Navigation';
+import {Screens} from '../../../routes/models/Screens';
 
 export const FirstOrganization = () => {
   return (
@@ -19,7 +21,8 @@ export const FirstOrganization = () => {
           </TextUI>
 
           <AbsoluteContainer $bottom={10} $right={10}>
-            <ViewPress>
+            <ViewPress
+              onPress={() => Navigation.navigate(Screens.ORGANIZATION_CREATE)}>
               <TextUI ag={Ag['500_12']} color={ColorsUI.firm}>
                 {'Создать'}
               </TextUI>

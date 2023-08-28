@@ -91,6 +91,12 @@ export const MockPersonalOrganizations = [
     countSelect: 49,
     countFavorites: 25,
     isBaned: false,
+
+    promo: {
+      description: 'Простое описание с небольшим текстом, чтоб просто было',
+      startPromo: '12.05.2023',
+      endPromo: '18.05.2023',
+    },
   },
   {
     _id: '156f18c0-df28-4750-a4ca-04d3cd8bb3fc',
@@ -163,6 +169,12 @@ export const MockPersonalOrganizations = [
     countSelect: 49,
     countFavorites: 25,
     isBaned: false,
+
+    promo: {
+      description: 'Простое описание с небольшим текстом, чтоб просто было',
+      startPromo: '12.05.2023',
+      endPromo: '18.05.2023',
+    },
   },
   {
     _id: '70a8e5c7-4a10-4ff4-a394-b9a67d816e5a',

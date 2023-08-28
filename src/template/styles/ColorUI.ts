@@ -12,6 +12,7 @@ export const ColorsUI = {
     disabled: '#DCDCDC',
     line: '#E7E7E7',
     bg: '#F6F6F6',
+    second: '#F9F9F9',
   },
   firm: '#A5EE68',
   lightGreen: '#BFFFD1',
