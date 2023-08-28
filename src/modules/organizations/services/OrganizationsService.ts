@@ -7,7 +7,6 @@ import {MockOrganizationFilter} from '../mock/MockOrganizationFilter';
 import {Category} from '../models/Category';
 import {OrganizationFilter} from '../models/OrganizationFilter';
 import {MockBanners} from '../mock/MockBanners';
-import {File} from '../../files/models/File';
 import {MockSearchServices} from '../mock/MockSearchServices';
 import {OrganizationList} from '../models/OrganizationList';
 import {MockOrganizationList} from '../mock/MockOrganizationList';
@@ -31,7 +30,7 @@ export class OrganizationsService extends AbstractServiceRepository {
 
     const data = MockBanners;
 
-    return this.createList<File>(File, data);
+    return data as string[];
   };
 
   getSearchServices = async (query: string) => {

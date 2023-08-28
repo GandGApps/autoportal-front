@@ -6,7 +6,7 @@ import {RowContainerBeetwen} from '../../../template/containers/RowContainer';
 import {BackBtn} from '../../../template/ui/BackBtn';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MainContainer} from '../../../template/containers/MainContainer';
-import {StatusBar, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
 import {InputUI} from '../../../template/ui/InputUI';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
@@ -21,7 +21,6 @@ import {ScrollViewScreen} from '../../../template/containers/ScrollViewScreen';
 import {OrganizationItem} from './components/OrganizationItem';
 import {CenterContainerFlex} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
-import {ColorsUI} from '../../../template/styles/ColorUI';
 
 export const CatOrganizationsScreens = () => {
   const {filterForm, organizationList, isOrganizationListLoad} = useAppSelector(

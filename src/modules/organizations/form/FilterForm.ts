@@ -1,6 +1,5 @@
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {Category} from '../models/Category';
-import {TypeService} from '../models/TypeService';
 import {SortFilterType, UnitsFilter} from '../types/OrganizationTypes';
 
 export type FilterFormKeys =
