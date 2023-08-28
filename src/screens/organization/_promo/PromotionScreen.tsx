@@ -74,7 +74,11 @@ export const PromotionScreen = () => {
           </RowContainer>
 
           <BorderTopUI $ph={20} $pv={20} $bg={ColorsUI.gray.second}>
-            <Textarea value={description} onChangeText={setDescription} />
+            <Textarea
+              value={description}
+              onChangeText={setDescription}
+              placeholder={'Опишите ваше акционное предложение'}
+            />
           </BorderTopUI>
           <BorderTopUI $mb={30} />
 

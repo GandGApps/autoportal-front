@@ -1,3 +1,4 @@
+import {CreateFormProps, DefaultCreateForm} from './form/CreateForm';
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {OrganizationsStateModel} from './types/OrganizationTypes';
 import {RootState} from '../../settings/redux/store';
@@ -20,6 +21,7 @@ const initialState: OrganizationsStateModel = {
   categories: [],
 
   filterForm: DefaultFilterForm,
+  createForm: DefaultCreateForm,
 
   organizationFilter: null,
   searchServices: [],
@@ -51,6 +53,13 @@ const organizationsSlice = createSlice({
     filterChangeForm: (state, action: PayloadAction<FilterFormProps>) => {
       state.filterForm = {
         ...state.filterForm,
+        [action.payload.key]: action.payload.value,
+      };
+    },
+
+    createChangeForm: (state, action: PayloadAction<CreateFormProps>) => {
+      state.createForm = {
+        ...state.createForm,
         [action.payload.key]: action.payload.value,
       };
     },
@@ -188,6 +197,7 @@ export const selectOrganizationsValues = (state: RootState) =>
 
 export const {
   filterChangeForm,
+  createChangeForm,
   setIsSearchLoad,
   setIsBannersLoad,
   setIsCategoriesLoad,
