@@ -9,6 +9,7 @@ import {FontHelper} from '../template/helper/FontHelper';
 interface TextareaProps {
   value: string;
   onChangeText: (value: string) => void;
+  placeholder?: string;
 }
 
 export const Textarea = (props: TextareaProps) => {
@@ -23,7 +24,7 @@ export const Textarea = (props: TextareaProps) => {
       $borderColor={ColorsUI.black}>
       <MainContainer $isFlex>
         <TextInputStyled
-          placeholder={'Опишите ваше акционное предложение'}
+          placeholder={props.placeholder}
           editable
           multiline
           maxLength={255}

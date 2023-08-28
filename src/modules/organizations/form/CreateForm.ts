@@ -1,6 +1,7 @@
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {FileModel} from '../../files/models/File';
 import {Category} from '../models/Category';
+import {ScheduleModel} from '../types/OrganizationTypes';
 
 export type CreateFormKeys =
   | 'city'
@@ -22,28 +23,36 @@ export interface CreatetFormModel {
   category: Nullable<Category>;
   typeService: Nullable<string[]>;
   brandCar: Nullable<string[]>;
-  schedule: Nullable<string[]>;
+  schedule: ScheduleModel[];
   name: string;
   address: string;
   mainPhone: string;
   whatsApp: string;
   employeers: string[];
   description: string;
-  logo: string;
+  logo: Nullable<FileModel>;
   photos: FileModel[];
 }
 
+export type CreateFormValue =
+  | string
+  | Category
+  | string[]
+  | FileModel[]
+  | ScheduleModel[]
+  | null;
+
 export interface CreateFormProps {
   key: CreateFormKeys;
-  value: string | Category | string[] | FileModel[] | null;
+  value: CreateFormValue;
 }
 
 export const DefaultCreateForm: CreatetFormModel = {
-  city: 'Москва',
+  city: '',
   category: null,
   typeService: null,
   brandCar: null,
-  schedule: null,
+  schedule: [],
 
   name: '',
   address: '',
@@ -51,6 +60,6 @@ export const DefaultCreateForm: CreatetFormModel = {
   whatsApp: '',
   employeers: [],
   description: '',
-  logo: '',
+  logo: null,
   photos: [],
 };

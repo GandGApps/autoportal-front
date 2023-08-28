@@ -8,6 +8,7 @@ import {OrganizationList} from '../models/OrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
 import {PromotionList} from '../models/PromotionList';
 import {CreatedStatus} from '../models/CreatedStatus';
+import {CreatetFormModel} from '../form/CreateForm';
 
 export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
@@ -16,6 +17,7 @@ export interface OrganizationsStateModel {
   banners: string[];
 
   filterForm: FiltertFormModel;
+  createForm: CreatetFormModel;
 
   organizationFilter: Nullable<OrganizationFilter>;
   searchServices: SearchServices[];

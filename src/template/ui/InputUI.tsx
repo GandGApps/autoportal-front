@@ -21,7 +21,11 @@ export const InputUI = (props: InputUIProps) => {
     <InputContainerStyled {...props.containerStyles}>
       {props.leftIcon ? props.leftIcon : null}
       {props.isSelect ? (
-        <TextUI ag={props.ag || Ag['400_16']}>{props.value}</TextUI>
+        <TextUI
+          ag={props.ag || Ag['400_16']}
+          color={props.value ? ColorsUI.black : ColorsUI.seriy}>
+          {props.value || props.placeholder}
+        </TextUI>
       ) : (
         <InputTextStyled
           $size={16}
