@@ -33,7 +33,7 @@ export const CarouselUI = (props: OrganizationPreviewUIProps) => {
             key={`preview-${index}`}
             activeOpacity={1}
             onPress={props.onPressImage}>
-            <ImageUI source={{uri: item}} />
+            <ImageUI $isFlex source={{uri: item}} />
           </ViewFlexPress>
         )}
         onProgressChange={(_, process) =>

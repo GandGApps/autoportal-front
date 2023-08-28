@@ -1,14 +1,4 @@
 export const MockBanners = [
-  {
-    _id: 'fdsgfdк34gdfg',
-    url: 'red',
-  },
-  {
-    _id: 'f3dsfdfdfgfdgdfg',
-    url: 'green',
-  },
-  {
-    _id: 'fd23sgfdgdfg',
-    url: 'blue',
-  },
+  'https://respect-shoes.ru/upload/iblock/2b4/2b41ea218fcd7c01feeacf9cbb6df083.jpg',
+  'https://s0.rbk.ru/v6_top_pics/media/img/6/61/756093580517616.jpg',
 ];

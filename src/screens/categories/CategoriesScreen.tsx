@@ -6,7 +6,7 @@ import {
   selectOrganizationsValues,
 } from '../../modules/organizations/OrganizationsSlice';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
-import {Dimensions, StatusBar, TouchableOpacity} from 'react-native';
+import {Dimensions, Image, StatusBar} from 'react-native';
 import {MainContainer} from '../../template/containers/MainContainer';
 import {ColumnContainerFlex} from '../../template/containers/ColumnContainer';
 import {InputSelectUI} from '../../template/ui/InputSelectUI';
@@ -21,6 +21,7 @@ import {Category} from '../../modules/organizations/models/Category';
 import {useEffect} from 'react';
 import {getBanners, getCategories} from '../../modules/organizations/_thunks';
 import {ColorsUI} from '../../template/styles/ColorUI';
+import {ImageUI} from '../../template/ui/ImageUI';
 
 export const CategoriesScreen = () => {
   const {banners, categories} = useAppSelector(selectOrganizationsValues);
@@ -63,8 +64,10 @@ export const CategoriesScreen = () => {
               height={carouselHeight}
               data={banners}
               scrollAnimationDuration={1000}
-              renderItem={({item}) => (
-                <ColumnContainerFlex key={item.url} $bg={item.url} />
+              renderItem={({item, index}) => (
+                <ColumnContainerFlex key={`banners-${index}`}>
+                  <ImageUI $isFlex $br={10} source={{uri: item}} />
+                </ColumnContainerFlex>
               )}
             />
           ) : null}
