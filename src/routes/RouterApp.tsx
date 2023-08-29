@@ -12,6 +12,8 @@ import {PromotionsStack} from './stacks/PromotionsStack';
 import {FavoritiesStack} from './stacks/FavoritesStack';
 import {ProfileStack} from './stacks/ProfileStack';
 import {OrganizationStack} from './stacks/OrganizationStack';
+import Toast from 'react-native-toast-notifications';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +23,8 @@ export const RouterApp = () => {
       await RNBootSplash.hide({fade: true, duration: 500});
     })();
   }, []);
+
+  const insets = useSafeAreaInsets();
 
   return (
     <NavigationContainer
@@ -49,6 +53,11 @@ export const RouterApp = () => {
         {FavoritiesStack()}
         {ProfileStack()}
       </Stack.Navigator>
+
+      <Toast
+        style={{marginTop: insets.top}}
+        ref={ref => (global['toast'] = ref as any)}
+      />
     </NavigationContainer>
   );
 };

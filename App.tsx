@@ -1,5 +1,5 @@
 import React from 'react';
-import Toast from 'react-native-toast-notifications';
+
 import {Provider} from 'react-redux';
 import {store} from './src/settings/redux/store';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -15,9 +15,6 @@ export const App = () => {
           <RouterApp />
         </Host>
       </Provider>
-
-      {/* @ts-ignore */}
-      <Toast ref={ref => (global['toast'] = ref)} />
     </SafeAreaProvider>
   );
 };

@@ -4,7 +4,8 @@ import {CategoriesScreen} from '../../screens/categories/CategoriesScreen';
 import {CatSearchScreen} from '../../screens/categories/_searchServices/CatSearchScreen';
 import {CatOrganizationsScreens} from '../../screens/categories/_organizations/CatOrganizationsScreens';
 import {CatFilterScreens} from '../../screens/categories/_filter/CatFilterScreens';
-import {OrganizationScreen} from '../../screens/organization/OrganizationScreen';
+import {StackAnimated} from '../navigation/Animation';
+import {Platform} from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -15,8 +16,8 @@ export const MainStack = () => {
         name={Screens.CATEGORIES}
         component={CategoriesScreen}
         options={{
-          gestureEnabled: true,
-          ...TransitionPresets.ModalFadeTransition,
+          ...StackAnimated,
+          presentation: Platform.OS === 'android' ? 'modal' : undefined,
         }}
       />
       <Stack.Screen name={Screens.CAT_SEARCH} component={CatSearchScreen} />
