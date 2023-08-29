@@ -15,6 +15,7 @@ import {Ag, TextUI} from '../../../../template/ui/TextUI';
 
 interface CreateAddLogoProps {
   logo: Nullable<FileModel>;
+  onPickImage: () => void;
 }
 
 export const CreateAddLogo = (props: CreateAddLogoProps) => {
@@ -29,13 +30,15 @@ export const CreateAddLogo = (props: CreateAddLogoProps) => {
           $widthPX={160}
           $heightPX={160}
           $br={8}
-          $borderColor={ColorsUI.black}
-          $bg={ColorsUI.gray.disabled}>
-          <ViewPress $isFlex activeOpacity={0.8}>
+          $borderColor={ColorsUI.black}>
+          <ViewPress $isFlex onPress={props.onPickImage}>
             {props.logo ? (
-              <ImageUI $isFlex $br={150} source={{uri: props.logo.uri}} />
+              <ImageUI $isFlex $br={150} source={{uri: `${props.logo.uri}`}} />
             ) : (
-              <CenterContainerFlex $br={150} $bg={ColorsUI.white}>
+              <CenterContainerFlex
+                $br={150}
+                $borderColor={ColorsUI.gray.line}
+                $bg={ColorsUI.white}>
                 <MainContainer $mb={5}>
                   <PhotoIcon />
                 </MainContainer>

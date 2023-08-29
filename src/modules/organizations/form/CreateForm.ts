@@ -39,6 +39,7 @@ export type CreateFormValue =
   | Category
   | string[]
   | FileModel[]
+  | FileModel
   | ScheduleModel[]
   | null;
 

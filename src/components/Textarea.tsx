@@ -24,9 +24,12 @@ export const Textarea = (props: TextareaProps) => {
       $borderColor={ColorsUI.black}>
       <MainContainer $isFlex>
         <TextInputStyled
+          placeholderTextColor={ColorsUI.gray.main}
           placeholder={props.placeholder}
           editable
           multiline
+          allowFontScaling={false}
+          textAlignVertical={'top'}
           maxLength={255}
           onChangeText={props.onChangeText}
           value={props.value}
@@ -44,4 +47,5 @@ const TextInputStyled = styled.TextInput`
   font-family: ${FontHelper.getTextFamily(400)};
   font-size: 16px;
   line-height: 19.5px;
+  color: ${ColorsUI.black};
 `;

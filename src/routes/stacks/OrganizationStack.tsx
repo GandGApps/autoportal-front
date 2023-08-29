@@ -6,6 +6,8 @@ import {CreateOrganizationScreen} from '../../screens/organization/_create/Creat
 import {EditOrganizationScreen} from '../../screens/organization/_edit/EditOrganization';
 import {PromotionScreen} from '../../screens/organization/_promo/PromotionScreen';
 import {PromoRemoveModal} from '../../screens/organization/_promo/quastion/PromoRemoveModal';
+import {StackAnimated} from '../navigation/Animation';
+import {Platform} from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -24,8 +26,8 @@ export const OrganizationStack = () => {
         name={Screens.ORGANIZATION_CREATE}
         component={CreateOrganizationScreen}
         options={{
-          gestureEnabled: true,
-          ...TransitionPresets.ModalFadeTransition,
+          ...StackAnimated,
+          presentation: Platform.OS === 'android' ? 'modal' : undefined,
         }}
       />
       <Stack.Screen
@@ -41,8 +43,8 @@ export const OrganizationStack = () => {
         name={Screens.ORGANIZATION_PROMO_REMOVE}
         component={PromoRemoveModal}
         options={{
-          gestureEnabled: true,
-          ...TransitionPresets.ModalPresentationIOS,
+          ...StackAnimated,
+          presentation: Platform.OS === 'android' ? 'modal' : undefined,
         }}
       />
     </Stack.Group>

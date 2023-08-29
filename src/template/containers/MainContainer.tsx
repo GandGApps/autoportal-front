@@ -41,6 +41,8 @@ export const defaultContainerCSS = css<ContainerProps>`
 
   ${({$borderColor}) =>
     $borderColor ? `border: 1px solid ${$borderColor};` : ''}
+
+${({$zIndex}) => ($zIndex ? `z-index: ${$zIndex};` : '')}
 `;
 
 export const MainContainer = styled.View<ContainerProps>`

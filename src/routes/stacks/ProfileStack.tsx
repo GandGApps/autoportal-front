@@ -6,6 +6,8 @@ import {EditScreen} from '../../screens/profile/info/EditScreen';
 import {RecoveryPasswordModal} from '../../screens/profile/question/RecoveryPasswordModal';
 import {RemoveProfileModal} from '../../screens/profile/question/RemoveProfileModal';
 import {LogoutModal} from '../../screens/profile/question/LogoutModal';
+import {StackAnimated} from '../navigation/Animation';
+import {Platform} from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -16,8 +18,8 @@ export const ProfileStack = () => {
         name={Screens.PROFILE}
         component={ProfileScreen}
         options={{
-          gestureEnabled: true,
-          ...TransitionPresets.ModalFadeTransition,
+          ...StackAnimated,
+          presentation: Platform.OS === 'android' ? 'modal' : undefined,
         }}
       />
 
