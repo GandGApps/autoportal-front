@@ -1,6 +1,8 @@
 import {PersonalOrganizations} from './../models/PersonalOrganizations';
 import {UnitsFilter} from './../types/OrganizationTypes';
 import {FilterFormKeys} from '../form/FilterForm';
+import {CreatetFormModel} from '../form/CreateForm';
+import {CurrentOrganization} from '../models/CurrentOrganization';
 
 interface FormattedPersonal {
   activeList: PersonalOrganizations[];
@@ -52,6 +54,38 @@ export class OrganizationHelper {
     return {
       activeList: list.filter(item => item.isActive),
       disabledList: list.filter(item => !item.isActive),
+    };
+  };
+
+  static getDefaultCreateForm = (
+    organization: CurrentOrganization,
+  ): CreatetFormModel => {
+    return {
+      name: organization.name,
+      city: organization.city,
+      category: organization.category,
+      typeService: [],
+      brandCar: [],
+      schedule: organization.schedule,
+      address: organization.address,
+      mainPhone: organization.contactInfo?.mainPhone || '',
+      whatsApp: organization.contactInfo?.whatsApp || '',
+      employeers: [],
+      description: organization.description,
+      logo: organization.logo
+        ? {
+            type: 'image/jpg',
+            name: 'defaultName',
+            uri: organization.logo,
+          }
+        : null,
+      photos: organization.previews.map(item => {
+        return {
+          type: 'image/jpg',
+          name: 'defaultName',
+          uri: item,
+        };
+      }),
     };
   };
 }

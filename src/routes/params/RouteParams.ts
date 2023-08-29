@@ -5,6 +5,9 @@ export type RouteParams = {
   ORGANIZATION: {
     _id: string;
   };
+  ORGANIZATION_EDIT: {
+    _id: string;
+  };
   ORGANIZATION_PROMO: {
     promo?: Promotion;
     logo?: string;
@@ -13,7 +16,13 @@ export type RouteParams = {
 };
 
 export type OrganizationParams = RouteProp<RouteParams, 'ORGANIZATION'>;
+
 export type OrganizationPromoParams = RouteProp<
   RouteParams,
   'ORGANIZATION_PROMO'
+>;
+
+export type OrganizationEditParams = RouteProp<
+  RouteParams,
+  'ORGANIZATION_EDIT'
 >;

@@ -1,4 +1,8 @@
-import {CreateFormProps, DefaultCreateForm} from './form/CreateForm';
+import {
+  CreateFormProps,
+  CreatetFormModel,
+  DefaultCreateForm,
+} from './form/CreateForm';
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {OrganizationsStateModel} from './types/OrganizationTypes';
 import {RootState} from '../../settings/redux/store';
@@ -66,6 +70,10 @@ const organizationsSlice = createSlice({
 
     setDefaultFilter: state => {
       state.filterForm = DefaultFilterForm;
+    },
+
+    setDefaultCreateForm: (state, action: PayloadAction<CreatetFormModel>) => {
+      state.createForm = action.payload;
     },
 
     setIsSearchLoad: (state, action: PayloadAction<boolean>) => {
@@ -207,6 +215,7 @@ export const {
   setIsFavoritesListLoad,
   setIsPersonalOrganizationsLoad,
   setIsCreatedStatusLoad,
+  setDefaultCreateForm,
 } = organizationsSlice.actions;
 
 export default organizationsSlice.reducer;

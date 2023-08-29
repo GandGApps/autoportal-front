@@ -3,7 +3,9 @@ export const MockCurrentOrganization = {
   logo: '',
   name: 'Мастера Тормозов',
   address: 'ул. Кедровая 654',
-  categoryName: 'Автосервис',
+  category: {
+    title: 'Автосервис',
+  },
   rating: 4,
   countReviews: 1024,
 
