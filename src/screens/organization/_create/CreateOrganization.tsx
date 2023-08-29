@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {BottomMenu} from '../../../components/bottomMenu/BottomMenu';
 import {GradientHeader} from '../../../components/GradientHeader';
-import {Keyboard, Platform, StatusBar} from 'react-native';
+import {Platform, StatusBar} from 'react-native';
 import {ColorsUI} from '../../../template/styles/ColorUI';
-import {ScrollViewScreen} from '../../../template/containers/ScrollViewScreen';
-import {KeyboardView} from '../../../template/containers/KeyboardView';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {
   createChangeForm,
@@ -30,7 +28,11 @@ import {CreateSave} from './components/_Save';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {MainContainer} from '../../../template/containers/MainContainer';
 
-export const CreateOrganizationScreen = () => {
+interface CreateScreenProps {
+  isEdit?: boolean;
+}
+
+export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const {createForm} = useAppSelector(selectOrganizationsValues);
   const dispatch = useAppDispatch();
 
@@ -100,7 +102,9 @@ export const CreateOrganizationScreen = () => {
   return (
     <ColumnContainerFlex>
       <StatusBar barStyle={'light-content'} backgroundColor={ColorsUI.black} />
-      <GradientHeader title={'Создание организации'} isBack />
+      {!props.isEdit ? (
+        <GradientHeader title={'Создание организации'} isBack />
+      ) : null}
       <KeyboardAwareScrollView
         enableOnAndroid={Platform.OS === 'android'}
         extraHeight={200}
@@ -113,6 +117,7 @@ export const CreateOrganizationScreen = () => {
         stickyHeaderHiddenOnScroll={false}>
         <CreateOrganization
           nameValue={createForm.name}
+          categoryValue={createForm.category?.title}
           onChangeName={value => handleChangeForm('name', value)}
           onChangeService={() => {}}
           onChangeBrandsCars={() => {}}
@@ -155,9 +160,7 @@ export const CreateOrganizationScreen = () => {
         <CreateSave onSavePress={handleSaveOrganization} />
       </KeyboardAwareScrollView>
 
-      <MainContainer>
-        <BottomMenu />
-      </MainContainer>
+      {!props.isEdit ? <BottomMenu /> : null}
     </ColumnContainerFlex>
   );
 };

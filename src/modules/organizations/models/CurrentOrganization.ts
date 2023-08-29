@@ -6,6 +6,7 @@ import {
   ScheduleModel,
   UnitsFilter,
 } from '../types/OrganizationTypes';
+import {Category} from './Category';
 import {Promotion} from './Promotion';
 import {Review} from './Review';
 import {TypeService} from './TypeService';
@@ -15,7 +16,7 @@ export class CurrentOrganization extends AbstractModel {
   logo: string = '';
   name: string = '';
   address: string = '';
-  categoryName: string = '';
+  category: Nullable<Category> = null;
   rating: Nullable<number> = null;
   countReviews: Nullable<number> = null;
 

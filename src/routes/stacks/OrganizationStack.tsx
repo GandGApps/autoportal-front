@@ -1,4 +1,4 @@
-import {TransitionPresets, createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {Screens} from '../models/Screens';
 import {OrganizationScreen} from '../../screens/organization/_single/OrganizationScreen';
 import {MyOrganizationsScreen} from '../../screens/organization/_my/MyOrganizations';

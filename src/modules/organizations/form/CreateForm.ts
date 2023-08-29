@@ -1,3 +1,4 @@
+import {EmployeerModel} from './../types/OrganizationTypes';
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {FileModel} from '../../files/models/File';
 import {Category} from '../models/Category';
@@ -28,7 +29,7 @@ export interface CreatetFormModel {
   address: string;
   mainPhone: string;
   whatsApp: string;
-  employeers: string[];
+  employeers: EmployeerModel[];
   description: string;
   logo: Nullable<FileModel>;
   photos: FileModel[];
