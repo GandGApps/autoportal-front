@@ -10,6 +10,7 @@ import {
   setIsOrganizationFilter,
   setIsPersonalOrganizationsLoad,
   setIsPromotionListLoad,
+  setIsReviewsLoad,
   setIsSearchLoad,
 } from './OrganizationsSlice';
 
@@ -194,6 +195,23 @@ export const getCreatedStatus = createAsyncThunk(
 
     return await organizationService.getCreatedStatus().finally(() => {
       dispatch(setIsCreatedStatusLoad(false));
+    });
+  },
+);
+
+export const getReviews = createAsyncThunk(
+  'organization/reviews',
+  async (_, {getState, dispatch}) => {
+    const {isReviewsLoad} = (getState() as RootState).organizationsSlice;
+
+    if (isReviewsLoad) {
+      return;
+    }
+
+    dispatch(setIsReviewsLoad(true));
+
+    return await organizationService.getReviews().finally(() => {
+      dispatch(setIsReviewsLoad(false));
     });
   },
 );

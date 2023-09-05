@@ -10,40 +10,35 @@ import {
 } from '../../../../template/containers/RowContainer';
 import {ViewPress} from '../../../../template/containers/ViewPress';
 import {ColorsUI} from '../../../../template/styles/ColorUI';
+import {Nullable} from '../../../../settings/types/BaseTypes';
+import Navigation from '../../../../routes/navigation/Navigation';
+import {Screens} from '../../../../routes/models/Screens';
+import {ReviewUI} from '../../../../components/ReviewUI';
 
 interface OrgReviewProps {
-  review: Review;
+  review: Nullable<Review>;
 }
 
 export const OrgReview = ({review}: OrgReviewProps) => {
+  const handleGoToScreen = (screen: string) => {
+    Navigation.navigate(screen);
+  };
+
   return (
     <BorderTopUI $ph={20} $pv={20}>
       <TextUI $mb={20} ag={Ag['600_16']}>
         {'Отзывы'}
       </TextUI>
 
-      <RowContainerBeetwenStart $mb={15}>
-        <MainContainer>
-          <TextUI $mb={5} ag={Ag['500_16']}>
-            {review.fullName}
-          </TextUI>
-          <TextUI ag={Ag['400_12']}>{review.date}</TextUI>
-        </MainContainer>
-
-        <RatingCount rating={review.rating || 0} />
-      </RowContainerBeetwenStart>
-
-      <TextUI $mb={30} ag={Ag['400_16']}>
-        {review.comment}
-      </TextUI>
+      {review ? <ReviewUI review={review} /> : null}
 
       <RowContainerBeetwen>
-        <ViewPress>
+        <ViewPress onPress={() => handleGoToScreen(Screens.REVIEWS)}>
           <TextUI $mb={20} ag={Ag['600_14']} color={ColorsUI.green}>
             {'Смотреть все отзывы'}
           </TextUI>
         </ViewPress>
-        <ViewPress>
+        <ViewPress onPress={() => handleGoToScreen(Screens.REVIEWS_CREATE)}>
           <TextUI $mb={20} ag={Ag['600_14']} color={ColorsUI.brown}>
             {'Добавить отзыв+'}
           </TextUI>

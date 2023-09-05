@@ -17,6 +17,7 @@ import {
   getOrganizationList,
   getPersonalOrganizations,
   getPromotionsList,
+  getReviews,
   getSearchServices,
 } from './_thunks';
 
@@ -34,6 +35,8 @@ const initialState: OrganizationsStateModel = {
   favoritesList: [],
   personalOrganizations: [],
 
+  reviews: [],
+
   createdStatus: null,
 
   isSearchLoad: false,
@@ -46,6 +49,7 @@ const initialState: OrganizationsStateModel = {
   isFavoritesListLoad: false,
   isPersonalOrganizationsLoad: false,
   isCreatedStatusLoad: false,
+  isReviewsLoad: false,
 
   currentOrganization: null,
 };
@@ -105,6 +109,9 @@ const organizationsSlice = createSlice({
     },
     setIsCreatedStatusLoad: (state, action: PayloadAction<boolean>) => {
       state.isCreatedStatusLoad = action.payload;
+    },
+    setIsReviewsLoad: (state, action: PayloadAction<boolean>) => {
+      state.isReviewsLoad = action.payload;
     },
 
     resetOrganizationFilter: state => {
@@ -201,6 +208,15 @@ const organizationsSlice = createSlice({
 
       state.personalOrganizations = action.payload;
     });
+
+    // GET Reviews
+    builder.addCase(getReviews.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      state.reviews = action.payload;
+    });
   },
 });
 
@@ -221,6 +237,7 @@ export const {
   setIsCreatedStatusLoad,
   setDefaultCreateForm,
   resetOrganizationFilter,
+  setIsReviewsLoad,
 } = organizationsSlice.actions;
 
 export default organizationsSlice.reducer;

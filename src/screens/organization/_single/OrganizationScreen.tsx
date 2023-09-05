@@ -117,9 +117,7 @@ export const OrganizationScreen = () => {
 
         <OrgSchedules schedule={currentOrganization.schedule} />
 
-        {currentOrganization.lastReview ? (
-          <OrgReview review={currentOrganization.lastReview} />
-        ) : null}
+        <OrgReview review={currentOrganization.lastReview} />
 
         <OrgReport organizationId={currentOrganization._id} />
 
