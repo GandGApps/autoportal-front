@@ -20,11 +20,12 @@ interface QuestionModalProps {
   isSingle?: boolean;
 
   btnSecondTitle?: string;
-  onSecondPress: () => void;
+  onSecondPress?: () => void;
 }
 
 export const QuestionModal = (props: QuestionModalProps) => {
   const insets = useSafeAreaInsets();
+
   return (
     <ColumnContainerBetweenFlex $ph={20} $pt={20}>
       <MainContainer>

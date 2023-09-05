@@ -5,7 +5,7 @@ import {CreateDayTimeWork} from './_DayTimeWork';
 import {ScheduleModel} from '../../../../modules/organizations/types/OrganizationTypes';
 
 interface CreateSchedulesProps {
-  onChangeSchedule: (value: ScheduleModel) => void;
+  onChangeSchedule: (value: ScheduleModel, isRemove?: boolean) => void;
 }
 
 export const CreateSchedules = (props: CreateSchedulesProps) => {
@@ -16,7 +16,11 @@ export const CreateSchedules = (props: CreateSchedulesProps) => {
       </TextUI>
 
       {Array.from({length: 7}).map((_, index) => (
-        <CreateDayTimeWork key={`create-day-${index}`} indexDay={index} />
+        <CreateDayTimeWork
+          key={`create-day-${index}`}
+          indexDay={index}
+          onChangeSchedule={props.onChangeSchedule}
+        />
       ))}
     </BorderTopUI>
   );

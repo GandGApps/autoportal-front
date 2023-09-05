@@ -22,6 +22,13 @@ interface FormattedSchedule {
   time: string;
 }
 
+interface ScheduleDayForm {
+  indexDay: number;
+  isAllDay: boolean;
+  fromTime: string;
+  toTime: string;
+}
+
 export class DateHelper {
   static buildScheduleText = (scheduleArray: ScheduleModel[]) => {
     const result: FormattedSchedule[] = ShortDaysOfWeek.map((day, index) => {
@@ -30,14 +37,29 @@ export class DateHelper {
 
       if (item.isAllDay) {
         time = 'круглосуточно';
-      } else if (item.to && item.do) {
-        time = `${item.to} - ${item.do}`;
+      } else if (item.fromTime && item.toTime) {
+        time = `${item.fromTime} - ${item.toTime}`;
       }
 
       return {day, time};
     });
 
     return result;
+  };
+
+  static getScheduleForm = (scheduleDayForm: ScheduleDayForm) => {
+    const title = DaysOfWeek[scheduleDayForm.indexDay];
+
+    const dayParams = scheduleDayForm.isAllDay
+      ? {
+          isAllDay: true,
+        }
+      : {
+          fromTime: scheduleDayForm.fromTime,
+          toTime: scheduleDayForm.toTime,
+        };
+
+    return {title, ...dayParams};
   };
 
   static getToday = () => {

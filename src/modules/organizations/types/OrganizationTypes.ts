@@ -60,7 +60,7 @@ export interface EmployeerModel {
 
 export interface ScheduleModel {
   title: string;
-  to?: string;
-  do?: string;
+  fromTime?: string;
+  toTime?: string;
   isAllDay?: boolean;
 }

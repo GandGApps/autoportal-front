@@ -68,7 +68,6 @@ export const EditScreen = () => {
 
   const handleSaveChange = () => {
     if (!isEditFormValid(editForm)) {
-      console.log(editForm.phone);
       setIsError(true);
       return;
     }

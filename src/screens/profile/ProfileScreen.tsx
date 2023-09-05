@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ColumnContainerBetweenFlex,
   ColumnContainerFlex,
@@ -23,9 +23,13 @@ export const ProfileScreen = () => {
   const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
 
+  const [isLoad, setIsLoad] = useState(true);
+
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getCreatedStatus());
+      dispatch(getCreatedStatus()).finally(() => {
+        setIsLoad(false);
+      });
     }, 0);
   }, []);
 
@@ -39,7 +43,9 @@ export const ProfileScreen = () => {
       <GradientHeader title={'Личный кабинет'} />
       <ColumnContainerBetweenFlex>
         <MainContainer>
-          {!createdStatus?.createdStatus ? <FirstOrganization /> : null}
+          {!isLoad && !createdStatus?.createdStatus ? (
+            <FirstOrganization />
+          ) : null}
 
           <ThreeMenuItem
             title={'Мои данные'}

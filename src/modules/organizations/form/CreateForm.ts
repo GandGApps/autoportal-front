@@ -22,8 +22,8 @@ export type CreateFormKeys =
 export interface CreatetFormModel {
   city: string;
   category: Nullable<Category>;
-  typeService: Nullable<string[]>;
-  brandCar: Nullable<string[]>;
+  typeService: string[];
+  brandCar: string[];
   schedule: ScheduleModel[];
   name: string;
   address: string;
@@ -52,8 +52,8 @@ export interface CreateFormProps {
 export const DefaultCreateForm: CreatetFormModel = {
   city: '',
   category: null,
-  typeService: null,
-  brandCar: null,
+  typeService: [],
+  brandCar: [],
   schedule: [],
 
   name: '',

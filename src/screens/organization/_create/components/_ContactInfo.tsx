@@ -38,6 +38,7 @@ export const CreateContactInfo = (props: CreateContactInfoProps) => {
           placeholder={'Местоположение'}
           value={props.city}
           rightIcon={<DownIcon />}
+          onPress={props.onPressCity}
         />
 
         <InputUI

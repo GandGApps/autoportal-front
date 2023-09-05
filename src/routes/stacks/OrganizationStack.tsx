@@ -1,4 +1,4 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import {TransitionPresets, createStackNavigator} from '@react-navigation/stack';
 import {Screens} from '../models/Screens';
 import {OrganizationScreen} from '../../screens/organization/_single/OrganizationScreen';
 import {MyOrganizationsScreen} from '../../screens/organization/_my/MyOrganizations';
@@ -8,6 +8,7 @@ import {PromotionScreen} from '../../screens/organization/_promo/PromotionScreen
 import {PromoRemoveModal} from '../../screens/organization/_promo/quastion/PromoRemoveModal';
 import {StackAnimated} from '../navigation/Animation';
 import {Platform} from 'react-native';
+import {RemoveOrganizationModal} from '../../screens/organization/_edit/questions/RemoveOrganizationModal';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,15 @@ export const OrganizationStack = () => {
         options={{
           ...StackAnimated,
           presentation: Platform.OS === 'android' ? 'modal' : undefined,
+        }}
+      />
+
+      <Stack.Screen
+        name={Screens.ORGANIZATION_REMOVE}
+        component={RemoveOrganizationModal}
+        options={{
+          gestureEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS,
         }}
       />
     </Stack.Group>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {BottomMenu} from '../../../components/bottomMenu/BottomMenu';
 import {GradientHeader} from '../../../components/GradientHeader';
@@ -7,11 +7,14 @@ import {ColorsUI} from '../../../template/styles/ColorUI';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {
   createChangeForm,
+  resetOrganizationFilter,
   selectOrganizationsValues,
+  setDefaultCreateForm,
 } from '../../../modules/organizations/OrganizationsSlice';
 import {
   CreateFormKeys,
   CreateFormValue,
+  DefaultCreateForm,
 } from '../../../modules/organizations/form/CreateForm';
 import {CreateOrganization} from './components/_Organization';
 import {CreateContactInfo} from './components/_ContactInfo';
@@ -26,26 +29,70 @@ import {CreateAddPhotos} from './components/_AddPhotos';
 import {Notifications} from '../../../template/notifications/Notifications';
 import {CreateSave} from './components/_Save';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {MainContainer} from '../../../template/containers/MainContainer';
+import Navigation from '../../../routes/navigation/Navigation';
+import {Screens} from '../../../routes/models/Screens';
+import {CitiesModal} from '../../../components/CitiesModal';
+import {CategoriesModal} from '../../../components/CategoriesModal';
+import {Modalize} from 'react-native-modalize';
+import {FilterModal} from '../../../components/filterModal/FilterModal';
+import {Nullable} from '../../../settings/types/BaseTypes';
+import {FilterFormKeys} from '../../../modules/organizations/form/FilterForm';
+import {getOrganizationFilter} from '../../../modules/organizations/_thunks';
+import {Category} from '../../../modules/organizations/models/Category';
+import {ViewPress} from '../../../template/containers/ViewPress';
+import {Ag, TextUI} from '../../../template/ui/TextUI';
 
 interface CreateScreenProps {
   isEdit?: boolean;
+  id?: string;
 }
 
 export const CreateOrganizationScreen = (props: CreateScreenProps) => {
-  const {createForm} = useAppSelector(selectOrganizationsValues);
+  const {createForm, categories, organizationFilter} = useAppSelector(
+    selectOrganizationsValues,
+  );
   const dispatch = useAppDispatch();
 
   const insets = useSafeAreaInsets();
 
+  const filterModalRef = useRef<Modalize>(null);
+  const citiesModalRef = useRef<Modalize>(null);
+  const categoriesModalRef = useRef<Modalize>(null);
+
+  const [typeModal, setTypeModal] = useState<Nullable<FilterFormKeys>>(null);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (props.id) {
+        dispatch(getOrganizationFilter(props.id));
+      }
+    }, 0);
+  }, []);
+
   const handleChangeForm = (key: CreateFormKeys, value: CreateFormValue) => {
+    if (key === 'category') {
+      setTimeout(() => {
+        dispatch(getOrganizationFilter((value as Category)._id));
+      }, 0);
+    }
+    setHasUnsavedChanges(true);
     dispatch(createChangeForm({key, value}));
   };
 
-  const handleChangeSchedule = (dayWork: ScheduleModel) => {
+  const resetCreateForm = () => {
+    dispatch(resetOrganizationFilter());
+    dispatch(setDefaultCreateForm(DefaultCreateForm));
+  };
+
+  const handleChangeSchedule = (dayWork: ScheduleModel, isRemove?: boolean) => {
     const temp = createForm.schedule.filter(day => day.title !== dayWork.title);
 
-    handleChangeForm('schedule', [...temp, dayWork]);
+    if (!isRemove) {
+      temp.push(dayWork);
+    }
+
+    handleChangeForm('schedule', [...temp]);
   };
 
   const handlePickImage = () => {
@@ -99,12 +146,45 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
 
   const handleSaveOrganization = () => {};
 
+  const handleRemoveOrganization = () => {
+    Navigation.navigate(Screens.ORGANIZATION_REMOVE);
+  };
+
+  const handleOpenFilterModal = (type: FilterFormKeys) => {
+    setTypeModal(type);
+
+    filterModalRef.current?.open();
+  };
+
+  const handleOpenModalCity = () => {
+    citiesModalRef.current?.open();
+  };
+
+  const handleOpenModalCategory = () => {
+    categoriesModalRef.current?.open();
+  };
+
   return (
     <ColumnContainerFlex>
       <StatusBar barStyle={'light-content'} backgroundColor={ColorsUI.black} />
       {!props.isEdit ? (
-        <GradientHeader title={'Создание организации'} isBack />
+        <GradientHeader
+          title={'Создание организации'}
+          rightComonent={
+            <ViewPress
+              $bg={ColorsUI.firm}
+              $br={50}
+              $pv={5}
+              $ph={10}
+              $mr={10}
+              onPress={resetCreateForm}>
+              <TextUI ag={Ag['500_14']}>{'Очистить'}</TextUI>
+            </ViewPress>
+          }
+          isBack
+        />
       ) : null}
+
       <KeyboardAwareScrollView
         enableOnAndroid={Platform.OS === 'android'}
         extraHeight={200}
@@ -118,14 +198,17 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
         <CreateOrganization
           nameValue={createForm.name}
           categoryValue={createForm.category?.title}
+          typeServices={organizationFilter?.typeService}
+          brandsCars={organizationFilter?.brandCar}
           onChangeName={value => handleChangeForm('name', value)}
-          onChangeService={() => {}}
-          onChangeBrandsCars={() => {}}
+          onChangeCategories={handleOpenModalCategory}
+          onChangeService={() => handleOpenFilterModal('typeService')}
+          onChangeBrandsCars={() => handleOpenFilterModal('brandCar')}
         />
 
         <CreateContactInfo
           city={createForm.city}
-          onPressCity={() => {}}
+          onPressCity={handleOpenModalCity}
           address={createForm.address}
           onChangeAddress={(value: string) =>
             handleChangeForm('address', value)
@@ -157,8 +240,27 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           onRemovePickPhoto={removePickPhoto}
         />
 
-        <CreateSave onSavePress={handleSaveOrganization} />
+        <CreateSave
+          isEdit={props.isEdit}
+          onRemovePress={handleRemoveOrganization}
+          onSavePress={handleSaveOrganization}
+        />
       </KeyboardAwareScrollView>
+
+      <FilterModal
+        isCreate
+        createForm={createForm}
+        typeModal={typeModal}
+        modalizeRef={filterModalRef}
+      />
+      <CitiesModal
+        modalizeRef={citiesModalRef}
+        onPickCity={value => handleChangeForm('city', value)}
+      />
+      <CategoriesModal
+        modalizeRef={categoriesModalRef}
+        onPickCategories={cat => handleChangeForm('category', cat)}
+      />
 
       {!props.isEdit ? <BottomMenu /> : null}
     </ColumnContainerFlex>
