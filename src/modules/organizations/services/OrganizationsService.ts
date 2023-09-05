@@ -16,6 +16,8 @@ import {MockPromotions} from '../mock/MockPromotions';
 import {ApiOrganizationsService} from './_api_organizations';
 import {CreatedStatus} from '../models/CreatedStatus';
 import {MockPersonalOrganizations} from '../mock/MockPersonalOrganizations';
+import {MockReviews} from '../mock/MockReviews';
+import {Review} from '../models/Review';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -103,5 +105,12 @@ export class OrganizationsService extends AbstractServiceRepository {
     };
 
     return this.create<CreatedStatus>(CreatedStatus, data);
+  };
+
+  getReviews = async () => {
+    // const {data} = await this.api.getReviews();
+    const data = MockReviews;
+
+    return this.createList<Review>(Review, data);
   };
 }

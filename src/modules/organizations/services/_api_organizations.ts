@@ -60,4 +60,10 @@ export class ApiOrganizationsService extends AbstractApiRepository {
       url: '',
     });
   };
+
+  getReviews = async () => {
+    return this.apiClient.get({
+      url: '',
+    });
+  };
 }

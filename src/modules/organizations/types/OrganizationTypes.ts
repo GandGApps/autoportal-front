@@ -9,6 +9,7 @@ import {CurrentOrganization} from '../models/CurrentOrganization';
 import {PromotionList} from '../models/PromotionList';
 import {CreatedStatus} from '../models/CreatedStatus';
 import {CreatetFormModel} from '../form/CreateForm';
+import {Review} from '../models/Review';
 
 export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
@@ -25,6 +26,8 @@ export interface OrganizationsStateModel {
   promotionsList: PromotionList[];
   favoritesList: OrganizationList[];
   personalOrganizations: PersonalOrganizations[];
+  reviews: Review[];
+
   createdStatus: Nullable<CreatedStatus>;
 
   isOrganizationFilter: boolean;
@@ -37,6 +40,7 @@ export interface OrganizationsStateModel {
   isFavoritesListLoad: boolean;
   isPersonalOrganizationsLoad: boolean;
   isCreatedStatusLoad: boolean;
+  isReviewsLoad: boolean;
 
   currentOrganization: Nullable<CurrentOrganization>;
 }

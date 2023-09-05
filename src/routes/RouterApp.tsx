@@ -14,6 +14,7 @@ import {ProfileStack} from './stacks/ProfileStack';
 import {OrganizationStack} from './stacks/OrganizationStack';
 import Toast from 'react-native-toast-notifications';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {ReviewsStack} from './stacks/ReviewsStack';
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,7 @@ export const RouterApp = () => {
         {PromotionsStack()}
         {FavoritiesStack()}
         {ProfileStack()}
+        {ReviewsStack()}
       </Stack.Navigator>
 
       <Toast
