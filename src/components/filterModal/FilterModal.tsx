@@ -6,10 +6,14 @@ import {ScrollView, View} from 'react-native';
 import {MainContainer} from '../../template/containers/MainContainer';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
 import {
+  createChangeForm,
   filterChangeForm,
   selectOrganizationsValues,
 } from '../../modules/organizations/OrganizationsSlice';
-import {FilterFormKeys} from '../../modules/organizations/form/FilterForm';
+import {
+  FilterFormKeys,
+  FiltertFormModel,
+} from '../../modules/organizations/form/FilterForm';
 import {TypeService} from '../../modules/organizations/models/TypeService';
 import {
   SortFilterType,
@@ -23,16 +27,24 @@ import {ButtonUI} from '../../template/ui/ButtonUI';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../Loader';
 import {mockSchedule} from '../../modules/organizations/mock/MockSchedule';
+import {
+  CreateFormKeys,
+  CreatetFormModel,
+} from '../../modules/organizations/form/CreateForm';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
   typeModal: Nullable<FilterFormKeys>;
+  isCreate?: boolean;
+  filterForm?: FiltertFormModel;
+  createForm?: CreatetFormModel;
 }
 
 export const FilterModal = (props: CitiesFilterProps) => {
-  const {filterForm, organizationFilter} = useAppSelector(
-    selectOrganizationsValues,
-  );
+  const {organizationFilter} = useAppSelector(selectOrganizationsValues);
+
+  const form = props.isCreate ? props.createForm! : props.filterForm!;
+
   const dispatch = useAppDispatch();
 
   const [isSort, setIsSort] = useState(false);
@@ -56,22 +68,22 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
     switch (props.typeModal) {
       case 'typeService': {
-        setPickList(filterForm.typeService || []);
+        setPickList(form.typeService || []);
         setList(organizationFilter?.typeService!);
         break;
       }
       case 'brandCar': {
-        setPickList(filterForm.brandCar || []);
+        setPickList(form.brandCar || []);
         setList(organizationFilter?.brandCar!);
         break;
       }
       case 'sort': {
-        setTypeSort(filterForm.sort);
+        setTypeSort((form as FiltertFormModel).sort);
         setIsSort(true);
         break;
       }
       case 'schedule': {
-        setPickList(filterForm.schedule || []);
+        setPickList((form as FiltertFormModel).schedule || []);
         setList(mockSchedule);
         break;
       }
@@ -109,23 +121,45 @@ export const FilterModal = (props: CitiesFilterProps) => {
   };
 
   const handleSavePick = () => {
-    dispatch(
-      filterChangeForm({
-        key: props.typeModal!,
-        value: props.typeModal === 'sort' ? typeSort : pickList,
-      }),
-    );
+    if (props.isCreate) {
+      if (props.typeModal === 'typeService' || props.typeModal === 'brandCar') {
+        dispatch(
+          createChangeForm({
+            key: props.typeModal!,
+            value: pickList,
+          }),
+        );
+      }
+    } else {
+      dispatch(
+        filterChangeForm({
+          key: props.typeModal!,
+          value: props.typeModal === 'sort' ? typeSort : pickList,
+        }),
+      );
+    }
 
     props.modalizeRef.current?.close();
   };
 
   const handleResetPick = () => {
-    dispatch(
-      filterChangeForm({
-        key: props.typeModal!,
-        value: null,
-      }),
-    );
+    if (props.isCreate) {
+      if (props.typeModal === 'typeService' || props.typeModal === 'brandCar') {
+        dispatch(
+          createChangeForm({
+            key: props.typeModal!,
+            value: [],
+          }),
+        );
+      }
+    } else {
+      dispatch(
+        filterChangeForm({
+          key: props.typeModal!,
+          value: null,
+        }),
+      );
+    }
 
     props.modalizeRef.current?.close();
   };

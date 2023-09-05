@@ -106,6 +106,10 @@ const organizationsSlice = createSlice({
     setIsCreatedStatusLoad: (state, action: PayloadAction<boolean>) => {
       state.isCreatedStatusLoad = action.payload;
     },
+
+    resetOrganizationFilter: state => {
+      state.organizationFilter = null;
+    },
   },
   extraReducers: builder => {
     // GET Categories
@@ -216,6 +220,7 @@ export const {
   setIsPersonalOrganizationsLoad,
   setIsCreatedStatusLoad,
   setDefaultCreateForm,
+  resetOrganizationFilter,
 } = organizationsSlice.actions;
 
 export default organizationsSlice.reducer;

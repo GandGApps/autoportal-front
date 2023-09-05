@@ -535,7 +535,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = beta.rakoyedov.autoportal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakoyedov.autoportal;
 				PRODUCT_NAME = AutoPortal;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -566,7 +566,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = beta.rakoyedov.autoportal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakoyedov.autoportal;
 				PRODUCT_NAME = AutoPortal;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

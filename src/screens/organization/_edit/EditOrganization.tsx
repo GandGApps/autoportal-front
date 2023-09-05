@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {GradientHeader} from '../../../components/GradientHeader';
-import {useRoute} from '@react-navigation/native';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
 import {OrganizationEditParams} from '../../../routes/params/RouteParams';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {
+  resetOrganizationFilter,
   selectOrganizationsValues,
   setDefaultCreateForm,
 } from '../../../modules/organizations/OrganizationsSlice';
@@ -12,8 +13,8 @@ import {getCurrentOrganization} from '../../../modules/organizations/_thunks';
 import {CenterContainerFlex} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
 import {OrganizationHelper} from '../../../modules/organizations/helpers/OrganizationHelper';
-import {OrganizationScreen} from '../_single/OrganizationScreen';
 import {CreateOrganizationScreen} from '../_create/CreateOrganization';
+import {DefaultCreateForm} from '../../../modules/organizations/form/CreateForm';
 
 export const EditOrganizationScreen = () => {
   const {_id} = useRoute<OrganizationEditParams>().params;
@@ -25,6 +26,16 @@ export const EditOrganizationScreen = () => {
 
   const [isLoad, setIsLoad] = useState(true);
   const [isReady, setIsReady] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        setTimeout(() => {
+          resetCreateForm();
+        }, 0);
+      };
+    }, []),
+  );
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,6 +58,11 @@ export const EditOrganizationScreen = () => {
       }, 250);
     }
   }, [isLoad]);
+
+  const resetCreateForm = () => {
+    dispatch(resetOrganizationFilter());
+    dispatch(setDefaultCreateForm(DefaultCreateForm));
+  };
 
   return (
     <ColumnContainerFlex>

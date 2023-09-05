@@ -119,7 +119,11 @@ export const CatFilterScreens = () => {
         <ButtonUI title={'Поиск'} />
       </ColumnContainerFlexEnd>
 
-      <FilterModal typeModal={typeModal} modalizeRef={filterModalRef} />
+      <FilterModal
+        typeModal={typeModal}
+        modalizeRef={filterModalRef}
+        filterForm={filterForm}
+      />
       <CitiesModal modalizeRef={citiesModalRef} />
       <CategoriesModal modalizeRef={categoriesModalRef} />
     </ColumnContainerFlex>

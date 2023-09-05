@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MainContainer} from '../../../../template/containers/MainContainer';
 import {ColorsUI} from '../../../../template/styles/ColorUI';
 import {CheckboxUI} from '../../../../template/ui/CheckboxUI';
@@ -8,10 +8,12 @@ import {DateHelper, DaysOfWeek} from '../../../../helper/DateHelper';
 import {ViewPress} from '../../../../template/containers/ViewPress';
 import {RadioUI} from '../../../../template/ui/RadioUI';
 import DatePicker from 'react-native-date-picker';
-import {MaskHelper} from '../../../../helper/MaskHelper';
+import {ScheduleModel} from '../../../../modules/organizations/types/OrganizationTypes';
 
 interface CreateDayTimeWorkProps {
   indexDay: number;
+  onChangeSchedule: (value: ScheduleModel, isRemove?: boolean) => void;
+  isRemove?: boolean;
 }
 
 export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
@@ -37,6 +39,22 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
     setToTime(DateHelper.getFormatTime(date));
     setOpenTo(false);
   };
+
+  useEffect(() => {
+    const day = DateHelper.getScheduleForm({
+      indexDay: props.indexDay,
+      toTime,
+      fromTime,
+      isAllDay,
+    });
+
+    if (isActive) {
+      props.onChangeSchedule(day);
+      return;
+    }
+
+    props.onChangeSchedule(day, true);
+  }, [isActive, isAllDay, fromTime, toTime]);
 
   return (
     <MainContainer

@@ -14,14 +14,20 @@ import {Category} from '../modules/organizations/models/Category';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
+
+  onPickCategories?: (cat: Category) => void;
 }
 
 export const CategoriesModal = (props: CitiesFilterProps) => {
   const {categories} = useAppSelector(selectOrganizationsValues);
   const dispatch = useAppDispatch();
 
-  const handlePickCity = (city: Category) => {
-    dispatch(filterChangeForm({key: 'category', value: city}));
+  const handlePickCity = (category: Category) => {
+    if (props.onPickCategories) {
+      props.onPickCategories(category);
+    } else {
+      dispatch(filterChangeForm({key: 'category', value: category}));
+    }
 
     props.modalizeRef.current?.close();
   };
