@@ -2,6 +2,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Screens} from '../models/Screens';
 import {ReviewsListScreen} from '../../screens/reviews/ReviewsListScreen';
 import {ReviewCreateScreen} from '../../screens/reviews/_create/ReviewCreateScreen';
+
 const Stack = createStackNavigator();
 
 export const ReviewsStack = () => {

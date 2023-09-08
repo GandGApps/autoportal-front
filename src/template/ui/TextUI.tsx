@@ -57,6 +57,7 @@ interface TStyledP extends TextProps {
   $mr?: number;
   $color?: string;
   $isFlex?: boolean;
+  $ml?: number;
 }
 
 const TextUIStyled = styled.Text<TStyledP>`
@@ -66,6 +67,7 @@ const TextUIStyled = styled.Text<TStyledP>`
   margin-bottom: ${({$mb}) => $mb || 0}px;
   text-align: ${({$align}) => $align || 'left'};
   margin-right: ${({$mr}) => $mr || 0}px;
+  margin-left: ${({$ml}) => $ml || 0}px;
   font-family: ${({$family}) => $family};
   ${({$isFlex}) => ($isFlex ? `flex: 1;` : '')}
 `;
