@@ -9,6 +9,8 @@ import {Ag, TextUI} from '../../../../template/ui/TextUI';
 import {ColorsUI} from '../../../../template/styles/ColorUI';
 import {ReportIcon} from '../../../../template/icons/ReportIcon';
 import {MainContainer} from '../../../../template/containers/MainContainer';
+import Navigation from '../../../../routes/navigation/Navigation';
+import {Screens} from '../../../../routes/models/Screens';
 
 interface ReportProps {
   organizationId: string;
@@ -18,7 +20,7 @@ export const OrgReport = ({organizationId}: ReportProps) => {
   return (
     <BorderTopUI $ph={20} $pv={20}>
       <RowContainerBeetwen>
-        <ViewPress>
+        <ViewPress onPress={() => Navigation.navigate(Screens.REPORT_MODAL)}>
           <RowContainer>
             <MainContainer $mr={5}>
               <ReportIcon />
