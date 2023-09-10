@@ -1,9 +1,10 @@
 import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
+import {Platform} from 'react-native';
+
+import {appConfig} from '../../../appConfig';
 
 import {IAxiosConfig, IAxiosResponse, IExcludedUrl} from './IAxiosInterfaces';
-
 import {IApiClient} from '../ApiInterfaces';
-import {appConfig} from '../../../appConfig';
 
 export default class AxiosClient implements IApiClient {
   readonly SUCCESS_STATUSES = [200, 201];
@@ -62,7 +63,7 @@ export default class AxiosClient implements IApiClient {
   };
 
   protected excludedUrls(response: any) {
-    const excluded: IExcludedUrl[] = [{url: '/categories', method: 'GET'}];
+    const excluded: IExcludedUrl[] = [];
     let isExclude = false;
 
     const request = response.request;
@@ -86,6 +87,9 @@ export default class AxiosClient implements IApiClient {
     this.api.interceptors.request.use(
       async config => {
         config.headers.set('Content-Type', 'application/json');
+        config.headers.set('App-Platform', Platform.OS);
+        config.headers.set('App-DeviceId', appConfig.deviceId);
+        config.headers.set('App-Version', appConfig.version);
         config.headers.set('Accept-Timezone', timeZone);
 
         return {...config, headers: config.headers};

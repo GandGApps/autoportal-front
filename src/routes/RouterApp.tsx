@@ -16,6 +16,7 @@ import Toast from 'react-native-toast-notifications';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ReviewsStack} from './stacks/ReviewsStack';
 import {ReportStack} from './stacks/ReportStack';
+import {WelcomeScreen} from '../screens/welcome/WelcomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,8 @@ export const RouterApp = () => {
             presentation: 'transparentModal',
           }}
         />
+
+        <Stack.Screen name={Screens.WELCOME} component={WelcomeScreen} />
 
         {MainStack()}
         {OrganizationStack()}

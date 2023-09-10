@@ -25,7 +25,7 @@ export interface FilterFormProps {
 }
 
 export const DefaultFilterForm: FiltertFormModel = {
-  city: 'Москва',
+  city: '',
   category: null,
   typeService: null,
   brandCar: null,
