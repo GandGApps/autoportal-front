@@ -31,3 +31,8 @@ export interface ContainerProps {
   $borderColor?: string;
   $zIndex?: number;
 }
+
+export interface IconProps {
+  size?: number;
+  color?: string;
+}

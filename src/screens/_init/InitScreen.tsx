@@ -5,10 +5,24 @@ import {Screens} from '../../routes/models/Screens';
 import {Loader} from '../../components/Loader';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {StatusBar} from 'react-native';
+import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
+import {selectAuthValues} from '../../modules/auth/AuthSlice';
+import {initApp} from '../../modules/auth/thunks/init.thunk';
 
 export const InitScreen = () => {
+  const {isAuth} = useAppSelector(selectAuthValues);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    Navigation.replace(Screens.CATEGORIES);
+    (async () => {
+      await dispatch(initApp());
+
+      if (isAuth) {
+        Navigation.replace(Screens.CATEGORIES);
+      } else {
+        Navigation.replace(Screens.WELCOME);
+      }
+    })();
   }, []);
   return (
     <CenterContainerFlex $bg={ColorsUI.white}>

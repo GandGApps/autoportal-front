@@ -16,7 +16,7 @@ const getDevideId = (): string => {
 };
 
 export const appConfig = {
-  apiUrl: '/',
+  apiUrl: 'http://194.67.125.33:3001',
   deviceId: getDevideId(),
   version: `${getVersion()} (${getBuildNumber()})`,
   isIOS: Platform.OS === 'ios',

@@ -17,9 +17,11 @@ export const ColorsUI = {
   firm: '#A5EE68',
   lightGreen: '#BFFFD1',
   red: '#870000',
+  powerRed: '#FF3030',
   lightRed: '#DB7575',
   green: '#1E8A4A',
   whatsapp: '#48B737',
   transparent: 'transparent',
   brown: '#D17100',
+  opacity: 'rgba(7, 7, 7, 0.7);',
 };
