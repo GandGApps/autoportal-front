@@ -8,7 +8,7 @@ export class Notifications {
     });
   };
 
-  static error = (message: string) => {
+  static danger = (message: string) => {
     toast.show(message, {
       type: 'warning',
       placement: 'top',
@@ -17,7 +17,7 @@ export class Notifications {
     });
   };
 
-  static danger = (message: string) => {
+  static error = (message: string) => {
     toast.show(message, {
       type: 'danger',
       placement: 'top',

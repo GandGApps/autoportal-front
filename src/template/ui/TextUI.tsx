@@ -4,7 +4,7 @@ import {FontHelper} from '../helper/FontHelper';
 import {TextProps} from 'react-native';
 import {forwardRef} from 'react';
 
-type TAlign = 'start' | 'center' | 'right' | 'left';
+export type TAlign = 'start' | 'center' | 'right' | 'left';
 export type TWeight = 700 | 600 | 500 | 400;
 
 export enum Ag {
@@ -49,7 +49,7 @@ export const TextUI = (props: TTextUI) => {
   );
 };
 
-interface TStyledP extends TextProps {
+export interface TStyledP extends TextProps {
   $family?: string;
   size?: string;
   $mb?: number;

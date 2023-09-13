@@ -5,6 +5,7 @@ import {RootState} from '../../settings/redux/store';
 import {AuthStateModel} from './types/types';
 import {initApp} from './thunks/init.thunk';
 import {guestAuth} from './thunks/guest.thunks';
+import {loginAuth} from './thunks/login.thunks';
 
 const initialState: AuthStateModel = {
   loginForm: DefaultLoginForm,
@@ -47,12 +48,15 @@ const authSlice = createSlice({
     // Init App
     builder.addCase(initApp.fulfilled, (state, action) => {});
 
-    // Quest Auth
+    // Guest Auth
     builder.addCase(guestAuth.fulfilled, (state, action) => {});
+
+    // Login Auth
+    builder.addCase(loginAuth.fulfilled, (state, action) => {});
   },
 });
 
-export const {changeLoginForm, changeRegisterForm, setIsReady} =
+export const {changeLoginForm, changeRegisterForm, setIsAuth} =
   authSlice.actions;
 
 export const selectAuthValues = (state: RootState) => state.authSlice;

@@ -32,20 +32,22 @@ export const WelcomeScreen = () => {
 
   const [isError, setIsError] = useState(false);
 
+  const handleOpenModal = () => {
+    setIsError(false);
+    cityModal.current?.open();
+  };
+
   const handleGoToGuest = async () => {
     if (!filterForm.city) {
       setIsError(true);
       return;
     }
 
-    await dispatch(guestAuth());
-
     Navigation.navigate(Screens.CATEGORIES);
   };
 
-  const handleOpenModal = () => {
-    setIsError(false);
-    cityModal.current?.open();
+  const handleGoToAuth = () => {
+    Navigation.navigate(Screens.AUTH);
   };
 
   return (
@@ -121,7 +123,11 @@ export const WelcomeScreen = () => {
             title={'Войти как гость'}
             onPress={handleGoToGuest}
           />
-          <ButtonUI $type={'firm'} title={'Авторизация'} />
+          <ButtonUI
+            $type={'firm'}
+            title={'Авторизация'}
+            onPress={handleGoToAuth}
+          />
         </ColumnContainerFlexEnd>
       </AbsoluteContainer>
 

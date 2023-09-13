@@ -3,6 +3,7 @@ import OrganizationsSlice from '../../modules/organizations/OrganizationsSlice';
 import UserSlice from '../../modules/user/UserSlice';
 import EmployeersSlice from '../../modules/employeers/EmployeersSlice';
 import AuthSlice from '../../modules/auth/AuthSlice';
+import CitiesSlice from '../../modules/cities/CitiesSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     userSlice: UserSlice,
     employeersSlice: EmployeersSlice,
     authSlice: AuthSlice,
+    citiesSlice: CitiesSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

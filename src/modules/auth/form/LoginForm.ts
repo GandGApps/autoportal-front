@@ -1,4 +1,7 @@
-export type LoginFormKeys = 'email' | 'password';
+import {isEmailValid} from './../../user/form/UserEditForm';
+import {Notifications} from '../../../template/notifications/Notifications';
+
+export type LoginFormKeys = 'phone_number';
 
 export interface LoginFormProps {
   key: LoginFormKeys;
@@ -6,13 +9,20 @@ export interface LoginFormProps {
 }
 
 export interface LoginFormModel {
-  email: string;
-  password: string;
+  phone_number: string;
 }
 
 export type LoginFormValue = string;
 
 export const DefaultLoginForm: LoginFormModel = {
-  email: '',
-  password: '',
+  phone_number: '',
+};
+
+export const checkLoginValidation = (form: LoginFormModel) => {
+  if (form.phone_number.length !== 18) {
+    Notifications.error('Некорректный номер');
+    return false;
+  }
+
+  return true;
 };
