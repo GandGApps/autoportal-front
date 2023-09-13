@@ -5,7 +5,7 @@ import {ColorsUI} from '../styles/ColorUI';
 import {ContainerProps} from '../ui-types/UITypes';
 import {TextInputProps} from 'react-native';
 import {RowContainerBeetwen} from '../containers/RowContainer';
-import {Ag, TextUI} from './TextUI';
+import {Ag, TAlign, TStyledP, TextUI} from './TextUI';
 
 export interface InputUIProps extends TextInputProps {
   leftIcon?: ReactNode;
@@ -14,6 +14,8 @@ export interface InputUIProps extends TextInputProps {
   isSelect?: boolean;
   $size?: number;
   ag?: Ag;
+  $align?: TAlign;
+  styleP?: TStyledP;
 }
 
 export const InputUI = (props: InputUIProps) => {
@@ -22,6 +24,7 @@ export const InputUI = (props: InputUIProps) => {
       {props.leftIcon ? props.leftIcon : null}
       {props.isSelect ? (
         <TextUI
+          {...props.styleP}
           ag={props.ag || Ag['400_16']}
           color={props.value ? ColorsUI.black : ColorsUI.seriy}>
           {props.value || props.placeholder}

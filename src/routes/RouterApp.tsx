@@ -17,6 +17,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ReviewsStack} from './stacks/ReviewsStack';
 import {ReportStack} from './stacks/ReportStack';
 import {WelcomeScreen} from '../screens/welcome/WelcomeScreen';
+import {AuthStack} from './stacks/AuthStack';
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,7 @@ export const RouterApp = () => {
 
         <Stack.Screen name={Screens.WELCOME} component={WelcomeScreen} />
 
+        {AuthStack()}
         {MainStack()}
         {OrganizationStack()}
         {PromotionsStack()}

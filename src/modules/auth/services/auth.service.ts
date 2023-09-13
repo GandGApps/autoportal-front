@@ -1,5 +1,7 @@
+import {LoginFormModel} from './../form/LoginForm';
 import AbstractServiceRepository from '../../../settings/abstrcations/repositories/AbstractServiceRepository';
 import {AuthApiService} from './auth.api';
+import {AuthUser} from '../models/AuthUser';
 
 class AuthService extends AbstractServiceRepository {
   api: AuthApiService;
@@ -9,14 +11,16 @@ class AuthService extends AbstractServiceRepository {
     this.api = new AuthApiService();
   }
 
-  setToken = (token: string) => {
-    this.api.setAccessToken(token);
-  };
-
   questAuth = async () => {
     const {data} = await this.api.questAuth();
 
     return data as any as string;
+  };
+
+  login = async (form: LoginFormModel) => {
+    const {data} = await this.api.login(form);
+
+    return this.create<AuthUser>(AuthUser, data);
   };
 }
 

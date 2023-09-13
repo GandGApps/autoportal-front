@@ -1,11 +1,8 @@
 import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 
-export class UserInfo extends AbstractModel {
-  _id: string = '';
+export class City extends AbstractModel {
+  id: string = '';
   city: string = '';
-  full_Name: string = '';
-  phone_number: string = '';
-  email: string = '';
 
   constructor(props: any) {
     super();

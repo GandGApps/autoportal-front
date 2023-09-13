@@ -7,13 +7,28 @@ import {BottomTabs} from './values/BottomTabs';
 import {Dimensions} from 'react-native';
 import Navigation from '../../routes/navigation/Navigation';
 import {BottomTab} from './BottomTab';
+import {useAppSelector} from '../../settings/redux/hooks';
+import {selectAuthValues} from '../../modules/auth/AuthSlice';
+import {Screens} from '../../routes/models/Screens';
 
 export const BottomMenu = () => {
+  const {isAuth} = useAppSelector(selectAuthValues);
   const insets = useSafeAreaInsets();
+
+  const onlyAuthRoutes = [
+    Screens.ORGANIZATION_CREATE,
+    Screens.PROFILE,
+    Screens.FAVORITIES,
+  ];
 
   const width = Dimensions.get('window').width - 40;
 
   const handleNavigate = (screen: string) => {
+    if (!isAuth && onlyAuthRoutes.includes(screen)) {
+      Navigation.navigate(Screens.AUTH);
+      return;
+    }
+
     Navigation.navigate(screen);
   };
 

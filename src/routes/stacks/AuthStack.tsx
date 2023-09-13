@@ -4,7 +4,7 @@ import {AuthScreen} from '../../screens/auth/AuthScreen';
 
 const Stack = createStackNavigator();
 
-export const FavoritiesStack = () => {
+export const AuthStack = () => {
   return (
     <Stack.Group screenOptions={{headerShown: false}}>
       <Stack.Screen name={Screens.AUTH} component={AuthScreen} />

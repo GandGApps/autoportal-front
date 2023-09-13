@@ -14,14 +14,18 @@ class TokenService extends AbstractServiceRepository {
     this.api = new AuthApiService();
   }
 
-  getTokenData = async (): Promise<Nullable<TokenData>> => {
+  getTokenData = async (): Promise<Nullable<string>> => {
     const tokenData = await this.tokenLocal.get();
 
     if (!tokenData) {
       return null;
     }
 
-    return this.create<TokenData>(TokenData, tokenData);
+    return tokenData as Nullable<string>;
+  };
+
+  setTokenData = (token: string) => {
+    this.tokenLocal.set(token);
   };
 
   setAccessToken = (token: string) => {

@@ -48,8 +48,8 @@ export const EditScreen = () => {
     dispatch(
       setDefaultEditForm({
         city: userInfo?.city!,
-        fullName: userInfo?.fullName!,
-        phone: MaskHelper.formatPhoneNumber(userInfo?.phone)!,
+        fullName: userInfo?.full_Name!,
+        phone: MaskHelper.formatPhoneNumber(userInfo?.phone_number)!,
         email: userInfo?.email!,
       }),
     );

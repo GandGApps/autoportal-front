@@ -5,6 +5,7 @@ import {appConfig} from '../../../appConfig';
 
 import {IAxiosConfig, IAxiosResponse, IExcludedUrl} from './IAxiosInterfaces';
 import {IApiClient} from '../ApiInterfaces';
+import {Notifications} from '../../../template/notifications/Notifications';
 
 export default class AxiosClient implements IApiClient {
   readonly SUCCESS_STATUSES = [200, 201];
@@ -86,12 +87,14 @@ export default class AxiosClient implements IApiClient {
 
     this.api.interceptors.request.use(
       async config => {
-        config.headers.set('Content-Type', 'application/json');
+        config.headers.set(
+          'Content-Type',
+          config.headers['Content-Type'] || 'application/json',
+        );
         config.headers.set('App-Platform', Platform.OS);
         config.headers.set('App-DeviceId', appConfig.deviceId);
         config.headers.set('App-Version', appConfig.version);
         config.headers.set('Accept-Timezone', timeZone);
-
         return {...config, headers: config.headers};
       },
       error => Promise.reject(error),
@@ -110,10 +113,8 @@ export default class AxiosClient implements IApiClient {
         return response;
       },
       error => {
-        const isExcluded = this.excludedUrls(error.response);
-
-        if (!isExcluded) {
-          this.getApiErrors(error?.response?.data);
+        if (error.response?.data?.error) {
+          Notifications.error(error.response.data.error);
         }
 
         if (error.response?.status === this.SERVER_ERROR) {

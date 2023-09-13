@@ -39,8 +39,8 @@ export const isEditFormValid = (editForm: EditFormModel) => {
 export const isNewEditValue = (user: UserInfo, editForm: EditFormModel) => {
   return (
     user.city !== editForm.city ||
-    user.fullName !== editForm.fullName ||
-    user.phone !== MaskHelper.clearFormat(editForm.phone) ||
+    user.full_Name !== editForm.fullName ||
+    user.phone_number !== MaskHelper.clearFormat(editForm.phone) ||
     user.email !== editForm.email
   );
 };
