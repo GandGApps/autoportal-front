@@ -35,6 +35,14 @@ export const defaultContainerCSS = css<ContainerProps>`
   ${({$borderColor}) =>
     $borderColor ? `border: 1px solid ${$borderColor};` : ''}
 
+${({$borderBottom}) =>
+    $borderBottom
+      ? ` border-bottom-width: 1px;
+    border-bottom-color: ${$borderBottom};`
+      : ''}
+
+   
+
 ${({$zIndex}) => ($zIndex ? `z-index: ${$zIndex};` : '')}
 `;
 

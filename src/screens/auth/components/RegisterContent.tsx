@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {
   changeRegisterForm,
@@ -7,17 +7,24 @@ import {
 import {MainContainer} from '../../../template/containers/MainContainer';
 import {InputUI} from '../../../template/ui/InputUI';
 import {RegisterFormKeys} from '../../../modules/auth/form/RegisterForm';
-import {EmailIcon} from '../../../template/icons/EmailIcon';
-import {PasswordIcon} from '../../../template/icons/PasswordIcon';
 import {InputSelectUI} from '../../../template/ui/InputSelectUI';
 import {PhoneIcon} from '../../../template/icons/PhoneIcon';
 import {ColorsUI} from '../../../template/styles/ColorUI';
 import {LocationIcon} from '../../../template/icons/LocationIcon';
 import {ProfileIcon} from '../../../template/icons/ProfileIcon';
+import {CitiesModal} from '../../../components/CitiesModal';
+import {Modalize} from 'react-native-modalize';
+import {MaskHelper} from '../../../helper/MaskHelper';
 
 export const RegisterContent = () => {
   const {registerForm} = useAppSelector(selectAuthValues);
   const dispatch = useAppDispatch();
+
+  const cityModal = useRef<Modalize>(null);
+
+  const handleOpenModal = () => {
+    cityModal.current?.open();
+  };
 
   const handleChangeForm = (key: RegisterFormKeys, value: string) => {
     dispatch(changeRegisterForm({key, value}));
@@ -48,15 +55,17 @@ export const RegisterContent = () => {
               <LocationIcon size={20} color={ColorsUI.black} />
             </MainContainer>
           }
+          onPress={handleOpenModal}
         />
       </MainContainer>
 
       <MainContainer $mb={10}>
         <InputUI
-          secureTextEntry
-          placeholder={'Телефон'}
-          value={registerForm.phone_number}
+          placeholder={'+7 ('}
+          value={MaskHelper.formatPhoneNumber(registerForm.phone_number)}
+          maxLength={18}
           onChangeText={value => handleChangeForm('phone_number', value)}
+          keyboardType={'number-pad'}
           leftIcon={
             <MainContainer $mr={10}>
               <PhoneIcon color={ColorsUI.black} size={20} />
@@ -64,6 +73,11 @@ export const RegisterContent = () => {
           }
         />
       </MainContainer>
+
+      <CitiesModal
+        modalizeRef={cityModal}
+        onPickCity={city => handleChangeForm('city', city)}
+      />
     </>
   );
 };

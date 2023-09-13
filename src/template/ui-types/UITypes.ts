@@ -29,6 +29,7 @@ export interface ContainerProps {
   $isFlex?: boolean;
 
   $borderColor?: string;
+  $borderBottom?: string;
   $zIndex?: number;
 }
 
