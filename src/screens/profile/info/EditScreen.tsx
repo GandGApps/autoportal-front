@@ -119,6 +119,7 @@ export const EditScreen = () => {
               placeholder="Номер телефона"
               value={MaskHelper.formatPhoneNumber(editForm.phone)}
               onChangeText={phone => handleChangeEditForm('phone', phone)}
+              keyboardType={'number-pad'}
             />
 
             {isError && editForm.phone.length !== 18 ? (

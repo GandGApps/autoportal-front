@@ -38,4 +38,5 @@ export const Screens = {
   REPORT_CONFIRMED_MODAL: 'REPORT_CONFIRMED_MODAL',
 
   AUTH: 'AUTH',
+  AUTH_CODE: 'AUTH_CODE',
 };

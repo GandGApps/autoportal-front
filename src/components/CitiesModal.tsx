@@ -2,7 +2,7 @@ import React, {RefObject, useCallback, useState} from 'react';
 import {SwipeableModal} from './SwipbleModal';
 import {IHandles} from 'react-native-modalize/lib/options';
 import {Ag, TextUI} from '../template/ui/TextUI';
-import {ScrollView, TouchableOpacity} from 'react-native';
+import {Dimensions, ScrollView, TouchableOpacity} from 'react-native';
 import {BorderTopUI} from '../template/ui/BorderTopUI';
 import {MainContainer} from '../template/containers/MainContainer';
 import {useAppDispatch, useAppSelector} from '../settings/redux/hooks';
@@ -24,6 +24,8 @@ export const CitiesModal = (props: CitiesFilterProps) => {
   const dispatch = useAppDispatch();
 
   const [query, setQuery] = useState('');
+
+  const height = Dimensions.get('screen').height;
 
   useDebouncedEffect(
     () => {
@@ -51,11 +53,12 @@ export const CitiesModal = (props: CitiesFilterProps) => {
 
   return (
     <SwipeableModal modalizeRef={props.modalizeRef}>
-      <MainContainer $pb={20}>
+      <MainContainer $pb={20} $heightPX={height / 2}>
         <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
           {'Выберите город'}
         </TextUI>
         <InputUI
+          placeholder={'Название города'}
           containerStyles={{$mb: 20}}
           value={query}
           onChangeText={setQuery}

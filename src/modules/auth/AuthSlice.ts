@@ -2,14 +2,17 @@ import {DefaultRegisterForm, RegisterFormProps} from './form/RegisterForm';
 import {DefaultLoginForm, LoginFormProps} from './form/LoginForm';
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../../settings/redux/store';
-import {AuthStateModel} from './types/types';
+import {AuthStateModel, AuthType} from './types/types';
 import {initApp} from './thunks/init.thunk';
 import {guestAuth} from './thunks/guest.thunks';
-import {loginAuth} from './thunks/login.thunks';
 
 const initialState: AuthStateModel = {
   loginForm: DefaultLoginForm,
   registerForm: DefaultRegisterForm,
+
+  type: 'Вход',
+
+  title: '',
 
   isAuth: false,
   isReady: false,
@@ -39,8 +42,12 @@ const authSlice = createSlice({
       state.isAuth = action.payload;
     },
 
-    setIsReady: (state, action: PayloadAction<boolean>) => {
-      state.isReady = action.payload;
+    setTitle: (state, action: PayloadAction<string>) => {
+      state.title = action.payload;
+    },
+
+    setAuthType: (state, action: PayloadAction<AuthType>) => {
+      state.type = action.payload;
     },
   },
 
@@ -50,14 +57,16 @@ const authSlice = createSlice({
 
     // Guest Auth
     builder.addCase(guestAuth.fulfilled, (state, action) => {});
-
-    // Login Auth
-    builder.addCase(loginAuth.fulfilled, (state, action) => {});
   },
 });
 
-export const {changeLoginForm, changeRegisterForm, setIsAuth} =
-  authSlice.actions;
+export const {
+  changeLoginForm,
+  changeRegisterForm,
+  setIsAuth,
+  setTitle,
+  setAuthType,
+} = authSlice.actions;
 
 export const selectAuthValues = (state: RootState) => state.authSlice;
 

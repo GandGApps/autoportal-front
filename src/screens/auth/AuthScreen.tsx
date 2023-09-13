@@ -3,10 +3,7 @@ import {Platform} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Insets} from '../../template/styles/Insets';
 import {BackBtn} from '../../template/ui/BackBtn';
-import {
-  ColumnContainerBetweenFlex,
-  ColumnContainerFlex,
-} from '../../template/containers/ColumnContainer';
+import {ColumnContainerBetweenFlex} from '../../template/containers/ColumnContainer';
 import {ImageUI} from '../../template/ui/ImageUI';
 import {MockAuthTabs} from './mock/MockAuthTabs';
 import {TabMenu} from '../../components/tabMenu/TabMenu';
@@ -17,8 +14,11 @@ import {ButtonUI} from '../../template/ui/ButtonUI';
 import {CenterContainer} from '../../template/containers/CenterContainer';
 import {checkLoginValidation} from '../../modules/auth/form/LoginForm';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
-import {selectAuthValues} from '../../modules/auth/AuthSlice';
-import {loginAuth} from '../../modules/auth/thunks/login.thunks';
+import {selectAuthValues, setAuthType} from '../../modules/auth/AuthSlice';
+import {checkRegisterValidation} from '../../modules/auth/form/RegisterForm';
+import {getCode} from '../../modules/auth/thunks/getCode.thunks';
+import {AuthType} from '../../modules/auth/types/types';
+import {registerAuth} from '../../modules/auth/thunks/register.thunks';
 
 export const AuthScreen = () => {
   const dispatch = useAppDispatch();
@@ -27,15 +27,28 @@ export const AuthScreen = () => {
 
   const [isDiabled, setIsDisabled] = useState(false);
 
+  const handleChangeTab = (type: string) => {
+    dispatch(setAuthType(type as AuthType));
+
+    setActiveTab(type);
+  };
+
   const handleAuthPress = () => {
     if (activeTab === MockAuthTabs.login) {
       if (checkLoginValidation(loginForm)) {
         setIsDisabled(true);
-        dispatch(loginAuth()).finally(() => {
+        dispatch(getCode()).finally(() => {
           setIsDisabled(false);
         });
       }
       return;
+    }
+
+    if (checkRegisterValidation(registerForm)) {
+      setIsDisabled(true);
+      dispatch(registerAuth()).finally(() => {
+        setIsDisabled(false);
+      });
     }
   };
 
@@ -76,7 +89,7 @@ export const AuthScreen = () => {
             $mb={30}
             activeTab={activeTab}
             tabs={MockAuthTabs}
-            onChangeTab={setActiveTab}
+            onChangeTab={handleChangeTab}
           />
 
           {renderContent()}
