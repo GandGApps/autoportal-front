@@ -1,5 +1,5 @@
 import {PersonalOrganizations} from './../models/PersonalOrganizations';
-import {UnitsFilter} from './../types/OrganizationTypes';
+import {ScheduleFilterDTO, UnitsFilter} from './../types/OrganizationTypes';
 import {FilterFormKeys} from '../form/FilterForm';
 import {CreatetFormModel} from '../form/CreateForm';
 import {CurrentOrganization} from '../models/CurrentOrganization';
@@ -55,6 +55,24 @@ export class OrganizationHelper {
       activeList: list.filter(item => item.isActive),
       disabledList: list.filter(item => !item.isActive),
     };
+  };
+
+  static formattedScheduleDTO = (schedules: string[]) => {
+    let scheduleFilter: ScheduleFilterDTO = {
+      Days: schedules.filter(
+        day => day !== 'Круглосуточно' && day !== 'Сейчас работает',
+      ),
+    };
+
+    if (schedules.includes('Круглосуточно')) {
+      scheduleFilter = {...scheduleFilter, isAllDay: true};
+    }
+
+    if (schedules.includes('Сейчас работает')) {
+      scheduleFilter = {...scheduleFilter, isNowWork: true};
+    }
+
+    return scheduleFilter;
   };
 
   static getDefaultCreateForm = (

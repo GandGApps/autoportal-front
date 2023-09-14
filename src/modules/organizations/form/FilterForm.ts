@@ -8,7 +8,9 @@ export type FilterFormKeys =
   | 'typeService'
   | 'brandCar'
   | 'sort'
-  | 'schedule';
+  | 'schedule'
+  | 'isAllDay'
+  | 'isNowWork';
 
 export interface FiltertFormModel {
   city: string;
@@ -17,6 +19,8 @@ export interface FiltertFormModel {
   brandCar: Nullable<string[]>;
   sort: Nullable<SortFilterType>;
   schedule: Nullable<string[]>;
+  isAllDay: boolean;
+  isNowWork: boolean;
 }
 
 export interface FilterFormProps {
@@ -31,4 +35,6 @@ export const DefaultFilterForm: FiltertFormModel = {
   brandCar: null,
   sort: null,
   schedule: null,
+  isAllDay: false,
+  isNowWork: false,
 };

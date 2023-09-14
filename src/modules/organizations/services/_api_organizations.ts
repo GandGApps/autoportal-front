@@ -1,4 +1,7 @@
 import AbstractApiRepository from '../../../settings/abstrcations/repositories/AbstractApiRepository';
+import {Endpoints} from '../../../template/api/Endpoints';
+import {FiltertFormModel} from '../form/FilterForm';
+import {OrganizationsDTO} from '../types/OrganizationTypes';
 
 export class ApiOrganizationsService extends AbstractApiRepository {
   getBanners = async (city: string) => {
@@ -7,21 +10,22 @@ export class ApiOrganizationsService extends AbstractApiRepository {
     });
   };
 
-  getCategories = async (city: string) => {
+  getCategories = async () => {
     return this.apiClient.get({
-      url: '',
+      url: Endpoints.categories,
     });
   };
 
   getSearchServices = async (query: string) => {
     return this.apiClient.get({
-      url: '',
+      url: Endpoints.searchSubServices(query),
     });
   };
 
-  getOrganizationFilter = async (categoryId: string) => {
-    return this.apiClient.get({
-      url: '',
+  getOrganizationFilter = async (form: OrganizationsDTO) => {
+    return this.apiClient.post({
+      url: Endpoints.organizations,
+      data: form,
     });
   };
 

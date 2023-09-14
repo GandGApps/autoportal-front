@@ -1,5 +1,5 @@
 import AbstractServiceRepository from '../../../settings/abstrcations/repositories/AbstractServiceRepository';
-import {MockUserInfo} from '../mock/MockUserInfo';
+
 import {UserInfo} from '../models/UserInfo';
 import {ApiUser} from './_api_user';
 
@@ -12,9 +12,7 @@ export class UserService extends AbstractServiceRepository {
   }
 
   getUserInfo = async () => {
-    // const {data} = await this.api.getUserInfo();
-
-    const data = MockUserInfo;
+    const {data} = await this.api.getUserInfo();
 
     return this.create<UserInfo>(UserInfo, data);
   };

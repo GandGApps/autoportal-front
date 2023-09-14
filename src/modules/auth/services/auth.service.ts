@@ -21,7 +21,7 @@ class AuthService extends AbstractServiceRepository {
   };
 
   registerAuth = async (regForm: RegisterFormModel) => {
-    const {data} = await this.api.registerAuth(regForm.phone_number, {
+    const {data} = await this.api.registerAuth({
       city: regForm.city,
       full_name: regForm.full_name,
     });

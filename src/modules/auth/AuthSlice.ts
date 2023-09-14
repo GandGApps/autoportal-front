@@ -49,6 +49,12 @@ const authSlice = createSlice({
     setAuthType: (state, action: PayloadAction<AuthType>) => {
       state.type = action.payload;
     },
+
+    // RESETS
+    resetAuthForms: state => {
+      state.loginForm = DefaultLoginForm;
+      state.registerForm = DefaultRegisterForm;
+    },
   },
 
   extraReducers(builder) {
@@ -66,6 +72,7 @@ export const {
   setIsAuth,
   setTitle,
   setAuthType,
+  resetAuthForms,
 } = authSlice.actions;
 
 export const selectAuthValues = (state: RootState) => state.authSlice;

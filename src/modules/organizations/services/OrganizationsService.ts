@@ -1,13 +1,9 @@
 import {PersonalOrganizations} from './../models/PersonalOrganizations';
 import {PromotionList} from './../models/PromotionList';
 import {SearchServices} from './../models/SearchServices';
-import {MockCategories} from '../mock/MockCategories';
 import AbstractServiceRepository from '../../../settings/abstrcations/repositories/AbstractServiceRepository';
-import {MockOrganizationFilter} from '../mock/MockOrganizationFilter';
 import {Category} from '../models/Category';
 import {OrganizationFilter} from '../models/OrganizationFilter';
-import {MockBanners} from '../mock/MockBanners';
-import {MockSearchServices} from '../mock/MockSearchServices';
 import {OrganizationList} from '../models/OrganizationList';
 import {MockOrganizationList} from '../mock/MockOrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
@@ -18,6 +14,9 @@ import {CreatedStatus} from '../models/CreatedStatus';
 import {MockPersonalOrganizations} from '../mock/MockPersonalOrganizations';
 import {MockReviews} from '../mock/MockReviews';
 import {Review} from '../models/Review';
+import {FiltertFormModel} from '../form/FilterForm';
+import {OrganizationsDTO} from '../types/OrganizationTypes';
+import {OrganizationHelper} from '../helpers/OrganizationHelper';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -28,33 +27,35 @@ export class OrganizationsService extends AbstractServiceRepository {
   }
 
   getBanners = async (city: string) => {
-    // const {data} = await this.api.getBanners(city)
+    const {data} = await this.api.getBanners(city);
 
-    const data = MockBanners;
-
-    return data as string[];
+    return data as any as string[];
   };
 
   getSearchServices = async (query: string) => {
-    // const {data} = await this.api.getSearchServices(query)
-
-    const data = MockSearchServices;
+    const {data} = await this.api.getSearchServices(query);
 
     return this.createList<SearchServices>(SearchServices, data);
   };
 
-  getCategories = async (city: string) => {
-    // const {data} = await this.api.getCategories(city);
-
-    const data = MockCategories;
+  getCategories = async () => {
+    const {data} = await this.api.getCategories();
 
     return this.createList<Category>(Category, data);
   };
 
-  getOrganizationFilter = async (categoryId: string) => {
-    // const {data} = await this.api.getOrganizationFilter(categoryId);
+  getOrganizationFilter = async (form: FiltertFormModel) => {
+    const dto: OrganizationsDTO = {
+      city: form.city,
+      categoryId: form.category?._id!,
+      servicesId: form.typeService || [],
+      sortType: form.sort || undefined,
+      scheduleFilter: OrganizationHelper.formattedScheduleDTO(
+        form.schedule || [],
+      ),
+    };
 
-    const data = MockOrganizationFilter;
+    const {data} = await this.api.getOrganizationFilter(dto);
 
     return this.create<OrganizationFilter>(OrganizationFilter, data);
   };
