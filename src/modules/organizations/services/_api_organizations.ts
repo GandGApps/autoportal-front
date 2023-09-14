@@ -22,22 +22,22 @@ export class ApiOrganizationsService extends AbstractApiRepository {
     });
   };
 
-  getOrganizationFilter = async (form: OrganizationsDTO) => {
-    return this.apiClient.post({
-      url: Endpoints.organizations,
-      data: form,
+  getOrganizationFilter = async (catId: string) => {
+    return this.apiClient.get({
+      url: Endpoints.filter(catId),
     });
   };
 
-  getOrganizationList = async () => {
+  getOrganizationList = async (dto: OrganizationsDTO) => {
     return this.apiClient.post({
-      url: '',
+      url: Endpoints.organizations,
+      data: dto,
     });
   };
 
   getCurrentOrganization = async (_id: string) => {
     return this.apiClient.get({
-      url: '',
+      url: Endpoints.currentOrganization(_id),
     });
   };
 

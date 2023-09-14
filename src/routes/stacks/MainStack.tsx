@@ -1,11 +1,11 @@
-import {TransitionPresets, createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {Screens} from '../models/Screens';
 import {CategoriesScreen} from '../../screens/categories/CategoriesScreen';
 import {CatSearchScreen} from '../../screens/categories/_searchServices/CatSearchScreen';
-import {CatOrganizationsScreens} from '../../screens/categories/_organizations/CatOrganizationsScreens';
 import {CatFilterScreens} from '../../screens/categories/_filter/CatFilterScreens';
 import {StackAnimated} from '../navigation/Animation';
 import {Platform} from 'react-native';
+import {CatOrganizationsScreens} from '../../screens/organization/_cat_list/CatOrganizationsScreens';
 
 const Stack = createStackNavigator();
 

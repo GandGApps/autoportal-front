@@ -117,6 +117,14 @@ const organizationsSlice = createSlice({
     resetOrganizationFilter: state => {
       state.organizationFilter = null;
     },
+
+    resetFilterForm: state => {
+      state.filterForm = {
+        ...DefaultFilterForm,
+        city: state.filterForm.city,
+        category: state.filterForm.category,
+      };
+    },
   },
   extraReducers: builder => {
     // GET Categories
@@ -238,6 +246,7 @@ export const {
   setDefaultCreateForm,
   resetOrganizationFilter,
   setIsReviewsLoad,
+  resetFilterForm,
 } = organizationsSlice.actions;
 
 export default organizationsSlice.reducer;

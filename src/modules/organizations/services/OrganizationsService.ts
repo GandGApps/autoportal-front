@@ -7,7 +7,6 @@ import {OrganizationFilter} from '../models/OrganizationFilter';
 import {OrganizationList} from '../models/OrganizationList';
 import {MockOrganizationList} from '../mock/MockOrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
-import {MockCurrentOrganization} from '../mock/MockOrganization';
 import {MockPromotions} from '../mock/MockPromotions';
 import {ApiOrganizationsService} from './_api_organizations';
 import {CreatedStatus} from '../models/CreatedStatus';
@@ -44,36 +43,37 @@ export class OrganizationsService extends AbstractServiceRepository {
     return this.createList<Category>(Category, data);
   };
 
-  getOrganizationFilter = async (form: FiltertFormModel) => {
+  getOrganizationFilter = async (catId: string) => {
+    const {data} = await this.api.getOrganizationFilter(catId);
+
+    return this.create<OrganizationFilter>(OrganizationFilter, data);
+  };
+
+  getOrganizationList = async (form: FiltertFormModel) => {
+    const sortType = form.sort ? {sortType: form.sort} : {};
+
     const dto: OrganizationsDTO = {
       city: form.city,
       categoryId: form.category?._id!,
       servicesId: form.typeService || [],
-      sortType: form.sort || undefined,
+      ...sortType,
       scheduleFilter: OrganizationHelper.formattedScheduleDTO(
         form.schedule || [],
       ),
     };
 
-    const {data} = await this.api.getOrganizationFilter(dto);
-
-    return this.create<OrganizationFilter>(OrganizationFilter, data);
-  };
-
-  getOrganizationList = async () => {
-    // const {data} = await this.api.getOrganizationList()
-
-    const data = MockOrganizationList;
+    const {data} = await this.api.getOrganizationList(dto);
 
     return this.createList<OrganizationList>(OrganizationList, data);
   };
 
   getCurrentOrganization = async (_id: string) => {
-    // const {data} = await this.api.getCurrentOrganization(_id);
+    const {data} = await this.api.getCurrentOrganization(_id);
 
-    const data = MockCurrentOrganization;
-
-    return this.create<CurrentOrganization>(CurrentOrganization, data);
+    return this.create<CurrentOrganization>(
+      CurrentOrganization,
+      (data as any).organisation,
+    );
   };
 
   getPromotionsList = async () => {

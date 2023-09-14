@@ -55,12 +55,11 @@ export const InfoScreen = () => {
               {`г. ${userInfo?.city}`}
             </TextUI>
             <TextUI $mb={20} ag={Ag['400_16']}>
-              {userInfo?.full_Name}
+              {userInfo?.full_name}
             </TextUI>
             <TextUI $mb={20} ag={Ag['400_16']}>
               {MaskHelper.formatPhoneNumber(userInfo?.phone_number)}
             </TextUI>
-            <TextUI ag={Ag['400_16']}>{userInfo?.email}</TextUI>
           </MainContainer>
 
           <BorderTopUI $isFlex>

@@ -10,7 +10,10 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
 import {InputUI} from '../../../template/ui/InputUI';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
-import {selectOrganizationsValues} from '../../../modules/organizations/OrganizationsSlice';
+import {
+  resetFilterForm,
+  selectOrganizationsValues,
+} from '../../../modules/organizations/OrganizationsSlice';
 import {SelectUI} from '../../../template/ui/SelectUI';
 import {FilterIcon} from '../../../template/icons/FilterIcon';
 import Navigation from '../../../routes/navigation/Navigation';
@@ -50,7 +53,14 @@ export const CatOrganizationsScreens = () => {
     citiesModalRef.current?.open();
   };
 
-  const handleResetFilter = () => {};
+  const handleResetFilter = () => {
+    dispatch(resetFilterForm());
+
+    setIsLoad(true);
+    dispatch(getOrganizationList()).finally(() => {
+      setIsLoad(false);
+    });
+  };
 
   const handleGoToFilter = () => {
     Navigation.navigate(Screens.CAT_FILTER);

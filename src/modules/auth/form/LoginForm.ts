@@ -1,4 +1,3 @@
-import {isEmailValid} from './../../user/form/UserEditForm';
 import {Notifications} from '../../../template/notifications/Notifications';
 
 export type LoginFormKeys = 'phone_number';

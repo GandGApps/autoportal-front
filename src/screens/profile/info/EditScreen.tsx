@@ -21,7 +21,6 @@ import {InputSelectUI} from '../../../template/ui/InputSelectUI';
 import {
   EditFormKeys,
   isEditFormValid,
-  isEmailValid,
   isNewEditValue,
 } from '../../../modules/user/form/UserEditForm';
 import {ColorsUI} from '../../../template/styles/ColorUI';
@@ -48,9 +47,8 @@ export const EditScreen = () => {
     dispatch(
       setDefaultEditForm({
         city: userInfo?.city!,
-        fullName: userInfo?.full_Name!,
+        fullName: userInfo?.full_name!,
         phone: MaskHelper.formatPhoneNumber(userInfo?.phone_number)!,
-        email: userInfo?.email!,
       }),
     );
   }, []);
@@ -126,22 +124,6 @@ export const EditScreen = () => {
               <MainContainer $mt={5}>
                 <TextUI ag={Ag['500_12']} color={ColorsUI.red}>
                   {'Некорректный номер'}
-                </TextUI>
-              </MainContainer>
-            ) : null}
-          </MainContainer>
-
-          <MainContainer $mb={10}>
-            <InputUI
-              placeholder="Почта"
-              value={editForm.email}
-              onChangeText={email => handleChangeEditForm('email', email)}
-            />
-
-            {isError && !isEmailValid(editForm.email) ? (
-              <MainContainer $mt={5}>
-                <TextUI ag={Ag['500_12']} color={ColorsUI.red}>
-                  {'Такой почты не существует'}
                 </TextUI>
               </MainContainer>
             ) : null}
