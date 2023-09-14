@@ -27,10 +27,7 @@ import {ButtonUI} from '../../template/ui/ButtonUI';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../Loader';
 import {mockSchedule} from '../../modules/organizations/mock/MockSchedule';
-import {
-  CreateFormKeys,
-  CreatetFormModel,
-} from '../../modules/organizations/form/CreateForm';
+import {CreatetFormModel} from '../../modules/organizations/form/CreateForm';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
@@ -190,32 +187,34 @@ export const FilterModal = (props: CitiesFilterProps) => {
                   />
                 </>
               ) : (
-                list.map(item => (
-                  <View key={`${props.typeModal}-${item._id}`}>
-                    <FilterModalPick
-                      item={item}
-                      onPickItem={() => handlePickItem(item)}
-                      pickList={pickList}
-                      isCatSub={
-                        props.typeModal === 'typeService' &&
-                        (item as TypeService).subServices !== undefined
-                      }
-                    />
+                <>
+                  {list.map(item => (
+                    <View key={`${props.typeModal}-${item._id}`}>
+                      <FilterModalPick
+                        item={item}
+                        onPickItem={() => handlePickItem(item)}
+                        pickList={pickList}
+                        isCatSub={
+                          props.typeModal === 'typeService' &&
+                          (item as TypeService).subServices !== undefined
+                        }
+                      />
 
-                    {props.typeModal === 'typeService' &&
-                    (item as TypeService).subServices
-                      ? (item as TypeService).subServices?.map(subItem => (
-                          <MainContainer $ml={20} key={`sub-${subItem._id}`}>
-                            <FilterModalPick
-                              item={subItem}
-                              onPickItem={() => handlePickItem(subItem)}
-                              pickList={pickList}
-                            />
-                          </MainContainer>
-                        ))
-                      : null}
-                  </View>
-                ))
+                      {props.typeModal === 'typeService' &&
+                      (item as TypeService).subServices
+                        ? (item as TypeService).subServices?.map(subItem => (
+                            <MainContainer $ml={20} key={`sub-${subItem._id}`}>
+                              <FilterModalPick
+                                item={subItem}
+                                onPickItem={() => handlePickItem(subItem)}
+                                pickList={pickList}
+                              />
+                            </MainContainer>
+                          ))
+                        : null}
+                    </View>
+                  ))}
+                </>
               )}
             </ScrollView>
             <RowContainerBeetwen $mt={20}>

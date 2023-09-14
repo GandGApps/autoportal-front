@@ -18,9 +18,10 @@ export class AuthApiService extends AbstractApiRepository {
     });
   };
 
-  registerAuth = (phone: string, dto: RegisterDTO) => {
+  registerAuth = (dto: RegisterDTO) => {
+    console.log(dto);
     return this.apiClient.post({
-      url: Endpoints.register(phone),
+      url: Endpoints.register,
       data: dto,
     });
   };

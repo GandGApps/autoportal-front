@@ -1,10 +1,11 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {authService} from '../services/auth.service';
 import {tokenService} from '../services/token/token.fabric';
-import {setIsAuth} from '../AuthSlice';
+import {resetAuthForms, setIsAuth} from '../AuthSlice';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import {RootState} from '../../../settings/redux/store';
+import {registerAuth} from './register.thunks';
 
 export const sendCode = createAsyncThunk(
   'auth/sendCode',
@@ -18,10 +19,14 @@ export const sendCode = createAsyncThunk(
     });
 
     if (authUser.token) {
-      tokenService.setAccessToken(authUser.token);
       tokenService.setTokenData(authUser.token);
+      tokenService.setAccessToken(authUser.token);
 
-      dispatch(setIsAuth(true));
+      if (type === 'Регистрация') {
+        await dispatch(registerAuth());
+      }
+
+      dispatch(resetAuthForms());
 
       Navigation.replace(Screens.INIT);
     }

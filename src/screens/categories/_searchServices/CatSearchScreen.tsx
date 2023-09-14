@@ -89,16 +89,24 @@ export const CatSearchScreen = () => {
             <Loader size={20} />
           </CenterContainerFlex>
         ) : (
-          searchServices.map(item => (
-            <BorderTopUI key={`search-${item._id}`}>
-              <TouchableOpacity onPress={() => handleSelectService(item)}>
-                <MainContainer $pv={15} $pl={8}>
-                  <TextUI ag={Ag['400_16']}>{item.title}</TextUI>
-                  <TextUI ag={Ag['400_12']}>{item.category?.title}</TextUI>
-                </MainContainer>
-              </TouchableOpacity>
-            </BorderTopUI>
-          ))
+          <>
+            {searchServices.map(item => (
+              <BorderTopUI key={`search-${item._id}`}>
+                <TouchableOpacity onPress={() => handleSelectService(item)}>
+                  <MainContainer $pv={15} $pl={8}>
+                    <TextUI ag={Ag['400_16']}>{item.title}</TextUI>
+                    <TextUI ag={Ag['400_12']}>{item.category?.title}</TextUI>
+                  </MainContainer>
+                </TouchableOpacity>
+              </BorderTopUI>
+            ))}
+
+            {!searchServices.length ? (
+              <TextUI ag={Ag['400_16']}>
+                {'По вашему запросу услуга не найдена'}
+              </TextUI>
+            ) : null}
+          </>
         )}
       </ScrollViewScreen>
     </ColumnContainerFlex>

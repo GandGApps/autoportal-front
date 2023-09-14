@@ -18,7 +18,6 @@ import {selectAuthValues, setAuthType} from '../../modules/auth/AuthSlice';
 import {checkRegisterValidation} from '../../modules/auth/form/RegisterForm';
 import {getCode} from '../../modules/auth/thunks/getCode.thunks';
 import {AuthType} from '../../modules/auth/types/types';
-import {registerAuth} from '../../modules/auth/thunks/register.thunks';
 
 export const AuthScreen = () => {
   const dispatch = useAppDispatch();
@@ -46,7 +45,7 @@ export const AuthScreen = () => {
 
     if (checkRegisterValidation(registerForm)) {
       setIsDisabled(true);
-      dispatch(registerAuth()).finally(() => {
+      dispatch(getCode()).finally(() => {
         setIsDisabled(false);
       });
     }

@@ -68,3 +68,18 @@ export interface ScheduleModel {
   toTime?: string;
   isAllDay?: boolean;
 }
+
+export interface OrganizationsDTO {
+  city: string;
+  categoryId: string;
+  servicesId?: string[];
+  brandsCarsId?: string[];
+  sortType?: 'ratingASC' | 'ratingDESC';
+  scheduleFilter?: ScheduleFilterDTO;
+}
+
+export interface ScheduleFilterDTO {
+  isAllDay?: boolean;
+  isNowWork?: boolean;
+  Days: string[];
+}
