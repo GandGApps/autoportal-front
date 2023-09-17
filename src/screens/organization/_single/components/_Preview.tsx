@@ -47,7 +47,7 @@ export const OrganizationPreview = (props: OrganizationPreviewProps) => {
           </RowContainerBeetwen>
         </AbsoluteContainer>
 
-        {props.previews ? (
+        {props.previews?.length ? (
           <CarouselUI
             list={props.previews}
             width={carouselWidth}
@@ -65,7 +65,7 @@ export const OrganizationPreview = (props: OrganizationPreviewProps) => {
               <NoImage size={40} color={ColorsUI.white} />
             </MainContainer>
             <TextUI ag={Ag['400_16']} color={ColorsUI.white}>
-              {'Нет изображений'}
+              {'Без фото'}
             </TextUI>
           </CenterContainer>
         )}

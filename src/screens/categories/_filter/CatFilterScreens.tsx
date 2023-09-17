@@ -20,7 +20,11 @@ import {Modalize} from 'react-native-modalize';
 import {CitiesModal} from '../../../components/CitiesModal';
 import {CategoriesModal} from '../../../components/CategoriesModal';
 import {ButtonUI} from '../../../template/ui/ButtonUI';
-import {getOrganizationFilter} from '../../../modules/organizations/_thunks';
+import {
+  getOrganizationFilter,
+  getOrganizationList,
+} from '../../../modules/organizations/_thunks';
+import Navigation from '../../../routes/navigation/Navigation';
 
 export const CatFilterScreens = () => {
   const {filterForm, organizationFilter} = useAppSelector(
@@ -55,6 +59,12 @@ export const CatFilterScreens = () => {
     categoriesModalRef.current?.open();
   };
 
+  const handleSearch = () => {
+    dispatch(getOrganizationList());
+
+    Navigation.pop();
+  };
+
   return (
     <ColumnContainerFlex $mt={Math.max(insets.top, 20)} $ph={20}>
       <RowContainerBeetwen $mb={15}>
@@ -62,8 +72,6 @@ export const CatFilterScreens = () => {
           <BackBtn $mr={20} />
           <TextUI ag={Ag['500_18']}>{'Фильтр'}</TextUI>
         </RowContainer>
-
-        <TextUI ag={Ag['500_12']}>{'Очистить фильтр'}</TextUI>
       </RowContainerBeetwen>
 
       <InputSelectUI
@@ -81,7 +89,7 @@ export const CatFilterScreens = () => {
         onPress={() => handleOpenModalCategory()}
       />
 
-      {organizationFilter?.typeService ? (
+      {organizationFilter?.typeService?.length ? (
         <InputSelectUI
           containerStyles={{
             $mb: 10,
@@ -90,7 +98,7 @@ export const CatFilterScreens = () => {
           onPress={() => handleOpenFilterModal('typeService')}
         />
       ) : null}
-      {organizationFilter?.brandCar ? (
+      {organizationFilter?.brandCar?.length ? (
         <InputSelectUI
           containerStyles={{
             $mb: 10,
@@ -116,7 +124,7 @@ export const CatFilterScreens = () => {
       />
 
       <ColumnContainerFlexEnd $mb={Math.max(insets.bottom, 20)}>
-        <ButtonUI title={'Поиск'} />
+        <ButtonUI title={'Поиск'} onPress={handleSearch} />
       </ColumnContainerFlexEnd>
 
       <FilterModal

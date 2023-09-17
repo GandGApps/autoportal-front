@@ -37,8 +37,7 @@ export const getBanners = createAsyncThunk(
 export const getCategories = createAsyncThunk(
   'organizations/categories',
   async (_, {getState, dispatch}) => {
-    const {filterForm, isCategoriesLoad} = (getState() as RootState)
-      .organizationsSlice;
+    const {isCategoriesLoad} = (getState() as RootState).organizationsSlice;
 
     if (isCategoriesLoad) {
       return null;
@@ -46,11 +45,9 @@ export const getCategories = createAsyncThunk(
 
     dispatch(setIsCategoriesLoad(true));
 
-    return await organizationService
-      .getCategories(filterForm.city)
-      .finally(() => {
-        dispatch(setIsCategoriesLoad(false));
-      });
+    return await organizationService.getCategories().finally(() => {
+      dispatch(setIsCategoriesLoad(false));
+    });
   },
 );
 
@@ -97,7 +94,7 @@ export const getOrganizationFilter = createAsyncThunk(
 export const getOrganizationList = createAsyncThunk(
   'organizations/list',
   async (_, {getState, dispatch}) => {
-    const {isOrganizationListLoad} = (getState() as RootState)
+    const {isOrganizationListLoad, filterForm} = (getState() as RootState)
       .organizationsSlice;
 
     if (isOrganizationListLoad) {
@@ -106,9 +103,11 @@ export const getOrganizationList = createAsyncThunk(
 
     dispatch(setIsOrganizationFilter(true));
 
-    return await organizationService.getOrganizationList().finally(() => {
-      dispatch(setIsOrganizationFilter(false));
-    });
+    return await organizationService
+      .getOrganizationList(filterForm)
+      .finally(() => {
+        dispatch(setIsOrganizationFilter(false));
+      });
   },
 );
 

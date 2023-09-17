@@ -12,7 +12,6 @@ import {
   selectUserValues,
   setDefaultEditForm,
 } from '../../../modules/user/UserSlice';
-import {MaskHelper} from '../../../helper/MaskHelper';
 import {BorderTopUI} from '../../../template/ui/BorderTopUI';
 import {ButtonUI} from '../../../template/ui/ButtonUI';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -21,22 +20,19 @@ import {InputSelectUI} from '../../../template/ui/InputSelectUI';
 import {
   EditFormKeys,
   isEditFormValid,
-  isEmailValid,
   isNewEditValue,
 } from '../../../modules/user/form/UserEditForm';
 import {ColorsUI} from '../../../template/styles/ColorUI';
 import {CitiesModal} from '../../../components/CitiesModal';
 import {Modalize} from 'react-native-modalize';
-import {RowContainerBeetwenEnd} from '../../../template/containers/RowContainer';
-import {ViewPress} from '../../../template/containers/ViewPress';
-import Navigation from '../../../routes/navigation/Navigation';
-import {Screens} from '../../../routes/models/Screens';
+import {editUser} from '../../../modules/user/thunks/edit.thunk';
 
 export const EditScreen = () => {
-  const {userInfo, isUserInfoLoad, editForm} = useAppSelector(selectUserValues);
+  const {userInfo, editForm} = useAppSelector(selectUserValues);
   const dispatch = useAppDispatch();
 
   const [isError, setIsError] = useState(false);
+  const [isLoad, setIsLoad] = useState(false);
 
   const citiesModalRef = useRef<Modalize>(null);
 
@@ -48,9 +44,7 @@ export const EditScreen = () => {
     dispatch(
       setDefaultEditForm({
         city: userInfo?.city!,
-        fullName: userInfo?.full_Name!,
-        phone: MaskHelper.formatPhoneNumber(userInfo?.phone_number)!,
-        email: userInfo?.email!,
+        full_name: userInfo?.full_name!,
       }),
     );
   }, []);
@@ -72,11 +66,10 @@ export const EditScreen = () => {
       return;
     }
 
-    setIsError(false);
-  };
-
-  const handleGoToRecovery = () => {
-    Navigation.navigate(Screens.RECOVERY_MODAL);
+    setIsLoad(true);
+    dispatch(editUser()).finally(() => {
+      setIsLoad(false);
+    });
   };
 
   return (
@@ -99,65 +92,26 @@ export const EditScreen = () => {
           <MainContainer $mb={20}>
             <InputUI
               placeholder="Ф.И.О"
-              value={editForm.fullName}
+              value={editForm.full_name}
               onChangeText={fullName =>
-                handleChangeEditForm('fullName', fullName)
+                handleChangeEditForm('full_name', fullName)
               }
             />
 
-            {isError && editForm.fullName.length < 6 ? (
+            {isError && !editForm.full_name.length ? (
               <MainContainer $mt={5}>
                 <TextUI ag={Ag['500_12']} color={ColorsUI.red}>
-                  {'Минимум 6 символов'}
+                  {'Заполните поле'}
                 </TextUI>
               </MainContainer>
             ) : null}
           </MainContainer>
-
-          <MainContainer $mb={20}>
-            <InputUI
-              placeholder="Номер телефона"
-              value={MaskHelper.formatPhoneNumber(editForm.phone)}
-              onChangeText={phone => handleChangeEditForm('phone', phone)}
-              keyboardType={'number-pad'}
-            />
-
-            {isError && editForm.phone.length !== 18 ? (
-              <MainContainer $mt={5}>
-                <TextUI ag={Ag['500_12']} color={ColorsUI.red}>
-                  {'Некорректный номер'}
-                </TextUI>
-              </MainContainer>
-            ) : null}
-          </MainContainer>
-
-          <MainContainer $mb={10}>
-            <InputUI
-              placeholder="Почта"
-              value={editForm.email}
-              onChangeText={email => handleChangeEditForm('email', email)}
-            />
-
-            {isError && !isEmailValid(editForm.email) ? (
-              <MainContainer $mt={5}>
-                <TextUI ag={Ag['500_12']} color={ColorsUI.red}>
-                  {'Такой почты не существует'}
-                </TextUI>
-              </MainContainer>
-            ) : null}
-          </MainContainer>
-
-          <RowContainerBeetwenEnd>
-            <ViewPress onPress={handleGoToRecovery}>
-              <TextUI ag={Ag['600_14']}>{'Забыли пароль?'}</TextUI>
-            </ViewPress>
-          </RowContainerBeetwenEnd>
         </MainContainer>
 
         <BorderTopUI $ph={20} $pt={20} $mb={Math.max(insets.bottom, 20)}>
           <ButtonUI
             onPress={handleSaveChange}
-            $btnDisabled={!isNewEditValue(userInfo!, editForm)}
+            $btnDisabled={!isNewEditValue(userInfo!, editForm) || isLoad}
             title="Сохранить"
           />
         </BorderTopUI>

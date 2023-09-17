@@ -1,12 +1,9 @@
-import {MaskHelper} from '../../../helper/MaskHelper';
 import {UserInfo} from './../models/UserInfo';
-export type EditFormKeys = 'city' | 'fullName' | 'phone' | 'email';
+export type EditFormKeys = 'city' | 'full_name';
 
 export interface EditFormModel {
   city: string;
-  fullName: string;
-  phone: string;
-  email: string;
+  full_name: string;
 }
 
 export interface EditFormProps {
@@ -16,31 +13,13 @@ export interface EditFormProps {
 
 export const DefaultEditForm: EditFormModel = {
   city: '',
-  fullName: '',
-  phone: '',
-  email: '',
-};
-
-export const isEmailValid = (email: string) => {
-  const EMAIL_REGEXP =
-    /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
-
-  return EMAIL_REGEXP.test(email);
+  full_name: '',
 };
 
 export const isEditFormValid = (editForm: EditFormModel) => {
-  return (
-    editForm.fullName.length > 5 &&
-    editForm.phone.length === 18 &&
-    isEmailValid(editForm.email)
-  );
+  return editForm.full_name.length;
 };
 
 export const isNewEditValue = (user: UserInfo, editForm: EditFormModel) => {
-  return (
-    user.city !== editForm.city ||
-    user.full_Name !== editForm.fullName ||
-    user.phone_number !== MaskHelper.clearFormat(editForm.phone) ||
-    user.email !== editForm.email
-  );
+  return user.city !== editForm.city || user.full_name !== editForm.full_name;
 };

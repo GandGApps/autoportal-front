@@ -8,4 +8,5 @@ export interface UserStateModel {
   editForm: EditFormModel;
 
   isUserInfoLoad: boolean;
+  isUserEditLoad: boolean;
 }

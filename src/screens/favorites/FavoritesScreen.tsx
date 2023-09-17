@@ -13,7 +13,7 @@ import {Modalize} from 'react-native-modalize';
 import {InputSelectUI} from '../../template/ui/InputSelectUI';
 import {DownIcon} from '../../template/icons/DownIcon';
 import {MainContainer} from '../../template/containers/MainContainer';
-import {OrganizationItem} from '../categories/_organizations/components/OrganizationItem';
+import {OrganizationItem} from '../organization/_cat_list/components/OrganizationItem';
 import {getFavoritesList} from '../../modules/organizations/_thunks';
 import {CenterContainer} from '../../template/containers/CenterContainer';
 import {Loader} from '../../components/Loader';
@@ -67,7 +67,9 @@ export const FavoritesScreen = () => {
         ) : (
           <>
             {!favoritesList.length ? (
-              <TextUI ag={Ag['600_16']}>{'Нет избранных'}</TextUI>
+              <TextUI $align={'center'} ag={Ag['600_16']}>
+                {'Нет избранных'}
+              </TextUI>
             ) : null}
             {favoritesList.map(item => (
               <OrganizationItem key={`fav-${item._id}`} item={item} />

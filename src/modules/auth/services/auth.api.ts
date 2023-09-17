@@ -19,9 +19,8 @@ export class AuthApiService extends AbstractApiRepository {
   };
 
   registerAuth = (dto: RegisterDTO) => {
-    console.log(dto);
     return this.apiClient.post({
-      url: Endpoints.register,
+      url: Endpoints.editUser,
       data: dto,
     });
   };

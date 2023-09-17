@@ -1,9 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {UserService} from './services/UserService';
+import {userService} from './services/UserService';
 import {RootState} from '../../settings/redux/store';
 import {setIsUserInfoLoad} from './UserSlice';
-
-const userService = new UserService();
 
 export const getUserInfo = createAsyncThunk(
   'user/info',

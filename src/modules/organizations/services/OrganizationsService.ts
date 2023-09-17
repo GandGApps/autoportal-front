@@ -5,10 +5,7 @@ import AbstractServiceRepository from '../../../settings/abstrcations/repositori
 import {Category} from '../models/Category';
 import {OrganizationFilter} from '../models/OrganizationFilter';
 import {OrganizationList} from '../models/OrganizationList';
-import {MockOrganizationList} from '../mock/MockOrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
-import {MockCurrentOrganization} from '../mock/MockOrganization';
-import {MockPromotions} from '../mock/MockPromotions';
 import {ApiOrganizationsService} from './_api_organizations';
 import {CreatedStatus} from '../models/CreatedStatus';
 import {MockPersonalOrganizations} from '../mock/MockPersonalOrganizations';
@@ -44,50 +41,47 @@ export class OrganizationsService extends AbstractServiceRepository {
     return this.createList<Category>(Category, data);
   };
 
-  getOrganizationFilter = async (form: FiltertFormModel) => {
+  getOrganizationFilter = async (catId: string) => {
+    const {data} = await this.api.getOrganizationFilter(catId);
+
+    return this.create<OrganizationFilter>(OrganizationFilter, data);
+  };
+
+  getOrganizationList = async (form: FiltertFormModel) => {
+    const sortType = form.sort ? {sortType: form.sort} : {};
+
     const dto: OrganizationsDTO = {
       city: form.city,
       categoryId: form.category?._id!,
       servicesId: form.typeService || [],
-      sortType: form.sort || undefined,
+      ...sortType,
       scheduleFilter: OrganizationHelper.formattedScheduleDTO(
         form.schedule || [],
       ),
     };
 
-    const {data} = await this.api.getOrganizationFilter(dto);
-
-    return this.create<OrganizationFilter>(OrganizationFilter, data);
-  };
-
-  getOrganizationList = async () => {
-    // const {data} = await this.api.getOrganizationList()
-
-    const data = MockOrganizationList;
+    const {data} = await this.api.getOrganizationList(dto);
 
     return this.createList<OrganizationList>(OrganizationList, data);
   };
 
   getCurrentOrganization = async (_id: string) => {
-    // const {data} = await this.api.getCurrentOrganization(_id);
+    const {data} = await this.api.getCurrentOrganization(_id);
 
-    const data = MockCurrentOrganization;
-
-    return this.create<CurrentOrganization>(CurrentOrganization, data);
+    return this.create<CurrentOrganization>(
+      CurrentOrganization,
+      (data as any).organisation,
+    );
   };
 
   getPromotionsList = async () => {
-    // const {data} = await this.api.getPromotionsList();
-
-    const data = MockPromotions;
+    const {data} = await this.api.getPromotionsList();
 
     return this.createList<PromotionList>(PromotionList, data);
   };
 
   getFavoritesList = async () => {
-    // const {data} = await this.api.getFavoritesList();
-
-    const data = MockOrganizationList;
+    const {data} = await this.api.getFavoritesList();
 
     return this.createList<OrganizationList>(OrganizationList, data);
   };
@@ -100,10 +94,7 @@ export class OrganizationsService extends AbstractServiceRepository {
   };
 
   getCreatedStatus = async () => {
-    // const {data} = await this.api.getCreatedStatus();
-    const data = {
-      createdStatus: true,
-    };
+    const {data} = await this.api.getCreatedStatus();
 
     return this.create<CreatedStatus>(CreatedStatus, data);
   };

@@ -1,3 +1,4 @@
+import {DateHelper, DaysOfWeek} from './../../../helper/DateHelper';
 import {PersonalOrganizations} from './../models/PersonalOrganizations';
 import {ScheduleFilterDTO, UnitsFilter} from './../types/OrganizationTypes';
 import {FilterFormKeys} from '../form/FilterForm';
@@ -59,16 +60,16 @@ export class OrganizationHelper {
 
   static formattedScheduleDTO = (schedules: string[]) => {
     let scheduleFilter: ScheduleFilterDTO = {
-      Days: schedules.filter(
-        day => day !== 'Круглосуточно' && day !== 'Сейчас работает',
-      ),
+      Days: schedules
+        .filter(day => day !== 'allTime' && day !== 'now')
+        .map(day => DaysOfWeek[parseInt(day, 10) - 1]),
     };
 
-    if (schedules.includes('Круглосуточно')) {
+    if (schedules.includes('allTime')) {
       scheduleFilter = {...scheduleFilter, isAllDay: true};
     }
 
-    if (schedules.includes('Сейчас работает')) {
+    if (schedules.includes('now')) {
       scheduleFilter = {...scheduleFilter, isNowWork: true};
     }
 

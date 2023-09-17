@@ -57,7 +57,7 @@ export const OrganizationItem = ({item}: OrganizationItemProps) => {
             <StarIcon />
           </MainContainer>
           <TextUI ag={Ag['400_12']}>
-            {`${item.rating} (${item.countReviews})`}
+            {`${item.rating || 0} (${item.countReviews || 0})`}
           </TextUI>
         </RowContainerEnd>
       </AbsoluteContainer>
