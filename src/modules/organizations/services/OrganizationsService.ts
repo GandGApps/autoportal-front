@@ -5,9 +5,7 @@ import AbstractServiceRepository from '../../../settings/abstrcations/repositori
 import {Category} from '../models/Category';
 import {OrganizationFilter} from '../models/OrganizationFilter';
 import {OrganizationList} from '../models/OrganizationList';
-import {MockOrganizationList} from '../mock/MockOrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
-import {MockPromotions} from '../mock/MockPromotions';
 import {ApiOrganizationsService} from './_api_organizations';
 import {CreatedStatus} from '../models/CreatedStatus';
 import {MockPersonalOrganizations} from '../mock/MockPersonalOrganizations';
@@ -77,17 +75,13 @@ export class OrganizationsService extends AbstractServiceRepository {
   };
 
   getPromotionsList = async () => {
-    // const {data} = await this.api.getPromotionsList();
-
-    const data = MockPromotions;
+    const {data} = await this.api.getPromotionsList();
 
     return this.createList<PromotionList>(PromotionList, data);
   };
 
   getFavoritesList = async () => {
-    // const {data} = await this.api.getFavoritesList();
-
-    const data = MockOrganizationList;
+    const {data} = await this.api.getFavoritesList();
 
     return this.createList<OrganizationList>(OrganizationList, data);
   };
@@ -100,10 +94,7 @@ export class OrganizationsService extends AbstractServiceRepository {
   };
 
   getCreatedStatus = async () => {
-    // const {data} = await this.api.getCreatedStatus();
-    const data = {
-      createdStatus: true,
-    };
+    const {data} = await this.api.getCreatedStatus();
 
     return this.create<CreatedStatus>(CreatedStatus, data);
   };

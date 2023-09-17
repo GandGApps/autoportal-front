@@ -1,11 +1,9 @@
-import {MaskHelper} from '../../../helper/MaskHelper';
 import {UserInfo} from './../models/UserInfo';
-export type EditFormKeys = 'city' | 'fullName' | 'phone';
+export type EditFormKeys = 'city' | 'full_name';
 
 export interface EditFormModel {
   city: string;
-  fullName: string;
-  phone: string;
+  full_name: string;
 }
 
 export interface EditFormProps {
@@ -15,18 +13,13 @@ export interface EditFormProps {
 
 export const DefaultEditForm: EditFormModel = {
   city: '',
-  fullName: '',
-  phone: '',
+  full_name: '',
 };
 
 export const isEditFormValid = (editForm: EditFormModel) => {
-  return editForm.fullName.length > 0 && editForm.phone.length === 18;
+  return editForm.full_name.length;
 };
 
 export const isNewEditValue = (user: UserInfo, editForm: EditFormModel) => {
-  return (
-    user.city !== editForm.city ||
-    user.full_name !== editForm.fullName ||
-    user.phone_number !== MaskHelper.clearFormat(editForm.phone)
-  );
+  return user.city !== editForm.city || user.full_name !== editForm.full_name;
 };

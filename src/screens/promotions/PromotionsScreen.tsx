@@ -18,6 +18,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getPromotionsList} from '../../modules/organizations/_thunks';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../../components/Loader';
+import {Ag, TextUI} from '../../template/ui/TextUI';
 
 export const PromotionsScreen = () => {
   const {filterForm, promotionsList, isPromotionListLoad} = useAppSelector(
@@ -82,6 +83,12 @@ export const PromotionsScreen = () => {
                 organization={item.organization!}
               />
             ))}
+
+            {!promotionsList.length ? (
+              <TextUI $align={'center'} ag={Ag['400_16']}>
+                {'Нет организаций с акциями'}
+              </TextUI>
+            ) : null}
           </>
         )}
       </ScrollViewScreen>

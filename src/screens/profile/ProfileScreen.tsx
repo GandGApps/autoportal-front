@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   ColumnContainerBetweenFlex,
   ColumnContainerFlex,
@@ -11,7 +11,6 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Platform, StatusBar} from 'react-native';
 import {ColorsUI} from '../../template/styles/ColorUI';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
-import {getCreatedStatus} from '../../modules/organizations/_thunks';
 import {selectOrganizationsValues} from '../../modules/organizations/OrganizationsSlice';
 import Navigation from '../../routes/navigation/Navigation';
 import {FirstOrganization} from './components/FirstOrganization';
@@ -21,17 +20,6 @@ import {UnderLineText} from '../../components/UnderLineText';
 export const ProfileScreen = () => {
   const {createdStatus} = useAppSelector(selectOrganizationsValues);
   const insets = useSafeAreaInsets();
-  const dispatch = useAppDispatch();
-
-  const [isLoad, setIsLoad] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(getCreatedStatus()).finally(() => {
-        setIsLoad(false);
-      });
-    }, 0);
-  }, []);
 
   const handleGoToScreen = (screen: string) => {
     Navigation.navigate(screen);
@@ -43,9 +31,7 @@ export const ProfileScreen = () => {
       <GradientHeader title={'Личный кабинет'} />
       <ColumnContainerBetweenFlex>
         <MainContainer>
-          {!isLoad && !createdStatus?.createdStatus ? (
-            <FirstOrganization />
-          ) : null}
+          {!createdStatus?.createdStatus ? <FirstOrganization /> : null}
 
           <ThreeMenuItem
             title={'Мои данные'}

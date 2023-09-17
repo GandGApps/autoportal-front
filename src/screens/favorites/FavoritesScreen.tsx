@@ -67,7 +67,9 @@ export const FavoritesScreen = () => {
         ) : (
           <>
             {!favoritesList.length ? (
-              <TextUI ag={Ag['600_16']}>{'Нет избранных'}</TextUI>
+              <TextUI $align={'center'} ag={Ag['600_16']}>
+                {'Нет избранных'}
+              </TextUI>
             ) : null}
             {favoritesList.map(item => (
               <OrganizationItem key={`fav-${item._id}`} item={item} />

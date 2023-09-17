@@ -7,6 +7,7 @@ import {guestAuth} from './guest.thunks';
 import {getUserInfo} from '../../user/_thunks';
 import {filterChangeForm} from '../../organizations/OrganizationsSlice';
 import {RootState} from '../../../settings/redux/store';
+import {getCreatedStatus} from '../../organizations/_thunks';
 
 export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
   const token = await tokenService.getTokenData();
@@ -18,6 +19,8 @@ export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
     await dispatch(getUserInfo());
 
     await dispatch(initCity());
+
+    await dispatch(getCreatedStatus());
 
     Navigation.replace(Screens.CATEGORIES);
 

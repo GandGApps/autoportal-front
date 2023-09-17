@@ -1,6 +1,5 @@
 import {
   DefaultEditForm,
-  EditFormKeys,
   EditFormModel,
   EditFormProps,
 } from './form/UserEditForm';
@@ -14,6 +13,7 @@ const initialState: UserStateModel = {
   editForm: DefaultEditForm,
 
   isUserInfoLoad: false,
+  isUserEditLoad: false,
 };
 
 const userSlice = createSlice({
@@ -33,6 +33,10 @@ const userSlice = createSlice({
     setIsUserInfoLoad: (state, action: PayloadAction<boolean>) => {
       state.isUserInfoLoad = action.payload;
     },
+
+    setIsUserEditLoad: (state, action: PayloadAction<boolean>) => {
+      state.isUserEditLoad = action.payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
@@ -45,8 +49,12 @@ const userSlice = createSlice({
   },
 });
 
-export const {changeEditForm, setDefaultEditForm, setIsUserInfoLoad} =
-  userSlice.actions;
+export const {
+  changeEditForm,
+  setDefaultEditForm,
+  setIsUserInfoLoad,
+  setIsUserEditLoad,
+} = userSlice.actions;
 
 export const selectUserValues = (state: RootState) => state.userSlice;
 
