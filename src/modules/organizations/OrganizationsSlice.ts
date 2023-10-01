@@ -226,13 +226,6 @@ const organizationsSlice = createSlice({
 
       state.reviews = action.payload;
     });
-
-    // CREATE Organization
-    builder.addCase(createOrganization.rejected, (_, response) => {
-      console.log(response.error);
-
-      console.log(response.payload);
-    });
   },
 });
 

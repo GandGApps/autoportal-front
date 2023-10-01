@@ -172,9 +172,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           resetCreateForm();
         }
       })
-      .catch(e => {
-        console.log(e);
-      })
+      .catch(e => {})
       .finally(() => {
         setIsLoading(false);
       });
