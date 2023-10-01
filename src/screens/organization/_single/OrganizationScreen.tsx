@@ -75,10 +75,11 @@ export const OrganizationScreen = () => {
         showsVerticalScrollIndicator={false}>
         <OrganizationPreview
           isFavorite={currentOrganization?.isFavorite}
-          previews={currentOrganization?.previews}
+          previews={currentOrganization?.photos}
           carouselIndex={carouselIndex}
           onCarouselChange={setCarouselIndex}
           onPressImage={handlePressImage}
+          logo={currentOrganization.logo}
         />
 
         <OrganizationTitleRating
@@ -97,7 +98,8 @@ export const OrganizationScreen = () => {
         ) : null}
 
         <ContactInfoContent
-          contactInfo={currentOrganization.contactInfo}
+          mainPhone={currentOrganization.mainPhone}
+          whatsApp={currentOrganization.whatsApp}
           city={currentOrganization.city}
           address={currentOrganization.address}
           employeers={currentOrganization.employeers}
@@ -123,7 +125,7 @@ export const OrganizationScreen = () => {
 
         <ImageView
           images={
-            currentOrganization?.previews.map(item => {
+            currentOrganization?.photos.map(item => {
               return {uri: item};
             }) || []
           }
@@ -134,7 +136,7 @@ export const OrganizationScreen = () => {
           FooterComponent={() => (
             <MainContainer $mb={Math.max(insets.bottom, 20)}>
               <Dots
-                list={currentOrganization?.previews || []}
+                list={currentOrganization?.photos || []}
                 currentIndex={previewIndex}
               />
             </MainContainer>

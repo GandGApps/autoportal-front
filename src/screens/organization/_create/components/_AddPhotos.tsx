@@ -62,9 +62,9 @@ export const CreateAddPhotos = (props: CreateAddPhotosProps) => {
               <RowContainer>
                 {props.photos.map((image, idx) => (
                   <MainContainer key={`create-photo-${idx}`}>
-                    <MainContainer $widthPX={90} $heightPX={90} $mr={20}>
+                    <MainContainer $widthPX={120} $heightPX={90} $mr={20}>
                       <AbsoluteContainer $widthPRC={100} $zIndex={100}>
-                        <RowContainerBeetwenEnd>
+                        <RowContainerBeetwenEnd $pt={5} $pr={5}>
                           <ViewPress
                             onPress={() => handleRemovePickPhoto(image.uri)}>
                             <CenterContainer

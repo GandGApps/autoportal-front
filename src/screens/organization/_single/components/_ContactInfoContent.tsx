@@ -20,7 +20,8 @@ import {MaskHelper} from '../../../../helper/MaskHelper';
 import {MainContainer} from '../../../../template/containers/MainContainer';
 
 interface ContactInfoContentProps {
-  contactInfo: Nullable<ContactInfoModel>;
+  mainPhone: string;
+  whatsApp?: string;
   city: string;
   address: string;
   employeers?: EmployeerModel[];
@@ -34,24 +35,24 @@ export const ContactInfoContent = (props: ContactInfoContentProps) => {
       <RowContainerBeetwen $mb={10}>
         <TextUI ag={Ag['600_16']}>{'Контактная информация'}</TextUI>
 
-        {props.contactInfo?.whatsApp ? <OrganizationWhatsApp /> : null}
+        {props.whatsApp ? <OrganizationWhatsApp /> : null}
       </RowContainerBeetwen>
 
       <OrgContactInfoRow icon={<LocationIcon />} text={`г. ${props.city}`} />
 
       <OrgContactInfoRow icon={<LocationIcon />} text={`${props.address}`} />
 
-      {props.contactInfo?.mainPhone ? (
+      {props.mainPhone ? (
         <OrgContactInfoRow
           icon={<PhoneIcon size={13} />}
-          text={MaskHelper.formatPhoneNumber(props.contactInfo.mainPhone) || ''}
+          text={MaskHelper.formatPhoneNumber(props.mainPhone) || ''}
         />
       ) : null}
 
       {isMore ? (
         <MainContainer $mt={10}>
-          {props.employeers?.map(employeer => (
-            <MainContainer key={`org-emp-${employeer._id}`} $mb={20}>
+          {props.employeers?.map((employeer, index) => (
+            <MainContainer key={`org-emp-${employeer.name}-${index}`} $mb={20}>
               <TextUI $mb={5} ag={Ag['600_12']}>
                 {`${employeer.position} | ${employeer.name}`}
               </TextUI>

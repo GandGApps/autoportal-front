@@ -28,7 +28,7 @@ export const OrganizationTitleRating = (
         </MainContainer>
         <MainContainer>
           <TextUI ag={Ag['400_14']} $mb={5}>
-            {`${props.rating} (${props.countReviews})`}
+            {`${props.rating || 0} (${props.countReviews || 0})`}
           </TextUI>
         </MainContainer>
       </RowContainerJustEnd>

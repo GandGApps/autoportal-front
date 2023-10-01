@@ -7,9 +7,13 @@ export const Endpoints = {
   editUser: '/users/login/dealer/data',
 
   // ORGANIZATION
+  banners: '/banners',
+
   categories: '/categories',
 
   organizations: '/organisations',
+  myOrganizations: '/organisations/my',
+
   currentOrganization: (id: string) => `/organisations?id=${id}`,
 
   promotions: '/promotion',
@@ -26,4 +30,7 @@ export const Endpoints = {
 
   // USER INFO
   userInfo: '/users/profile/dealer',
+
+  // UPLOAD FILE
+  file: '/organisations/photo',
 };

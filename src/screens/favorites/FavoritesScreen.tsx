@@ -72,7 +72,11 @@ export const FavoritesScreen = () => {
               </TextUI>
             ) : null}
             {favoritesList.map(item => (
-              <OrganizationItem key={`fav-${item._id}`} item={item} />
+              <OrganizationItem
+                key={`fav-${item._id}`}
+                item={item}
+                categoryName={filterForm.category?.title!}
+              />
             ))}
           </>
         )}

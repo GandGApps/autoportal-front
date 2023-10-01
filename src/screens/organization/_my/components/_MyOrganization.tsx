@@ -80,7 +80,7 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
         <RowContainer $mb={10}>
           <StarIcon />
           <TextUI ag={Ag['400_14']}>
-            {`${item.rating} (${item.countReviews})`}
+            {`${item.rating} (${item.countReviews || 0})`}
           </TextUI>
         </RowContainer>
 

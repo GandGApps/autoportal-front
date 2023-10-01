@@ -1,12 +1,15 @@
 import AbstractApiRepository from '../../../settings/abstrcations/repositories/AbstractApiRepository';
 import {Endpoints} from '../../../template/api/Endpoints';
-import {FiltertFormModel} from '../form/FilterForm';
-import {OrganizationsDTO} from '../types/OrganizationTypes';
+import {CreatetFormModel} from '../form/CreateForm';
+import {
+  CreateOrganizationDTO,
+  OrganizationsDTO,
+} from '../types/OrganizationTypes';
 
 export class ApiOrganizationsService extends AbstractApiRepository {
   getBanners = async (city: string) => {
     return this.apiClient.get({
-      url: '',
+      url: Endpoints.banners,
     });
   };
 
@@ -61,13 +64,20 @@ export class ApiOrganizationsService extends AbstractApiRepository {
 
   getPersonalOrganizations = async () => {
     return this.apiClient.get({
-      url: '',
+      url: Endpoints.myOrganizations,
     });
   };
 
   getReviews = async () => {
     return this.apiClient.get({
       url: '',
+    });
+  };
+
+  createOrganization = async (dto: CreateOrganizationDTO) => {
+    return this.apiClient.post({
+      url: Endpoints.myOrganizations,
+      data: dto,
     });
   };
 }

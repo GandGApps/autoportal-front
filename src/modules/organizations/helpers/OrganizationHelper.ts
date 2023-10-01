@@ -1,14 +1,25 @@
-import {DateHelper, DaysOfWeek} from './../../../helper/DateHelper';
+import {EmployeersStateModel} from './../../employeers/types/EmployeersTypes';
+import {DaysOfWeek} from './../../../helper/DateHelper';
 import {PersonalOrganizations} from './../models/PersonalOrganizations';
-import {ScheduleFilterDTO, UnitsFilter} from './../types/OrganizationTypes';
+import {
+  CreateOrganizationDTO,
+  EmployeerModel,
+  ScheduleFilterDTO,
+  UnitsFilter,
+} from './../types/OrganizationTypes';
 import {FilterFormKeys} from '../form/FilterForm';
 import {CreatetFormModel} from '../form/CreateForm';
 import {CurrentOrganization} from '../models/CurrentOrganization';
+import {Nullable} from '../../../settings/types/BaseTypes';
+import {MaskHelper} from '../../../helper/MaskHelper';
+import {fileSevice} from '../../files/api/file-service';
 
 interface FormattedPersonal {
   activeList: PersonalOrganizations[];
   disabledList: PersonalOrganizations[];
 }
+
+type EmployeerValidKey = 'first' | 'second' | 'third';
 
 export class OrganizationHelper {
   static getModalTitle = (typeModal: FilterFormKeys) => {
@@ -58,12 +69,12 @@ export class OrganizationHelper {
     };
   };
 
-  static formattedScheduleDTO = (schedules: string[]) => {
-    let scheduleFilter: ScheduleFilterDTO = {
-      Days: schedules
-        .filter(day => day !== 'allTime' && day !== 'now')
-        .map(day => DaysOfWeek[parseInt(day, 10) - 1]),
-    };
+  static formattedScheduleDTO = (
+    schedules: string[],
+  ): Nullable<ScheduleFilterDTO> => {
+    const days = schedules.filter(day => day !== 'allTime' && day !== 'now');
+
+    let scheduleFilter: ScheduleFilterDTO = {};
 
     if (schedules.includes('allTime')) {
       scheduleFilter = {...scheduleFilter, isAllDay: true};
@@ -73,7 +84,18 @@ export class OrganizationHelper {
       scheduleFilter = {...scheduleFilter, isNowWork: true};
     }
 
-    return scheduleFilter;
+    if (days.length) {
+      scheduleFilter = {
+        ...scheduleFilter,
+        Days: days.map(day => DaysOfWeek[parseInt(day, 10) - 1]),
+      };
+    }
+
+    if (Object.entries(scheduleFilter).length) {
+      return scheduleFilter;
+    }
+
+    return null;
   };
 
   static getDefaultCreateForm = (
@@ -87,8 +109,8 @@ export class OrganizationHelper {
       brandCar: [],
       schedule: organization.schedule,
       address: organization.address,
-      mainPhone: organization.contactInfo?.mainPhone || '',
-      whatsApp: organization.contactInfo?.whatsApp || '',
+      mainPhone: organization.mainPhone || '',
+      whatsApp: organization.whatsApp || '',
       employeers: [],
       description: organization.description,
       logo: organization.logo
@@ -98,7 +120,7 @@ export class OrganizationHelper {
             uri: organization.logo,
           }
         : null,
-      photos: organization.previews.map(item => {
+      photos: organization.photos.map(item => {
         return {
           type: 'image/jpg',
           name: 'defaultName',
@@ -106,5 +128,137 @@ export class OrganizationHelper {
         };
       }),
     };
+  };
+
+  static getEmployeers = (state: EmployeersStateModel) => {
+    const employeers: EmployeerModel[] = [];
+
+    if (this.isEmployeerCheck(state, 'first')) {
+      employeers.push({
+        name: state.firstName || 'Не указан',
+        position: state.firstPostion || 'Не указан',
+        phone: state.firstPhone || 'Не указан',
+      });
+    }
+
+    if (this.isEmployeerCheck(state, 'second')) {
+      employeers.push({
+        name: state.secondName || 'Не указан',
+        position: state.secondPostion || 'Не указан',
+        phone: state.secondPhone || 'Не указан',
+      });
+    }
+
+    if (this.isEmployeerCheck(state, 'third')) {
+      employeers.push({
+        name: state.thirdName || 'Не указан',
+        position: state.thirdPosition || 'Не указан',
+        phone: state.thirdPhone || 'Не указан',
+      });
+    }
+
+    return employeers;
+  };
+
+  static isEmployeerCheck = (
+    state: EmployeersStateModel,
+    key: EmployeerValidKey,
+  ) => {
+    switch (key) {
+      case 'first':
+        return (
+          state.firstName.length ||
+          state.firstPostion.length ||
+          state.firstPhone.length
+        );
+      case 'second':
+        return (
+          state.secondName.length ||
+          state.secondPostion.length ||
+          state.secondPhone.length
+        );
+      case 'third':
+        return (
+          state.thirdName.length ||
+          state.thirdPosition.length ||
+          state.thirdPhone.length
+        );
+    }
+  };
+
+  static createOrganizationDto = async (
+    createForm: CreatetFormModel,
+  ): Promise<CreateOrganizationDTO> => {
+    const logo: string = await fileSevice.uploadFile(createForm.logo!);
+
+    let dto: CreateOrganizationDTO = {
+      name: createForm.name,
+      address: createForm.address,
+      categoryId: createForm.category?._id!,
+      city: createForm.city,
+      description: createForm.description,
+      logo,
+    };
+
+    if (createForm.employeers.length) {
+      dto = {
+        ...dto,
+        employeers: createForm.employeers,
+      };
+    }
+
+    if (createForm.brandCar.length) {
+      dto = {
+        ...dto,
+        brandsCars: createForm.brandCar,
+      };
+    }
+
+    if (createForm.mainPhone.length) {
+      dto = {
+        ...dto,
+        mainPhone: MaskHelper.clearFormat(createForm.mainPhone),
+      };
+    }
+
+    if (createForm.whatsApp.length) {
+      dto = {
+        ...dto,
+        whatsApp: MaskHelper.clearFormat(createForm.whatsApp),
+      };
+    }
+
+    if (createForm.schedule.length) {
+      dto = {
+        ...dto,
+        schedule: createForm.schedule,
+      };
+    }
+
+    if (createForm.typeService.length) {
+      dto = {
+        ...dto,
+        typeServices: createForm.typeService,
+      };
+    }
+
+    if (createForm.photos.length) {
+      let photos: string[] = [];
+
+      for (let index = 0; index < createForm.photos.length; index++) {
+        const photo: string = await fileSevice.uploadFile(
+          createForm.photos[index],
+        );
+
+        photos.push(photo);
+      }
+
+      dto = {
+        ...dto,
+        photos: photos,
+      };
+    }
+
+    return dto;
   };
 }

@@ -5,6 +5,7 @@ import {AuthApiService} from './auth.api';
 import {AuthUser} from '../models/AuthUser';
 import {Message} from '../models/Message';
 import {CodeDTO} from '../types/types';
+import {MaskHelper} from '../../../helper/MaskHelper';
 
 class AuthService extends AbstractServiceRepository {
   api: AuthApiService;
@@ -30,13 +31,18 @@ class AuthService extends AbstractServiceRepository {
   };
 
   getCode = async (form: LoginFormModel | RegisterFormModel) => {
-    const {data} = await this.api.getCode({phone_number: form.phone_number});
+    const {data} = await this.api.getCode({
+      phone_number: MaskHelper.clearFormat(form.phone_number),
+    });
 
     return this.create<Message>(Message, data);
   };
 
   sendCode = async (dto: CodeDTO) => {
-    const {data} = await this.api.sendCode(dto);
+    const {data} = await this.api.sendCode({
+      ...dto,
+      phone_number: MaskHelper.clearFormat(dto.phone_number),
+    });
 
     return this.create<AuthUser>(AuthUser, data);
   };

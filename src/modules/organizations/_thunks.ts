@@ -1,6 +1,9 @@
 import {RootState} from '../../settings/redux/store';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {OrganizationsService} from './services/OrganizationsService';
+import {
+  OrganizationsService,
+  organizationService,
+} from './services/OrganizationsService';
 import {
   setIsBannersLoad,
   setIsCategoriesLoad,
@@ -13,8 +16,6 @@ import {
   setIsReviewsLoad,
   setIsSearchLoad,
 } from './OrganizationsSlice';
-
-const organizationService = new OrganizationsService();
 
 export const getBanners = createAsyncThunk(
   'organizations/banners',

@@ -17,9 +17,13 @@ import {Screens} from '../../../../routes/models/Screens';
 
 interface OrganizationItemProps {
   item: OrganizationList;
+  categoryName: string;
 }
 
-export const OrganizationItem = ({item}: OrganizationItemProps) => {
+export const OrganizationItem = ({
+  item,
+  categoryName,
+}: OrganizationItemProps) => {
   const handleGoToOrganization = () => {
     Navigation.navigate(Screens.ORGANIZATION, {
       _id: item._id,
@@ -48,7 +52,7 @@ export const OrganizationItem = ({item}: OrganizationItemProps) => {
       </TouchableOpacity>
 
       <AbsoluteContainer $top={5} $right={20}>
-        <TextUI ag={Ag['400_12']}>{item.categoryName}</TextUI>
+        <TextUI ag={Ag['400_12']}>{categoryName}</TextUI>
       </AbsoluteContainer>
 
       <AbsoluteContainer $bottom={5} $right={20}>

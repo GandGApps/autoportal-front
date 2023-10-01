@@ -2,15 +2,23 @@ import React, {ReactNode} from 'react';
 import styled from 'styled-components/native';
 import {CenterContainer} from '../containers/CenterContainer';
 import {ColorsUI} from '../styles/ColorUI';
+import {Image} from 'react-native';
 
 interface IconContainerUIProps {
-  icon?: ReactNode;
+  img?: string;
 }
 
 export const IconContainerUI = (props: IconContainerUIProps) => {
   return (
     <IconContainerUIProps $widthPX={50} $heightPX={50}>
-      {props.icon || null}
+      {props.img && (
+        <Image
+          width={40}
+          height={40}
+          resizeMode={'contain'}
+          source={{uri: props.img}}
+        />
+      )}
     </IconContainerUIProps>
   );
 };

@@ -20,6 +20,7 @@ import {
   getReviews,
   getSearchServices,
 } from './_thunks';
+import {createOrganization} from './thunks/create.thunk';
 
 const initialState: OrganizationsStateModel = {
   banners: [],

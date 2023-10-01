@@ -4,6 +4,7 @@ import {ButtonUI} from '../../../../template/ui/ButtonUI';
 
 interface CreateSaveProps {
   isEdit?: boolean;
+  isDisabled?: boolean;
   onRemovePress: () => void;
   onSavePress: () => void;
 }
@@ -20,7 +21,11 @@ export const CreateSave = (props: CreateSaveProps) => {
         />
       ) : null}
 
-      <ButtonUI title={'Сохранить'} onPress={props.onSavePress} />
+      <ButtonUI
+        title={'Сохранить'}
+        $btnDisabled={props.isDisabled}
+        onPress={props.onSavePress}
+      />
     </BorderTopUI>
   );
 };

@@ -20,37 +20,33 @@ interface CreateAddLogoProps {
 
 export const CreateAddLogo = (props: CreateAddLogoProps) => {
   return (
-    <BorderTopUI $bg={ColorsUI.gray.second} $pt={25} $pb={50} $ph={20}>
+    <BorderTopUI $bg={ColorsUI.gray.second} $pt={15} $pb={15} $ph={20}>
       <TextUI $mb={25} ag={Ag['600_16']}>
         {'Логотип'}
       </TextUI>
 
-      <CenterContainer>
-        <MainContainer
-          $widthPX={160}
-          $heightPX={160}
-          $br={8}
-          $borderColor={ColorsUI.black}>
+      <CenterContainer $mb={10}>
+        <MainContainer $widthPX={100} $heightPX={100}>
           <ViewPress $isFlex onPress={props.onPickImage}>
             {props.logo ? (
-              <ImageUI $isFlex $br={150} source={{uri: `${props.logo.uri}`}} />
+              <ImageUI $isFlex $br={100} source={{uri: `${props.logo.uri}`}} />
             ) : (
               <CenterContainerFlex
-                $br={150}
+                $br={50}
                 $borderColor={ColorsUI.gray.line}
                 $bg={ColorsUI.white}>
                 <MainContainer $mb={5}>
                   <PhotoIcon />
                 </MainContainer>
-
-                <TextUI ag={Ag['400_12']} $align={'center'}>
-                  {'Добавьте фотографию\nили логотип '}
-                </TextUI>
               </CenterContainerFlex>
             )}
           </ViewPress>
         </MainContainer>
       </CenterContainer>
+
+      <TextUI ag={Ag['400_12']} $align={'center'}>
+        {'Добавьте фотографию\nили логотип '}
+      </TextUI>
     </BorderTopUI>
   );
 };
