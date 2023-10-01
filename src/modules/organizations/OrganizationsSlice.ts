@@ -20,6 +20,7 @@ import {
   getReviews,
   getSearchServices,
 } from './_thunks';
+import {createOrganization} from './thunks/create.thunk';
 
 const initialState: OrganizationsStateModel = {
   banners: [],
@@ -224,6 +225,13 @@ const organizationsSlice = createSlice({
       }
 
       state.reviews = action.payload;
+    });
+
+    // CREATE Organization
+    builder.addCase(createOrganization.rejected, (_, response) => {
+      console.log(response.error);
+
+      console.log(response.payload);
     });
   },
 });

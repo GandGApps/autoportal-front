@@ -1,7 +1,6 @@
 import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {
-  ContactInfoModel,
   EmployeerModel,
   ScheduleModel,
   UnitsFilter,
@@ -23,9 +22,10 @@ export class CurrentOrganization extends AbstractModel {
   isFavorite: boolean = false;
   description: string = '';
   city: string = '';
-  previews: string[] = [];
+  photos: string[] = [];
   promo: Nullable<Promotion> = null;
-  contactInfo: Nullable<ContactInfoModel> = null;
+  mainPhone: string = '';
+  whatsApp: string = '';
   employeers: EmployeerModel[] = [];
   services: TypeService[] = [];
   brandsCars: UnitsFilter[] = [];

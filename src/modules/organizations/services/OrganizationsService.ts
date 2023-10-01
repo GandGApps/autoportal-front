@@ -8,12 +8,13 @@ import {OrganizationList} from '../models/OrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
 import {ApiOrganizationsService} from './_api_organizations';
 import {CreatedStatus} from '../models/CreatedStatus';
-import {MockPersonalOrganizations} from '../mock/MockPersonalOrganizations';
 import {MockReviews} from '../mock/MockReviews';
 import {Review} from '../models/Review';
 import {FiltertFormModel} from '../form/FilterForm';
 import {OrganizationsDTO} from '../types/OrganizationTypes';
 import {OrganizationHelper} from '../helpers/OrganizationHelper';
+import {CreatetFormModel} from '../form/CreateForm';
+import {Message} from '../../auth/models/Message';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -50,14 +51,18 @@ export class OrganizationsService extends AbstractServiceRepository {
   getOrganizationList = async (form: FiltertFormModel) => {
     const sortType = form.sort ? {sortType: form.sort} : {};
 
+    const formatted = OrganizationHelper.formattedScheduleDTO(
+      form.schedule || [],
+    );
+
+    const scheduleFilter = formatted ? {scheduleFilter: formatted} : {};
+
     const dto: OrganizationsDTO = {
       city: form.city,
       categoryId: form.category?._id!,
       servicesId: form.typeService || [],
       ...sortType,
-      scheduleFilter: OrganizationHelper.formattedScheduleDTO(
-        form.schedule || [],
-      ),
+      ...scheduleFilter,
     };
 
     const {data} = await this.api.getOrganizationList(dto);
@@ -87,8 +92,7 @@ export class OrganizationsService extends AbstractServiceRepository {
   };
 
   getPersonalOrganizations = async () => {
-    // const {data} = await this.api.getPersonalOrganizations();
-    const data = MockPersonalOrganizations;
+    const {data} = await this.api.getPersonalOrganizations();
 
     return this.createList<PersonalOrganizations>(PersonalOrganizations, data);
   };
@@ -105,4 +109,14 @@ export class OrganizationsService extends AbstractServiceRepository {
 
     return this.createList<Review>(Review, data);
   };
+
+  createOrganization = async (createForm: CreatetFormModel) => {
+    const dto = await OrganizationHelper.createOrganizationDto(createForm);
+
+    const {data} = await this.api.createOrganization(dto);
+
+    return this.create<Message>(Message, data);
+  };
 }
+
+export const organizationService = new OrganizationsService();

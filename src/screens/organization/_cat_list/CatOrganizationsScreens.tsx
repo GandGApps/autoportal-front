@@ -119,7 +119,11 @@ export const CatOrganizationsScreens = () => {
         ) : (
           <>
             {organizationList.map(item => (
-              <OrganizationItem key={item._id} item={item} />
+              <OrganizationItem
+                key={item._id}
+                item={item}
+                categoryName={filterForm.category?.title!}
+              />
             ))}
           </>
         )}

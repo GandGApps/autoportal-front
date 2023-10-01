@@ -84,7 +84,7 @@ export const CategoriesScreen = () => {
           {categories.map(item => (
             <ThreeMenuItem
               key={item._id}
-              leftIcon={<IconContainerUI />}
+              leftIcon={<IconContainerUI img={item.img} />}
               title={item.title}
               onPress={() => handlePickCategory(item)}
             />

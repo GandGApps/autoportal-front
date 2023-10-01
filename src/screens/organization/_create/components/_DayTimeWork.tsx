@@ -20,8 +20,8 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
   const [isActive, setIsActive] = useState(false);
   const [isAllDay, setIsAllDay] = useState(false);
 
-  const [fromTime, setFromTime] = useState('10:00');
-  const [toTime, setToTime] = useState('19:00');
+  const [from, setfrom] = useState('10:00');
+  const [to, setto] = useState('19:00');
 
   const [openFrom, setOpenFrom] = useState(false);
   const [openTo, setOpenTo] = useState(false);
@@ -31,20 +31,20 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
   };
 
   const handleChangeFromDate = (date: Date) => {
-    setFromTime(DateHelper.getFormatTime(date));
+    setfrom(DateHelper.getFormatTime(date));
     setOpenFrom(false);
   };
 
   const handleChangeToDate = (date: Date) => {
-    setToTime(DateHelper.getFormatTime(date));
+    setto(DateHelper.getFormatTime(date));
     setOpenTo(false);
   };
 
   useEffect(() => {
     const day = DateHelper.getScheduleForm({
       indexDay: props.indexDay,
-      toTime,
-      fromTime,
+      to,
+      from,
       isAllDay,
     });
 
@@ -54,7 +54,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
     }
 
     props.onChangeSchedule(day, true);
-  }, [isActive, isAllDay, fromTime, toTime]);
+  }, [isActive, isAllDay, from, to]);
 
   return (
     <MainContainer
@@ -85,7 +85,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
                   $pv={3}
                   $ph={5}
                   $mr={5}>
-                  <TextUI ag={Ag['600_14']}>{fromTime}</TextUI>
+                  <TextUI ag={Ag['600_14']}>{from}</TextUI>
                 </MainContainer>
                 <MainContainer $mr={5}>
                   <TextUI ag={Ag['400_14']}>{`до`}</TextUI>
@@ -95,7 +95,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
                   $pv={3}
                   $ph={5}
                   $mr={5}>
-                  <TextUI ag={Ag['600_14']}>{toTime}</TextUI>
+                  <TextUI ag={Ag['600_14']}>{to}</TextUI>
                 </MainContainer>
               </RowContainer>
             </ViewPress>
@@ -111,7 +111,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
                 $pv={3}
                 $ph={5}
                 onPress={() => setOpenFrom(true)}>
-                <TextUI ag={Ag['600_14']}>{fromTime}</TextUI>
+                <TextUI ag={Ag['600_14']}>{from}</TextUI>
               </ViewPress>
 
               <MainContainer $mr={5}>
@@ -123,7 +123,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
                 $ph={5}
                 $mr={5}
                 onPress={() => setOpenTo(true)}>
-                <TextUI ag={Ag['600_14']}>{toTime}</TextUI>
+                <TextUI ag={Ag['600_14']}>{to}</TextUI>
               </ViewPress>
             </RowContainer>
           )}
@@ -145,7 +145,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
         modal
         mode={'time'}
         open={openFrom}
-        date={DateHelper.getParseTime(fromTime)}
+        date={DateHelper.getParseTime(from)}
         onConfirm={handleChangeFromDate}
         onCancel={() => setOpenFrom(false)}
         androidVariant={'iosClone'}
@@ -160,7 +160,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
         modal
         mode={'time'}
         open={openTo}
-        date={DateHelper.getParseTime(toTime)}
+        date={DateHelper.getParseTime(to)}
         onConfirm={handleChangeToDate}
         onCancel={() => setOpenTo(false)}
         androidVariant={'iosClone'}

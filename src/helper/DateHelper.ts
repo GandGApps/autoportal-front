@@ -25,8 +25,8 @@ interface FormattedSchedule {
 interface ScheduleDayForm {
   indexDay: number;
   isAllDay: boolean;
-  fromTime: string;
-  toTime: string;
+  from: string;
+  to: string;
 }
 
 export class DateHelper {
@@ -37,8 +37,8 @@ export class DateHelper {
 
       if (item.isAllDay) {
         time = 'круглосуточно';
-      } else if (item.fromTime && item.toTime) {
-        time = `${item.fromTime} - ${item.toTime}`;
+      } else if (item.from && item.to) {
+        time = `${item.from} - ${item.to}`;
       }
 
       return {day, time};
@@ -55,8 +55,8 @@ export class DateHelper {
           isAllDay: true,
         }
       : {
-          fromTime: scheduleDayForm.fromTime,
-          toTime: scheduleDayForm.toTime,
+          from: scheduleDayForm.from,
+          to: scheduleDayForm.to,
         };
 
     return {title, ...dayParams};

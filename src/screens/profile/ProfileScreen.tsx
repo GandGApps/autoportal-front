@@ -45,7 +45,7 @@ export const ProfileScreen = () => {
           <ThreeMenuItem title={'О приложениие'} onPress={() => {}} />
           {createdStatus?.createdStatus ? (
             <ThreeMenuItem
-              title={'Купить баннер на главном экране'}
+              title={'Разместить баннер\nна главном экране'}
               onPress={() => {}}
             />
           ) : null}

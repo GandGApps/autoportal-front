@@ -95,6 +95,7 @@ export default class AxiosClient implements IApiClient {
         config.headers.set('App-DeviceId', appConfig.deviceId);
         config.headers.set('App-Version', appConfig.version);
         config.headers.set('Accept-Timezone', timeZone);
+
         return {...config, headers: config.headers};
       },
       error => Promise.reject(error),

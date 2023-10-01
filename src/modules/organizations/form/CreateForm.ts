@@ -42,6 +42,7 @@ export type CreateFormValue =
   | FileModel[]
   | FileModel
   | ScheduleModel[]
+  | EmployeerModel[]
   | null;
 
 export interface CreateFormProps {
@@ -55,7 +56,6 @@ export const DefaultCreateForm: CreatetFormModel = {
   typeService: [],
   brandCar: [],
   schedule: [],
-
   name: '',
   address: '',
   mainPhone: '',
@@ -64,4 +64,14 @@ export const DefaultCreateForm: CreatetFormModel = {
   description: '',
   logo: null,
   photos: [],
+};
+
+export const isFormValidation = (form: CreatetFormModel) => {
+  return (
+    form.name.length > 0 &&
+    form.city.length > 0 &&
+    form.description.length > 0 &&
+    form.address.length > 0 &&
+    form.category !== null
+  );
 };

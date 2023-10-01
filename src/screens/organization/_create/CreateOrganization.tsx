@@ -15,6 +15,7 @@ import {
   CreateFormKeys,
   CreateFormValue,
   DefaultCreateForm,
+  isFormValidation,
 } from '../../../modules/organizations/form/CreateForm';
 import {CreateOrganization} from './components/_Organization';
 import {CreateContactInfo} from './components/_ContactInfo';
@@ -41,6 +42,11 @@ import {getOrganizationFilter} from '../../../modules/organizations/_thunks';
 import {Category} from '../../../modules/organizations/models/Category';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
+import {MainContainer} from '../../../template/containers/MainContainer';
+import {selectEmployeersValues} from '../../../modules/employeers/EmployeersSlice';
+import {createOrganization} from '../../../modules/organizations/thunks/create.thunk';
+import {OrganizationHelper} from '../../../modules/organizations/helpers/OrganizationHelper';
+import {FileHelper} from '../../../modules/files/FilesHelper';
 
 interface CreateScreenProps {
   isEdit?: boolean;
@@ -48,9 +54,12 @@ interface CreateScreenProps {
 }
 
 export const CreateOrganizationScreen = (props: CreateScreenProps) => {
-  const {createForm, categories, organizationFilter} = useAppSelector(
+  const {createForm, organizationFilter} = useAppSelector(
     selectOrganizationsValues,
   );
+
+  const employeersState = useAppSelector(selectEmployeersValues);
+
   const dispatch = useAppDispatch();
 
   const insets = useSafeAreaInsets();
@@ -60,7 +69,9 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const categoriesModalRef = useRef<Modalize>(null);
 
   const [typeModal, setTypeModal] = useState<Nullable<FilterFormKeys>>(null);
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -71,18 +82,19 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   }, []);
 
   const handleChangeForm = (key: CreateFormKeys, value: CreateFormValue) => {
+    setIsError(false);
     if (key === 'category') {
       setTimeout(() => {
         dispatch(getOrganizationFilter((value as Category)._id));
       }, 0);
     }
-    setHasUnsavedChanges(true);
     dispatch(createChangeForm({key, value}));
   };
 
   const resetCreateForm = () => {
     dispatch(resetOrganizationFilter());
     dispatch(setDefaultCreateForm(DefaultCreateForm));
+    setIsError(false);
   };
 
   const handleChangeSchedule = (dayWork: ScheduleModel, isRemove?: boolean) => {
@@ -95,46 +107,39 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     handleChangeForm('schedule', [...temp]);
   };
 
-  const handlePickImage = () => {
-    launchImageLibrary({
-      mediaType: 'photo',
-    })
-      .then(res => {
-        if (res.assets) {
-          handleChangeForm('logo', {
-            uri: res.assets[0].uri!,
-            name: res.assets[0].fileName || 'logouser',
-            type: res.assets[0].type! || 'image/jpg',
-          });
-        }
-      })
-      .catch(() => {});
+  const handlePickImage = async () => {
+    const res = await FileHelper.pickFile({limit: 1, isLogo: true});
+
+    if (res && res.length) {
+      handleChangeForm('logo', {
+        uri: res[0].uri!,
+        name: res[0].fileName || 'logouser',
+        type: res[0].type! || 'image/jpg',
+      });
+    }
   };
 
-  const handlePickImages = () => {
+  const handlePickImages = async () => {
     if (createForm.photos.length === 5) {
       Notifications.danger('Максимум 5 фотографий');
       return;
     }
 
-    launchImageLibrary({
-      mediaType: 'photo',
-      selectionLimit: 5 - createForm.photos.length,
-    })
-      .then(res => {
-        if (res.assets?.length) {
-          const images = res.assets.map(image => {
-            return {
-              uri: image.uri!,
-              name: image.fileName || 'logouser',
-              type: image.type! || 'image/jpg',
-            };
-          });
+    const res = await FileHelper.pickFile({
+      limit: 5 - createForm.photos.length,
+    });
 
-          handleChangeForm('photos', [...createForm.photos, ...images]);
-        }
-      })
-      .catch(() => {});
+    if (res && res.length) {
+      const images = res.map(image => {
+        return {
+          uri: image.uri!,
+          name: image.fileName || 'photouser',
+          type: image.type! || 'image/jpg',
+        };
+      });
+
+      handleChangeForm('photos', [...createForm.photos, ...images]);
+    }
   };
 
   const removePickPhoto = (url: string) => {
@@ -144,7 +149,36 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     );
   };
 
-  const handleSaveOrganization = () => {};
+  const handleSaveOrganization = () => {
+    if (!isFormValidation(createForm)) {
+      setIsError(true);
+      return;
+    }
+
+    const employeers = OrganizationHelper.getEmployeers(employeersState);
+
+    if (employeers.length) {
+      handleChangeForm('employeers', employeers);
+    }
+
+    setIsLoading(true);
+
+    dispatch(createOrganization())
+      .then(() => {
+        if (props.isEdit) {
+          Navigation.pop();
+        } else {
+          Navigation.navigate(Screens.ORGANIZATION_MY);
+          resetCreateForm();
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   const handleRemoveOrganization = () => {
     Navigation.navigate(Screens.ORGANIZATION_REMOVE);
@@ -240,7 +274,41 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           onRemovePickPhoto={removePickPhoto}
         />
 
+        {isError ? (
+          <MainContainer $ph={20}>
+            <TextUI $mb={10} color={ColorsUI.red} ag={Ag['700_16']}>
+              {'Заполните:'}
+            </TextUI>
+            {!createForm.name.length ? (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Название организации'}
+              </TextUI>
+            ) : null}
+            {!createForm.category?.title ? (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Категорию'}
+              </TextUI>
+            ) : null}
+            {!createForm.city ? (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Местоположение'}
+              </TextUI>
+            ) : null}
+            {!createForm.address.length ? (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Адрес'}
+              </TextUI>
+            ) : null}
+            {!createForm.description.length ? (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Описание'}
+              </TextUI>
+            ) : null}
+          </MainContainer>
+        ) : null}
+
         <CreateSave
+          isDisabled={isLoading}
           isEdit={props.isEdit}
           onRemovePress={handleRemoveOrganization}
           onSavePress={handleSaveOrganization}

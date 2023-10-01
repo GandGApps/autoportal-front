@@ -56,7 +56,7 @@ export interface ContactInfoModel {
 }
 
 export interface EmployeerModel {
-  _id: string;
+  _id?: string;
   position: string;
   name: string;
   phone: string;
@@ -64,8 +64,8 @@ export interface EmployeerModel {
 
 export interface ScheduleModel {
   title: string;
-  fromTime?: string;
-  toTime?: string;
+  from?: string;
+  to?: string;
   isAllDay?: boolean;
 }
 
@@ -81,5 +81,21 @@ export interface OrganizationsDTO {
 export interface ScheduleFilterDTO {
   isAllDay?: boolean;
   isNowWork?: boolean;
-  Days: string[];
+  Days?: string[];
+}
+
+export interface CreateOrganizationDTO {
+  name: string;
+  city: string;
+  address: string;
+  categoryId: string;
+  description: string;
+  logo: string;
+  mainPhone?: string;
+  whatsApp?: string;
+  typeServices?: string[];
+  brandsCars?: string[];
+  photos?: string[];
+  employeers?: EmployeerModel[];
+  schedule?: ScheduleModel[];
 }

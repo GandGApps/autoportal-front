@@ -11,12 +11,15 @@ interface LogoUIProps extends ContainerProps {
 
 export const LogoUI = (props: LogoUIProps) => {
   return (
-    <MainContainer
-      {...props}
-      $heightPX={props.size || 70}
-      $widthPX={props.size || 70}>
+    <MainContainer {...props}>
       {props.url ? (
-        <ImageUI source={{uri: props.url}} resizeMode={'contain'} />
+        <ImageUI
+          source={{uri: props.url}}
+          $heightPX={props.size || 70}
+          $widthPX={props.size || 70}
+          $br={props.size || 70}
+          resizeMode={'cover'}
+        />
       ) : (
         <NoLogoIcon size={props.size} />
       )}

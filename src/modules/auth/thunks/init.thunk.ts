@@ -5,7 +5,10 @@ import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import {guestAuth} from './guest.thunks';
 import {getUserInfo} from '../../user/_thunks';
-import {filterChangeForm} from '../../organizations/OrganizationsSlice';
+import {
+  createChangeForm,
+  filterChangeForm,
+} from '../../organizations/OrganizationsSlice';
 import {RootState} from '../../../settings/redux/store';
 import {getCreatedStatus} from '../../organizations/_thunks';
 
@@ -39,6 +42,9 @@ const initCity = createAsyncThunk(
 
     dispatch(
       filterChangeForm({key: 'city', value: userInfo?.city || 'Москва'}),
+    );
+    dispatch(
+      createChangeForm({key: 'city', value: userInfo?.city || 'Москва'}),
     );
   },
 );
