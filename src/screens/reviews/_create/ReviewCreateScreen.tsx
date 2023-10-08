@@ -7,20 +7,50 @@ import {BackBtn} from '../../../template/ui/BackBtn';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {StarIcon} from '../../../template/icons/StarIcon';
-import {ColorsUI} from '../../../template/styles/ColorUI';
 import {BorderTopUI} from '../../../template/ui/BorderTopUI';
 import {Textarea} from '../../../components/Textarea';
-import {
-  ColumnContainerBetween,
-  ColumnContainerBetweenFlex,
-} from '../../../template/containers/ColumnContainer';
+import {ColumnContainerBetweenFlex} from '../../../template/containers/ColumnContainer';
 import {ButtonUI} from '../../../template/ui/ButtonUI';
+import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
+import {selectOrganizationsValues} from '../../../modules/organizations/OrganizationsSlice';
+import {
+  createReview,
+  getReviews,
+} from '../../../modules/organizations/thunks/reviews.thunk';
+import Navigation from '../../../routes/navigation/Navigation';
 
 export const ReviewCreateScreen = () => {
   const insets = useSafeAreaInsets();
 
-  const [rating, setRating] = useState(3);
-  const [description, setDescription] = useState('');
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {currentOrganization} = useAppSelector(selectOrganizationsValues);
+  const dispatch = useAppDispatch();
+
+  const handleSaveReview = () => {
+    setIsLoading(true);
+
+    dispatch(
+      createReview({
+        id: currentOrganization?._id!,
+        rating,
+        comment,
+      }),
+    )
+      .then(() => {
+        setTimeout(() => {
+          dispatch(getReviews());
+        }, 0);
+        Navigation.pop();
+      })
+      .catch(e => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <ScrollViewScreen
@@ -48,8 +78,8 @@ export const ReviewCreateScreen = () => {
             {Array.from({length: 5}).map((_, idx) => (
               <ViewPress
                 key={`rating-press-${idx}`}
-                onPress={() => setRating(idx)}>
-                <StarIcon size={30} isActive={rating >= idx} />
+                onPress={() => setRating(idx + 1)}>
+                <StarIcon size={30} isActive={rating >= idx + 1} />
               </ViewPress>
             ))}
           </RowContainer>
@@ -60,14 +90,18 @@ export const ReviewCreateScreen = () => {
             </TextUI>
 
             <Textarea
-              value={description}
-              onChangeText={setDescription}
+              value={comment}
+              onChangeText={setComment}
               placeholder={'Оставьте отзыв'}
             />
           </BorderTopUI>
         </MainContainer>
 
-        <ButtonUI title={'Сохранить'} />
+        <ButtonUI
+          $btnDisabled={isLoading}
+          title={'Сохранить'}
+          onPress={handleSaveReview}
+        />
       </ColumnContainerBetweenFlex>
     </ScrollViewScreen>
   );

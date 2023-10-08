@@ -3,6 +3,7 @@ import {Endpoints} from '../../../template/api/Endpoints';
 import {CreatetFormModel} from '../form/CreateForm';
 import {
   CreateOrganizationDTO,
+  CreateReviewDTO,
   OrganizationsDTO,
 } from '../types/OrganizationTypes';
 
@@ -68,15 +69,33 @@ export class ApiOrganizationsService extends AbstractApiRepository {
     });
   };
 
-  getReviews = async () => {
-    return this.apiClient.get({
-      url: '',
-    });
-  };
-
   createOrganization = async (dto: CreateOrganizationDTO) => {
     return this.apiClient.post({
       url: Endpoints.myOrganizations,
+      data: dto,
+    });
+  };
+
+  addFavoriteOrganization = async (id: string) => {
+    return this.apiClient.post({
+      url: Endpoints.changeFavorite(id),
+    });
+  };
+  deleteFavoriteOrganization = async (id: string) => {
+    return this.apiClient.delete({
+      url: Endpoints.changeFavorite(id),
+    });
+  };
+
+  getReviews = async (id: string) => {
+    return this.apiClient.get({
+      url: Endpoints.reviews(id),
+    });
+  };
+
+  createReview = async (id: string, dto: CreateReviewDTO) => {
+    return this.apiClient.post({
+      url: Endpoints.reviews(id),
       data: dto,
     });
   };

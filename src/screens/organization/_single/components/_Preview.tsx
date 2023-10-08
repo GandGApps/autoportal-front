@@ -13,8 +13,11 @@ import {Ag, TextUI} from '../../../../template/ui/TextUI';
 import {LogoUI} from '../../../../components/LogoUI';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Dimensions} from 'react-native';
+import {useAppDispatch} from '../../../../settings/redux/hooks';
+import {changeOrganizationFavorite} from '../../../../modules/organizations/thunks/favoriteChange.thunk';
 
 interface OrganizationPreviewProps {
+  id: string;
   isFavorite?: boolean;
   previews?: string[];
   carouselIndex: number;
@@ -25,23 +28,40 @@ interface OrganizationPreviewProps {
 
 export const OrganizationPreview = (props: OrganizationPreviewProps) => {
   const insets = useSafeAreaInsets();
+  const dispatch = useAppDispatch();
 
   const carouselWidth = Dimensions.get('window').width;
   const carouselHeight = carouselWidth / 1.5;
 
   const [isFavorite, setIsFavorite] = useState(props.isFavorite || false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleAddToFavorite = () => {
+  const handleAddToFavorite = async () => {
     setIsFavorite(!isFavorite);
+    setIsLoading(true);
+
+    await dispatch(
+      changeOrganizationFavorite({
+        id: props.id,
+        type: isFavorite ? 'delete' : 'add',
+      }),
+    ).catch(err => {
+      console.log(err);
+    });
+
+    setIsLoading(false);
   };
 
   return (
     <>
       <MainContainer>
-        <AbsoluteContainer $widthPRC={100} $top={Math.max(insets.top, 20)}>
+        <AbsoluteContainer
+          $zIndex={100}
+          $widthPRC={100}
+          $top={Math.max(insets.top, 20)}>
           <RowContainerBeetwen $ph={20}>
             <BackBtn color={ColorsUI.white} />
-            <ViewPress onPress={handleAddToFavorite}>
+            <ViewPress disabled={isLoading} onPress={handleAddToFavorite}>
               <HearthIcon isActive={isFavorite} />
             </ViewPress>
           </RowContainerBeetwen>

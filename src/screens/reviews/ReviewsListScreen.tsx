@@ -13,12 +13,12 @@ import Navigation from '../../routes/navigation/Navigation';
 import {Screens} from '../../routes/models/Screens';
 import {ColorsUI} from '../../template/styles/ColorUI';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
-import {getReviews} from '../../modules/organizations/_thunks';
 import {selectOrganizationsValues} from '../../modules/organizations/OrganizationsSlice';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../../components/Loader';
 import {ReviewUI} from '../../components/ReviewUI';
 import {BorderTopUI} from '../../template/ui/BorderTopUI';
+import {getReviews} from '../../modules/organizations/thunks/reviews.thunk';
 
 export const ReviewsListScreen = () => {
   const insets = useSafeAreaInsets();
@@ -74,6 +74,12 @@ export const ReviewsListScreen = () => {
               <ReviewUI review={review} />
             </BorderTopUI>
           ))}
+
+          {!reviews.length ? (
+            <TextUI $align={'center'} ag={Ag['600_16']}>
+              {'Нет отзывов'}
+            </TextUI>
+          ) : null}
         </>
       )}
     </ScrollViewScreen>

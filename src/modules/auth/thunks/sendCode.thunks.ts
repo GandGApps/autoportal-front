@@ -12,6 +12,8 @@ export const sendCode = createAsyncThunk(
   async (code: string, {getState, dispatch}) => {
     const {type, loginForm, registerForm} = (getState() as RootState).authSlice;
 
+    console.log(type);
+
     const authUser = await authService.sendCode({
       phone_number:
         type === 'Вход' ? loginForm.phone_number : registerForm.phone_number,

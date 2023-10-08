@@ -26,7 +26,7 @@ import {RowContainerBeetwen} from '../../template/containers/RowContainer';
 import {ButtonUI} from '../../template/ui/ButtonUI';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../Loader';
-import {mockSchedule} from '../../modules/organizations/mock/MockSchedule';
+import {MockFilterSchedule} from '../../modules/organizations/mock/MockFilterSchedule';
 import {CreatetFormModel} from '../../modules/organizations/form/CreateForm';
 
 interface CitiesFilterProps {
@@ -81,7 +81,7 @@ export const FilterModal = (props: CitiesFilterProps) => {
       }
       case 'schedule': {
         setPickList((form as FiltertFormModel).schedule || []);
-        setList(mockSchedule);
+        setList(MockFilterSchedule);
         break;
       }
       default: {

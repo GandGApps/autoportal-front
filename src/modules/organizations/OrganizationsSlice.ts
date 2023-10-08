@@ -17,10 +17,9 @@ import {
   getOrganizationList,
   getPersonalOrganizations,
   getPromotionsList,
-  getReviews,
   getSearchServices,
 } from './_thunks';
-import {createOrganization} from './thunks/create.thunk';
+import {getReviews} from './thunks/reviews.thunk';
 
 const initialState: OrganizationsStateModel = {
   banners: [],
