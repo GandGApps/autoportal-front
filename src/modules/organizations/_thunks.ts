@@ -198,20 +198,3 @@ export const getCreatedStatus = createAsyncThunk(
     });
   },
 );
-
-export const getReviews = createAsyncThunk(
-  'organization/reviews',
-  async (_, {getState, dispatch}) => {
-    const {isReviewsLoad} = (getState() as RootState).organizationsSlice;
-
-    if (isReviewsLoad) {
-      return;
-    }
-
-    dispatch(setIsReviewsLoad(true));
-
-    return await organizationService.getReviews().finally(() => {
-      dispatch(setIsReviewsLoad(false));
-    });
-  },
-);

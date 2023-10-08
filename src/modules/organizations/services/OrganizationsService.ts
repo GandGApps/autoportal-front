@@ -8,13 +8,13 @@ import {OrganizationList} from '../models/OrganizationList';
 import {CurrentOrganization} from '../models/CurrentOrganization';
 import {ApiOrganizationsService} from './_api_organizations';
 import {CreatedStatus} from '../models/CreatedStatus';
-import {MockReviews} from '../mock/MockReviews';
 import {Review} from '../models/Review';
 import {FiltertFormModel} from '../form/FilterForm';
-import {OrganizationsDTO} from '../types/OrganizationTypes';
+import {CreateReviewDTO, OrganizationsDTO} from '../types/OrganizationTypes';
 import {OrganizationHelper} from '../helpers/OrganizationHelper';
 import {CreatetFormModel} from '../form/CreateForm';
 import {Message} from '../../auth/models/Message';
+import {FavoriteOrganization} from '../models/FavoriteOrganization';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -88,7 +88,7 @@ export class OrganizationsService extends AbstractServiceRepository {
   getFavoritesList = async () => {
     const {data} = await this.api.getFavoritesList();
 
-    return this.createList<OrganizationList>(OrganizationList, data);
+    return this.createList<FavoriteOrganization>(FavoriteOrganization, data);
   };
 
   getPersonalOrganizations = async () => {
@@ -103,17 +103,34 @@ export class OrganizationsService extends AbstractServiceRepository {
     return this.create<CreatedStatus>(CreatedStatus, data);
   };
 
-  getReviews = async () => {
-    // const {data} = await this.api.getReviews();
-    const data = MockReviews;
-
-    return this.createList<Review>(Review, data);
-  };
-
   createOrganization = async (createForm: CreatetFormModel) => {
     const dto = await OrganizationHelper.createOrganizationDto(createForm);
 
     const {data} = await this.api.createOrganization(dto);
+
+    return this.create<Message>(Message, data);
+  };
+
+  addFavoriteOrganization = async (id: string) => {
+    const {data} = await this.api.addFavoriteOrganization(id);
+
+    return this.create<Message>(Message, data);
+  };
+
+  deleteFavoriteOrganization = async (id: string) => {
+    const {data} = await this.api.deleteFavoriteOrganization(id);
+
+    return this.create<Message>(Message, data);
+  };
+
+  getReviews = async (id: string) => {
+    const {data} = await this.api.getReviews(id);
+
+    return this.createList<Review>(Review, data);
+  };
+
+  createReview = async (id: string, dto: CreateReviewDTO) => {
+    const {data} = await this.api.createReview(id, dto);
 
     return this.create<Message>(Message, data);
   };

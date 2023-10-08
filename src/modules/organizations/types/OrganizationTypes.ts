@@ -10,6 +10,7 @@ import {PromotionList} from '../models/PromotionList';
 import {CreatedStatus} from '../models/CreatedStatus';
 import {CreatetFormModel} from '../form/CreateForm';
 import {Review} from '../models/Review';
+import {FavoriteOrganization} from '../models/FavoriteOrganization';
 
 export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
@@ -24,7 +25,7 @@ export interface OrganizationsStateModel {
   searchServices: SearchServices[];
   organizationList: OrganizationList[];
   promotionsList: PromotionList[];
-  favoritesList: OrganizationList[];
+  favoritesList: FavoriteOrganization[];
   personalOrganizations: PersonalOrganizations[];
   reviews: Review[];
 
@@ -98,4 +99,10 @@ export interface CreateOrganizationDTO {
   photos?: string[];
   employeers?: EmployeerModel[];
   schedule?: ScheduleModel[];
+}
+
+export interface CreateReviewDTO {
+  date: string;
+  rating: number;
+  comment: string;
 }

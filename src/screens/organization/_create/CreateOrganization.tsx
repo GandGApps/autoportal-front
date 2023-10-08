@@ -25,7 +25,6 @@ import {CreateDescription} from './components/_Description';
 import {CreateSchedules} from './components/_Schedules';
 import {ScheduleModel} from '../../../modules/organizations/types/OrganizationTypes';
 import {CreateAddLogo} from './components/_AddLogo';
-import {launchImageLibrary} from 'react-native-image-picker';
 import {CreateAddPhotos} from './components/_AddPhotos';
 import {Notifications} from '../../../template/notifications/Notifications';
 import {CreateSave} from './components/_Save';

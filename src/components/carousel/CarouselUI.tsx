@@ -6,6 +6,8 @@ import {ImageUI} from '../../template/ui/ImageUI';
 
 import {ViewFlexPress} from '../../template/containers/ViewPress';
 import {Dots} from './components/Dots';
+import {ColorsUI} from '../../template/styles/ColorUI';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface OrganizationPreviewUIProps {
   list: string[];
@@ -33,6 +35,15 @@ export const CarouselUI = (props: OrganizationPreviewUIProps) => {
             key={`preview-${index}`}
             activeOpacity={1}
             onPress={props.onPressImage}>
+            <AbsoluteContainer
+              $zIndex={120}
+              $heightPX={props.height / 2}
+              $widthPX={props.width}>
+              <LinearGradient
+                style={{flex: 1}}
+                colors={[ColorsUI.black, ColorsUI.transparent]}
+              />
+            </AbsoluteContainer>
             <ImageUI $isFlex source={{uri: item}} />
           </ViewFlexPress>
         )}

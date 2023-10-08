@@ -74,6 +74,7 @@ export const OrganizationScreen = () => {
         contentContainerStyle={{paddingBottom: insets.bottom + 70}}
         showsVerticalScrollIndicator={false}>
         <OrganizationPreview
+          id={currentOrganization._id}
           isFavorite={currentOrganization?.isFavorite}
           previews={currentOrganization?.photos}
           carouselIndex={carouselIndex}

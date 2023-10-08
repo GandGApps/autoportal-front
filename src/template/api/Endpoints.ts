@@ -19,6 +19,7 @@ export const Endpoints = {
   promotions: '/promotion',
 
   favorites: '/organisations/favorites',
+  changeFavorite: (id: string) => `/organisations/favorites?organisation=${id}`,
 
   createdStatus: '/organisations/my/created',
 
@@ -33,4 +34,7 @@ export const Endpoints = {
 
   // UPLOAD FILE
   file: '/organisations/photo',
+
+  // REVIEWS
+  reviews: (id: string) => `/reviews?organizationId=${id}`,
 };

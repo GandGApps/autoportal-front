@@ -12,9 +12,10 @@ import {PersonalOrganizations} from '../../../modules/organizations/models/Perso
 import {CenterContainer} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
 import {ScrollViewScreen} from '../../../template/containers/ScrollViewScreen';
-import {FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {MyOrganization} from './components/_MyOrganization';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Ag, TextUI} from '../../../template/ui/TextUI';
 
 export const MyOrganizationsScreen = () => {
   const {personalOrganizations, isPersonalOrganizationsLoad} = useAppSelector(
@@ -67,33 +68,47 @@ export const MyOrganizationsScreen = () => {
         <CenterContainer $mt={20}>
           <Loader size={20} />
         </CenterContainer>
+      ) : activeTab === TabMenuOrganization.active ? (
+        <>
+          {!activeList.length ? (
+            <MainContainer $pt={20}>
+              <TextUI $align={'center'} ag={Ag['600_16']}>
+                {'Нет активных организаий'}
+              </TextUI>
+            </MainContainer>
+          ) : null}
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingTop: 20,
+              paddingBottom: insets.bottom + 30,
+            }}
+            data={activeList}
+            renderItem={({item}) => (
+              <MyOrganization key={`my-active-${item._id}`} item={item} />
+            )}
+          />
+        </>
       ) : (
         <>
-          {activeTab === TabMenuOrganization.active ? (
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                paddingTop: 20,
-                paddingBottom: insets.bottom + 30,
-              }}
-              data={activeList}
-              renderItem={({item}) => (
-                <MyOrganization key={`my-active-${item._id}`} item={item} />
-              )}
-            />
-          ) : (
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                paddingTop: 20,
-                paddingBottom: insets.bottom + 30,
-              }}
-              data={disabledList}
-              renderItem={({item}) => (
-                <MyOrganization key={`my-disabled-${item._id}`} item={item} />
-              )}
-            />
-          )}
+          {!disabledList.length ? (
+            <MainContainer $pt={20}>
+              <TextUI $align={'center'} ag={Ag['600_16']}>
+                {'Нет неактивных организаий'}
+              </TextUI>
+            </MainContainer>
+          ) : null}
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingTop: 20,
+              paddingBottom: insets.bottom + 30,
+            }}
+            data={disabledList}
+            renderItem={({item}) => (
+              <MyOrganization key={`my-disabled-${item._id}`} item={item} />
+            )}
+          />
         </>
       )}
     </ColumnContainerFlex>

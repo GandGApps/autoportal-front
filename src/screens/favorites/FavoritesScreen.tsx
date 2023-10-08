@@ -74,7 +74,7 @@ export const FavoritesScreen = () => {
             {favoritesList.map(item => (
               <OrganizationItem
                 key={`fav-${item._id}`}
-                item={item}
+                item={item.organisation_id!}
                 categoryName={filterForm.category?.title!}
               />
             ))}

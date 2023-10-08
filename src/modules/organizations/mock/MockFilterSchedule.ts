@@ -1,4 +1,4 @@
-export const mockSchedule = [
+export const MockFilterSchedule = [
   {
     _id: 'now',
     title: 'Сейчас работает',
