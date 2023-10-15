@@ -4,7 +4,7 @@ import AbstractServiceRepository from '../../../settings/abstrcations/repositori
 import {AuthApiService} from './auth.api';
 import {AuthUser} from '../models/AuthUser';
 import {Message} from '../models/Message';
-import {CodeDTO} from '../types/types';
+import {AdminDTO, CodeDTO} from '../types/types';
 import {MaskHelper} from '../../../helper/MaskHelper';
 
 class AuthService extends AbstractServiceRepository {
@@ -43,6 +43,12 @@ class AuthService extends AbstractServiceRepository {
       ...dto,
       phone_number: MaskHelper.clearFormat(dto.phone_number),
     });
+
+    return this.create<AuthUser>(AuthUser, data);
+  };
+
+  adminLogin = async (dto: AdminDTO) => {
+    const {data} = await this.api.adminLogin(dto);
 
     return this.create<AuthUser>(AuthUser, data);
   };

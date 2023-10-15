@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {authService} from '../services/auth.service';
 import {tokenService} from '../services/token/token.fabric';
-import {resetAuthForms, setIsAuth} from '../AuthSlice';
+import {resetAuthForms} from '../AuthSlice';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import {RootState} from '../../../settings/redux/store';
@@ -11,8 +11,6 @@ export const sendCode = createAsyncThunk(
   'auth/sendCode',
   async (code: string, {getState, dispatch}) => {
     const {type, loginForm, registerForm} = (getState() as RootState).authSlice;
-
-    console.log(type);
 
     const authUser = await authService.sendCode({
       phone_number:

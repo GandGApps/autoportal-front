@@ -153,24 +153,12 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       setIsError(true);
       return;
     }
-
     const employeers = OrganizationHelper.getEmployeers(employeersState);
-
     if (employeers.length) {
       handleChangeForm('employeers', employeers);
     }
-
     setIsLoading(true);
-
-    dispatch(createOrganization())
-      .then(() => {
-        if (props.isEdit) {
-          Navigation.pop();
-        } else {
-          Navigation.navigate(Screens.ORGANIZATION_MY);
-          resetCreateForm();
-        }
-      })
+    dispatch(createOrganization(props.isEdit || false))
       .catch(e => {})
       .finally(() => {
         setIsLoading(false);

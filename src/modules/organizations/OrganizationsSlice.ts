@@ -20,6 +20,7 @@ import {
   getSearchServices,
 } from './_thunks';
 import {getReviews} from './thunks/reviews.thunk';
+import {getSubInfo} from './thunks/subscribe.thunk';
 
 const initialState: OrganizationsStateModel = {
   banners: [],
@@ -27,6 +28,8 @@ const initialState: OrganizationsStateModel = {
 
   filterForm: DefaultFilterForm,
   createForm: DefaultCreateForm,
+
+  subInfo: null,
 
   organizationFilter: null,
   searchServices: [],
@@ -224,6 +227,13 @@ const organizationsSlice = createSlice({
       }
 
       state.reviews = action.payload;
+    });
+
+    // GET Subscribe info
+    builder.addCase(getSubInfo.fulfilled, (state, action) => {
+      if (!action.payload) return;
+
+      state.subInfo = action.payload;
     });
   },
 });

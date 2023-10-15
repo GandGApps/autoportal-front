@@ -15,6 +15,9 @@ import {OrganizationHelper} from '../helpers/OrganizationHelper';
 import {CreatetFormModel} from '../form/CreateForm';
 import {Message} from '../../auth/models/Message';
 import {FavoriteOrganization} from '../models/FavoriteOrganization';
+import {SuccessOrganization} from '../models/SuccessOrganization';
+import {SuccessSubRelease} from '../models/SuccessSubRelease';
+import {FinanceDTO} from '../../admin/types/AdminTypes';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -108,7 +111,7 @@ export class OrganizationsService extends AbstractServiceRepository {
 
     const {data} = await this.api.createOrganization(dto);
 
-    return this.create<Message>(Message, data);
+    return this.create<SuccessOrganization>(SuccessOrganization, data);
   };
 
   addFavoriteOrganization = async (id: string) => {
@@ -133,6 +136,18 @@ export class OrganizationsService extends AbstractServiceRepository {
     const {data} = await this.api.createReview(id, dto);
 
     return this.create<Message>(Message, data);
+  };
+
+  checkSubStore = async () => {
+    const {data} = await this.api.checkSubStore();
+
+    return this.create<SuccessSubRelease>(SuccessSubRelease, data);
+  };
+
+  getSubInfo = async () => {
+    const {data} = await this.api.getSubInfo();
+
+    return data as any as FinanceDTO;
   };
 }
 

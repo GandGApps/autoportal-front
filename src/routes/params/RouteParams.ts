@@ -13,6 +13,9 @@ export type RouteParams = {
     logo?: string;
     name: string;
   };
+  SUB_ORGANIZATION: {
+    organizationId: string;
+  };
 };
 
 export type OrganizationParams = RouteProp<RouteParams, 'ORGANIZATION'>;
@@ -26,3 +29,5 @@ export type OrganizationEditParams = RouteProp<
   RouteParams,
   'ORGANIZATION_EDIT'
 >;
+
+export type SubOrganizationParams = RouteProp<RouteParams, 'SUB_ORGANIZATION'>;

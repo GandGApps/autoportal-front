@@ -11,6 +11,8 @@ export interface AuthStateModel {
 
   isAuth: boolean;
   isReady: boolean;
+
+  isAdmin: boolean;
 }
 
 export interface CallDto {
@@ -20,6 +22,11 @@ export interface CallDto {
 export interface CodeDTO {
   phone_number: string;
   confCode: string;
+}
+
+export interface AdminDTO {
+  phone: string;
+  password: string;
 }
 
 export interface RegisterDTO {

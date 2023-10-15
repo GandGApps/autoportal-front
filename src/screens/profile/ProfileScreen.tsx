@@ -10,7 +10,7 @@ import {MainContainer} from '../../template/containers/MainContainer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Platform, StatusBar} from 'react-native';
 import {ColorsUI} from '../../template/styles/ColorUI';
-import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
+import {useAppSelector} from '../../settings/redux/hooks';
 import {selectOrganizationsValues} from '../../modules/organizations/OrganizationsSlice';
 import Navigation from '../../routes/navigation/Navigation';
 import {FirstOrganization} from './components/FirstOrganization';
