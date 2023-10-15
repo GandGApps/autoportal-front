@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {tokenService} from '../services/token/token.fabric';
-import {setIsAuth} from '../AuthSlice';
+import {setIsAdmin, setIsAuth} from '../AuthSlice';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import {guestAuth} from './guest.thunks';
@@ -11,9 +11,16 @@ import {
 } from '../../organizations/OrganizationsSlice';
 import {RootState} from '../../../settings/redux/store';
 import {getCreatedStatus} from '../../organizations/_thunks';
+import {adminLocalService} from '../services/admin/admin.fabric';
 
 export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
   const token = await tokenService.getTokenData();
+  const adminStatus = await adminLocalService.getAdminStatus();
+
+  if (adminStatus) {
+    adminLocalService.setAdminStatus(adminStatus);
+    dispatch(setIsAdmin(adminStatus));
+  }
 
   if (token) {
     tokenService.setAccessToken(token);

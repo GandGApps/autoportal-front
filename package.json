@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "watch-del": "watchman watch-del-all ",
     "postinstall": "patch-package",
-    "android": "watchman watch-del-all && react-native run-android",
-    "ios": "watchman watch-del-all && react-native run-ios",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"

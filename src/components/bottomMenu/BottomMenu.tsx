@@ -12,7 +12,7 @@ import {selectAuthValues} from '../../modules/auth/AuthSlice';
 import {Screens} from '../../routes/models/Screens';
 
 export const BottomMenu = () => {
-  const {isAuth} = useAppSelector(selectAuthValues);
+  const {isAuth, isAdmin} = useAppSelector(selectAuthValues);
   const insets = useSafeAreaInsets();
 
   const onlyAuthRoutes = [
@@ -29,6 +29,11 @@ export const BottomMenu = () => {
       return;
     }
 
+    if (isAdmin && screen === Screens.PROFILE) {
+      Navigation.navigate(Screens.PROFILE_ADMIN);
+      return;
+    }
+
     Navigation.navigate(screen);
   };
 
@@ -38,14 +43,19 @@ export const BottomMenu = () => {
       $ph={8}
       $pv={8}
       $bottom={Math.max(insets.bottom, 20)}>
-      {Object.entries(BottomTabs).map(([key, value]) => (
-        <BottomTab
-          key={`${key}-${value}`}
-          value={value}
-          keyTab={key}
-          onNavigate={() => handleNavigate(value)}
-        />
-      ))}
+      {Object.entries(BottomTabs).map(([key, value]) => {
+        if (isAdmin && key === 'addOrganization') {
+          return;
+        }
+        return (
+          <BottomTab
+            key={`${key}-${value}`}
+            value={value}
+            keyTab={key}
+            onNavigate={() => handleNavigate(value)}
+          />
+        );
+      })}
     </BottomMenuStyled>
   );
 };

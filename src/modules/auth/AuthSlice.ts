@@ -16,6 +16,8 @@ const initialState: AuthStateModel = {
 
   isAuth: false,
   isReady: false,
+
+  isAdmin: false,
 };
 
 const authSlice = createSlice({
@@ -50,6 +52,10 @@ const authSlice = createSlice({
       state.type = action.payload;
     },
 
+    setIsAdmin: (state, action: PayloadAction<boolean>) => {
+      state.isAdmin = action.payload;
+    },
+
     // RESETS
     resetAuthForms: state => {
       state.loginForm = DefaultLoginForm;
@@ -73,6 +79,7 @@ export const {
   setTitle,
   setAuthType,
   resetAuthForms,
+  setIsAdmin,
 } = authSlice.actions;
 
 export const selectAuthValues = (state: RootState) => state.authSlice;

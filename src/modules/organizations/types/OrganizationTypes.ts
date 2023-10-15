@@ -11,6 +11,7 @@ import {CreatedStatus} from '../models/CreatedStatus';
 import {CreatetFormModel} from '../form/CreateForm';
 import {Review} from '../models/Review';
 import {FavoriteOrganization} from '../models/FavoriteOrganization';
+import {FinanceDTO} from '../../admin/types/AdminTypes';
 
 export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
@@ -20,6 +21,8 @@ export interface OrganizationsStateModel {
 
   filterForm: FiltertFormModel;
   createForm: CreatetFormModel;
+
+  subInfo: Nullable<FinanceDTO>;
 
   organizationFilter: Nullable<OrganizationFilter>;
   searchServices: SearchServices[];

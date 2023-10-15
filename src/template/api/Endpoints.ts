@@ -6,6 +6,8 @@ export const Endpoints = {
 
   editUser: '/users/login/dealer/data',
 
+  adminLogin: '/admin/login',
+
   // ORGANIZATION
   banners: '/banners',
 
@@ -26,7 +28,7 @@ export const Endpoints = {
   // FILTER
 
   searchSubServices: (query: string) => `/services?query="${query}"`,
-  cities: (query: string) => `/cities?city="${query}"`,
+  cities: (query: string) => `/cities/find?city=${query}`,
   filter: (catId: string) => `/filter?categoryId=${catId}`,
 
   // USER INFO
@@ -37,4 +39,12 @@ export const Endpoints = {
 
   // REVIEWS
   reviews: (id: string) => `/reviews?organizationId=${id}`,
+
+  //SUBSCRIBE
+  checkRelease: '/subscribe/release',
+  subInfo: '/subscribe/info',
+
+  // ADMIN
+  finance: '/admin/sub',
+  getUsers: (city: string) => `/admin/users?city=${city}`,
 };

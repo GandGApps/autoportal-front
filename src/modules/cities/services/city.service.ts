@@ -17,4 +17,4 @@ class CityService extends AbstractServiceRepository {
   };
 }
 
-export const cityhService = new CityService();
+export const cityService = new CityService();

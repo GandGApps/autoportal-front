@@ -8,6 +8,7 @@ import {RemoveProfileModal} from '../../screens/profile/question/RemoveProfileMo
 import {LogoutModal} from '../../screens/profile/question/LogoutModal';
 import {StackAnimated} from '../navigation/Animation';
 import {Platform} from 'react-native';
+import {ProfileAdmin} from '../../screens/profile/ProfileAdmin';
 
 const Stack = createStackNavigator();
 

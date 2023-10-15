@@ -20,4 +20,5 @@ export const appConfig = {
   deviceId: getDevideId(),
   version: `${getVersion()} (${getBuildNumber()})`,
   isIOS: Platform.OS === 'ios',
+  adminPhone: '+71002007766',
 };

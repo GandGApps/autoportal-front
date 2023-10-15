@@ -1,7 +1,7 @@
 import AbstractApiRepository from '../../../settings/abstrcations/repositories/AbstractApiRepository';
 import {Endpoints} from '../../../template/api/Endpoints';
 import {LoginFormModel} from '../form/LoginForm';
-import {CallDto, CodeDTO, RegisterDTO} from '../types/types';
+import {AdminDTO, CallDto, CodeDTO, RegisterDTO} from '../types/types';
 
 export class AuthApiService extends AbstractApiRepository {
   setAccessToken = (token: string) => {
@@ -36,6 +36,12 @@ export class AuthApiService extends AbstractApiRepository {
     return this.apiClient.post({
       url: Endpoints.sendCode,
       data: dto,
+    });
+  };
+
+  adminLogin = (dto: AdminDTO) => {
+    return this.apiClient.post({
+      url: Endpoints.adminLogin,
     });
   };
 }

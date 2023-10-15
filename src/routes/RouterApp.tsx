@@ -18,6 +18,7 @@ import {ReviewsStack} from './stacks/ReviewsStack';
 import {ReportStack} from './stacks/ReportStack';
 import {WelcomeScreen} from '../screens/welcome/WelcomeScreen';
 import {AuthStack} from './stacks/AuthStack';
+import {AdminStack} from './stacks/AdminStack';
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,7 @@ export const RouterApp = () => {
         <Stack.Screen name={Screens.WELCOME} component={WelcomeScreen} />
 
         {AuthStack()}
+        {AdminStack()}
         {MainStack()}
         {OrganizationStack()}
         {PromotionsStack()}

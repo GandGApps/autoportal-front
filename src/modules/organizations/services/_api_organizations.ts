@@ -99,4 +99,16 @@ export class ApiOrganizationsService extends AbstractApiRepository {
       data: dto,
     });
   };
+
+  checkSubStore = async () => {
+    return this.apiClient.get({
+      url: Endpoints.checkRelease,
+    });
+  };
+
+  getSubInfo = async () => {
+    return this.apiClient.get({
+      url: Endpoints.subInfo,
+    });
+  };
 }

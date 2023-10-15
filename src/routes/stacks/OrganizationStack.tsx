@@ -9,6 +9,7 @@ import {PromoRemoveModal} from '../../screens/organization/_promo/quastion/Promo
 import {StackAnimated} from '../navigation/Animation';
 import {Platform} from 'react-native';
 import {RemoveOrganizationModal} from '../../screens/organization/_edit/questions/RemoveOrganizationModal';
+import {SubscribeScreen} from '../../screens/subscribe/SubscribeScreen';
 
 const Stack = createStackNavigator();
 
@@ -56,6 +57,11 @@ export const OrganizationStack = () => {
           gestureEnabled: true,
           ...TransitionPresets.ModalPresentationIOS,
         }}
+      />
+
+      <Stack.Screen
+        name={Screens.SUB_ORGANIZATION}
+        component={SubscribeScreen}
       />
     </Stack.Group>
   );
