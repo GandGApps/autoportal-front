@@ -35,7 +35,9 @@ export const ContactInfoContent = (props: ContactInfoContentProps) => {
       <RowContainerBeetwen $mb={10}>
         <TextUI ag={Ag['600_16']}>{'Контактная информация'}</TextUI>
 
-        {props.whatsApp ? <OrganizationWhatsApp /> : null}
+        {props.whatsApp ? (
+          <OrganizationWhatsApp phone={props.whatsApp} />
+        ) : null}
       </RowContainerBeetwen>
 
       <OrgContactInfoRow icon={<LocationIcon />} text={`г. ${props.city}`} />

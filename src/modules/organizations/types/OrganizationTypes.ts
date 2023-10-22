@@ -109,3 +109,8 @@ export interface CreateReviewDTO {
   rating: number;
   comment: string;
 }
+
+export interface SubscribeDTO {
+  type: string;
+  id: string;
+}

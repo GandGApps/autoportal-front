@@ -1,9 +1,6 @@
 import {RootState} from '../../settings/redux/store';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {
-  OrganizationsService,
-  organizationService,
-} from './services/OrganizationsService';
+import {organizationService} from './services/OrganizationsService';
 import {
   setIsBannersLoad,
   setIsCategoriesLoad,
@@ -13,7 +10,6 @@ import {
   setIsOrganizationFilter,
   setIsPersonalOrganizationsLoad,
   setIsPromotionListLoad,
-  setIsReviewsLoad,
   setIsSearchLoad,
 } from './OrganizationsSlice';
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ColumnContainerFlex} from '../../template/containers/ColumnContainer';
 import {GradientHeader} from '../../components/GradientHeader';
 import {SubOrganizationParams} from '../../routes/params/RouteParams';
@@ -12,15 +12,54 @@ import {ColorsUI} from '../../template/styles/ColorUI';
 import {ViewPress} from '../../template/containers/ViewPress';
 import {CheckIcon} from '../../template/icons/CheckIcon';
 import {AbsoluteContainer} from '../../template/containers/AbsoluteContainer';
+import {
+  getSubInfo,
+  getSubcribe,
+} from '../../modules/organizations/thunks/subscribe.thunk';
+import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
+import {selectOrganizationsValues} from '../../modules/organizations/OrganizationsSlice';
+import {CenterContainerFlex} from '../../template/containers/CenterContainer';
+import {Loader} from '../../components/Loader';
+import {OrganizationHelper} from '../../modules/organizations/helpers/OrganizationHelper';
 
 export const SubscribeScreen = () => {
   const {organizationId} = useRoute<SubOrganizationParams>().params;
 
-  console.log(organizationId);
+  const {subInfo} = useAppSelector(selectOrganizationsValues);
+  const dispatch = useAppDispatch();
 
   const [type, setType] = useState<'month' | 'year'>('month');
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubLoading, setIsSubLoading] = useState(false);
+
   const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+    dispatch(getSubInfo()).finally(() => {
+      setIsLoading(false);
+    });
+  }, []);
+
+  const handleGetSubctibe = () => {
+    setIsSubLoading(true);
+    dispatch(getSubcribe({type: type, id: organizationId}))
+      .catch(e => {
+        console.log(e);
+      })
+      .finally(() => {
+        setIsSubLoading(false);
+      });
+  };
+
+  if (isLoading || !subInfo) {
+    <CenterContainerFlex>
+      <Loader size={20} />
+    </CenterContainerFlex>;
+  }
 
   return (
     <ColumnContainerFlex>
@@ -53,9 +92,14 @@ export const SubscribeScreen = () => {
             {'Ежемесячная'}
           </TextUI>
 
-          <TextUI ag={Ag['500_25']}>{'149 Р / месяц'}</TextUI>
+          <TextUI
+            ag={Ag['500_25']}>{`${subInfo?.month_amount} Р / месяц`}</TextUI>
 
-          <TextUI ag={Ag['500_16']}>{'Первые два месяца бесплатно'}</TextUI>
+          {Boolean(subInfo?.free_period) && (
+            <TextUI ag={Ag['500_16']}>
+              {OrganizationHelper.freeMonthSubText(subInfo?.free_period!)}
+            </TextUI>
+          )}
         </ViewPress>
 
         <ViewPress
@@ -78,7 +122,8 @@ export const SubscribeScreen = () => {
             {'Годовая'}
           </TextUI>
 
-          <TextUI ag={Ag['500_25']}>{'120 Р / месяц*'}</TextUI>
+          <TextUI
+            ag={Ag['500_25']}>{`${subInfo?.year_amount} Р / месяц*`}</TextUI>
           <TextUI ag={Ag['500_14']} color={ColorsUI.gray.main}>
             {'*1440р / год'}
           </TextUI>
@@ -86,7 +131,11 @@ export const SubscribeScreen = () => {
           <TextUI ag={Ag['500_16']}>{'Первые два месяца бесплатно'}</TextUI>
         </ViewPress>
         <ColumnContainerFlex />
-        <ButtonUI title={'Далее'} />
+        <ButtonUI
+          $btnDisabled={isSubLoading}
+          title={'Далее'}
+          onPress={handleGetSubctibe}
+        />
       </ColumnContainerFlex>
     </ColumnContainerFlex>
   );

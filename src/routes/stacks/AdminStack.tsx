@@ -13,6 +13,8 @@ import {UsersScreen} from '../../screens/admin/users/UsersScreen';
 import {AdminCategories} from '../../screens/admin/categories/AdminCategories';
 import {FinanceSettings} from '../../screens/admin/finance/FinanceSettings';
 import {AdminBanners} from '../../screens/admin/banners/AdminBanners';
+import {CreateBanner} from '../../screens/admin/banners/CreateBanner';
+import {UsersOrganizations} from '../../screens/admin/users/UsersOrganizations';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +37,14 @@ export const AdminStack = () => {
       />
       <Stack.Screen name={Screens.ADMIN_FINANCE} component={FinanceSettings} />
       <Stack.Screen name={Screens.ADMIN_BANNERS} component={AdminBanners} />
+      <Stack.Screen
+        name={Screens.ADMIN_CREATE_BANNER}
+        component={CreateBanner}
+      />
+      <Stack.Screen
+        name={Screens.ADMIN_USER_ORGANIZATIONS}
+        component={UsersOrganizations}
+      />
     </Stack.Group>
   );
 };

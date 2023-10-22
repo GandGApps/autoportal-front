@@ -14,6 +14,7 @@
   "dependencies": {
     "@bam.tech/react-native-image-resizer": "3.0.7",
     "@react-native-async-storage/async-storage": "1.19.3",
+    "@react-native-clipboard/clipboard": "^1.12.1",
     "@react-navigation/native": "6.1.7",
     "@react-navigation/stack": "6.3.17",
     "@reduxjs/toolkit": "1.9.5",
@@ -41,6 +42,7 @@
     "react-native-screens": "3.24.0",
     "react-native-svg": "13.11.0",
     "react-native-toast-notifications": "3.3.1",
+    "react-native-webview": "13.6.2",
     "react-redux": "8.1.2",
     "styled-components": "6.0.7"
   },
