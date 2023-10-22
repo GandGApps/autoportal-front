@@ -18,8 +18,6 @@ export const createOrganization = createAsyncThunk(
 
     const checkRelease = await organizationService.checkSubStore();
 
-    console.log(response.organizationId);
-
     // TODO: Исправить checkRelease.isSubscribe перед релизом
     if (response.organizationId && !checkRelease.isSubscribe) {
       Navigation.navigate(Screens.SUB_ORGANIZATION, {

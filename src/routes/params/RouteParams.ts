@@ -16,6 +16,12 @@ export type RouteParams = {
   SUB_ORGANIZATION: {
     organizationId: string;
   };
+  SUBSCRIBE_MODAL: {
+    url: string;
+  };
+  ADMIN_USER_ORGS: {
+    id: string;
+  };
 };
 
 export type OrganizationParams = RouteProp<RouteParams, 'ORGANIZATION'>;
@@ -31,3 +37,7 @@ export type OrganizationEditParams = RouteProp<
 >;
 
 export type SubOrganizationParams = RouteProp<RouteParams, 'SUB_ORGANIZATION'>;
+
+export type SubscribeModalParams = RouteProp<RouteParams, 'SUBSCRIBE_MODAL'>;
+
+export type AdminUserOrgsParams = RouteProp<RouteParams, 'ADMIN_USER_ORGS'>;

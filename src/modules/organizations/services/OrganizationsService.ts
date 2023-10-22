@@ -147,7 +147,13 @@ export class OrganizationsService extends AbstractServiceRepository {
   getSubInfo = async () => {
     const {data} = await this.api.getSubInfo();
 
-    return data as any as FinanceDTO;
+    return (data as any).subdetails as FinanceDTO;
+  };
+
+  getSubscribe = async (type: string, id: string) => {
+    const {data} = await this.api.getSubscribe(type, id);
+
+    return data as any as {data: string};
   };
 }
 

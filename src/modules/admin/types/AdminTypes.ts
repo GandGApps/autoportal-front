@@ -1,7 +1,9 @@
+import {OrganizationList} from '../../organizations/models/OrganizationList';
 import {Dealer} from '../models/Dealer';
 
 export interface AdminStateModal {
   dealers: Dealer[];
+  userOrganization: OrganizationList[];
 }
 
 export interface DealerInfo {

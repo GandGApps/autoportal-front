@@ -20,6 +20,9 @@ import {ColorsUI} from '../../../template/styles/ColorUI';
 import {MaskHelper} from '../../../helper/MaskHelper';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {Insets} from '../../../template/styles/Insets';
+import {InputSelectUI} from '../../../template/ui/InputSelectUI';
+import Navigation from '../../../routes/navigation/Navigation';
+import {Screens} from '../../../routes/models/Screens';
 
 export const UsersScreen = () => {
   const cityModal = useRef<Modalize>(null);
@@ -80,8 +83,8 @@ export const UsersScreen = () => {
     <ColumnContainerFlex>
       <GradientHeader isBack={true} title={'Пользователи'} />
       <ColumnContainerFlex style={compStyles.gap20} $ph={20} $pt={20}>
-        <SelectUI
-          text={city || 'Выберите город'}
+        <InputSelectUI
+          value={city || 'Выберите город'}
           onPress={() => {
             cityModal.current?.open();
           }}
@@ -109,7 +112,6 @@ export const UsersScreen = () => {
                   {'Заблокирован'}
                 </TextUI>
               )}
-              <TextUI ag={Ag['400_16']}>{`ID: ${item.dealer._id}`}</TextUI>
               <TextUI ag={Ag['400_16']}>{`г.${item.dealer.city}`}</TextUI>
               <TextUI ag={Ag['400_16']}>{`${item.dealer.full_name}`}</TextUI>
               <TextUI ag={Ag['400_16']}>
@@ -129,7 +131,12 @@ export const UsersScreen = () => {
                 </ViewPress>
               )}
               <RowContainerJustEnd>
-                <ViewPress>
+                <ViewPress
+                  onPress={() =>
+                    Navigation.navigate(Screens.ADMIN_USER_ORGANIZATIONS, {
+                      id: item.dealer._id,
+                    })
+                  }>
                   <TextUI
                     color={ColorsUI.green}
                     ag={

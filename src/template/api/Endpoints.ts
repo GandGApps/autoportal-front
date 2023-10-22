@@ -47,4 +47,8 @@ export const Endpoints = {
   // ADMIN
   finance: '/admin/sub',
   getUsers: (city: string) => `/admin/users?city=${city}`,
+  getUserOrganizations: (dealerId: string) =>
+    `/admin/organisations/users?dealerId=${dealerId}`,
+  subscribe: (type: string, id: string) =>
+    `/subscribe/${type}?organizationId=${id}`,
 };

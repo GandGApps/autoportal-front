@@ -2,9 +2,11 @@ import {createSlice} from '@reduxjs/toolkit';
 import {AdminStateModal} from './types/AdminTypes';
 import {RootState} from '../../settings/redux/store';
 import {getUsers} from './thunks/getUsers.thunk';
+import {getUserOrganizations} from './thunks/getUserOrganizations';
 
 const initialState: AdminStateModal = {
   dealers: [],
+  userOrganization: [],
 };
 
 const adminSlice = createSlice({
@@ -19,6 +21,13 @@ const adminSlice = createSlice({
       }
 
       state.dealers = action.payload;
+    });
+
+    // USER ORGANIZATIONS
+    builder.addCase(getUserOrganizations.fulfilled, (state, action) => {
+      if (!action.payload) return;
+
+      state.userOrganization = action.payload;
     });
   },
 });

@@ -261,4 +261,12 @@ export class OrganizationHelper {
 
     return dto;
   };
+
+  static freeMonthSubText = (freePeriod: number) => {
+    if (freePeriod === 1) {
+      return 'Первый месяц бесплатно';
+    }
+
+    return `Первые ${freePeriod} месяца бесплатно`;
+  };
 }

@@ -34,8 +34,6 @@ export const OrganizationScreen = () => {
     selectOrganizationsValues,
   );
 
-  console.log(_id);
-
   const insets = useSafeAreaInsets();
 
   const [carouselIndex, setCarouselIndex] = useState(0);

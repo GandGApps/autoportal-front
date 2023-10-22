@@ -111,4 +111,10 @@ export class ApiOrganizationsService extends AbstractApiRepository {
       url: Endpoints.subInfo,
     });
   };
+
+  getSubscribe = async (type: string, id: string) => {
+    return this.apiClient.post({
+      url: Endpoints.subscribe(type, id),
+    });
+  };
 }

@@ -80,12 +80,12 @@ export const InfoScreen = () => {
                 color={ColorsUI.red}
                 onPress={() => handleGoToScreen(Screens.LOGOUT_MODAL)}
               />
-              <UnderLineText $mb={15} text={'Договор публичной оферты'} />
+              {/* <UnderLineText $mb={15} text={'Договор публичной оферты'} />
               <UnderLineText $mb={15} text={'Политика конфиденциальности'} />
               <UnderLineText
                 $mb={15}
                 text={'Договор на обработку персональных данных'}
-              />
+              /> */}
               <UnderLineText
                 text={'Удалить аккаунт'}
                 onPress={() => handleGoToScreen(Screens.REMOVE_PROFILE_MODAL)}

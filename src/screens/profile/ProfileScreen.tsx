@@ -8,7 +8,7 @@ import {GradientHeader} from '../../components/GradientHeader';
 import {ThreeMenuItem} from '../../components/ThreeMenuItem';
 import {MainContainer} from '../../template/containers/MainContainer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Platform, StatusBar} from 'react-native';
+import {Linking, Platform, StatusBar} from 'react-native';
 import {ColorsUI} from '../../template/styles/ColorUI';
 import {useAppSelector} from '../../settings/redux/hooks';
 import {selectOrganizationsValues} from '../../modules/organizations/OrganizationsSlice';
@@ -41,30 +41,14 @@ export const ProfileScreen = () => {
             title={'Мои организации'}
             onPress={() => handleGoToScreen(Screens.ORGANIZATION_MY)}
           />
-          <ThreeMenuItem title={'Частые вопросы'} onPress={() => {}} />
-          <ThreeMenuItem title={'О приложениие'} onPress={() => {}} />
           {createdStatus?.createdStatus ? (
             <ThreeMenuItem
               title={'Разместить баннер\nна главном экране'}
-              onPress={() => {}}
+              onPress={() => {
+                Linking.openURL('https://t.me/grigor_zh');
+              }}
             />
           ) : null}
-        </MainContainer>
-        <MainContainer
-          $mb={
-            Platform.OS === 'android' ? insets.bottom + 120 : insets.bottom + 90
-          }>
-          <UnderLineText $mt={10} $ph={20} text={'Договор публичной оферты'} />
-          <UnderLineText
-            $mt={10}
-            $ph={20}
-            text={'Политика конфиденциальности'}
-          />
-          <UnderLineText
-            $mt={10}
-            $ph={20}
-            text={'Договор на обработку персональных данных'}
-          />
         </MainContainer>
       </ColumnContainerBetweenFlex>
       <BottomMenu />

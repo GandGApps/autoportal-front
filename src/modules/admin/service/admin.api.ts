@@ -9,6 +9,12 @@ export class AdminApiService extends AbstractApiRepository {
     });
   };
 
+  getUserOrganizations = (dealerId: string) => {
+    return this.apiClient.post({
+      url: Endpoints.getUserOrganizations(dealerId),
+    });
+  };
+
   changeFinanceSettings = (dto: FinanceDTO) => {
     return this.apiClient.post({
       url: Endpoints.finance,
