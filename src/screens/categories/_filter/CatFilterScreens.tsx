@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 import {
   ColumnContainerFlex,
   ColumnContainerFlexEnd,
@@ -17,14 +17,14 @@ import {FilterModal} from '../../../components/filterModal/FilterModal';
 import {FilterFormKeys} from '../../../modules/organizations/form/FilterForm';
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {Modalize} from 'react-native-modalize';
-import {CitiesModal} from '../../../components/CitiesModal';
-import {CategoriesModal} from '../../../components/CategoriesModal';
 import {ButtonUI} from '../../../template/ui/ButtonUI';
 import {
   getOrganizationFilter,
   getOrganizationList,
 } from '../../../modules/organizations/_thunks';
 import Navigation from '../../../routes/navigation/Navigation';
+import {CenterContainer} from '../../../template/containers/CenterContainer';
+import {Loader} from '../../../components/Loader';
 
 export const CatFilterScreens = () => {
   const {filterForm, organizationFilter} = useAppSelector(
@@ -33,30 +33,25 @@ export const CatFilterScreens = () => {
 
   const [typeModal, setTypeModal] = useState<Nullable<FilterFormKeys>>(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const filterModalRef = useRef<Modalize>(null);
-  const citiesModalRef = useRef<Modalize>(null);
-  const categoriesModalRef = useRef<Modalize>(null);
 
   const dispatch = useAppDispatch();
 
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
-    dispatch(getOrganizationFilter(filterForm.category?._id!));
+    setIsLoading(true);
+    dispatch(getOrganizationFilter(filterForm.category?._id!)).finally(() => {
+      setIsLoading(false);
+    });
   }, []);
 
   const handleOpenFilterModal = (type: FilterFormKeys) => {
     setTypeModal(type);
 
     filterModalRef.current?.open();
-  };
-
-  const handleOpenModalCity = () => {
-    citiesModalRef.current?.open();
-  };
-
-  const handleOpenModalCategory = () => {
-    categoriesModalRef.current?.open();
   };
 
   const handleSearch = () => {
@@ -73,67 +68,59 @@ export const CatFilterScreens = () => {
           <TextUI ag={Ag['500_18']}>{'Фильтр'}</TextUI>
         </RowContainer>
       </RowContainerBeetwen>
+      {!isLoading ? (
+        <Fragment>
+          {organizationFilter?.typeService?.length ? (
+            <InputSelectUI
+              containerStyles={{
+                $mb: 10,
+              }}
+              value={'Вид услуги'}
+              onPress={() => handleOpenFilterModal('typeService')}
+            />
+          ) : null}
+          {organizationFilter?.brandCar?.length ? (
+            <InputSelectUI
+              containerStyles={{
+                $mb: 10,
+              }}
+              value={'Марка автомобиля'}
+              onPress={() => handleOpenFilterModal('brandCar')}
+            />
+          ) : null}
 
-      <InputSelectUI
-        containerStyles={{
-          $mb: 10,
-        }}
-        value={filterForm.city}
-        onPress={handleOpenModalCity}
+          <InputSelectUI
+            containerStyles={{
+              $mb: 10,
+            }}
+            value={'Сортировка'}
+            onPress={() => handleOpenFilterModal('sort')}
+          />
+          <InputSelectUI
+            containerStyles={{
+              $mb: 10,
+            }}
+            value={'График работы'}
+            onPress={() => handleOpenFilterModal('schedule')}
+          />
+        </Fragment>
+      ) : (
+        <CenterContainer>
+          <Loader size={24} />
+        </CenterContainer>
+      )}
+      <ColumnContainerFlex />
+      <ButtonUI
+        $mb={Math.max(insets.bottom, 20)}
+        title={'Поиск'}
+        onPress={handleSearch}
       />
-      <InputSelectUI
-        containerStyles={{
-          $mb: 10,
-        }}
-        value={filterForm.category?.title}
-        onPress={() => handleOpenModalCategory()}
-      />
-
-      {organizationFilter?.typeService?.length ? (
-        <InputSelectUI
-          containerStyles={{
-            $mb: 10,
-          }}
-          value={'Вид услуги'}
-          onPress={() => handleOpenFilterModal('typeService')}
-        />
-      ) : null}
-      {organizationFilter?.brandCar?.length ? (
-        <InputSelectUI
-          containerStyles={{
-            $mb: 10,
-          }}
-          value={'Марка автомобиля'}
-          onPress={() => handleOpenFilterModal('brandCar')}
-        />
-      ) : null}
-
-      <InputSelectUI
-        containerStyles={{
-          $mb: 10,
-        }}
-        value={'Сортировка'}
-        onPress={() => handleOpenFilterModal('sort')}
-      />
-      <InputSelectUI
-        containerStyles={{
-          $mb: 10,
-        }}
-        value={'График работы'}
-        onPress={() => handleOpenFilterModal('schedule')}
-      />
-
-      <ColumnContainerFlexEnd $mb={Math.max(insets.bottom, 20)}>
-        <ButtonUI title={'Поиск'} onPress={handleSearch} />
-      </ColumnContainerFlexEnd>
 
       <FilterModal
         typeModal={typeModal}
         modalizeRef={filterModalRef}
         filterForm={filterForm}
       />
-      <CitiesModal modalizeRef={citiesModalRef} />
-      <CategoriesModal modalizeRef={categoriesModalRef} />
     </ColumnContainerFlex>
   );
 };

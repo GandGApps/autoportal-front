@@ -18,10 +18,35 @@ import {FileHelper} from '../../../modules/files/FilesHelper';
 import {Asset} from 'react-native-image-picker';
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {ImageUI} from '../../../template/ui/ImageUI';
+import DatePicker from 'react-native-date-picker';
+import {DateHelper} from '../../../helper/DateHelper';
+import {RowContainer} from '../../../template/containers/RowContainer';
+import {ButtonUI} from '../../../template/ui/ButtonUI';
+import {createBanner} from '../../../modules/admin/thunks/createBanner.thunk';
+import {useAppDispatch} from '../../../settings/redux/hooks';
+import {AdminHelper} from '../../../modules/admin/helpers/AdminHelper';
+import {CreateBannerDTO} from '../../../modules/admin/types/AdminTypes';
+import {Notifications} from '../../../template/notifications/Notifications';
+import {fileSevice} from '../../../modules/files/api/file-service';
+import {getBanners} from '../../../modules/organizations/_thunks';
+import Navigation from '../../../routes/navigation/Navigation';
 
 export const CreateBanner = () => {
+  const disptach = useAppDispatch();
+
   const [city, setCity] = useState('');
   const [image, setImage] = useState<Nullable<Asset>>(null);
+
+  const [from, setFrom] = useState(new Date());
+  const [to, setTo] = useState(new Date());
+
+  const [openFrom, setOpenFrom] = useState(false);
+  const [openTo, setOpenTo] = useState(false);
+
+  const [title, setTitle] = useState('');
+  const [organizationId, setOrganizationId] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const cityModal = useRef<Modalize>(null);
 
@@ -39,6 +64,47 @@ export const CreateBanner = () => {
         setImage(image);
       });
     }
+  };
+
+  const handleCreateBanner = async () => {
+    const validDto: Omit<CreateBannerDTO, 'image'> = {
+      title,
+      city,
+      from: DateHelper.getFormatDtoDate(from),
+      to: DateHelper.getFormatDtoDate(to),
+      organisation_id: organizationId,
+    };
+    if (!AdminHelper.isBannerValid(validDto)) {
+      Notifications.error('Заполните все данные');
+      return;
+    }
+
+    if (!image?.uri) {
+      Notifications.error('Загрузите баннер');
+      return;
+    }
+
+    setIsLoading(true);
+
+    const imageUrl: string = await fileSevice.uploadFile({
+      uri: image.uri!,
+      name: image.fileName || 'banner',
+      type: image.type! || 'image/jpg',
+    });
+
+    const dto: CreateBannerDTO = {
+      ...validDto,
+      image: imageUrl,
+    };
+
+    await disptach(createBanner(dto))
+      .then(() => {
+        disptach(getBanners());
+        Navigation.pop();
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -89,9 +155,86 @@ export const CreateBanner = () => {
           onPress={handleOpenModal}
         />
 
-        <InputUI placeholder={'Название баннера'} />
+        <InputUI
+          placeholder={'Название баннера'}
+          value={title}
+          onChangeText={setTitle}
+        />
 
-        <InputUI placeholder={'ID организации'} />
+        <InputUI
+          placeholder={'ID организации'}
+          value={organizationId}
+          onChangeText={setOrganizationId}
+        />
+
+        <MainContainer>
+          <TextUI $mb={10} ag={Ag['500_14']}>
+            {'Укажите период'}
+          </TextUI>
+          <RowContainer style={compStyles.gap10}>
+            <TextUI ag={Ag['500_14']}>{'C'}</TextUI>
+            <MainContainer style={compStyles.gap10}>
+              <InputSelectUI
+                value={DateHelper.getFormatDate(from)}
+                onPress={() => setOpenFrom(true)}
+              />
+            </MainContainer>
+            <TextUI ag={Ag['500_14']}>{'по'}</TextUI>
+            <MainContainer style={compStyles.gap10}>
+              <InputSelectUI
+                value={DateHelper.getFormatDate(to)}
+                onPress={() => setOpenTo(true)}
+              />
+            </MainContainer>
+          </RowContainer>
+        </MainContainer>
+
+        <DatePicker
+          locale={'ru'}
+          is24hourSource={'locale'}
+          modal
+          mode={'date'}
+          open={openFrom}
+          date={from}
+          onConfirm={date => {
+            setFrom(date);
+            if (date > to) {
+              setTo(date);
+            }
+            setOpenFrom(false);
+          }}
+          onCancel={() => setOpenFrom(false)}
+          androidVariant={'iosClone'}
+          cancelText={'Отменить'}
+          confirmText={'Подтвердить'}
+          title={'Начало'}
+        />
+
+        <DatePicker
+          locale={'ru'}
+          is24hourSource={'locale'}
+          modal
+          minimumDate={from}
+          mode={'date'}
+          open={openTo}
+          date={to}
+          onConfirm={date => {
+            setTo(date);
+            setOpenTo(false);
+          }}
+          onCancel={() => setOpenTo(false)}
+          androidVariant={'iosClone'}
+          cancelText={'Отменить'}
+          confirmText={'Подтвердить'}
+          title={'Конец'}
+        />
+        <ColumnContainerFlex />
+
+        <ButtonUI
+          $btnDisabled={isLoading}
+          title={'Сохранить'}
+          onPress={handleCreateBanner}
+        />
       </KeyboardAwareScrollView>
 
       <CitiesModal modalizeRef={cityModal} onPickCity={setCity} />

@@ -37,6 +37,7 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
       promo: item.promo && item.promo,
       logo: item.logo && item.logo,
       name: item.name,
+      organizationId: item._id,
     });
   };
 
@@ -50,7 +51,7 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
             {item.isSubscribe ? 'Подписка активна' : 'Подписка неактивна'}
           </TextUI>
 
-          <TextUI ag={Ag['400_14']}>{item.categoryName}</TextUI>
+          <TextUI ag={Ag['400_14']}>{item.categoryName?.title || ''}</TextUI>
         </RowContainerBeetwen>
 
         <TouchableOpacity

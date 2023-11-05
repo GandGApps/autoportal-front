@@ -1,8 +1,8 @@
 import AbstractApiRepository from '../../../settings/abstrcations/repositories/AbstractApiRepository';
 import {Endpoints} from '../../../template/api/Endpoints';
-import {CreatetFormModel} from '../form/CreateForm';
 import {
   CreateOrganizationDTO,
+  CreatePromotionDTO,
   CreateReviewDTO,
   OrganizationsDTO,
 } from '../types/OrganizationTypes';
@@ -10,7 +10,7 @@ import {
 export class ApiOrganizationsService extends AbstractApiRepository {
   getBanners = async (city: string) => {
     return this.apiClient.get({
-      url: Endpoints.banners,
+      url: Endpoints.banners(city),
     });
   };
 
@@ -51,6 +51,26 @@ export class ApiOrganizationsService extends AbstractApiRepository {
     });
   };
 
+  createPromotion = async (dto: CreatePromotionDTO) => {
+    const {id, ...bodyDTO} = dto;
+    return this.apiClient.post({
+      url: Endpoints.createPromotion(id),
+      data: bodyDTO,
+    });
+  };
+  updatePromotion = async (dto: CreatePromotionDTO) => {
+    const {id, ...bodyDTO} = dto;
+    return this.apiClient.put({
+      url: Endpoints.updatePromotion(id),
+      data: bodyDTO,
+    });
+  };
+  deletePromotion = async (id: string) => {
+    return this.apiClient.delete({
+      url: Endpoints.deletePromotion(id),
+    });
+  };
+
   getFavoritesList = async () => {
     return this.apiClient.get({
       url: Endpoints.favorites,
@@ -72,6 +92,13 @@ export class ApiOrganizationsService extends AbstractApiRepository {
   createOrganization = async (dto: CreateOrganizationDTO) => {
     return this.apiClient.post({
       url: Endpoints.myOrganizations,
+      data: dto,
+    });
+  };
+
+  updateOrganization = async (dto: CreateOrganizationDTO) => {
+    return this.apiClient.put({
+      url: Endpoints.updateOrganization(dto.id!),
       data: dto,
     });
   };
@@ -115,6 +142,12 @@ export class ApiOrganizationsService extends AbstractApiRepository {
   getSubscribe = async (type: string, id: string) => {
     return this.apiClient.post({
       url: Endpoints.subscribe(type, id),
+    });
+  };
+
+  approveSubscribe = async (id: string) => {
+    return this.apiClient.post({
+      url: Endpoints.approveSubscribe(id),
     });
   };
 }

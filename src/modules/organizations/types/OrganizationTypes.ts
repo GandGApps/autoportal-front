@@ -12,12 +12,13 @@ import {CreatetFormModel} from '../form/CreateForm';
 import {Review} from '../models/Review';
 import {FavoriteOrganization} from '../models/FavoriteOrganization';
 import {FinanceDTO} from '../../admin/types/AdminTypes';
+import {Banner} from '../models/Banner';
 
 export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
 export interface OrganizationsStateModel {
   categories: Category[];
-  banners: string[];
+  banners: Banner[];
 
   filterForm: FiltertFormModel;
   createForm: CreatetFormModel;
@@ -89,6 +90,7 @@ export interface ScheduleFilterDTO {
 }
 
 export interface CreateOrganizationDTO {
+  id?: string;
   name: string;
   city: string;
   address: string;
@@ -113,4 +115,11 @@ export interface CreateReviewDTO {
 export interface SubscribeDTO {
   type: string;
   id: string;
+}
+
+export interface CreatePromotionDTO {
+  id: string;
+  description: string;
+  startPromo: string;
+  endPromo: string;
 }

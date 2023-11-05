@@ -9,12 +9,33 @@ import {Screens} from '../../../routes/models/Screens';
 import {CitiesModal} from '../../../components/CitiesModal';
 import {Modalize} from 'react-native-modalize';
 import {InputSelectUI} from '../../../template/ui/InputSelectUI';
-import {FlatList} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  ListRenderItemInfo,
+  StyleSheet,
+} from 'react-native';
 import {MainContainer} from '../../../template/containers/MainContainer';
 import {Insets} from '../../../template/styles/Insets';
+import {Banner} from '../../../modules/organizations/models/Banner';
+import {ImageUI} from '../../../template/ui/ImageUI';
+import {useAppSelector} from '../../../settings/redux/hooks';
+import {selectOrganizationsValues} from '../../../modules/organizations/OrganizationsSlice';
+
+function renderItem({item}: ListRenderItemInfo<Banner>) {
+  const width = Dimensions.get('window').width - 40;
+  const height = width / 2.5;
+
+  return (
+    <ColumnContainerFlex $widthPX={width} $heightPX={height}>
+      <ImageUI $isFlex $br={10} source={{uri: item.image}} />
+    </ColumnContainerFlex>
+  );
+}
 
 export const AdminBanners = () => {
-  const [city, setCity] = useState('');
+  const {filterForm} = useAppSelector(selectOrganizationsValues);
+  const [city, setCity] = useState(filterForm.city);
 
   const cityModal = useRef<Modalize>(null);
 
@@ -50,9 +71,12 @@ export const AdminBanners = () => {
         />
 
         <FlatList
-          contentContainerStyle={{paddingTop: 20, paddingBottom: Insets.bottom}}
+          contentContainerStyle={[
+            {paddingTop: 20, paddingBottom: Insets.bottom},
+            compStyles.list,
+          ]}
           data={[]}
-          renderItem={({item}) => <></>}
+          renderItem={renderItem}
           ListEmptyComponent={
             <MainContainer>
               <TextUI ag={Ag['500_16']} $align={'center'}>
@@ -67,3 +91,9 @@ export const AdminBanners = () => {
     </ColumnContainerFlex>
   );
 };
+
+const compStyles = StyleSheet.create({
+  list: {
+    gap: 20,
+  },
+});

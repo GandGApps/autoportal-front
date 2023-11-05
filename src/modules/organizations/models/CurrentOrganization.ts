@@ -15,7 +15,7 @@ export class CurrentOrganization extends AbstractModel {
   logo: string = '';
   name: string = '';
   address: string = '';
-  category: Nullable<Category> = null;
+  categoryId: Nullable<Category> = null;
   rating: Nullable<number> = null;
   countReviews: Nullable<number> = null;
 

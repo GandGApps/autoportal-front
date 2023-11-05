@@ -9,16 +9,23 @@ export const Endpoints = {
   adminLogin: '/admin/login',
 
   // ORGANIZATION
-  banners: '/banners',
+  banners: (city: string) => `/banners?city=${city}`,
 
   categories: '/categories',
 
   organizations: '/organisations',
   myOrganizations: '/organisations/my',
+  updateOrganization: (id: string) => `/organisations?organisation_id=${id}`,
 
   currentOrganization: (id: string) => `/organisations?id=${id}`,
 
   promotions: '/promotion',
+
+  createPromotion: (id: string) => `/promotion?organizationId=${id}`,
+
+  updatePromotion: (id: string) => `/promotion?organizationId=${id}`,
+
+  deletePromotion: (id: string) => `/promotion?organisation_id=${id}`,
 
   favorites: '/organisations/favorites',
   changeFavorite: (id: string) => `/organisations/favorites?organisation=${id}`,
@@ -51,4 +58,5 @@ export const Endpoints = {
     `/admin/organisations/users?dealerId=${dealerId}`,
   subscribe: (type: string, id: string) =>
     `/subscribe/${type}?organizationId=${id}`,
+  approveSubscribe: (id: string) => `/subscribe/approve?organizationId=${id}`,
 };

@@ -24,3 +24,12 @@ export interface FinanceDTO {
   year_amount: number;
   free_period: number;
 }
+
+export interface CreateBannerDTO {
+  title: string;
+  organisation_id: string;
+  from: string;
+  to: string;
+  image: string;
+  city: string;
+}

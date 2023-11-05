@@ -1,13 +1,14 @@
 import {Promotion} from './Promotion';
 import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 import {Nullable} from '../../../settings/types/BaseTypes';
+import {Category} from './Category';
 
 export class PersonalOrganizations extends AbstractModel {
   _id: string = '';
   logo: string = '';
   name: string = '';
   address: string = '';
-  categoryName: string = '';
+  categoryName: Nullable<Category> = null;
   rating: Nullable<number> = null;
   countReviews: Nullable<number> = null;
 

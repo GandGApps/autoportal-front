@@ -45,7 +45,7 @@ export const UsersOrganizations = () => {
 
   return (
     <ColumnContainerFlex>
-      <GradientHeader title={'Организации пользователя'} />
+      <GradientHeader isBack={true} title={'Организации пользователя'} />
       {isLoading ? (
         <CenterContainerFlex>
           <Loader size={20} />

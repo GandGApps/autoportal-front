@@ -32,7 +32,6 @@ export const CatOrganizationsScreens = () => {
 
   const dispatch = useAppDispatch();
 
-  const citiesModalRef = useRef<Modalize>(null);
   const categoriesModalRef = useRef<Modalize>(null);
 
   const insets = useSafeAreaInsets();
@@ -48,10 +47,6 @@ export const CatOrganizationsScreens = () => {
       });
     }, 0);
   }, []);
-
-  const handleOpenModalCity = () => {
-    citiesModalRef.current?.open();
-  };
 
   const handleResetFilter = () => {
     dispatch(resetFilterForm());
@@ -81,7 +76,7 @@ export const CatOrganizationsScreens = () => {
           </TouchableOpacity>
         </RowContainerBeetwen>
 
-        <RowContainerBeetwen $mt={20}>
+        <RowContainerBeetwen $mt={20} $mb={10}>
           <ColumnContainerFlex $mr={10}>
             <InputUI
               value={search}
@@ -95,18 +90,10 @@ export const CatOrganizationsScreens = () => {
           </TouchableOpacity>
         </RowContainerBeetwen>
 
-        <RowContainerBeetwen>
-          <MainContainer $mt={10} $widthPRC={48}>
-            <SelectUI text={filterForm.city} onPress={handleOpenModalCity} />
-          </MainContainer>
-
-          <MainContainer $mt={10} $widthPRC={48}>
-            <SelectUI
-              text={filterForm.category?.title!}
-              onPress={handleOpenModalCategory}
-            />
-          </MainContainer>
-        </RowContainerBeetwen>
+        <SelectUI
+          text={filterForm.category?.title!}
+          onPress={handleOpenModalCategory}
+        />
       </MainContainer>
 
       <ScrollViewScreen
@@ -129,7 +116,6 @@ export const CatOrganizationsScreens = () => {
         )}
       </ScrollViewScreen>
 
-      <CitiesModal modalizeRef={citiesModalRef} />
       <CategoriesModal modalizeRef={categoriesModalRef} />
     </ColumnContainerFlex>
   );

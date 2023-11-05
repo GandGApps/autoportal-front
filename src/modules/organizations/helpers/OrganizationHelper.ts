@@ -102,9 +102,10 @@ export class OrganizationHelper {
     organization: CurrentOrganization,
   ): CreatetFormModel => {
     return {
+      id: organization._id,
       name: organization.name,
       city: organization.city,
-      category: organization.category,
+      category: organization.categoryId,
       typeService: [],
       brandCar: [],
       schedule: organization.schedule,
@@ -113,20 +114,8 @@ export class OrganizationHelper {
       whatsApp: organization.whatsApp || '',
       employeers: [],
       description: organization.description,
-      logo: organization.logo
-        ? {
-            type: 'image/jpg',
-            name: 'defaultName',
-            uri: organization.logo,
-          }
-        : null,
-      photos: organization.photos.map(item => {
-        return {
-          type: 'image/jpg',
-          name: 'defaultName',
-          uri: item,
-        };
-      }),
+      logo: organization.logo,
+      photos: organization.photos,
     };
   };
 
@@ -189,16 +178,18 @@ export class OrganizationHelper {
   static createOrganizationDto = async (
     createForm: CreatetFormModel,
   ): Promise<CreateOrganizationDTO> => {
-    const logo: string = await fileSevice.uploadFile(createForm.logo!);
-
     let dto: CreateOrganizationDTO = {
       name: createForm.name,
       address: createForm.address,
       categoryId: createForm.category?._id!,
       city: createForm.city,
       description: createForm.description,
-      logo,
+      logo: createForm.logo,
     };
+
+    if (createForm.id) {
+      dto = {...dto, id: createForm.id};
+    }
 
     if (createForm.employeers.length) {
       dto = {
@@ -243,19 +234,9 @@ export class OrganizationHelper {
     }
 
     if (createForm.photos.length) {
-      let photos: string[] = [];
-
-      for (let index = 0; index < createForm.photos.length; index++) {
-        const photo: string = await fileSevice.uploadFile(
-          createForm.photos[index],
-        );
-
-        photos.push(photo);
-      }
-
       dto = {
         ...dto,
-        photos: photos,
+        photos: createForm.photos,
       };
     }
 

@@ -25,8 +25,8 @@ export const ProfileAdmin = () => {
         onPress={() => handleGoToScreen(Screens.ADMIN_USERS)}
       />
       <ThreeMenuItem
-        title={'Категории'}
-        onPress={() => handleGoToScreen(Screens.ADMIN_CATEGORIES)}
+        title={'Услуги, доп.услуги'}
+        onPress={() => handleGoToScreen(Screens.ADMIN_SERVICES)}
       />
       <ThreeMenuItem
         title={'Финансовые настройки'}
