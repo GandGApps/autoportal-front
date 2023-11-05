@@ -12,6 +12,10 @@ import {InputUI} from '../template/ui/InputUI';
 import {useDebouncedEffect} from '../template/hooks/useDebouncedEffect';
 import {getCities} from '../modules/cities/thunks/cities.thunk';
 import {useFocusEffect} from '@react-navigation/native';
+import {
+  getBanners,
+  getOrganizationList,
+} from '../modules/organizations/_thunks';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
@@ -46,6 +50,8 @@ export const CitiesModal = (props: CitiesFilterProps) => {
       props.onPickCity(city);
     } else {
       dispatch(filterChangeForm({key: 'city', value: city}));
+
+      dispatch(getBanners());
     }
 
     props.modalizeRef.current?.close();

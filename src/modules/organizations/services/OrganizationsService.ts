@@ -10,7 +10,11 @@ import {ApiOrganizationsService} from './_api_organizations';
 import {CreatedStatus} from '../models/CreatedStatus';
 import {Review} from '../models/Review';
 import {FiltertFormModel} from '../form/FilterForm';
-import {CreateReviewDTO, OrganizationsDTO} from '../types/OrganizationTypes';
+import {
+  CreatePromotionDTO,
+  CreateReviewDTO,
+  OrganizationsDTO,
+} from '../types/OrganizationTypes';
 import {OrganizationHelper} from '../helpers/OrganizationHelper';
 import {CreatetFormModel} from '../form/CreateForm';
 import {Message} from '../../auth/models/Message';
@@ -18,6 +22,7 @@ import {FavoriteOrganization} from '../models/FavoriteOrganization';
 import {SuccessOrganization} from '../models/SuccessOrganization';
 import {SuccessSubRelease} from '../models/SuccessSubRelease';
 import {FinanceDTO} from '../../admin/types/AdminTypes';
+import {Banner} from '../models/Banner';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -30,7 +35,7 @@ export class OrganizationsService extends AbstractServiceRepository {
   getBanners = async (city: string) => {
     const {data} = await this.api.getBanners(city);
 
-    return data as any as string[];
+    return this.createList<Banner>(Banner, data);
   };
 
   getSearchServices = async (query: string) => {
@@ -88,6 +93,24 @@ export class OrganizationsService extends AbstractServiceRepository {
     return this.createList<PromotionList>(PromotionList, data);
   };
 
+  createPromotion = async (dto: CreatePromotionDTO) => {
+    const {data} = await this.api.createPromotion(dto);
+
+    return this.create<Message>(Message, data);
+  };
+
+  updatePromotion = async (dto: CreatePromotionDTO) => {
+    const {data} = await this.api.updatePromotion(dto);
+
+    return this.create<Message>(Message, data);
+  };
+
+  deletePromotion = async (id: string) => {
+    const {data} = await this.api.deletePromotion(id);
+
+    return this.create<Message>(Message, data);
+  };
+
   getFavoritesList = async () => {
     const {data} = await this.api.getFavoritesList();
 
@@ -106,8 +129,17 @@ export class OrganizationsService extends AbstractServiceRepository {
     return this.create<CreatedStatus>(CreatedStatus, data);
   };
 
-  createOrganization = async (createForm: CreatetFormModel) => {
+  createUpdateOrganization = async (
+    createForm: CreatetFormModel,
+    isEdit?: boolean,
+  ) => {
     const dto = await OrganizationHelper.createOrganizationDto(createForm);
+
+    if (isEdit) {
+      const {data} = await this.api.updateOrganization(dto);
+
+      return this.create<Message>(Message, data);
+    }
 
     const {data} = await this.api.createOrganization(dto);
 
@@ -154,6 +186,12 @@ export class OrganizationsService extends AbstractServiceRepository {
     const {data} = await this.api.getSubscribe(type, id);
 
     return data as any as {data: string};
+  };
+
+  approveSubscribe = async (id: string) => {
+    const {data} = await this.api.approveSubscribe(id);
+
+    return this.create<Message>(Message, data);
   };
 }
 

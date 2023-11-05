@@ -5,15 +5,15 @@ import {StyleSheet} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {SubscribeModalParams} from '../../routes/params/RouteParams';
 import Navigation from '../../routes/navigation/Navigation';
-import {Screens} from '../../routes/models/Screens';
 import {Loader} from '../../components/Loader';
 import {CenterContainer} from '../../template/containers/CenterContainer';
 import {useAppDispatch} from '../../settings/redux/hooks';
 import {setDefaultCreateForm} from '../../modules/organizations/OrganizationsSlice';
 import {DefaultCreateForm} from '../../modules/organizations/form/CreateForm';
+import {approveSubscribe} from '../../modules/organizations/thunks/subscribe.thunk';
 
 export const SubscribeModal = () => {
-  const {url} = useRoute<SubscribeModalParams>().params;
+  const {url, organizationId} = useRoute<SubscribeModalParams>().params;
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,8 +42,7 @@ export const SubscribeModal = () => {
 
           if (event.nativeEvent.url.includes('success')) {
             dispatch(setDefaultCreateForm(DefaultCreateForm));
-            Navigation.navigate(Screens.PROFILE);
-            Navigation.navigate(Screens.ORGANIZATION_MY);
+            dispatch(approveSubscribe(organizationId));
           }
         }}
       />

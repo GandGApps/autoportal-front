@@ -12,6 +12,7 @@ import {
   setIsPromotionListLoad,
   setIsSearchLoad,
 } from './OrganizationsSlice';
+import {CreatePromotionDTO} from './types/OrganizationTypes';
 
 export const getBanners = createAsyncThunk(
   'organizations/banners',
@@ -140,6 +141,35 @@ export const getPromotionsList = createAsyncThunk(
     return await organizationService.getPromotionsList().finally(() => {
       dispatch(setIsPromotionListLoad(false));
     });
+  },
+);
+
+export const createPromotion = createAsyncThunk(
+  'organization/promotions/create',
+  async (dto: CreatePromotionDTO) => {
+    console.log(dto);
+    const response = await organizationService.createPromotion(dto);
+    console.log(response);
+
+    return response;
+  },
+);
+
+export const updatePromotion = createAsyncThunk(
+  'organization/promotions/update',
+  async (dto: CreatePromotionDTO) => {
+    const response = await organizationService.updatePromotion(dto);
+
+    return response;
+  },
+);
+
+export const deletePromotion = createAsyncThunk(
+  'organization/promotions/delete',
+  async (id: string) => {
+    const response = await organizationService.deletePromotion(id);
+
+    return response;
   },
 );
 

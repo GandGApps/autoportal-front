@@ -12,12 +12,14 @@ export type RouteParams = {
     promo?: Promotion;
     logo?: string;
     name: string;
+    organizationId: string;
   };
   SUB_ORGANIZATION: {
     organizationId: string;
   };
   SUBSCRIBE_MODAL: {
     url: string;
+    organizationId: string;
   };
   ADMIN_USER_ORGS: {
     id: string;

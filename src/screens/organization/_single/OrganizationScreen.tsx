@@ -84,7 +84,7 @@ export const OrganizationScreen = () => {
         />
 
         <OrganizationTitleRating
-          categoryName={currentOrganization?.category?.title!}
+          categoryName={currentOrganization?.categoryId?.title!}
           name={currentOrganization?.name}
           rating={currentOrganization?.rating}
           countReviews={currentOrganization?.countReviews}

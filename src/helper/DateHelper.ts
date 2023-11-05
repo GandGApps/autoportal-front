@@ -70,6 +70,10 @@ export class DateHelper {
     return format(date, 'dd.MM.yyyy');
   };
 
+  static getFormatDtoDate = (date: Date) => {
+    return format(date, 'dd-MM-yyyy');
+  };
+
   static getFormatTime = (date: Date) => {
     return format(date, 'HH:mm', {locale: ru});
   };

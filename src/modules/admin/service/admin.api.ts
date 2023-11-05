@@ -1,6 +1,6 @@
 import AbstractApiRepository from '../../../settings/abstrcations/repositories/AbstractApiRepository';
 import {Endpoints} from '../../../template/api/Endpoints';
-import {FinanceDTO} from '../types/AdminTypes';
+import {CreateBannerDTO, FinanceDTO} from '../types/AdminTypes';
 
 export class AdminApiService extends AbstractApiRepository {
   getUsers = (city: string) => {
@@ -18,6 +18,13 @@ export class AdminApiService extends AbstractApiRepository {
   changeFinanceSettings = (dto: FinanceDTO) => {
     return this.apiClient.post({
       url: Endpoints.finance,
+      data: dto,
+    });
+  };
+
+  createBanner = (dto: CreateBannerDTO) => {
+    return this.apiClient.post({
+      url: Endpoints.banners(dto.city),
       data: dto,
     });
   };

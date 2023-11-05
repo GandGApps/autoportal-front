@@ -14,7 +14,7 @@ import {PhotoIcon} from '../../../../template/icons/PhotoIcon';
 import {Ag, TextUI} from '../../../../template/ui/TextUI';
 
 interface CreateAddLogoProps {
-  logo: Nullable<FileModel>;
+  logo: string;
   onPickImage: () => void;
 }
 
@@ -29,7 +29,7 @@ export const CreateAddLogo = (props: CreateAddLogoProps) => {
         <MainContainer $widthPX={100} $heightPX={100}>
           <ViewPress $isFlex onPress={props.onPickImage}>
             {props.logo ? (
-              <ImageUI $isFlex $br={100} source={{uri: `${props.logo.uri}`}} />
+              <ImageUI $isFlex $br={100} source={{uri: props.logo}} />
             ) : (
               <CenterContainerFlex
                 $br={50}

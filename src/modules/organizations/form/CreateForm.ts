@@ -20,6 +20,7 @@ export type CreateFormKeys =
   | 'photos';
 
 export interface CreatetFormModel {
+  id?: string;
   city: string;
   category: Nullable<Category>;
   typeService: string[];
@@ -31,8 +32,8 @@ export interface CreatetFormModel {
   whatsApp: string;
   employeers: EmployeerModel[];
   description: string;
-  logo: Nullable<FileModel>;
-  photos: FileModel[];
+  logo: string;
+  photos: string[];
 }
 
 export type CreateFormValue =
@@ -62,7 +63,7 @@ export const DefaultCreateForm: CreatetFormModel = {
   whatsApp: '',
   employeers: [],
   description: '',
-  logo: null,
+  logo: '',
   photos: [],
 };
 
@@ -72,6 +73,7 @@ export const isFormValidation = (form: CreatetFormModel) => {
     form.city.length > 0 &&
     form.description.length > 0 &&
     form.address.length > 0 &&
-    form.category !== null
+    form.category !== null &&
+    form.logo.length > 0
   );
 };

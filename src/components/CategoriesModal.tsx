@@ -11,6 +11,7 @@ import {
   selectOrganizationsValues,
 } from '../modules/organizations/OrganizationsSlice';
 import {Category} from '../modules/organizations/models/Category';
+import {getOrganizationList} from '../modules/organizations/_thunks';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
@@ -27,6 +28,8 @@ export const CategoriesModal = (props: CitiesFilterProps) => {
       props.onPickCategories(category);
     } else {
       dispatch(filterChangeForm({key: 'category', value: category}));
+
+      dispatch(getOrganizationList());
     }
 
     props.modalizeRef.current?.close();

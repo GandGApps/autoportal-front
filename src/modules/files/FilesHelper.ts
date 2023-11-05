@@ -4,10 +4,12 @@ import {Asset, launchImageLibrary} from 'react-native-image-picker';
 interface PickFileProps {
   limit: number;
   isLogo?: boolean;
+  isPhoto?: boolean;
+  isBanner?: boolean;
 }
 
 export class FileHelper {
-  static async pickFile({limit, isLogo}: PickFileProps) {
+  static async pickFile({limit, isLogo, isPhoto, isBanner}: PickFileProps) {
     const res = await launchImageLibrary({
       mediaType: 'photo',
       selectionLimit: limit,
@@ -22,11 +24,14 @@ export class FileHelper {
         let height;
 
         if (isLogo) {
-          width = 150;
-          height = 150;
+          width = Math.min(asset.width!, 250);
+          height = width;
+        } else if (isPhoto) {
+          width = Math.min(asset.width!, 800);
+          height = width / 1.5;
         } else {
-          width = Math.min(asset.width!, 400);
-          height = Math.min(asset.height!, 250);
+          width = 600;
+          height = 240;
         }
 
         const response = await ImageResizer.createResizedImage(
@@ -35,6 +40,12 @@ export class FileHelper {
           height,
           'JPEG',
           100,
+          0,
+          undefined,
+          false,
+          {
+            mode: 'cover',
+          },
         );
 
         photos.push({...asset, uri: response.uri});

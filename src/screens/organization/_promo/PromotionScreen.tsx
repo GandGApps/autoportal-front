@@ -20,11 +20,20 @@ import {Screens} from '../../../routes/models/Screens';
 import {InputSelectUI} from '../../../template/ui/InputSelectUI';
 import {DateHelper} from '../../../helper/DateHelper';
 import DatePicker from 'react-native-date-picker';
+import {CreatePromotionDTO} from '../../../modules/organizations/types/OrganizationTypes';
+import {useAppDispatch} from '../../../settings/redux/hooks';
+import {
+  createPromotion,
+  updatePromotion,
+} from '../../../modules/organizations/_thunks';
+import {Notifications} from '../../../template/notifications/Notifications';
 
 export const PromotionScreen = () => {
   const params = useRoute<OrganizationPromoParams>().params;
 
   const insets = useSafeAreaInsets();
+
+  const dispatch = useAppDispatch();
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -34,6 +43,8 @@ export const PromotionScreen = () => {
 
   const [openStart, setOpenStart] = useState(false);
   const [openEnd, setOpenEnd] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (params.promo) {
@@ -56,6 +67,41 @@ export const PromotionScreen = () => {
   const handleChangeEndDate = (date: Date) => {
     setOpenEnd(false);
     setEndDate(DateHelper.getFormatDate(date));
+  };
+
+  const handleCreateUpdatePromo = async () => {
+    try {
+      if (!description.length) {
+        Notifications.error('Заполните описание');
+        return;
+      }
+
+      setIsLoading(true);
+
+      const dto: CreatePromotionDTO = {
+        id: params.organizationId,
+        description,
+        startPromo: DateHelper.getFormatDtoDate(
+          DateHelper.getParseDate(startDate),
+        ),
+        endPromo: DateHelper.getFormatDtoDate(DateHelper.getParseDate(endDate)),
+      };
+
+      if (isEdit) {
+        await dispatch(updatePromotion(dto));
+      } else {
+        await dispatch(createPromotion(dto));
+      }
+
+      Navigation.navigate(Screens.PROFILE);
+      Navigation.navigate(Screens.ORGANIZATION_MY);
+
+      setIsLoading(false);
+    } catch (error) {
+      Notifications.error('Ошибка');
+
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -122,7 +168,11 @@ export const PromotionScreen = () => {
               }
             />
           ) : null}
-          <ButtonUI title={isEdit ? 'Сохранить и опубликовать' : 'Создать'} />
+          <ButtonUI
+            $btnDisabled={isLoading}
+            title={isEdit ? 'Сохранить и опубликовать' : 'Создать'}
+            onPress={handleCreateUpdatePromo}
+          />
         </MainContainer>
       </ColumnContainerBetweenFlex>
 

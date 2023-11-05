@@ -1,6 +1,6 @@
 import {OrganizationList} from './../../organizations/models/OrganizationList';
 import {getSubInfo} from './../../organizations/thunks/subscribe.thunk';
-import {FinanceDTO} from './../types/AdminTypes';
+import {CreateBannerDTO, FinanceDTO} from './../types/AdminTypes';
 import AbstractServiceRepository from '../../../settings/abstrcations/repositories/AbstractServiceRepository';
 import {Dealer} from '../models/Dealer';
 import {AdminApiService} from './admin.api';
@@ -30,6 +30,12 @@ class AdminService extends AbstractServiceRepository {
     const {data} = await this.api.getUserOrganizations(dealerId);
 
     return this.createList<OrganizationList>(OrganizationList, data);
+  };
+
+  createBanner = async (dto: CreateBannerDTO) => {
+    const {data} = await this.api.createBanner(dto);
+
+    return this.create<Message>(Message, data);
   };
 }
 

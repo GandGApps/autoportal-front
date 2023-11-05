@@ -41,15 +41,11 @@ export const MyOrganizationsScreen = () => {
   }, []);
 
   useEffect(() => {
-    setActiveList(
-      OrganizationHelper.formattedMyOrganizations(personalOrganizations)
-        .activeList,
+    const organizations = OrganizationHelper.formattedMyOrganizations(
+      personalOrganizations,
     );
-
-    setDisabledList(
-      OrganizationHelper.formattedMyOrganizations(personalOrganizations)
-        .disabledList,
-    );
+    setActiveList(organizations.activeList);
+    setDisabledList(organizations.disabledList);
   }, [personalOrganizations]);
 
   return (

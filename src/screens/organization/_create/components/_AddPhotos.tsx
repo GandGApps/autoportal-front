@@ -1,5 +1,4 @@
 import React from 'react';
-import {FileModel} from '../../../../modules/files/models/File';
 import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
 import {Ag, TextUI} from '../../../../template/ui/TextUI';
 import {
@@ -20,7 +19,7 @@ import {ImageUI} from '../../../../template/ui/ImageUI';
 import {CloseIcon} from '../../../../template/icons/CloseIcon';
 
 interface CreateAddPhotosProps {
-  photos: FileModel[];
+  photos: string[];
   onPickImages: () => void;
   onRemovePickPhoto: (value: string) => void;
 }
@@ -56,7 +55,7 @@ export const CreateAddPhotos = (props: CreateAddPhotosProps) => {
             <ScrollViewScreen
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{
-                width: 110 * props.photos.length,
+                width: 120 * props.photos.length + 40,
               }}
               horizontal>
               <RowContainer>
@@ -66,7 +65,7 @@ export const CreateAddPhotos = (props: CreateAddPhotosProps) => {
                       <AbsoluteContainer $widthPRC={100} $zIndex={100}>
                         <RowContainerBeetwenEnd $pt={5} $pr={5}>
                           <ViewPress
-                            onPress={() => handleRemovePickPhoto(image.uri)}>
+                            onPress={() => handleRemovePickPhoto(image)}>
                             <CenterContainer
                               $bg={ColorsUI.white}
                               $borderColor={ColorsUI.black}
@@ -79,7 +78,7 @@ export const CreateAddPhotos = (props: CreateAddPhotosProps) => {
                         </RowContainerBeetwenEnd>
                       </AbsoluteContainer>
 
-                      <ImageUI $br={10} $isFlex source={{uri: image.uri}} />
+                      <ImageUI $br={10} $isFlex source={{uri: image}} />
                     </MainContainer>
                   </MainContainer>
                 ))}

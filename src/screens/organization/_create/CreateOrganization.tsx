@@ -37,7 +37,10 @@ import {Modalize} from 'react-native-modalize';
 import {FilterModal} from '../../../components/filterModal/FilterModal';
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {FilterFormKeys} from '../../../modules/organizations/form/FilterForm';
-import {getOrganizationFilter} from '../../../modules/organizations/_thunks';
+import {
+  getOrganizationFilter,
+  getPersonalOrganizations,
+} from '../../../modules/organizations/_thunks';
 import {Category} from '../../../modules/organizations/models/Category';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
@@ -46,6 +49,9 @@ import {selectEmployeersValues} from '../../../modules/employeers/EmployeersSlic
 import {createOrganization} from '../../../modules/organizations/thunks/create.thunk';
 import {OrganizationHelper} from '../../../modules/organizations/helpers/OrganizationHelper';
 import {FileHelper} from '../../../modules/files/FilesHelper';
+import {fileSevice} from '../../../modules/files/api/file-service';
+import {Loader} from '../../../components/Loader';
+import {CenterContainer} from '../../../template/containers/CenterContainer';
 
 interface CreateScreenProps {
   isEdit?: boolean;
@@ -71,6 +77,8 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const [isError, setIsError] = useState(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLogoLoading, setIsLogoLoading] = useState<boolean>(false);
+  const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -107,15 +115,20 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   };
 
   const handlePickImage = async () => {
+    setIsLogoLoading(true);
     const res = await FileHelper.pickFile({limit: 1, isLogo: true});
 
     if (res && res.length) {
-      handleChangeForm('logo', {
+      const logo: string = await fileSevice.uploadFile({
         uri: res[0].uri!,
-        name: res[0].fileName || 'logouser',
+        name: res[0].fileName || 'photouser',
         type: res[0].type! || 'image/jpg',
       });
+
+      handleChangeForm('logo', logo);
     }
+
+    setIsLogoLoading(false);
   };
 
   const handlePickImages = async () => {
@@ -124,27 +137,36 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       return;
     }
 
+    setIsImageLoading(true);
+
     const res = await FileHelper.pickFile({
       limit: 5 - createForm.photos.length,
+      isPhoto: true,
     });
 
     if (res && res.length) {
-      const images = res.map(image => {
-        return {
-          uri: image.uri!,
-          name: image.fileName || 'photouser',
-          type: image.type! || 'image/jpg',
-        };
-      });
+      let photos: string[] = [];
 
-      handleChangeForm('photos', [...createForm.photos, ...images]);
+      for (let index = 0; index < res.length; index++) {
+        const photo: string = await fileSevice.uploadFile({
+          uri: res[index].uri!,
+          name: res[index].fileName || 'photouser',
+          type: res[index].type! || 'image/jpg',
+        });
+
+        photos.push(photo);
+      }
+
+      handleChangeForm('photos', [...createForm.photos, ...photos]);
     }
+
+    setIsImageLoading(false);
   };
 
   const removePickPhoto = (url: string) => {
     handleChangeForm(
       'photos',
-      createForm.photos.filter(image => image.uri !== url),
+      createForm.photos.filter(image => image !== url),
     );
   };
 
@@ -153,12 +175,16 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       setIsError(true);
       return;
     }
+
     const employeers = OrganizationHelper.getEmployeers(employeersState);
     if (employeers.length) {
       handleChangeForm('employeers', employeers);
     }
     setIsLoading(true);
-    dispatch(createOrganization(props.isEdit || false))
+    dispatch(createOrganization(Boolean(props.isEdit)))
+      .then(() => {
+        dispatch(getPersonalOrganizations());
+      })
       .catch(e => {})
       .finally(() => {
         setIsLoading(false);
@@ -251,13 +277,25 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
 
         <CreateSchedules onChangeSchedule={handleChangeSchedule} />
 
-        <CreateAddLogo logo={createForm.logo} onPickImage={handlePickImage} />
+        {!isLogoLoading ? (
+          <CreateAddLogo logo={createForm.logo} onPickImage={handlePickImage} />
+        ) : (
+          <CenterContainer $pv={20}>
+            <Loader size={20} />
+          </CenterContainer>
+        )}
 
-        <CreateAddPhotos
-          photos={createForm.photos}
-          onPickImages={handlePickImages}
-          onRemovePickPhoto={removePickPhoto}
-        />
+        {!isImageLoading ? (
+          <CreateAddPhotos
+            photos={createForm.photos}
+            onPickImages={handlePickImages}
+            onRemovePickPhoto={removePickPhoto}
+          />
+        ) : (
+          <CenterContainer $pv={20}>
+            <Loader size={20} />
+          </CenterContainer>
+        )}
 
         {isError ? (
           <MainContainer $ph={20}>
@@ -289,6 +327,11 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
                 {'- Описание'}
               </TextUI>
             ) : null}
+            {!!createForm.logo.length && (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Логотип'}
+              </TextUI>
+            )}
           </MainContainer>
         ) : null}
 
