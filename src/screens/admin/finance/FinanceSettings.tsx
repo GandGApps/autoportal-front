@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {GradientHeader} from '../../../components/GradientHeader';
 import {InputUI} from '../../../template/ui/InputUI';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
 import {MainContainer} from '../../../template/containers/MainContainer';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ButtonUI} from '../../../template/ui/ButtonUI';
 import {Notifications} from '../../../template/notifications/Notifications';
@@ -12,6 +12,8 @@ import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {changeFinanceSettings} from '../../../modules/admin/thunks/finance.thunk';
 import {getSubInfo} from '../../../modules/organizations/thunks/subscribe.thunk';
 import {selectOrganizationsValues} from '../../../modules/organizations/OrganizationsSlice';
+import {CenterContainerFlex} from '../../../template/containers/CenterContainer';
+import {Loader} from '../../../components/Loader';
 
 export const FinanceSettings = () => {
   const insets = useSafeAreaInsets();
@@ -24,14 +26,15 @@ export const FinanceSettings = () => {
   const [yearPrice, setYearPrice] = useState('');
   const [freePeriod, setFreePeriod] = useState('');
 
+  const [isInitLoading, setIsInitLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isLoading) return;
 
-    setIsLoading(true);
+    setIsInitLoading(true);
     dispatch(getSubInfo()).finally(() => {
-      setIsLoading(false);
+      setIsInitLoading(false);
     });
   }, []);
 
@@ -76,47 +79,55 @@ export const FinanceSettings = () => {
     <ColumnContainerFlex $pb={insets.bottom}>
       <GradientHeader isBack={true} title={'Финансовые настройки'} />
       <ColumnContainerFlex style={compStyles.gap20} $pt={20} $ph={20}>
-        <MainContainer>
-          <TextUI ag={Ag['500_14']} $ml={10} $mb={10}>
-            {'Стоимость подписки за месяц'}
-          </TextUI>
-          <InputUI
-            placeholder={'Введите стоимость'}
-            value={monthPrice}
-            onChangeText={setMonthPrice}
-            keyboardType={'number-pad'}
-          />
-        </MainContainer>
+        {!isInitLoading ? (
+          <Fragment>
+            <MainContainer>
+              <TextUI ag={Ag['500_14']} $ml={10} $mb={10}>
+                {'Стоимость подписки за месяц'}
+              </TextUI>
+              <InputUI
+                placeholder={'Введите стоимость'}
+                value={monthPrice}
+                onChangeText={setMonthPrice}
+                keyboardType={'number-pad'}
+              />
+            </MainContainer>
 
-        <MainContainer>
-          <TextUI ag={Ag['500_14']} $ml={10} $mb={10}>
-            {'Стоимость подписки за год'}
-          </TextUI>
-          <InputUI
-            placeholder={'Введите стоимость'}
-            value={yearPrice}
-            onChangeText={setYearPrice}
-            keyboardType={'number-pad'}
-          />
-        </MainContainer>
+            <MainContainer>
+              <TextUI ag={Ag['500_14']} $ml={10} $mb={10}>
+                {'Стоимость подписки за год'}
+              </TextUI>
+              <InputUI
+                placeholder={'Введите стоимость'}
+                value={yearPrice}
+                onChangeText={setYearPrice}
+                keyboardType={'number-pad'}
+              />
+            </MainContainer>
 
-        <MainContainer>
-          <TextUI ag={Ag['500_14']} $ml={10} $mb={10}>
-            {'Срок бесплатной подписки (мес)'}
-          </TextUI>
-          <InputUI
-            placeholder={'Укажите срок'}
-            value={freePeriod}
-            onChangeText={setFreePeriod}
-            keyboardType={'number-pad'}
-          />
-        </MainContainer>
-        <ColumnContainerFlex />
+            <MainContainer>
+              <TextUI ag={Ag['500_14']} $ml={10} $mb={10}>
+                {'Срок бесплатной подписки (мес)'}
+              </TextUI>
+              <InputUI
+                placeholder={'Укажите срок'}
+                value={freePeriod}
+                onChangeText={setFreePeriod}
+                keyboardType={'number-pad'}
+              />
+            </MainContainer>
+            <ColumnContainerFlex />
+          </Fragment>
+        ) : (
+          <CenterContainerFlex>
+            <Loader size={20} />
+          </CenterContainerFlex>
+        )}
 
         <ButtonUI
           title={'Сохранить'}
           onPress={handleSaveFinance}
-          $btnDisabled={isLoading}
+          $btnDisabled={isLoading || isInitLoading}
         />
       </ColumnContainerFlex>
     </ColumnContainerFlex>

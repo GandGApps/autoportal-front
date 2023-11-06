@@ -1,3 +1,4 @@
+import {Service} from './../models/Service';
 import {PersonalOrganizations} from './../models/PersonalOrganizations';
 import {OrganizationFilter} from './../models/OrganizationFilter';
 import {FiltertFormModel} from '../form/FilterForm';
@@ -18,6 +19,7 @@ export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
 export interface OrganizationsStateModel {
   categories: Category[];
+  services: Service[];
   banners: Banner[];
 
   filterForm: FiltertFormModel;
@@ -122,4 +124,24 @@ export interface CreatePromotionDTO {
   description: string;
   startPromo: string;
   endPromo: string;
+}
+
+export interface GetPromotionDTO {
+  city: string;
+  categoryId: string;
+}
+
+export interface CreateServiceDTO {
+  category_id: string;
+  title: string;
+}
+
+export interface UpdateServiceDTO {
+  serviceId: string;
+  title: string;
+}
+
+export interface CreateExtServieDTO {
+  service_id: string;
+  title: string;
 }

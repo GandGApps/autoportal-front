@@ -1,6 +1,11 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {organizationService} from '../services/OrganizationsService';
 
 export const getServices = createAsyncThunk(
   'organization/get/services',
-  (organizationId: string) => {},
+  async (categoryId: string) => {
+    const response = await organizationService.getServices(categoryId);
+
+    return response;
+  },
 );

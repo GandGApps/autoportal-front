@@ -5,7 +5,7 @@ import {OrganizationList} from './OrganizationList';
 
 export class PromotionList extends AbstractModel {
   organization: Nullable<OrganizationList> = null;
-  promo: Nullable<Promotion> = null;
+  promotion: Nullable<Promotion> = null;
 
   constructor(props: any) {
     super();

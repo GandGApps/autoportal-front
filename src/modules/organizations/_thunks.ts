@@ -130,7 +130,8 @@ export const getCurrentOrganization = createAsyncThunk(
 export const getPromotionsList = createAsyncThunk(
   'organization/promotions/list',
   async (_, {getState, dispatch}) => {
-    const {isPromotionListLoad} = (getState() as RootState).organizationsSlice;
+    const {isPromotionListLoad, filterForm} = (getState() as RootState)
+      .organizationsSlice;
 
     if (isPromotionListLoad) {
       return null;
@@ -138,18 +139,21 @@ export const getPromotionsList = createAsyncThunk(
 
     dispatch(setIsPromotionListLoad(true));
 
-    return await organizationService.getPromotionsList().finally(() => {
-      dispatch(setIsPromotionListLoad(false));
-    });
+    return await organizationService
+      .getPromotionsList({
+        city: filterForm.city,
+        categoryId: filterForm.category?._id || '',
+      })
+      .finally(() => {
+        dispatch(setIsPromotionListLoad(false));
+      });
   },
 );
 
 export const createPromotion = createAsyncThunk(
   'organization/promotions/create',
   async (dto: CreatePromotionDTO) => {
-    console.log(dto);
     const response = await organizationService.createPromotion(dto);
-    console.log(response);
 
     return response;
   },

@@ -21,10 +21,12 @@ import {
 } from './_thunks';
 import {getReviews} from './thunks/reviews.thunk';
 import {getSubInfo} from './thunks/subscribe.thunk';
+import {getServices} from './thunks/services.thunk';
 
 const initialState: OrganizationsStateModel = {
   banners: [],
   categories: [],
+  services: [],
 
   filterForm: DefaultFilterForm,
   createForm: DefaultCreateForm,
@@ -137,6 +139,15 @@ const organizationsSlice = createSlice({
       }
 
       state.categories = action.payload;
+    });
+
+    // GET Services
+    builder.addCase(getServices.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      state.services = action.payload;
     });
 
     // GET Organization Filter

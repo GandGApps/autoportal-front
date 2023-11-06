@@ -15,27 +15,36 @@ import {InputUI} from '../../../template/ui/InputUI';
 import {CitiesModal} from '../../../components/CitiesModal';
 import {Modalize} from 'react-native-modalize';
 import {FileHelper} from '../../../modules/files/FilesHelper';
-import {Asset} from 'react-native-image-picker';
-import {Nullable} from '../../../settings/types/BaseTypes';
 import {ImageUI} from '../../../template/ui/ImageUI';
 import DatePicker from 'react-native-date-picker';
 import {DateHelper} from '../../../helper/DateHelper';
 import {RowContainer} from '../../../template/containers/RowContainer';
 import {ButtonUI} from '../../../template/ui/ButtonUI';
-import {createBanner} from '../../../modules/admin/thunks/createBanner.thunk';
-import {useAppDispatch} from '../../../settings/redux/hooks';
+import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {AdminHelper} from '../../../modules/admin/helpers/AdminHelper';
 import {CreateBannerDTO} from '../../../modules/admin/types/AdminTypes';
 import {Notifications} from '../../../template/notifications/Notifications';
 import {fileSevice} from '../../../modules/files/api/file-service';
+import {useRoute} from '@react-navigation/native';
+import {AdminCreateBannerParams} from '../../../routes/params/RouteParams';
+import {selectOrganizationsValues} from '../../../modules/organizations/OrganizationsSlice';
+import {adminService} from '../../../modules/admin/service/admin.service';
 import {getBanners} from '../../../modules/organizations/_thunks';
+import {AbsoluteContainer} from '../../../template/containers/AbsoluteContainer';
+import {Loader} from '../../../components/Loader';
 import Navigation from '../../../routes/navigation/Navigation';
 
 export const CreateBanner = () => {
-  const disptach = useAppDispatch();
+  const {filterForm} = useAppSelector(selectOrganizationsValues);
 
-  const [city, setCity] = useState('');
-  const [image, setImage] = useState<Nullable<Asset>>(null);
+  const dispatch = useAppDispatch();
+
+  const params = useRoute<AdminCreateBannerParams>().params;
+
+  const isEdit = Boolean(params?.banner);
+
+  const [city, setCity] = useState(filterForm.city);
+  const [image, setImage] = useState<string>(params?.banner.image || '');
 
   const [from, setFrom] = useState(new Date());
   const [to, setTo] = useState(new Date());
@@ -43,10 +52,13 @@ export const CreateBanner = () => {
   const [openFrom, setOpenFrom] = useState(false);
   const [openTo, setOpenTo] = useState(false);
 
-  const [title, setTitle] = useState('');
-  const [organizationId, setOrganizationId] = useState('');
+  const [title, setTitle] = useState(params?.banner.title || '');
+  const [organizationId, setOrganizationId] = useState(
+    params?.banner.organizationId || '',
+  );
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadImage, setIsLoadImage] = useState(false);
 
   const cityModal = useRef<Modalize>(null);
 
@@ -60,9 +72,13 @@ export const CreateBanner = () => {
     });
 
     if (res && res.length) {
-      res.map(image => {
-        setImage(image);
+      const imageUrl: string = await fileSevice.uploadFile({
+        uri: res[0].uri!,
+        name: res[0].fileName || 'banner',
+        type: res[0].type! || 'image/jpg',
       });
+
+      setImage(imageUrl);
     }
   };
 
@@ -79,28 +95,27 @@ export const CreateBanner = () => {
       return;
     }
 
-    if (!image?.uri) {
+    if (!image.length) {
       Notifications.error('Загрузите баннер');
       return;
     }
 
     setIsLoading(true);
 
-    const imageUrl: string = await fileSevice.uploadFile({
-      uri: image.uri!,
-      name: image.fileName || 'banner',
-      type: image.type! || 'image/jpg',
-    });
-
     const dto: CreateBannerDTO = {
       ...validDto,
-      image: imageUrl,
+      image: image,
     };
 
-    await disptach(createBanner(dto))
-      .then(() => {
-        disptach(getBanners());
-        Navigation.pop();
+    await adminService
+      .createUpdateBanner(dto, params?.banner._id)
+      .then(async () => {
+        Notifications.succes(isEdit ? 'Данные обновлены' : 'Баннер создан');
+        dispatch(getBanners());
+
+        if (!isEdit) {
+          Navigation.pop();
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -129,14 +144,25 @@ export const CreateBanner = () => {
           $widthPRC={100}
           $heightPX={135}>
           <ViewPress $isFlex onPress={handlePickImages}>
+            {isLoadImage && (
+              <AbsoluteContainer $widthPRC={100} $heightPX={135}>
+                <CenterContainerFlex>
+                  <Loader size={20} />
+                </CenterContainerFlex>
+              </AbsoluteContainer>
+            )}
             <CenterContainerFlex style={compStyles.gap10}>
-              {image ? (
-                <ImageUI
-                  $br={10}
-                  $widthPRC={100}
-                  $heightPX={135}
-                  source={{uri: image.uri}}
-                />
+              {Boolean(image.length) ? (
+                <Fragment>
+                  <ImageUI
+                    $br={10}
+                    $widthPRC={100}
+                    $heightPX={135}
+                    onLoadStart={() => setIsLoadImage(true)}
+                    onLoadEnd={() => setIsLoadImage(true)}
+                    source={{uri: image}}
+                  />
+                </Fragment>
               ) : (
                 <Fragment>
                   <PhotoIcon />

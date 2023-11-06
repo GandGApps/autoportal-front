@@ -28,8 +28,18 @@ import {CarouselRenderItemInfo} from 'react-native-reanimated-carousel/lib/types
 import {CarouselItem} from './components/CarouselItem';
 import {Banner} from '../../modules/organizations/models/Banner';
 
+const carouselWidth = Dimensions.get('window').width - 40;
+const carouselHeight = carouselWidth / 2.5;
+
 function renderCarousel({item}: CarouselRenderItemInfo<Banner>) {
-  return <CarouselItem url={item.image} />;
+  return (
+    <CarouselItem
+      url={item.image}
+      organizationId={item.organizationId}
+      width={carouselWidth}
+      height={carouselHeight}
+    />
+  );
 }
 
 export const CategoriesScreen = () => {
@@ -42,9 +52,6 @@ export const CategoriesScreen = () => {
   const dispatch = useAppDispatch();
 
   const insets = useSafeAreaInsets();
-
-  const carouselWidth = Dimensions.get('window').width - 40;
-  const carouselHeight = carouselWidth / 2.5;
 
   const handleGoToSearch = () => {
     Navigation.navigate(Screens.CAT_SEARCH);
@@ -74,6 +81,7 @@ export const CategoriesScreen = () => {
         <MainContainer $ph={20} $mb={20}>
           {banners.length ? (
             <Carousel
+              style={{gap: 10}}
               loop={banners.length > 1}
               autoPlay={banners.length > 1}
               autoPlayInterval={3000}

@@ -12,7 +12,9 @@ import {TelegramPressIcon} from '../../template/icons/TelegramPressIcon';
 import {ViewPress} from '../../template/containers/ViewPress';
 import {ColumnContainerBetweenFlex} from '../../template/containers/ColumnContainer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {StatusBar} from 'react-native';
+import {Linking, StatusBar} from 'react-native';
+import {CenterContainer} from '../../template/containers/CenterContainer';
+import {appConfig} from '../../appConfig';
 
 export const ReportScreen = () => {
   const {currentOrganization} = useAppSelector(selectOrganizationsValues);
@@ -37,7 +39,9 @@ export const ReportScreen = () => {
             <TextUI ag={Ag['500_18']}>{'Жалоба'}</TextUI>
           </RowContainer>
 
-          <TextUI ag={Ag['400_14']}>{'Причина жалобы'}</TextUI>
+          <TextUI $mb={10} ag={Ag['400_14']}>
+            {'Причина жалобы'}
+          </TextUI>
           <MainContainer $mb={20}>
             <Textarea
               placeholder="Напишите причину жалобы на данное обьявление"
@@ -54,9 +58,13 @@ export const ReportScreen = () => {
         </MainContainer>
 
         <MainContainer>
-          <ViewPress $mb={10}>
-            <TelegramPressIcon />
-          </ViewPress>
+          <CenterContainer>
+            <ViewPress
+              $mb={10}
+              onPress={() => Linking.openURL(`https://t.me/grigor_zh`)}>
+              <TelegramPressIcon />
+            </ViewPress>
+          </CenterContainer>
           <TextUI $align={'center'} ag={Ag['500_16']}>
             {'Связаться с администрацией\nчерез телеграм'}
           </TextUI>

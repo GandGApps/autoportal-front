@@ -1,10 +1,14 @@
 import AbstractApiRepository from '../../../settings/abstrcations/repositories/AbstractApiRepository';
 import {Endpoints} from '../../../template/api/Endpoints';
 import {
+  CreateExtServieDTO,
   CreateOrganizationDTO,
   CreatePromotionDTO,
   CreateReviewDTO,
+  CreateServiceDTO,
+  GetPromotionDTO,
   OrganizationsDTO,
+  UpdateServiceDTO,
 } from '../types/OrganizationTypes';
 
 export class ApiOrganizationsService extends AbstractApiRepository {
@@ -23,6 +27,46 @@ export class ApiOrganizationsService extends AbstractApiRepository {
   getSearchServices = async (query: string) => {
     return this.apiClient.get({
       url: Endpoints.searchSubServices(query),
+    });
+  };
+
+  getServices = async (categoryId: string) => {
+    return this.apiClient.get({
+      url: Endpoints.services(categoryId),
+    });
+  };
+
+  createService = async (dto: CreateServiceDTO) => {
+    return this.apiClient.post({
+      url: Endpoints.service,
+      data: dto,
+    });
+  };
+
+  updateService = async (dto: UpdateServiceDTO) => {
+    const {serviceId, ...updateDto} = dto;
+    return this.apiClient.put({
+      url: Endpoints.changeService(serviceId),
+      data: updateDto,
+    });
+  };
+
+  deleteService = async (serviceId: string) => {
+    return this.apiClient.delete({
+      url: Endpoints.changeService(serviceId),
+    });
+  };
+
+  createExtService = async (dto: CreateExtServieDTO) => {
+    return this.apiClient.post({
+      url: Endpoints.extServices,
+      data: dto,
+    });
+  };
+
+  getExtServices = async (serviceId: string) => {
+    return this.apiClient.get({
+      url: Endpoints.getExtServices(serviceId),
     });
   };
 
@@ -45,9 +89,9 @@ export class ApiOrganizationsService extends AbstractApiRepository {
     });
   };
 
-  getPromotionsList = async () => {
+  getPromotionsList = async (dto: GetPromotionDTO) => {
     return this.apiClient.get({
-      url: Endpoints.promotions,
+      url: Endpoints.promotions(dto.city, dto.categoryId),
     });
   };
 

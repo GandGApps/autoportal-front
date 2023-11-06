@@ -1,5 +1,4 @@
 import {OrganizationList} from './../../organizations/models/OrganizationList';
-import {getSubInfo} from './../../organizations/thunks/subscribe.thunk';
 import {CreateBannerDTO, FinanceDTO} from './../types/AdminTypes';
 import AbstractServiceRepository from '../../../settings/abstrcations/repositories/AbstractServiceRepository';
 import {Dealer} from '../models/Dealer';
@@ -32,8 +31,20 @@ class AdminService extends AbstractServiceRepository {
     return this.createList<OrganizationList>(OrganizationList, data);
   };
 
-  createBanner = async (dto: CreateBannerDTO) => {
+  createUpdateBanner = async (dto: CreateBannerDTO, bannerId?: string) => {
+    if (bannerId) {
+      const {data} = await this.api.updateBanner(dto, bannerId);
+
+      return this.create<Message>(Message, data);
+    }
+
     const {data} = await this.api.createBanner(dto);
+
+    return this.create<Message>(Message, data);
+  };
+
+  deleteBanner = async (bannerId: string) => {
+    const {data} = await this.api.deleteBanner(bannerId);
 
     return this.create<Message>(Message, data);
   };

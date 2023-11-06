@@ -1,4 +1,4 @@
-import React, {Fragment, useRef, useState} from 'react';
+import React, {Fragment, useCallback, useEffect, useRef, useState} from 'react';
 import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {GradientHeader} from '../../../components/GradientHeader';
 import {InputSelectUI} from '../../../template/ui/InputSelectUI';
@@ -7,23 +7,46 @@ import {CategoriesModal} from '../../../components/CategoriesModal';
 import {Nullable} from '../../../settings/types/BaseTypes';
 import {Category} from '../../../modules/organizations/models/Category';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
-import {FlatList} from 'react-native';
+import {FlatList, ListRenderItemInfo} from 'react-native';
 import {Insets} from '../../../template/styles/Insets';
 import {CenterContainer} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
+import {Service} from '../../../modules/organizations/models/Service';
+import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
+import {getServices} from '../../../modules/organizations/thunks/services.thunk';
+import {RowContainerBeetwen} from '../../../template/containers/RowContainer';
+import {MainContainer} from '../../../template/containers/MainContainer';
+import {selectOrganizationsValues} from '../../../modules/organizations/OrganizationsSlice';
+import {ViewPress} from '../../../template/containers/ViewPress';
+import {ColorsUI} from '../../../template/styles/ColorUI';
+import {ServiceItem} from './components/ServiceItem';
+import {AddService} from './components/AddService';
+
+function renderItem({item}: ListRenderItemInfo<Service>) {
+  return <ServiceItem service={item} />;
+}
 
 export const AdminServices = () => {
   const categoriesModalRef = useRef<Modalize>(null);
 
-  const [category, setCategory] = useState<Nullable<Category>>(null);
+  const addServiceModal = useRef<Modalize>(null);
+
+  const {services, filterForm} = useAppSelector(selectOrganizationsValues);
+
+  const dispatch = useAppDispatch();
+
+  const category = filterForm.category;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSelectCategory = (category: Category) => {
-    setCategory(category);
-
-    setIsLoading(true);
-  };
+  useEffect(() => {
+    if (category) {
+      setIsLoading(true);
+      dispatch(getServices(category._id)).finally(() => {
+        setIsLoading(false);
+      });
+    }
+  }, [category]);
 
   const handleOpenModalCategory = () => {
     if (isLoading) return;
@@ -31,42 +54,88 @@ export const AdminServices = () => {
     categoriesModalRef.current?.open();
   };
 
+  const renderHeader = useCallback(
+    () => (
+      <Fragment>
+        <MainContainer $ph={20}>
+          <InputSelectUI
+            placeholder={'Выберете категорию'}
+            value={category?.title}
+            onPress={handleOpenModalCategory}
+          />
+        </MainContainer>
+
+        {Boolean(category) ? (
+          <RowContainerBeetwen
+            $mt={20}
+            $ph={20}
+            $pv={20}
+            $bg={ColorsUI.gray.bg}>
+            <TextUI ag={Ag['400_16']} $isFlex>
+              {'Создать новую услугу?'}
+            </TextUI>
+            <ViewPress
+              $bg={ColorsUI.green}
+              $ml={10}
+              $pv={5}
+              $ph={20}
+              $br={20}
+              onPress={() => addServiceModal.current?.open()}>
+              <TextUI
+                $align={'center'}
+                ag={Ag['400_16']}
+                color={ColorsUI.white}>
+                {'Создать'}
+              </TextUI>
+            </ViewPress>
+          </RowContainerBeetwen>
+        ) : (
+          <MainContainer $mt={20}>
+            <TextUI ag={Ag['500_16']} $align={'center'}>
+              {'Категория не выбрана'}
+            </TextUI>
+          </MainContainer>
+        )}
+      </Fragment>
+    ),
+    [category],
+  );
+
   return (
     <ColumnContainerFlex>
       <GradientHeader isBack={true} title={'Услуги'} />
-      <ColumnContainerFlex $ph={20} $pt={20}>
-        <InputSelectUI
-          placeholder={'Выберете категорию'}
-          value={category?.title}
-          onPress={handleOpenModalCategory}
-        />
-
-        {isLoading && (
-          <CenterContainer $pt={20}>
-            <Loader size={20} />
-          </CenterContainer>
-        )}
-
+      <ColumnContainerFlex>
         <FlatList
+          ListHeaderComponent={renderHeader}
           contentContainerStyle={{paddingTop: 20, paddingBottom: Insets.bottom}}
-          data={[]}
-          renderItem={() => <></>}
+          data={category ? services : []}
+          renderItem={renderItem}
           ListEmptyComponent={
             <Fragment>
-              {!isLoading && (
-                <TextUI ag={Ag['500_16']} $align={'center'}>
-                  {'Не выбрана категория'}
-                </TextUI>
+              {!isLoading && Boolean(category) && (
+                <MainContainer $mt={20}>
+                  <TextUI ag={Ag['500_16']} $align={'center'}>
+                    {'В выбранной категории нет услуг'}
+                  </TextUI>
+                </MainContainer>
+              )}
+            </Fragment>
+          }
+          ListFooterComponent={
+            <Fragment>
+              {isLoading && (
+                <CenterContainer $pv={20}>
+                  <Loader size={20} />
+                </CenterContainer>
               )}
             </Fragment>
           }
         />
       </ColumnContainerFlex>
 
-      <CategoriesModal
-        modalizeRef={categoriesModalRef}
-        onPickCategories={handleSelectCategory}
-      />
+      <CategoriesModal modalizeRef={categoriesModalRef} />
+
+      <AddService modalizeRef={addServiceModal} categoryId={category?._id!} />
     </ColumnContainerFlex>
   );
 };
