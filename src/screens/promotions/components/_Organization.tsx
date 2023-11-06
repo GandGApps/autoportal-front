@@ -52,7 +52,7 @@ export const PromoOrganization = ({organization, promotion}: _Props) => {
 
           <MainContainer>
             <TextUI $mb={5} ag={Ag['400_14']}>
-              {organization.categoryName}
+              {organization.categoryName?.title || ''}
             </TextUI>
             <RatingCount rating={organization.rating!} />
           </MainContainer>

@@ -28,4 +28,17 @@ export class AdminApiService extends AbstractApiRepository {
       data: dto,
     });
   };
+
+  updateBanner = (dto: CreateBannerDTO, bannerId: string) => {
+    return this.apiClient.put({
+      url: Endpoints.changeBanner(bannerId),
+      data: dto,
+    });
+  };
+
+  deleteBanner = (bannerId: string) => {
+    return this.apiClient.delete({
+      url: Endpoints.changeBanner(bannerId),
+    });
+  };
 }

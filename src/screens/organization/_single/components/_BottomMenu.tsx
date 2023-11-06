@@ -11,8 +11,13 @@ import {
 } from '../../../../template/containers/RowContainer';
 import {Ag, TextUI} from '../../../../template/ui/TextUI';
 import {PhoneIcon} from '../../../../template/icons/PhoneIcon';
+import {Linking} from 'react-native';
 
-export const OrgBottomMenu = () => {
+interface CompProps {
+  tel: string;
+}
+
+export const OrgBottomMenu = ({tel}: CompProps) => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -25,7 +30,10 @@ export const OrgBottomMenu = () => {
           $br={50}
           $isFlex
           $mr={15}
-          activeOpacity={0.8}>
+          activeOpacity={0.8}
+          onPress={() => {
+            Linking.openURL('https://2gis.ru/');
+          }}>
           <RowContainerBeetwen>
             <RouteIcon />
             <TextUI ag={Ag['500_16']} color={ColorsUI.firm}>
@@ -35,7 +43,11 @@ export const OrgBottomMenu = () => {
           </RowContainerBeetwen>
         </ViewPress>
 
-        <ViewPress activeOpacity={0.8}>
+        <ViewPress
+          activeOpacity={0.8}
+          onPress={() => {
+            Linking.openURL(`tel:${tel}`);
+          }}>
           <PhoneIcon
             size={52}
             color={ColorsUI.black}

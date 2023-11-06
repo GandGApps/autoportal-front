@@ -52,6 +52,7 @@ export const UsersOrganizations = () => {
         </CenterContainerFlex>
       ) : (
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={userOrganization}
           contentContainerStyle={{paddingBottom: Insets.bottom}}
           renderItem={({item}) => (

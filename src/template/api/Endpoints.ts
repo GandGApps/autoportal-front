@@ -19,7 +19,8 @@ export const Endpoints = {
 
   currentOrganization: (id: string) => `/organisations?id=${id}`,
 
-  promotions: '/promotion',
+  promotions: (city: string, categoriId: string) =>
+    `/promotion?city=${city}&categoryId=${categoriId}`,
 
   createPromotion: (id: string) => `/promotion?organizationId=${id}`,
 
@@ -59,4 +60,10 @@ export const Endpoints = {
   subscribe: (type: string, id: string) =>
     `/subscribe/${type}?organizationId=${id}`,
   approveSubscribe: (id: string) => `/subscribe/approve?organizationId=${id}`,
+  services: (categoryId: string) => `/services?category_id=${categoryId}`,
+  service: '/services',
+  changeService: (serviceId: string) => `/services?serviceId=${serviceId}`,
+  extServices: '/services/ext',
+  getExtServices: (serviceId: string) => `/services/ext?serviceId=${serviceId}`,
+  changeBanner: (bannerId: string) => `/banners?bannerId=${bannerId}`,
 };

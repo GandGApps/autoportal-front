@@ -46,7 +46,7 @@ export const PromotionsScreen = () => {
         setIsLoad(false);
       });
     }, 0);
-  }, []);
+  }, [filterForm.category, filterForm.city]);
 
   return (
     <ColumnContainerFlex>
@@ -76,10 +76,10 @@ export const PromotionsScreen = () => {
           </CenterContainerFlex>
         ) : (
           <>
-            {promotionsList.map(item => (
+            {promotionsList.map((item, index) => (
               <PromoOrganization
-                key={`promo-${item.organization?._id}`}
-                promotion={item.promo!}
+                key={`promo-${item.organization?._id}-${index}`}
+                promotion={item.promotion!}
                 organization={item.organization!}
               />
             ))}

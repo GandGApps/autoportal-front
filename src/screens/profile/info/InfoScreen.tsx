@@ -51,12 +51,17 @@ export const InfoScreen = () => {
             <TextUI $mb={20} ag={Ag['400_16']}>
               {`ID: ${userInfo?._id}`}
             </TextUI>
-            <TextUI $mb={20} ag={Ag['400_16']}>
-              {`г. ${userInfo?.city}`}
-            </TextUI>
-            <TextUI $mb={20} ag={Ag['400_16']}>
-              {userInfo?.full_name}
-            </TextUI>
+            {!!userInfo?.city && (
+              <TextUI $mb={20} ag={Ag['400_16']}>
+                {`г. ${userInfo?.city}`}
+              </TextUI>
+            )}
+
+            {!!userInfo?.full_name && (
+              <TextUI $mb={20} ag={Ag['400_16']}>
+                {userInfo?.full_name}
+              </TextUI>
+            )}
             <TextUI $mb={20} ag={Ag['400_16']}>
               {MaskHelper.formatPhoneNumber(userInfo?.phone_number)}
             </TextUI>
