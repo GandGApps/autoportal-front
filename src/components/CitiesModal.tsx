@@ -16,6 +16,7 @@ import {
   getBanners,
   getOrganizationList,
 } from '../modules/organizations/_thunks';
+import {cityLocalService} from '../modules/auth/services/city/admin.fabric';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
@@ -52,6 +53,9 @@ export const CitiesModal = (props: CitiesFilterProps) => {
       dispatch(filterChangeForm({key: 'city', value: city}));
 
       dispatch(getBanners());
+      dispatch(getOrganizationList());
+
+      cityLocalService.setCity(city);
     }
 
     props.modalizeRef.current?.close();

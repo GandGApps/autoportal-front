@@ -1,6 +1,5 @@
 import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 import {Nullable} from '../../../settings/types/BaseTypes';
-import {UnitsFilter} from '../types/OrganizationTypes';
 import {Category} from './Category';
 
 export class SearchServices extends AbstractModel {

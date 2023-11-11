@@ -9,13 +9,15 @@ import {
   createChangeForm,
   filterChangeForm,
 } from '../../organizations/OrganizationsSlice';
-import {RootState} from '../../../settings/redux/store';
 import {getCreatedStatus} from '../../organizations/_thunks';
 import {adminLocalService} from '../services/admin/admin.fabric';
+import {cityLocalService} from '../services/city/admin.fabric';
 
 export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
   const token = await tokenService.getTokenData();
   const adminStatus = await adminLocalService.getAdminStatus();
+
+  await dispatch(initCity());
 
   if (adminStatus) {
     adminLocalService.setAdminStatus(adminStatus);
@@ -27,8 +29,6 @@ export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
     dispatch(setIsAuth(true));
 
     await dispatch(getUserInfo());
-
-    await dispatch(initCity());
 
     await dispatch(getCreatedStatus());
 
@@ -42,16 +42,9 @@ export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
   Navigation.replace(Screens.WELCOME);
 });
 
-const initCity = createAsyncThunk(
-  'auth/init/city',
-  async (_, {getState, dispatch}) => {
-    const {userInfo} = (getState() as RootState).userSlice;
+const initCity = createAsyncThunk('auth/init/city', async (_, {dispatch}) => {
+  const city = await cityLocalService.getCity();
 
-    dispatch(
-      filterChangeForm({key: 'city', value: userInfo?.city || 'Москва'}),
-    );
-    dispatch(
-      createChangeForm({key: 'city', value: userInfo?.city || 'Москва'}),
-    );
-  },
-);
+  dispatch(filterChangeForm({key: 'city', value: city || 'Москва'}));
+  dispatch(createChangeForm({key: 'city', value: city || 'Москва'}));
+});

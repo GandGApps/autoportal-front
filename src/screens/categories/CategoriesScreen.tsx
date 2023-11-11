@@ -47,8 +47,6 @@ export const CategoriesScreen = () => {
     selectOrganizationsValues,
   );
 
-  const citiesModalRef = useRef<Modalize>(null);
-
   const dispatch = useAppDispatch();
 
   const insets = useSafeAreaInsets();
@@ -61,10 +59,6 @@ export const CategoriesScreen = () => {
     dispatch(filterChangeForm({key: 'category', value: category}));
 
     Navigation.navigate(Screens.CAT_ORGANIZATIONS);
-  };
-
-  const handleOpenModalCity = () => {
-    citiesModalRef.current?.open();
   };
 
   useEffect(() => {
@@ -100,7 +94,6 @@ export const CategoriesScreen = () => {
               onPress={handleGoToSearch}
             />
           </MainContainer>
-          <SelectUI text={filterForm.city} onPress={handleOpenModalCity} />
         </MainContainer>
 
         <MainContainer $pb={120}>
@@ -115,7 +108,6 @@ export const CategoriesScreen = () => {
         </MainContainer>
       </ScrollViewScreen>
 
-      <CitiesModal modalizeRef={citiesModalRef} />
       <BottomMenu />
     </ColumnContainerFlex>
   );

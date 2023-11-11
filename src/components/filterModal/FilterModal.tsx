@@ -88,7 +88,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
     switch (props.typeModal) {
       case 'typeService': {
-        console.log(form.typeService);
         setPickList(form.typeService || []);
         setList(organizationFilter?.typeService!);
         break;

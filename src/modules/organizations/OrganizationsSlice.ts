@@ -22,6 +22,7 @@ import {
 import {getReviews} from './thunks/reviews.thunk';
 import {getSubInfo} from './thunks/subscribe.thunk';
 import {getServices} from './thunks/services.thunk';
+import {OrganizationList} from './models/OrganizationList';
 
 const initialState: OrganizationsStateModel = {
   banners: [],
@@ -99,6 +100,9 @@ const organizationsSlice = createSlice({
     },
     setIsOrganizationList: (state, action: PayloadAction<boolean>) => {
       state.isOrganizationListLoad = action.payload;
+    },
+    setOrganizationList: (state, action: PayloadAction<OrganizationList[]>) => {
+      state.organizationList = action.payload;
     },
     setIsCurrentOrganizationLoad: (state, action: PayloadAction<boolean>) => {
       state.isCurrentOrganizationLoad = action.payload;
@@ -268,6 +272,7 @@ export const {
   resetOrganizationFilter,
   setIsReviewsLoad,
   resetFilterForm,
+  setOrganizationList,
 } = organizationsSlice.actions;
 
 export default organizationsSlice.reducer;

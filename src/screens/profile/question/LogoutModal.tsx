@@ -1,17 +1,17 @@
 import React from 'react';
 import {QuestionModal} from '../../../components/QuestionModal';
 import Navigation from '../../../routes/navigation/Navigation';
-import {Screens} from '../../../routes/models/Screens';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {logoutAuth} from '../../../modules/auth/thunks/logout.thunks';
-import {adminLocalService} from '../../../modules/auth/services/admin/admin.fabric';
 import {selectAuthValues} from '../../../modules/auth/AuthSlice';
+import {cityLocalService} from '../../../modules/auth/services/city/admin.fabric';
 
 export const LogoutModal = () => {
   const {isAdmin} = useAppSelector(selectAuthValues);
   const dispatch = useAppDispatch();
 
   const handleLogOut = () => {
+    cityLocalService.deleteCity();
     dispatch(logoutAuth(isAdmin));
   };
 
