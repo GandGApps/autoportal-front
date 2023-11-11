@@ -13,6 +13,7 @@ import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {
   resetFilterForm,
   selectOrganizationsValues,
+  setOrganizationList,
 } from '../../../modules/organizations/OrganizationsSlice';
 import {SelectUI} from '../../../template/ui/SelectUI';
 import {FilterIcon} from '../../../template/icons/FilterIcon';
@@ -24,6 +25,8 @@ import {ScrollViewScreen} from '../../../template/containers/ScrollViewScreen';
 import {OrganizationItem} from './components/OrganizationItem';
 import {CenterContainerFlex} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
+import {useDebouncedEffect} from '../../../template/hooks/useDebouncedEffect';
+import {OrganizationList} from '../../../modules/organizations/models/OrganizationList';
 
 export const CatOrganizationsScreens = () => {
   const {filterForm, organizationList, isOrganizationListLoad} = useAppSelector(
@@ -33,6 +36,7 @@ export const CatOrganizationsScreens = () => {
   const dispatch = useAppDispatch();
 
   const categoriesModalRef = useRef<Modalize>(null);
+  const citiesModalRef = useRef<Modalize>(null);
 
   const insets = useSafeAreaInsets();
 
@@ -47,6 +51,29 @@ export const CatOrganizationsScreens = () => {
       });
     }, 0);
   }, []);
+
+  useDebouncedEffect(
+    async () => {
+      if (isLoad) return;
+      setIsLoad(true);
+
+      dispatch(getOrganizationList())
+        .then(res => {
+          if (res.payload) {
+            const filter = (res.payload as OrganizationList[]).filter(item =>
+              item.name.toLowerCase().includes(search.toLowerCase()),
+            );
+
+            dispatch(setOrganizationList(filter));
+          }
+        })
+        .finally(() => {
+          setIsLoad(false);
+        });
+    },
+    500,
+    [search],
+  );
 
   const handleResetFilter = () => {
     dispatch(resetFilterForm());
@@ -63,6 +90,10 @@ export const CatOrganizationsScreens = () => {
 
   const handleOpenModalCategory = () => {
     categoriesModalRef.current?.open();
+  };
+
+  const handleOpenModalCity = () => {
+    citiesModalRef.current?.open();
   };
 
   return (
@@ -91,6 +122,11 @@ export const CatOrganizationsScreens = () => {
         </RowContainerBeetwen>
 
         <SelectUI
+          style={{marginBottom: 10}}
+          text={filterForm.city}
+          onPress={handleOpenModalCity}
+        />
+        <SelectUI
           text={filterForm.category?.title!}
           onPress={handleOpenModalCategory}
         />
@@ -117,6 +153,7 @@ export const CatOrganizationsScreens = () => {
       </ScrollViewScreen>
 
       <CategoriesModal modalizeRef={categoriesModalRef} />
+      <CitiesModal modalizeRef={citiesModalRef} />
     </ColumnContainerFlex>
   );
 };
