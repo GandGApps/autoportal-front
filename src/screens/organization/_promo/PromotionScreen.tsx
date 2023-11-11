@@ -27,6 +27,7 @@ import {
   updatePromotion,
 } from '../../../modules/organizations/_thunks';
 import {Notifications} from '../../../template/notifications/Notifications';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export const PromotionScreen = () => {
   const params = useRoute<OrganizationPromoParams>().params;
@@ -110,7 +111,7 @@ export const PromotionScreen = () => {
         title={isEdit ? 'Редактировать акцию' : 'Создать акции'}
         isBack
       />
-      <ColumnContainerBetweenFlex>
+      <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
         <MainContainer>
           <RowContainer $pv={15} $ph={20}>
             <LogoUI size={45} url={params.logo} />
@@ -157,6 +158,8 @@ export const PromotionScreen = () => {
           </MainContainer>
         </MainContainer>
 
+        <ColumnContainerFlex />
+
         <MainContainer $mb={Math.max(insets.bottom, 20)} $ph={20}>
           {isEdit ? (
             <ButtonUI
@@ -174,7 +177,7 @@ export const PromotionScreen = () => {
             onPress={handleCreateUpdatePromo}
           />
         </MainContainer>
-      </ColumnContainerBetweenFlex>
+      </KeyboardAwareScrollView>
 
       <DatePicker
         locale={'ru'}

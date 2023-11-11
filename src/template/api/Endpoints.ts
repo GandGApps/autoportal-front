@@ -59,7 +59,8 @@ export const Endpoints = {
     `/admin/organisations/users?dealerId=${dealerId}`,
   subscribe: (type: string, id: string) =>
     `/subscribe/${type}?organizationId=${id}`,
-  approveSubscribe: (id: string) => `/subscribe/approve?organizationId=${id}`,
+  approveSubscribe: (id: string, type: string) =>
+    `/subscribe/approve?organizationId=${id}&type=${type}`,
   services: (categoryId: string) => `/services?category_id=${categoryId}`,
   service: '/services',
   changeService: (serviceId: string) => `/services?serviceId=${serviceId}`,

@@ -145,3 +145,8 @@ export interface CreateExtServieDTO {
   service_id: string;
   title: string;
 }
+
+export interface ApproveSubscribeDTO {
+  id: string;
+  type: string;
+}

@@ -39,12 +39,13 @@ export const OrganizationScreen = () => {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [previewIndex, setPreviewIndex] = useState(0);
 
-  const [isLoad, setIsLoad] = useState(true);
+  const [isLoad, setIsLoad] = useState(false);
 
   const [visiblePreview, setIsVisiblePreview] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
+      setIsLoad(true);
       dispatch(getCurrentOrganization(_id)).finally(() => {
         setIsLoad(false);
       });

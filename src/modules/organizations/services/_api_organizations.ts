@@ -189,9 +189,9 @@ export class ApiOrganizationsService extends AbstractApiRepository {
     });
   };
 
-  approveSubscribe = async (id: string) => {
+  approveSubscribe = async (id: string, type: string) => {
     return this.apiClient.post({
-      url: Endpoints.approveSubscribe(id),
+      url: Endpoints.approveSubscribe(id, type),
     });
   };
 }

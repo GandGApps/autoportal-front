@@ -13,7 +13,7 @@ import {DefaultCreateForm} from '../../modules/organizations/form/CreateForm';
 import {approveSubscribe} from '../../modules/organizations/thunks/subscribe.thunk';
 
 export const SubscribeModal = () => {
-  const {url, organizationId} = useRoute<SubscribeModalParams>().params;
+  const {url, organizationId, type} = useRoute<SubscribeModalParams>().params;
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +42,7 @@ export const SubscribeModal = () => {
 
           if (event.nativeEvent.url.includes('success')) {
             dispatch(setDefaultCreateForm(DefaultCreateForm));
-            dispatch(approveSubscribe(organizationId));
+            dispatch(approveSubscribe({id: organizationId, type}));
           }
         }}
       />
