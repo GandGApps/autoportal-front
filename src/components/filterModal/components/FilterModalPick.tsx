@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {BorderTopUI} from '../../../template/ui/BorderTopUI';
 import {TouchableOpacity} from 'react-native';
 import {RowContainer} from '../../../template/containers/RowContainer';
@@ -9,6 +9,8 @@ import {TypeService} from '../../../modules/organizations/models/TypeService';
 import {UnitsFilter} from '../../../modules/organizations/types/OrganizationTypes';
 import {OrganizationHelper} from '../../../modules/organizations/helpers/OrganizationHelper';
 import {RadioUI} from '../../../template/ui/RadioUI';
+import {DownIcon} from '../../../template/icons/DownIcon';
+import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 
 interface FilterModalPickProps {
   item?: TypeService | UnitsFilter;
@@ -21,6 +23,8 @@ interface FilterModalPickProps {
   sortActive?: boolean;
 
   onPickItem: () => void;
+
+  hideSub?: () => void;
 }
 
 export const FilterModalPick = (props: FilterModalPickProps) => {
@@ -46,21 +50,32 @@ export const FilterModalPick = (props: FilterModalPickProps) => {
 
   return (
     <BorderTopUI>
-      <TouchableOpacity onPress={props.onPickItem}>
-        <RowContainer>
-          {props.sortTitle ? (
-            <RadioUI isActive={props.sortActive!} />
-          ) : (
-            <CheckboxUI isActive={isActive} />
-          )}
+      <RowContainer>
+        <TouchableOpacity onPress={props.onPickItem}>
+          <RowContainer>
+            {props.sortTitle ? (
+              <RadioUI isActive={props.sortActive!} />
+            ) : (
+              <CheckboxUI isActive={isActive} />
+            )}
 
-          <MainContainer $ml={10} $pv={8}>
-            <TextUI ag={Ag['400_16']}>
-              {props.sortTitle || props.item!.title}
-            </TextUI>
-          </MainContainer>
-        </RowContainer>
-      </TouchableOpacity>
+            <MainContainer $ml={10} $pv={8}>
+              <TextUI ag={Ag['400_16']}>
+                {props.sortTitle || props.item!.title}
+              </TextUI>
+            </MainContainer>
+          </RowContainer>
+        </TouchableOpacity>
+
+        {props.isCatSub && (
+          <Fragment>
+            <ColumnContainerFlex />
+            <TouchableOpacity style={{padding: 5}} onPress={props.hideSub}>
+              <DownIcon />
+            </TouchableOpacity>
+          </Fragment>
+        )}
+      </RowContainer>
     </BorderTopUI>
   );
 };

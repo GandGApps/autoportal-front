@@ -1,4 +1,4 @@
-import React, {RefObject, useEffect, useState} from 'react';
+import React, {FC, Fragment, RefObject, useEffect, useState} from 'react';
 import {SwipeableModal} from '../SwipbleModal';
 import {IHandles} from 'react-native-modalize/lib/options';
 import {Ag, TextUI} from '../../template/ui/TextUI';
@@ -88,6 +88,7 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
     switch (props.typeModal) {
       case 'typeService': {
+        console.log(form.typeService);
         setPickList(form.typeService || []);
         setList(organizationFilter?.typeService!);
         break;
@@ -121,7 +122,7 @@ export const FilterModal = (props: CitiesFilterProps) => {
   };
 
   const handlePickItem = (value: any) => {
-    if (value.subServices) {
+    if (value.subServices && value.subServices.length > 0) {
       setPickList(
         OrganizationHelper.getSubsCheckedList(pickList, value.subServices),
       );
@@ -131,10 +132,14 @@ export const FilterModal = (props: CitiesFilterProps) => {
     if (pickList.includes(value._id)) {
       const filterPick = pickList.filter(item => item !== value._id);
       setPickList(filterPick);
-      setUnPickList([...unPickList, value._id]);
+      if (props.typeModal === 'brandCar') {
+        setUnPickList([...unPickList, value._id]);
+      }
     } else {
       setPickList([...pickList, value._id]);
-      setUnPickList(unPickList.filter(item => item !== value._id));
+      if (props.typeModal === 'brandCar') {
+        setUnPickList(unPickList.filter(item => item !== value._id));
+      }
     }
   };
 
@@ -267,30 +272,13 @@ export const FilterModal = (props: CitiesFilterProps) => {
               ) : (
                 <>
                   {list.map(item => (
-                    <View key={`${props.typeModal}-${item._id}`}>
-                      <FilterModalPick
-                        item={item}
-                        onPickItem={() => handlePickItem(item)}
-                        pickList={pickList}
-                        isCatSub={
-                          props.typeModal === 'typeService' &&
-                          (item as TypeService).subServices !== undefined
-                        }
-                      />
-
-                      {props.typeModal === 'typeService' &&
-                      (item as TypeService).subServices
-                        ? (item as TypeService).subServices?.map(subItem => (
-                            <MainContainer $ml={20} key={`sub-${subItem._id}`}>
-                              <FilterModalPick
-                                item={subItem}
-                                onPickItem={() => handlePickItem(subItem)}
-                                pickList={pickList}
-                              />
-                            </MainContainer>
-                          ))
-                        : null}
-                    </View>
+                    <SelectList
+                      key={`${props.typeModal}-${item._id}`}
+                      item={item}
+                      onPickItem={handlePickItem}
+                      pickList={pickList}
+                      typeModal={props.typeModal}
+                    />
                   ))}
                 </>
               )}
@@ -316,5 +304,48 @@ export const FilterModal = (props: CitiesFilterProps) => {
         )}
       </>
     </SwipeableModal>
+  );
+};
+
+interface SelectListProps extends Pick<CitiesFilterProps, 'typeModal'> {
+  item: TypeService | UnitsFilter;
+  onPickItem: (value: any) => void;
+  pickList: string[];
+}
+
+const SelectList: FC<SelectListProps> = function SelectList(props) {
+  const {item, pickList, onPickItem} = props;
+  const [openSub, setOpenSub] = useState(false);
+
+  return (
+    <Fragment>
+      <View>
+        <FilterModalPick
+          item={item}
+          onPickItem={() => onPickItem(item)}
+          pickList={pickList}
+          isCatSub={
+            props.typeModal === 'typeService' &&
+            (item as TypeService).subServices !== undefined &&
+            (item as TypeService).subServices!.length > 0
+          }
+          hideSub={() => setOpenSub(!openSub)}
+        />
+
+        {props.typeModal === 'typeService' &&
+        (item as TypeService).subServices &&
+        openSub
+          ? (item as TypeService).subServices?.map(subItem => (
+              <MainContainer $ml={20} key={`sub-${subItem._id}`}>
+                <FilterModalPick
+                  item={subItem}
+                  onPickItem={() => onPickItem(subItem)}
+                  pickList={pickList}
+                />
+              </MainContainer>
+            ))
+          : null}
+      </View>
+    </Fragment>
   );
 };
