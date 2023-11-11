@@ -229,8 +229,8 @@ export class OrganizationsService extends AbstractServiceRepository {
     return data as any as {data: string};
   };
 
-  approveSubscribe = async (id: string) => {
-    const {data} = await this.api.approveSubscribe(id);
+  approveSubscribe = async (id: string, type: string) => {
+    const {data} = await this.api.approveSubscribe(id, type);
 
     return this.create<Message>(Message, data);
   };

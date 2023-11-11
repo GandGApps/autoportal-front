@@ -22,6 +22,7 @@ export type RouteParams = {
   SUBSCRIBE_MODAL: {
     url: string;
     organizationId: string;
+    type: 'month' | 'year';
   };
   ADMIN_USER_ORGS: {
     id: string;

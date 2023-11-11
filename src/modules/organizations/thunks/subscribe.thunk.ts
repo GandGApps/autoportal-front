@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {organizationService} from '../services/OrganizationsService';
-import {SubscribeDTO} from '../types/OrganizationTypes';
+import {ApproveSubscribeDTO, SubscribeDTO} from '../types/OrganizationTypes';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import {Notifications} from '../../../template/notifications/Notifications';
@@ -20,6 +20,7 @@ export const getSubcribe = createAsyncThunk(
       Navigation.navigate(Screens.SUBSCRIBE_MODAL, {
         url: response.data,
         organizationId: id,
+        type,
       });
     }
   },
@@ -27,8 +28,8 @@ export const getSubcribe = createAsyncThunk(
 
 export const approveSubscribe = createAsyncThunk(
   'subscribe/approve',
-  async (id: string) => {
-    const data = await organizationService.approveSubscribe(id);
+  async ({id, type}: ApproveSubscribeDTO) => {
+    const data = await organizationService.approveSubscribe(id, type);
 
     if (data.message === 'success') {
       Navigation.navigate(Screens.PROFILE);

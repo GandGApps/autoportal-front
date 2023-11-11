@@ -45,11 +45,13 @@ export const OrganizationPreview = (props: OrganizationPreviewProps) => {
         id: props.id,
         type: isFavorite ? 'delete' : 'add',
       }),
-    ).catch(err => {
-      console.log(err);
-    });
-
-    setIsLoading(false);
+    )
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
