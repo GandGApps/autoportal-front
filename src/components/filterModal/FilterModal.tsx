@@ -28,6 +28,8 @@ import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../Loader';
 import {MockFilterSchedule} from '../../modules/organizations/mock/MockFilterSchedule';
 import {CreatetFormModel} from '../../modules/organizations/form/CreateForm';
+import {InputUI} from '../../template/ui/InputUI';
+import {useDebouncedEffect} from '../../template/hooks/useDebouncedEffect';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
@@ -49,6 +51,9 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
   const [list, setList] = useState<TypeService[] | UnitsFilter[]>([]);
   const [pickList, setPickList] = useState<string[]>([]);
+  const [unPickList, setUnPickList] = useState<string[]>([]);
+
+  const [brandName, setBrandName] = useState('');
 
   const [openLoad, setOpenLoad] = useState(false);
 
@@ -59,6 +64,24 @@ export const FilterModal = (props: CitiesFilterProps) => {
       setOpenLoad(false);
     }
   }, [openLoad]);
+
+  useDebouncedEffect(
+    () => {
+      if (props.typeModal === 'brandCar' && !openLoad) {
+        const filterBrand =
+          organizationFilter?.brandCar
+            ?.filter(
+              item =>
+                !pickList.includes(item._id) &&
+                item.title.toLowerCase().includes(brandName.toLowerCase()),
+            )
+            .map(item => item._id) || [];
+        setUnPickList(filterBrand);
+      }
+    },
+    500,
+    [brandName, openLoad],
+  );
 
   const handleOpenEffect = () => {
     setIsSort(false);
@@ -71,6 +94,12 @@ export const FilterModal = (props: CitiesFilterProps) => {
       }
       case 'brandCar': {
         setPickList(form.brandCar || []);
+        const unPick =
+          organizationFilter?.brandCar
+            ?.filter(item => !form.brandCar?.includes(item._id))
+            .map(item => item._id) || [];
+
+        setUnPickList(unPick);
         setList(organizationFilter?.brandCar!);
         break;
       }
@@ -102,8 +131,10 @@ export const FilterModal = (props: CitiesFilterProps) => {
     if (pickList.includes(value._id)) {
       const filterPick = pickList.filter(item => item !== value._id);
       setPickList(filterPick);
+      setUnPickList([...unPickList, value._id]);
     } else {
       setPickList([...pickList, value._id]);
+      setUnPickList(unPickList.filter(item => item !== value._id));
     }
   };
 
@@ -115,6 +146,7 @@ export const FilterModal = (props: CitiesFilterProps) => {
     setTypeSort(null);
     setList([]);
     setPickList([]);
+    setBrandName('');
   };
 
   const handleSavePick = () => {
@@ -185,6 +217,52 @@ export const FilterModal = (props: CitiesFilterProps) => {
                     onPickItem={() => handleSort('ratingDESC')}
                     sortActive={typeSort === 'ratingDESC'}
                   />
+                </>
+              ) : props.typeModal === 'brandCar' ? (
+                <>
+                  <TextUI ag={Ag['500_14']} $mb={10}>
+                    {'Все марки:'}
+                  </TextUI>
+                  {list
+                    .filter(item => unPickList.includes(item._id))
+                    .map(item => (
+                      <FilterModalPick
+                        key={`${props.typeModal}-unPick-${item._id}`}
+                        item={item}
+                        onPickItem={() => handlePickItem(item)}
+                        pickList={pickList}
+                        isCatSub={
+                          props.typeModal === 'typeService' &&
+                          (item as TypeService).subServices !== undefined
+                        }
+                      />
+                    ))}
+                  <MainContainer $mt={20}>
+                    <TextUI ag={Ag['500_14']} $mb={10}>
+                      {'Выбранные марки:'}
+                    </TextUI>
+                  </MainContainer>
+                  {list
+                    .filter(item => pickList.includes(item._id))
+                    .map(item => (
+                      <FilterModalPick
+                        key={`${props.typeModal}-pick-${item._id}`}
+                        item={item}
+                        onPickItem={() => handlePickItem(item)}
+                        pickList={pickList}
+                        isCatSub={
+                          props.typeModal === 'typeService' &&
+                          (item as TypeService).subServices !== undefined
+                        }
+                      />
+                    ))}
+                  <MainContainer $mt={20}>
+                    <InputUI
+                      value={brandName}
+                      placeholder={'Укажите название марки'}
+                      onChangeText={setBrandName}
+                    />
+                  </MainContainer>
                 </>
               ) : (
                 <>
