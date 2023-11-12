@@ -180,6 +180,8 @@ export class OrganizationsService extends AbstractServiceRepository {
   ) => {
     const dto = await OrganizationHelper.createOrganizationDto(createForm);
 
+    console.log(dto);
+
     if (isEdit) {
       const {data} = await this.api.updateOrganization(dto);
 

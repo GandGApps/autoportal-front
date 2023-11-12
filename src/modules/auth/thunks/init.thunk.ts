@@ -9,7 +9,7 @@ import {
   createChangeForm,
   filterChangeForm,
 } from '../../organizations/OrganizationsSlice';
-import {getContacts, getCreatedStatus} from '../../organizations/_thunks';
+import {getCreatedStatus} from '../../organizations/_thunks';
 import {adminLocalService} from '../services/admin/admin.fabric';
 import {cityLocalService} from '../services/city/admin.fabric';
 
@@ -23,7 +23,7 @@ export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
     adminLocalService.setAdminStatus(adminStatus);
     dispatch(setIsAdmin(adminStatus));
   }
-
+  console.log(token);
   if (token) {
     tokenService.setAccessToken(token);
     dispatch(setIsAuth(true));

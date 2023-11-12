@@ -77,7 +77,8 @@ export const CatSearchScreen = () => {
         containerStyles={{
           $mb: 25,
         }}
-        onChangeText={handleChangeText}
+        value={search}
+        onChangeText={setSearch}
         placeholder={search || 'Поиск по услугам'}
       />
 

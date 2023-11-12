@@ -26,6 +26,7 @@ import {ColorsUI} from '../../../template/styles/ColorUI';
 import {CitiesModal} from '../../../components/CitiesModal';
 import {Modalize} from 'react-native-modalize';
 import {editUser} from '../../../modules/user/thunks/edit.thunk';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export const EditScreen = () => {
   const {userInfo, editForm} = useAppSelector(selectUserValues);
@@ -73,7 +74,7 @@ export const EditScreen = () => {
   };
 
   return (
-    <ColumnContainerFlex>
+    <KeyboardAwareScrollView style={{flex: 1}}>
       <GradientHeader isBack title="Мои данные" />
 
       <ColumnContainerBetweenFlex>
@@ -118,6 +119,6 @@ export const EditScreen = () => {
       </ColumnContainerBetweenFlex>
 
       <CitiesModal modalizeRef={citiesModalRef} onPickCity={handleChangeCity} />
-    </ColumnContainerFlex>
+    </KeyboardAwareScrollView>
   );
 };
