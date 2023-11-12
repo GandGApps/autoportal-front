@@ -194,4 +194,10 @@ export class ApiOrganizationsService extends AbstractApiRepository {
       url: Endpoints.approveSubscribe(id, type),
     });
   };
+
+  deactivateSubscribe = async (id: string) => {
+    return this.apiClient.post({
+      url: Endpoints.deactivate(id),
+    });
+  };
 }

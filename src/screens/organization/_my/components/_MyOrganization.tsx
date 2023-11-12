@@ -20,12 +20,18 @@ import {ViewPress} from '../../../../template/containers/ViewPress';
 import {RightIcon} from '../../../../template/icons/RightIcon';
 import {TelegramIcon} from '../../../../template/icons/TelegramIcon';
 import {UnderLineText} from '../../../../components/UnderLineText';
+import {Notifications} from '../../../../template/notifications/Notifications';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {useAppDispatch} from '../../../../settings/redux/hooks';
+import {deactivateSubscribe} from '../../../../modules/organizations/thunks/subscribe.thunk';
 
 interface OrganizationItemProps {
   item: PersonalOrganizations;
 }
 
 export const MyOrganization = ({item}: OrganizationItemProps) => {
+  const dispatch = useAppDispatch();
+
   const handleGoToScreen = (screen: string) => {
     Navigation.navigate(screen, {
       _id: item._id,
@@ -48,11 +54,30 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
           <TextUI
             ag={Ag['400_14']}
             color={item.isSubscribe ? ColorsUI.green : ColorsUI.red}>
-            {item.isSubscribe ? 'Подписка активна' : 'Подписка неактивна'}
+            {item.isSubscribe ? `Подписка активна` : 'Подписка неактивна'}
           </TextUI>
 
           <TextUI ag={Ag['400_14']}>{item.categoryName?.title || ''}</TextUI>
         </RowContainerBeetwen>
+
+        {item.isSubscribe && !item.isActive && (
+          <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+            {'автоплатеж отменен'}
+          </TextUI>
+        )}
+
+        <RowContainer $mb={10}>
+          <TextUI ag={Ag['500_14']}>{'ID: '}</TextUI>
+          <UnderLineText
+            text={item._id}
+            color={ColorsUI.blue.second}
+            onPress={() => {
+              Clipboard.setString(item._id);
+
+              Notifications.succes('ID скопирован');
+            }}
+          />
+        </RowContainer>
 
         <TouchableOpacity
           onPress={() => handleGoToScreen(Screens.ORGANIZATION)}>
@@ -102,7 +127,7 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
             <TextUI ag={Ag['500_12']} color={ColorsUI.red}>
               {'Заблокирован'}
             </TextUI>
-          ) : item.isSubscribe ? (
+          ) : item.isSubscribe && item.isActive ? (
             <ViewPress
               $bg={ColorsUI.blue.main}
               $br={47}
@@ -130,16 +155,26 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
                 ag={Ag['400_14']}
                 color={ColorsUI.green}
                 text={'Активировать'}
+                onPress={() => {
+                  Navigation.navigate(Screens.SUB_ORGANIZATION, {
+                    organizationId: item._id,
+                  });
+                }}
               />
             )}
           </RowContainerBeetwenEnd>
         ) : (
           <RowContainerBeetwen $pv={10}>
-            <UnderLineText
-              ag={Ag['400_14']}
-              text={'Деактивировать'}
-              color={ColorsUI.red}
-            />
+            {item.isActive && (
+              <UnderLineText
+                ag={Ag['400_14']}
+                text={'Деактивировать'}
+                color={ColorsUI.red}
+                onPress={() => {
+                  dispatch(deactivateSubscribe(item._id));
+                }}
+              />
+            )}
 
             <UnderLineText
               onPress={() => handleGoToScreen(Screens.ORGANIZATION_EDIT)}

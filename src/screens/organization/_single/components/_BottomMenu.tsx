@@ -12,12 +12,13 @@ import {
 import {Ag, TextUI} from '../../../../template/ui/TextUI';
 import {PhoneIcon} from '../../../../template/icons/PhoneIcon';
 import {Linking} from 'react-native';
+import {CurrentOrganization} from '../../../../modules/organizations/models/CurrentOrganization';
 
 interface CompProps {
-  tel: string;
+  organization: CurrentOrganization;
 }
 
-export const OrgBottomMenu = ({tel}: CompProps) => {
+export const OrgBottomMenu = ({organization}: CompProps) => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -32,7 +33,9 @@ export const OrgBottomMenu = ({tel}: CompProps) => {
           $mr={15}
           activeOpacity={0.8}
           onPress={() => {
-            Linking.openURL('https://2gis.ru/');
+            Linking.openURL(
+              `https://yandex.ru/maps/?text=${organization.city},${organization.address}`,
+            );
           }}>
           <RowContainerBeetwen>
             <RouteIcon />
@@ -46,7 +49,7 @@ export const OrgBottomMenu = ({tel}: CompProps) => {
         <ViewPress
           activeOpacity={0.8}
           onPress={() => {
-            Linking.openURL(`tel:${tel}`);
+            Linking.openURL(`tel:${organization.mainPhone}`);
           }}>
           <PhoneIcon
             size={52}

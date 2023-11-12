@@ -146,7 +146,7 @@ export const OrganizationScreen = () => {
         />
       </ScrollViewScreen>
 
-      <OrgBottomMenu tel={currentOrganization.mainPhone} />
+      <OrgBottomMenu organization={currentOrganization} />
     </ColumnContainerFlex>
   );
 };

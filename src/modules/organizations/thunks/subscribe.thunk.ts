@@ -4,6 +4,7 @@ import {ApproveSubscribeDTO, SubscribeDTO} from '../types/OrganizationTypes';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import {Notifications} from '../../../template/notifications/Notifications';
+import {getPersonalOrganizations} from '../_thunks';
 
 export const getSubInfo = createAsyncThunk('subscribe/info', async () => {
   const subInfo = await organizationService.getSubInfo();
@@ -37,5 +38,16 @@ export const approveSubscribe = createAsyncThunk(
 
       Notifications.succes('Подписка оформлена');
     }
+  },
+);
+
+export const deactivateSubscribe = createAsyncThunk(
+  'subscribe/deactive',
+  async (id: string, {dispatch}) => {
+    await organizationService.deactivateSubscribe(id);
+
+    Notifications.succes('Автоплатеж отменен');
+
+    await dispatch(getPersonalOrganizations());
   },
 );

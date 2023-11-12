@@ -11,8 +11,7 @@ import {OrganizationHelper} from '../../../modules/organizations/helpers/Organiz
 import {PersonalOrganizations} from '../../../modules/organizations/models/PersonalOrganizations';
 import {CenterContainer} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
-import {ScrollViewScreen} from '../../../template/containers/ScrollViewScreen';
-import {FlatList, View} from 'react-native';
+import {FlatList} from 'react-native';
 import {MyOrganization} from './components/_MyOrganization';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Ag, TextUI} from '../../../template/ui/TextUI';

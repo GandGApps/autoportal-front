@@ -98,7 +98,7 @@ export interface CreateOrganizationDTO {
   address: string;
   categoryId: string;
   description: string;
-  logo: string;
+  logo?: string;
   mainPhone?: string;
   whatsApp?: string;
   typeServices?: string[];

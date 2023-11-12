@@ -327,11 +327,6 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
                 {'- Описание'}
               </TextUI>
             ) : null}
-            {!!createForm.logo.length && (
-              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
-                {'- Логотип'}
-              </TextUI>
-            )}
           </MainContainer>
         ) : null}
 

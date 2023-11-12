@@ -14,6 +14,7 @@ import {getSubInfo} from '../../../modules/organizations/thunks/subscribe.thunk'
 import {selectOrganizationsValues} from '../../../modules/organizations/OrganizationsSlice';
 import {CenterContainerFlex} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export const FinanceSettings = () => {
   const insets = useSafeAreaInsets();
@@ -78,7 +79,7 @@ export const FinanceSettings = () => {
   return (
     <ColumnContainerFlex $pb={insets.bottom}>
       <GradientHeader isBack={true} title={'Финансовые настройки'} />
-      <ColumnContainerFlex style={compStyles.gap20} $pt={20} $ph={20}>
+      <KeyboardAwareScrollView contentContainerStyle={compStyles.containerList}>
         {!isInitLoading ? (
           <Fragment>
             <MainContainer>
@@ -129,13 +130,16 @@ export const FinanceSettings = () => {
           onPress={handleSaveFinance}
           $btnDisabled={isLoading || isInitLoading}
         />
-      </ColumnContainerFlex>
+      </KeyboardAwareScrollView>
     </ColumnContainerFlex>
   );
 };
 
 const compStyles = StyleSheet.create({
-  gap20: {
+  containerList: {
     gap: 20,
+    flex: 1,
+    paddingTop: 20,
+    paddingHorizontal: 20,
   },
 });

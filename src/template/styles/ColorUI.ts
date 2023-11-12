@@ -5,6 +5,7 @@ export const ColorsUI = {
   blue: {
     light: '#EFFBFF',
     main: '#C4D8FF',
+    second: '#008fe4',
   },
   gray: {
     main: '#999999',

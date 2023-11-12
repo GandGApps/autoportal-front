@@ -51,6 +51,7 @@ export const Endpoints = {
   //SUBSCRIBE
   checkRelease: '/subscribe/release',
   subInfo: '/subscribe/info',
+  deactivate: (id: string) => `/subscribe/deactivate?organizationId=${id}`,
 
   // ADMIN
   finance: '/admin/sub',

@@ -3,7 +3,7 @@ import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer'
 import {GradientHeader} from '../../../components/GradientHeader';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Insets} from '../../../template/styles/Insets';
-import {Platform, StyleSheet} from 'react-native';
+import {Platform, StyleSheet, Text} from 'react-native';
 import {MainContainer} from '../../../template/containers/MainContainer';
 import {ColorsUI} from '../../../template/styles/ColorUI';
 import {ViewPress} from '../../../template/containers/ViewPress';
@@ -174,6 +174,11 @@ export const CreateBanner = () => {
             </CenterContainerFlex>
           </ViewPress>
         </MainContainer>
+
+        <TextUI ag={Ag['500_14']}>
+          {'*Размер изображения должен быть '}
+          <Text style={{color: ColorsUI.red}}>{'500x250'}</Text>
+        </TextUI>
 
         <InputSelectUI
           placeholder={'Выберите город'}
