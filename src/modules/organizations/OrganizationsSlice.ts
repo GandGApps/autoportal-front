@@ -20,9 +20,14 @@ import {
   getSearchServices,
 } from './_thunks';
 import {getReviews} from './thunks/reviews.thunk';
-import {getSubInfo} from './thunks/subscribe.thunk';
+import {
+  deactivateSubscribe,
+  getSubInfo,
+  resumeSubscribe,
+} from './thunks/subscribe.thunk';
 import {getServices} from './thunks/services.thunk';
 import {OrganizationList} from './models/OrganizationList';
+import {Notifications} from '../../template/notifications/Notifications';
 
 const initialState: OrganizationsStateModel = {
   banners: [],

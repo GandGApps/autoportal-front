@@ -15,6 +15,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Dimensions} from 'react-native';
 import {useAppDispatch} from '../../../../settings/redux/hooks';
 import {changeOrganizationFavorite} from '../../../../modules/organizations/thunks/favoriteChange.thunk';
+import {Notifications} from '../../../../template/notifications/Notifications';
 
 interface OrganizationPreviewProps {
   id: string;
@@ -31,7 +32,7 @@ export const OrganizationPreview = (props: OrganizationPreviewProps) => {
   const dispatch = useAppDispatch();
 
   const carouselWidth = Dimensions.get('window').width;
-  const carouselHeight = carouselWidth / 1.5;
+  const carouselHeight = carouselWidth;
 
   const [isFavorite, setIsFavorite] = useState(props.isFavorite || false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -46,6 +47,13 @@ export const OrganizationPreview = (props: OrganizationPreviewProps) => {
         type: isFavorite ? 'delete' : 'add',
       }),
     )
+      .then(() => {
+        if (isFavorite) {
+          Notifications.danger('Удалено из избранного');
+        } else {
+          Notifications.succes('Добавлено в избранное');
+        }
+      })
       .catch(err => {
         console.log(err);
       })

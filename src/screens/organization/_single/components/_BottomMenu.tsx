@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {AbsoluteContainer} from '../../../../template/containers/AbsoluteContainer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MainContainer} from '../../../../template/containers/MainContainer';
@@ -13,13 +13,28 @@ import {Ag, TextUI} from '../../../../template/ui/TextUI';
 import {PhoneIcon} from '../../../../template/icons/PhoneIcon';
 import {Linking} from 'react-native';
 import {CurrentOrganization} from '../../../../modules/organizations/models/CurrentOrganization';
+import {SwipeableModal} from '../../../../components/SwipbleModal';
+import {Modalize} from 'react-native-modalize';
+import {ButtonUI} from '../../../../template/ui/ButtonUI';
 
 interface CompProps {
   organization: CurrentOrganization;
 }
 
 export const OrgBottomMenu = ({organization}: CompProps) => {
+  const modalRef = useRef<Modalize>(null);
   const insets = useSafeAreaInsets();
+
+  const handleOpenYandex = () => {
+    Linking.openURL(
+      `https://yandex.ru/maps/?text=${organization.city},${organization.address}`,
+    );
+  };
+  const handleOpenGoogle = () => {
+    Linking.openURL(
+      `https://www.google.com/maps?q=${organization.city},${organization.address}`,
+    );
+  };
 
   return (
     <AbsoluteContainer $widthPRC={100} $bottom={Math.max(insets.bottom, 20)}>
@@ -32,11 +47,7 @@ export const OrgBottomMenu = ({organization}: CompProps) => {
           $isFlex
           $mr={15}
           activeOpacity={0.8}
-          onPress={() => {
-            Linking.openURL(
-              `https://yandex.ru/maps/?text=${organization.city},${organization.address}`,
-            );
-          }}>
+          onPress={() => modalRef.current?.open()}>
           <RowContainerBeetwen>
             <RouteIcon />
             <TextUI ag={Ag['500_16']} color={ColorsUI.firm}>
@@ -58,6 +69,22 @@ export const OrgBottomMenu = ({organization}: CompProps) => {
           />
         </ViewPress>
       </RowContainer>
+
+      <SwipeableModal modalizeRef={modalRef}>
+        <MainContainer $mb={insets.bottom}>
+          <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
+            {'Выберите навигатор'}
+          </TextUI>
+
+          <ButtonUI
+            $type={'firm'}
+            $mb={10}
+            title={'Яндекс Карты'}
+            onPress={handleOpenYandex}
+          />
+          <ButtonUI title={'Googke Maps'} onPress={handleOpenGoogle} />
+        </MainContainer>
+      </SwipeableModal>
     </AbsoluteContainer>
   );
 };

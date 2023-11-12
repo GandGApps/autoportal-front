@@ -8,6 +8,7 @@ import {
   CreateServiceDTO,
   GetPromotionDTO,
   OrganizationsDTO,
+  ReportDTO,
   UpdateServiceDTO,
 } from '../types/OrganizationTypes';
 
@@ -198,6 +199,25 @@ export class ApiOrganizationsService extends AbstractApiRepository {
   deactivateSubscribe = async (id: string) => {
     return this.apiClient.post({
       url: Endpoints.deactivate(id),
+    });
+  };
+
+  sendReport = async (dto: ReportDTO) => {
+    return this.apiClient.post({
+      url: Endpoints.sendReport(dto.id),
+      data: {comment: dto.comment},
+    });
+  };
+
+  resumeSubscribe = async (id: string) => {
+    return this.apiClient.post({
+      url: Endpoints.resumeSubscribe(id),
+    });
+  };
+
+  removeService = (id: string) => {
+    return this.apiClient.delete({
+      url: Endpoints.removeService(id),
     });
   };
 }

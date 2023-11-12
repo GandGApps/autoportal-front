@@ -33,6 +33,8 @@ export const Endpoints = {
 
   createdStatus: '/organisations/my/created',
 
+  sendReport: (id: string) => `/report?organizationId=${id}`,
+
   // FILTER
 
   searchSubServices: (query: string) => `/services?query=${query}`,
@@ -52,10 +54,12 @@ export const Endpoints = {
   checkRelease: '/subscribe/release',
   subInfo: '/subscribe/info',
   deactivate: (id: string) => `/subscribe/deactivate?organizationId=${id}`,
+  resumeSubscribe: (id: string) => `/subscribe/activate?organizationId=${id}`,
 
   // ADMIN
   finance: '/admin/sub',
-  getUsers: (city: string) => `/admin/users?city=${city}`,
+  getUsers: (city: string, dealerId?: string) =>
+    `/admin/users?city=${city}&dealerId=${dealerId ? dealerId : ''}`,
   getUserOrganizations: (dealerId: string) =>
     `/admin/organisations/users?dealerId=${dealerId}`,
   subscribe: (type: string, id: string) =>
@@ -68,4 +72,6 @@ export const Endpoints = {
   extServices: '/services/ext',
   getExtServices: (serviceId: string) => `/services/ext?serviceId=${serviceId}`,
   changeBanner: (bannerId: string) => `/banners?bannerId=${bannerId}`,
+  removeService: (id: string) => `/services?serviceId=${id}`,
+  banUser: (id: string) => `/admin/ban?dealerId=${id}`,
 };

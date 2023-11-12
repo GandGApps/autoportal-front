@@ -23,6 +23,7 @@ export interface FinanceDTO {
   month_amount: number;
   year_amount: number;
   free_period: number;
+  percentage: number;
 }
 
 export interface CreateBannerDTO {

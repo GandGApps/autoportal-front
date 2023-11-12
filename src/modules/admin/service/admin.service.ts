@@ -13,8 +13,8 @@ class AdminService extends AbstractServiceRepository {
     this.api = new AdminApiService();
   }
 
-  getUsers = async (city: string) => {
-    const {data} = await this.api.getUsers(city);
+  getUsers = async (city: string, dealerId?: string) => {
+    const {data} = await this.api.getUsers(city, dealerId);
 
     return this.createList<Dealer>(Dealer, data);
   };
@@ -45,6 +45,12 @@ class AdminService extends AbstractServiceRepository {
 
   deleteBanner = async (bannerId: string) => {
     const {data} = await this.api.deleteBanner(bannerId);
+
+    return this.create<Message>(Message, data);
+  };
+
+  banUser = async (id: string) => {
+    const {data} = await this.api.banUser(id);
 
     return this.create<Message>(Message, data);
   };

@@ -22,6 +22,7 @@ import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {getServices} from '../../../modules/organizations/thunks/services.thunk';
 import Navigation from '../../../routes/navigation/Navigation';
 import {selectOrganizationsValues} from '../../../modules/organizations/OrganizationsSlice';
+import {Screens} from '../../../routes/models/Screens';
 
 export const AdminEditService = () => {
   const {filterForm} = useAppSelector(selectOrganizationsValues);
@@ -152,6 +153,13 @@ export const AdminEditService = () => {
             $btnDisabled={isLoading}
             $type={'border'}
             title={'Удалить услугу'}
+            onPress={() => {
+              Navigation.navigate(Screens.ADMIN_MODAL_REMOVE_SERVICE, {
+                id: params.service._id,
+                title: params.service.title,
+                categoryId: filterForm.category?._id!,
+              });
+            }}
           />
           <ButtonUI
             onPress={() => Navigation.pop()}

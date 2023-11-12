@@ -1,9 +1,9 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
 import {organizationService} from '../services/OrganizationsService';
 import {ApproveSubscribeDTO, SubscribeDTO} from '../types/OrganizationTypes';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import {Notifications} from '../../../template/notifications/Notifications';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import {getPersonalOrganizations} from '../_thunks';
 
 export const getSubInfo = createAsyncThunk('subscribe/info', async () => {
@@ -41,8 +41,19 @@ export const approveSubscribe = createAsyncThunk(
   },
 );
 
+export const resumeSubscribe = createAsyncThunk(
+  'subscribe/resume',
+  async (id: string, {dispatch}) => {
+    await organizationService.resumeSubscribe(id);
+
+    Notifications.succes('Автоплатеж подключен');
+
+    await dispatch(getPersonalOrganizations());
+  },
+);
+
 export const deactivateSubscribe = createAsyncThunk(
-  'subscribe/deactive',
+  'subscribe/deactivated',
   async (id: string, {dispatch}) => {
     await organizationService.deactivateSubscribe(id);
 

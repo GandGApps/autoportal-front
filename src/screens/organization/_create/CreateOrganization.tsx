@@ -80,14 +80,6 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const [isLogoLoading, setIsLogoLoading] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (props.id) {
-        dispatch(getOrganizationFilter(props.id));
-      }
-    }, 0);
-  }, []);
-
   const handleChangeForm = (key: CreateFormKeys, value: CreateFormValue) => {
     setIsError(false);
     if (key === 'category') {

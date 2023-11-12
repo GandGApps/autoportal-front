@@ -4,7 +4,6 @@ import {GradientHeader} from '../../../components/GradientHeader';
 import {FlatList, StyleSheet} from 'react-native';
 import {CitiesModal} from '../../../components/CitiesModal';
 import {Modalize} from 'react-native-modalize';
-import {SelectUI} from '../../../template/ui/SelectUI';
 import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
 import {selectAdminValues} from '../../../modules/admin/AdminSlice';
 import {getUsers} from '../../../modules/admin/thunks/getUsers.thunk';
@@ -15,7 +14,10 @@ import {Loader} from '../../../components/Loader';
 import {Dealer} from '../../../modules/admin/models/Dealer';
 import {useDebouncedEffect} from '../../../template/hooks/useDebouncedEffect';
 import {InputUI} from '../../../template/ui/InputUI';
-import {RowContainerJustEnd} from '../../../template/containers/RowContainer';
+import {
+  RowContainer,
+  RowContainerJustEnd,
+} from '../../../template/containers/RowContainer';
 import {ColorsUI} from '../../../template/styles/ColorUI';
 import {MaskHelper} from '../../../helper/MaskHelper';
 import {ViewPress} from '../../../template/containers/ViewPress';
@@ -23,8 +25,15 @@ import {Insets} from '../../../template/styles/Insets';
 import {InputSelectUI} from '../../../template/ui/InputSelectUI';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
+import {UnderLineText} from '../../../components/UnderLineText';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {Notifications} from '../../../template/notifications/Notifications';
+import {useRoute} from '@react-navigation/native';
+import {AdminUsersParams} from '../../../routes/params/RouteParams';
+import {adminService} from '../../../modules/admin/service/admin.service';
 
 export const UsersScreen = () => {
+  const params = useRoute<AdminUsersParams>().params;
   const cityModal = useRef<Modalize>(null);
 
   const {dealers: data} = useAppSelector(selectAdminValues);
@@ -40,9 +49,18 @@ export const UsersScreen = () => {
     if (isLoading) return;
 
     setIsLoading(true);
-    dispatch(getUsers(city)).finally(() => {
-      setIsLoading(false);
-    });
+    if (params) {
+      setCity(params.city || '');
+      dispatch(
+        getUsers({city: params.city || '', dealerId: params.id}),
+      ).finally(() => {
+        setIsLoading(false);
+      });
+    } else {
+      dispatch(getUsers({city})).finally(() => {
+        setIsLoading(false);
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -52,15 +70,22 @@ export const UsersScreen = () => {
   }, [data]);
 
   useDebouncedEffect(
-    () => {
-      if (search.length) {
-        setUsers(
-          data.filter(dealer =>
-            `${dealer.dealer.full_name}${dealer.dealer.phone_number}`.includes(
-              search,
-            ),
-          ),
-        );
+    async () => {
+      if (search.length && data.length) {
+        setIsLoading(true);
+        dispatch(getUsers({city}))
+          .then(res => {
+            const filter = (res.payload as Dealer[]).filter(dealer =>
+              `${dealer.dealer._id}${dealer.dealer.full_name}${dealer.dealer.phone_number}`.includes(
+                search,
+              ),
+            );
+
+            setUsers(filter);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
       } else if (data.length) {
         setUsers(data);
       }
@@ -74,9 +99,28 @@ export const UsersScreen = () => {
     setCity(city);
 
     setIsLoading(true);
-    dispatch(getUsers(city)).finally(() => {
+    dispatch(getUsers({city})).finally(() => {
       setIsLoading(false);
     });
+  };
+
+  const handleUpdateBanUser = async (id: string) => {
+    setIsLoading(true);
+
+    await adminService.banUser(id);
+
+    await dispatch(getUsers({city}))
+      .then(response => {
+        const filter = (response.payload as Dealer[]).filter(dealer =>
+          `${dealer.dealer._id}${dealer.dealer.full_name}${dealer.dealer.phone_number}`.includes(
+            search,
+          ),
+        );
+        setUsers(filter);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -90,64 +134,71 @@ export const UsersScreen = () => {
           }}
         />
         <InputUI
-          placeholder={'Поиск по имени и номеру'}
+          placeholder={'Поиск по ID, имени и номеру'}
           value={search}
           onChangeText={setSearch}
         />
-        <FlatList
-          data={users}
-          contentContainerStyle={{paddingBottom: Insets.bottom}}
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={
-            isLoading ? (
-              <CenterContainer>
-                <Loader size={20} />
-              </CenterContainer>
-            ) : null
-          }
-          renderItem={({item}) => (
-            <BorderTopUI style={compStyles.gep10} $pv={20}>
-              {item.dealer.is_banned && (
-                <TextUI ag={Ag['400_16']} color={ColorsUI.red}>
-                  {'Заблокирован'}
+        {isLoading ? (
+          <CenterContainer>
+            <Loader size={20} />
+          </CenterContainer>
+        ) : (
+          <FlatList
+            data={users}
+            contentContainerStyle={{paddingBottom: Insets.bottom}}
+            showsVerticalScrollIndicator={false}
+            renderItem={({item}) => (
+              <BorderTopUI style={compStyles.gep10} $pv={20}>
+                <RowContainer>
+                  <TextUI ag={Ag['400_16']}>{`ID: `}</TextUI>
+                  <UnderLineText
+                    text={item.dealer._id}
+                    color={ColorsUI.blue.second}
+                    onPress={() => {
+                      Clipboard.setString(item.dealer._id);
+
+                      Notifications.succes('ID скопирован');
+                    }}
+                  />
+                </RowContainer>
+                {item.dealer.is_banned && (
+                  <TextUI ag={Ag['400_16']} color={ColorsUI.red}>
+                    {'Заблокирован'}
+                  </TextUI>
+                )}
+
+                <TextUI ag={Ag['400_16']}>{`г.${item.dealer.city}`}</TextUI>
+                <TextUI ag={Ag['400_16']}>{`${item.dealer.full_name}`}</TextUI>
+                <TextUI ag={Ag['400_16']}>
+                  {MaskHelper.formatPhoneNumber(item.dealer.phone_number)}
                 </TextUI>
-              )}
-              <TextUI ag={Ag['400_16']}>{`г.${item.dealer.city}`}</TextUI>
-              <TextUI ag={Ag['400_16']}>{`${item.dealer.full_name}`}</TextUI>
-              <TextUI ag={Ag['400_16']}>
-                {MaskHelper.formatPhoneNumber(item.dealer.phone_number)}
-              </TextUI>
-              {item.dealer.is_banned ? (
-                <ViewPress>
-                  <TextUI ag={Ag['400_16']} color={ColorsUI.red}>
-                    {'Разблокировать'}
-                  </TextUI>
-                </ViewPress>
-              ) : (
-                <ViewPress>
-                  <TextUI ag={Ag['400_16']} color={ColorsUI.red}>
-                    {'Заблокировать'}
-                  </TextUI>
-                </ViewPress>
-              )}
-              <RowContainerJustEnd>
                 <ViewPress
-                  onPress={() =>
-                    Navigation.navigate(Screens.ADMIN_USER_ORGANIZATIONS, {
-                      id: item.dealer._id,
-                    })
-                  }>
-                  <TextUI
-                    color={ColorsUI.green}
-                    ag={
-                      Ag['500_16']
-                    }>{`Организации: ${item.organisation_count}`}</TextUI>
+                  disabled={isLoading}
+                  onPress={() => handleUpdateBanUser(item.dealer._id)}>
+                  <TextUI ag={Ag['400_16']} color={ColorsUI.red}>
+                    {item.dealer.is_banned ? 'Разблокировать' : 'Заблокировать'}
+                  </TextUI>
                 </ViewPress>
-              </RowContainerJustEnd>
-            </BorderTopUI>
-          )}
-          keyExtractor={item => item.dealer._id}
-        />
+                <RowContainerJustEnd>
+                  <ViewPress
+                    onPress={() =>
+                      Navigation.navigate(Screens.ADMIN_USER_ORGANIZATIONS, {
+                        id: item.dealer._id,
+                      })
+                    }>
+                    <TextUI
+                      color={ColorsUI.green}
+                      ag={
+                        Ag['500_16']
+                      }>{`Организации: ${item.organisation_count}`}</TextUI>
+                  </ViewPress>
+                </RowContainerJustEnd>
+              </BorderTopUI>
+            )}
+            keyExtractor={item => item.dealer._id}
+          />
+        )}
+
         <CitiesModal modalizeRef={cityModal} onPickCity={handlePickCity} />
       </ColumnContainerFlex>
     </ColumnContainerFlex>

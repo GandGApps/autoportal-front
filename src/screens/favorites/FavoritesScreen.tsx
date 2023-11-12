@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ColumnContainerFlex} from '../../template/containers/ColumnContainer';
 import {BottomMenu} from '../../components/bottomMenu/BottomMenu';
 import {GradientHeader} from '../../components/GradientHeader';
@@ -18,6 +18,7 @@ import {getFavoritesList} from '../../modules/organizations/_thunks';
 import {CenterContainer} from '../../template/containers/CenterContainer';
 import {Loader} from '../../components/Loader';
 import {Ag, TextUI} from '../../template/ui/TextUI';
+import {useFocusEffect} from '@react-navigation/native';
 
 export const FavoritesScreen = () => {
   const {filterForm, favoritesList, isFavoritesListLoad} = useAppSelector(
@@ -31,13 +32,15 @@ export const FavoritesScreen = () => {
 
   const [isLoad, setIsLoad] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(getFavoritesList()).finally(() => {
-        setIsLoad(false);
-      });
-    }, 0);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setTimeout(() => {
+        dispatch(getFavoritesList()).finally(() => {
+          setIsLoad(false);
+        });
+      }, 0);
+    }, []),
+  );
 
   const handleOpenModalCategory = () => {
     categoriesModalRef.current?.open();
