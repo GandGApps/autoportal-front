@@ -78,7 +78,7 @@ export const CatSearchScreen = () => {
           $mb: 25,
         }}
         onChangeText={handleChangeText}
-        placeholder={search || 'Поиск по названию и услуге'}
+        placeholder={search || 'Поиск по услугам'}
       />
 
       {searchServices.length ? (

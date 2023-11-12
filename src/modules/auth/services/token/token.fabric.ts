@@ -1,6 +1,5 @@
 import AbstractServiceRepository from '../../../../settings/abstrcations/repositories/AbstractServiceRepository';
 import TokenLocal from './token.local';
-import {TokenData} from '../../models/TokenData';
 import {AuthApiService} from '../auth.api';
 import {Nullable} from '../../../../settings/types/BaseTypes';
 

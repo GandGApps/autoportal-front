@@ -51,8 +51,8 @@ export const PromotionScreen = () => {
     if (params.promo) {
       setIsEdit(true);
       setDescription(params.promo.description);
-      setStartDate(params.promo.startPromo);
-      setEndDate(params.promo.endPromo);
+      setStartDate(params.promo.startPromo.replaceAll('-', '.'));
+      setEndDate(params.promo.endPromo.replaceAll('-', '.'));
     }
   }, []);
 

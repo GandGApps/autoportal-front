@@ -56,7 +56,7 @@ export const SubscribeScreen = () => {
       });
   };
 
-  if (isLoading || !subInfo) {
+  if (isLoading || !subInfo?.year_amount || !subInfo.month_amount) {
     <CenterContainerFlex>
       <Loader size={20} />
     </CenterContainerFlex>;
@@ -95,12 +95,6 @@ export const SubscribeScreen = () => {
 
           <TextUI
             ag={Ag['500_25']}>{`${subInfo?.month_amount} Р / месяц`}</TextUI>
-
-          {Boolean(subInfo?.free_period) && (
-            <TextUI ag={Ag['500_16']}>
-              {OrganizationHelper.freeMonthSubText(subInfo?.free_period!)}
-            </TextUI>
-          )}
         </ViewPress>
 
         <ViewPress
@@ -132,13 +126,17 @@ export const SubscribeScreen = () => {
             </TextUI>
 
             <TextUI ag={Ag['500_25']}>{`${
-              subInfo?.year_amount || 0 / 12
+              subInfo?.year_amount! / 12
             } Р / месяц*`}</TextUI>
             <TextUI ag={Ag['500_14']} color={ColorsUI.gray.main}>
               {`*${subInfo?.year_amount}р / год`}
             </TextUI>
 
-            <TextUI ag={Ag['500_16']}>{'Первые два месяца бесплатно'}</TextUI>
+            {Boolean(subInfo?.free_period) && (
+              <TextUI ag={Ag['500_16']}>
+                {OrganizationHelper.freeMonthSubText(subInfo?.free_period!)}
+              </TextUI>
+            )}
           </MainContainer>
 
           {type === 'year' && (

@@ -52,14 +52,7 @@ export const AuthScreen = () => {
   };
 
   const renderContent = useCallback(() => {
-    switch (activeTab) {
-      case MockAuthTabs.login: {
-        return <LoginContent />;
-      }
-      case MockAuthTabs.register: {
-        return <RegisterContent />;
-      }
-    }
+    return <LoginContent />;
   }, [activeTab]);
 
   return (
@@ -81,7 +74,7 @@ export const AuthScreen = () => {
             <ImageUI
               style={{width: 150, height: 150}}
               resizeMode={'contain'}
-              source={require('./../../../assets/img/logo.png')}
+              source={require('./../../../assets/img/logo_transparent.png')}
             />
           </CenterContainer>
           <TabMenu

@@ -91,7 +91,7 @@ export const CategoriesScreen = () => {
 
           <MainContainer $mt={18} $mb={10}>
             <InputSelectUI
-              value={'Поиск по названию и услуге'}
+              value={'Поиск по услугам'}
               rightIcon={<SearchIcon />}
               onPress={handleGoToSearch}
             />
