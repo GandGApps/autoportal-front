@@ -106,15 +106,22 @@ export class OrganizationsService extends AbstractServiceRepository {
 
     const scheduleFilter = formatted ? {scheduleFilter: formatted} : {};
 
-    const dto: OrganizationsDTO = {
+    let dto: OrganizationsDTO = {
       city: form.city,
       categoryId: form.category?._id!,
-      servicesId: form.typeService || [],
       ...sortType,
       ...scheduleFilter,
     };
 
+    if (form.typeService?.length) {
+      dto = {...dto, servicesId: form.typeService};
+    }
+
     const {data} = await this.api.getOrganizationList(dto);
+
+    console.log(dto);
+
+    console.log(data);
 
     return this.createList<OrganizationList>(OrganizationList, data);
   };
@@ -231,6 +238,12 @@ export class OrganizationsService extends AbstractServiceRepository {
 
   approveSubscribe = async (id: string, type: string) => {
     const {data} = await this.api.approveSubscribe(id, type);
+
+    return this.create<Message>(Message, data);
+  };
+
+  deactivateSubscribe = async (id: string) => {
+    const {data} = await this.api.deactivateSubscribe(id);
 
     return this.create<Message>(Message, data);
   };

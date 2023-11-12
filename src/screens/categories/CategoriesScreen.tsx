@@ -3,6 +3,7 @@ import Carousel from 'react-native-reanimated-carousel';
 
 import {
   filterChangeForm,
+  resetFilterForm,
   selectOrganizationsValues,
 } from '../../modules/organizations/OrganizationsSlice';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
@@ -56,6 +57,7 @@ export const CategoriesScreen = () => {
   };
 
   const handlePickCategory = (category: Category) => {
+    dispatch(resetFilterForm());
     dispatch(filterChangeForm({key: 'category', value: category}));
 
     Navigation.navigate(Screens.CAT_ORGANIZATIONS);
@@ -87,13 +89,13 @@ export const CategoriesScreen = () => {
             />
           ) : null}
 
-          <MainContainer $mt={18} $mb={10}>
+          {/* <MainContainer $mt={18} $mb={10}>
             <InputSelectUI
               value={'Поиск по названию и услуге'}
               rightIcon={<SearchIcon />}
               onPress={handleGoToSearch}
             />
-          </MainContainer>
+          </MainContainer> */}
         </MainContainer>
 
         <MainContainer $pb={120}>

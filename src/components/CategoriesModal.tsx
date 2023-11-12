@@ -8,6 +8,7 @@ import {MainContainer} from '../template/containers/MainContainer';
 import {useAppDispatch, useAppSelector} from '../settings/redux/hooks';
 import {
   filterChangeForm,
+  resetFilterForm,
   selectOrganizationsValues,
 } from '../modules/organizations/OrganizationsSlice';
 import {Category} from '../modules/organizations/models/Category';
@@ -27,6 +28,7 @@ export const CategoriesModal = (props: CitiesFilterProps) => {
     if (props.onPickCategories) {
       props.onPickCategories(category);
     } else {
+      dispatch(resetFilterForm());
       dispatch(filterChangeForm({key: 'category', value: category}));
 
       dispatch(getOrganizationList());

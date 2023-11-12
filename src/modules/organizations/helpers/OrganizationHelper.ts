@@ -184,8 +184,11 @@ export class OrganizationHelper {
       categoryId: createForm.category?._id!,
       city: createForm.city,
       description: createForm.description,
-      logo: createForm.logo,
     };
+
+    if (createForm.logo && Boolean(createForm.logo.length)) {
+      dto = {...dto, logo: createForm.logo};
+    }
 
     if (createForm.id) {
       dto = {...dto, id: createForm.id};

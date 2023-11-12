@@ -7,7 +7,6 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Ag, TextUI} from '../../template/ui/TextUI';
 import {StyleSheet} from 'react-native';
 import {ButtonUI} from '../../template/ui/ButtonUI';
-import {MainContainer} from '../../template/containers/MainContainer';
 import {ColorsUI} from '../../template/styles/ColorUI';
 import {ViewPress} from '../../template/containers/ViewPress';
 import {CheckIcon} from '../../template/icons/CheckIcon';

@@ -2,7 +2,7 @@ import React, {FC, Fragment, RefObject, useEffect, useState} from 'react';
 import {SwipeableModal} from '../SwipbleModal';
 import {IHandles} from 'react-native-modalize/lib/options';
 import {Ag, TextUI} from '../../template/ui/TextUI';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
 import {MainContainer} from '../../template/containers/MainContainer';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
 import {
@@ -22,7 +22,10 @@ import {
 import {OrganizationHelper} from '../../modules/organizations/helpers/OrganizationHelper';
 import {Nullable} from '../../settings/types/BaseTypes';
 import {FilterModalPick} from './components/FilterModalPick';
-import {RowContainerBeetwen} from '../../template/containers/RowContainer';
+import {
+  RowContainer,
+  RowContainerBeetwen,
+} from '../../template/containers/RowContainer';
 import {ButtonUI} from '../../template/ui/ButtonUI';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../Loader';
@@ -30,6 +33,7 @@ import {MockFilterSchedule} from '../../modules/organizations/mock/MockFilterSch
 import {CreatetFormModel} from '../../modules/organizations/form/CreateForm';
 import {InputUI} from '../../template/ui/InputUI';
 import {useDebouncedEffect} from '../../template/hooks/useDebouncedEffect';
+import {ColorsUI} from '../../template/styles/ColorUI';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
@@ -142,6 +146,16 @@ export const FilterModal = (props: CitiesFilterProps) => {
     }
   };
 
+  const handlePickAllBrands = () => {
+    setPickList([...pickList, ...unPickList]);
+    setUnPickList([]);
+  };
+
+  const handleUnPickAllBrands = () => {
+    setUnPickList([...unPickList, ...pickList]);
+    setPickList([]);
+  };
+
   const handleSort = (value: SortFilterType) => {
     setTypeSort(value);
   };
@@ -224,9 +238,14 @@ export const FilterModal = (props: CitiesFilterProps) => {
                 </>
               ) : props.typeModal === 'brandCar' ? (
                 <>
-                  <TextUI ag={Ag['500_14']} $mb={10}>
-                    {'Все марки:'}
-                  </TextUI>
+                  <RowContainer $mb={10}>
+                    <TextUI ag={Ag['500_14']}>{'Все марки: '}</TextUI>
+                    <TouchableOpacity onPress={handlePickAllBrands}>
+                      <TextUI ag={Ag['500_12']} color={ColorsUI.blue.second}>
+                        {'(выбрать все марки)'}
+                      </TextUI>
+                    </TouchableOpacity>
+                  </RowContainer>
                   {list
                     .filter(item => unPickList.includes(item._id))
                     .map(item => (
@@ -241,11 +260,15 @@ export const FilterModal = (props: CitiesFilterProps) => {
                         }
                       />
                     ))}
-                  <MainContainer $mt={20}>
-                    <TextUI ag={Ag['500_14']} $mb={10}>
-                      {'Выбранные марки:'}
-                    </TextUI>
-                  </MainContainer>
+                  <RowContainer $mt={20} $mb={10}>
+                    <TextUI ag={Ag['500_14']}>{'Выбранные марки: '}</TextUI>
+
+                    <TouchableOpacity onPress={handleUnPickAllBrands}>
+                      <TextUI ag={Ag['500_12']} color={ColorsUI.blue.second}>
+                        {'(снять все марки)'}
+                      </TextUI>
+                    </TouchableOpacity>
+                  </RowContainer>
                   {list
                     .filter(item => pickList.includes(item._id))
                     .map(item => (
@@ -260,6 +283,7 @@ export const FilterModal = (props: CitiesFilterProps) => {
                         }
                       />
                     ))}
+
                   <MainContainer $mt={20}>
                     <InputUI
                       value={brandName}

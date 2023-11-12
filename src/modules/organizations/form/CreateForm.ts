@@ -73,7 +73,6 @@ export const isFormValidation = (form: CreatetFormModel) => {
     form.city.length > 0 &&
     form.description.length > 0 &&
     form.address.length > 0 &&
-    form.category !== null &&
-    form.logo.length > 0
+    form.category !== null
   );
 };
