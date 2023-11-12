@@ -253,6 +253,10 @@ export class OrganizationsService extends AbstractServiceRepository {
   resumeSubscribe = async (id: string) => {
     return await this.api.resumeSubscribe(id);
   };
+
+  removeService = async (id: string) => {
+    return this.api.removeService(id);
+  };
 }
 
 export const organizationService = new OrganizationsService();

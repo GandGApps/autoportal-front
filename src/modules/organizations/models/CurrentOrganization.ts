@@ -31,6 +31,8 @@ export class CurrentOrganization extends AbstractModel {
   brandsCars: UnitsFilter[] = [];
   schedule: ScheduleModel[] = [];
   lastReview: Nullable<Review> = null;
+  dealerId: string = '';
+  dealerCity: string = '';
 
   constructor(props: any) {
     super();

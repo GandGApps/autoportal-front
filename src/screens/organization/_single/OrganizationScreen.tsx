@@ -25,6 +25,11 @@ import {ScrollViewScreen} from '../../../template/containers/ScrollViewScreen';
 import {MainContainer} from '../../../template/containers/MainContainer';
 import {Dots} from '../../../components/carousel/components/Dots';
 import ImageView from 'react-native-image-viewing';
+import {selectAuthValues} from '../../../modules/auth/AuthSlice';
+import {Ag, TextUI} from '../../../template/ui/TextUI';
+import {ViewPress} from '../../../template/containers/ViewPress';
+import Navigation from '../../../routes/navigation/Navigation';
+import {Screens} from '../../../routes/models/Screens';
 
 export const OrganizationScreen = () => {
   const {_id} = useRoute<OrganizationParams>().params;
@@ -33,6 +38,7 @@ export const OrganizationScreen = () => {
   const {isCurrentOrganizationLoad, currentOrganization} = useAppSelector(
     selectOrganizationsValues,
   );
+  const {isAdmin} = useAppSelector(selectAuthValues);
 
   const insets = useSafeAreaInsets();
 
@@ -90,6 +96,23 @@ export const OrganizationScreen = () => {
           rating={currentOrganization?.rating}
           countReviews={currentOrganization?.countReviews}
         />
+
+        {isAdmin && (
+          <ViewPress
+            $pv={20}
+            $ph={20}
+            $bg={ColorsUI.blue.second}
+            onPress={() => {
+              Navigation.navigate(Screens.ADMIN_USERS, {
+                city: currentOrganization?.dealerCity || '',
+                id: currentOrganization?.dealerId || '',
+              });
+            }}>
+            <TextUI ag={Ag['500_16']} color={ColorsUI.white}>
+              {'Владелец организации'}
+            </TextUI>
+          </ViewPress>
+        )}
 
         {currentOrganization?.promo ? (
           <OrganizationPromo

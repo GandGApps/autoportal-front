@@ -3,9 +3,10 @@ import {Endpoints} from '../../../template/api/Endpoints';
 import {CreateBannerDTO, FinanceDTO} from '../types/AdminTypes';
 
 export class AdminApiService extends AbstractApiRepository {
-  getUsers = (city: string) => {
+  getUsers = (city: string, dealerId?: string) => {
+    console.log(Endpoints.getUsers(city, dealerId));
     return this.apiClient.get({
-      url: Endpoints.getUsers(city),
+      url: Endpoints.getUsers(city, dealerId),
     });
   };
 
@@ -39,6 +40,12 @@ export class AdminApiService extends AbstractApiRepository {
   deleteBanner = (bannerId: string) => {
     return this.apiClient.delete({
       url: Endpoints.changeBanner(bannerId),
+    });
+  };
+
+  banUser = (id: string) => {
+    return this.apiClient.put({
+      url: Endpoints.banUser(id),
     });
   };
 }

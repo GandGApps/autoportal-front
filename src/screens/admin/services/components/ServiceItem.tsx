@@ -16,6 +16,7 @@ import {UpIcon} from '../../../../template/icons/UpIcon';
 import {DownV2Icon} from '../../../../template/icons/DownV2Icon';
 import {CenterContainer} from '../../../../template/containers/CenterContainer';
 import {useFocusEffect} from '@react-navigation/native';
+import {ColumnContainerFlex} from '../../../../template/containers/ColumnContainer';
 
 interface CompProps {
   service: Service;
@@ -42,13 +43,14 @@ export const ServiceItem = ({service}: CompProps) => {
               service,
             })
           }>
-          <EditIcon size={18} />
+          <RowContainer style={{gap: 12}}>
+            <EditIcon size={18} />
+            <TextUI style={{marginTop: 2}} ag={Ag['400_16']}>
+              {service.title || ''}
+            </TextUI>
+          </RowContainer>
         </ViewPress>
-
-        <TextUI $isFlex ag={Ag['400_16']}>
-          {service.title || ''}
-        </TextUI>
-
+        <ColumnContainerFlex />
         <MainContainer $heightPX={24} $widthPX={24}>
           {Boolean(extServices.length) && (
             <ViewPress $isFlex onPress={() => setOpenList(!openList)}>

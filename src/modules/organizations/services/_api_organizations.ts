@@ -214,4 +214,10 @@ export class ApiOrganizationsService extends AbstractApiRepository {
       url: Endpoints.resumeSubscribe(id),
     });
   };
+
+  removeService = (id: string) => {
+    return this.apiClient.delete({
+      url: Endpoints.removeService(id),
+    });
+  };
 }

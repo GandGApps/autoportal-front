@@ -19,6 +19,7 @@ import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {Notifications} from '../../../template/notifications/Notifications';
+import {MainContainer} from '../../../template/containers/MainContainer';
 
 export const UsersOrganizations = () => {
   const {userOrganization} = useAppSelector(selectAdminValues);
@@ -89,9 +90,11 @@ export const UsersOrganizations = () => {
           )}
           keyExtractor={item => item._id}
           ListEmptyComponent={
-            <TextUI ag={Ag['500_16']} $align={'center'}>
-              {'У пользователя нет организаций'}
-            </TextUI>
+            <MainContainer $mt={20}>
+              <TextUI ag={Ag['500_16']} $align={'center'}>
+                {'У пользователя нет организаций'}
+              </TextUI>
+            </MainContainer>
           }
         />
       )}

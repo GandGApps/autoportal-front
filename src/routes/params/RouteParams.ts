@@ -27,6 +27,12 @@ export type RouteParams = {
   ADMIN_USER_ORGS: {
     id: string;
   };
+  ADMIN_USERS:
+    | {
+        id: string;
+        city?: string;
+      }
+    | undefined;
   ADMIN_EDIT_SERVICE: {
     service: Service;
   };
@@ -35,14 +41,17 @@ export type RouteParams = {
         banner: Banner;
       }
     | undefined;
+
+  ADMIN_MODAL_REMOVE_SERVICE: {
+    title: string;
+    id: string;
+    categoryId: string;
+  };
   MODAL_BANNER_REMOVE: {
     bannerId: string;
   };
   MODAL_USER_BAN: {
     userId: string;
-  };
-  MODAL_SERVICE_REMOVE: {
-    serviceId: string;
   };
 };
 
@@ -78,3 +87,10 @@ export type AdminBannerRemoveParams = RouteProp<
   RouteParams,
   'MODAL_BANNER_REMOVE'
 >;
+
+export type AdminServiceRemoveParams = RouteProp<
+  RouteParams,
+  'ADMIN_MODAL_REMOVE_SERVICE'
+>;
+
+export type AdminUsersParams = RouteProp<RouteParams, 'ADMIN_USERS'>;

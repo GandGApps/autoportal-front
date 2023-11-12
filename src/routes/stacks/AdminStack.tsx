@@ -11,6 +11,7 @@ import {CreateBanner} from '../../screens/admin/banners/CreateBanner';
 import {UsersOrganizations} from '../../screens/admin/users/UsersOrganizations';
 import {AdminEditService} from '../../screens/admin/services/AdminEditService';
 import {BannerRemove} from '../../screens/admin/banners/question/BannerRemove';
+import {RemoveService} from '../../screens/admin/services/questions/RemoveService';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,10 @@ export const AdminStack = () => {
       <Stack.Screen
         name={Screens.MODAL_BANNER_REMOVE}
         component={BannerRemove}
+      />
+      <Stack.Screen
+        name={Screens.ADMIN_MODAL_REMOVE_SERVICE}
+        component={RemoveService}
       />
       <Stack.Screen
         name={Screens.ADMIN_USER_ORGANIZATIONS}
