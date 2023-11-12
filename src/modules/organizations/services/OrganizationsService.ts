@@ -29,6 +29,7 @@ import {SuccessSubRelease} from '../models/SuccessSubRelease';
 import {FinanceDTO} from '../../admin/types/AdminTypes';
 import {Banner} from '../models/Banner';
 import {Service} from '../models/Service';
+import {Contacts} from '../models/Contacts';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -256,6 +257,12 @@ export class OrganizationsService extends AbstractServiceRepository {
 
   removeService = async (id: string) => {
     return this.api.removeService(id);
+  };
+
+  getContacts = async () => {
+    const {data} = await this.api.getContacts();
+
+    return this.create<Contacts>(Contacts, data);
   };
 }
 

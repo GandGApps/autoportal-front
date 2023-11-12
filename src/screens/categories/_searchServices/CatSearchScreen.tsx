@@ -19,12 +19,11 @@ import {useFocusEffect} from '@react-navigation/native';
 import {CenterContainerFlex} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
 import {SearchServices} from '../../../modules/organizations/models/SearchServices';
-import {Category} from '../../../modules/organizations/models/Category';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 
 export const CatSearchScreen = () => {
-  const {searchServices, isSearchLoad} = useAppSelector(
+  const {searchServices, categories, isSearchLoad} = useAppSelector(
     selectOrganizationsValues,
   );
 
@@ -59,8 +58,13 @@ export const CatSearchScreen = () => {
   };
 
   const handleSelectService = (value: SearchServices) => {
-    dispatch(filterChangeForm({key: 'category', value: value.category}));
-    dispatch(filterChangeForm({key: 'typeService', value: [value._id]}));
+    dispatch(
+      filterChangeForm({
+        key: 'category',
+        value: categories.find(item => item._id === value.categoryId)!,
+      }),
+    );
+    dispatch(filterChangeForm({key: 'typeService', value: [value.service_id]}));
 
     Navigation.navigate(Screens.CAT_ORGANIZATIONS);
   };
@@ -90,12 +94,11 @@ export const CatSearchScreen = () => {
           </CenterContainerFlex>
         ) : (
           <>
-            {searchServices.map(item => (
-              <BorderTopUI key={`search-${item._id}`}>
+            {searchServices.map((item, index) => (
+              <BorderTopUI key={`search-${item.service_id}-${index}`}>
                 <TouchableOpacity onPress={() => handleSelectService(item)}>
                   <MainContainer $pv={15} $pl={8}>
                     <TextUI ag={Ag['400_16']}>{item.title}</TextUI>
-                    <TextUI ag={Ag['400_12']}>{item.category?.title}</TextUI>
                   </MainContainer>
                 </TouchableOpacity>
               </BorderTopUI>

@@ -42,6 +42,7 @@ export class AuthApiService extends AbstractApiRepository {
   adminLogin = (dto: AdminDTO) => {
     return this.apiClient.post({
       url: Endpoints.adminLogin,
+      data: dto,
     });
   };
 }

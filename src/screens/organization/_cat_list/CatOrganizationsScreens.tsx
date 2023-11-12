@@ -43,18 +43,20 @@ export const CatOrganizationsScreens = () => {
   const [search, setSearch] = useState('');
 
   const [isLoad, setIsLoad] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
       dispatch(getOrganizationList()).finally(() => {
         setIsLoad(false);
+        setIsReady(true);
       });
     }, 0);
   }, []);
 
   useDebouncedEffect(
     async () => {
-      if (isLoad) return;
+      if (isLoad || !isReady) return;
       setIsLoad(true);
 
       dispatch(getOrganizationList())
