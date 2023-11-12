@@ -9,7 +9,7 @@ import {
   createChangeForm,
   filterChangeForm,
 } from '../../organizations/OrganizationsSlice';
-import {getCreatedStatus} from '../../organizations/_thunks';
+import {getContacts, getCreatedStatus} from '../../organizations/_thunks';
 import {adminLocalService} from '../services/admin/admin.fabric';
 import {cityLocalService} from '../services/city/admin.fabric';
 

@@ -4,7 +4,6 @@ import {CreateBannerDTO, FinanceDTO} from '../types/AdminTypes';
 
 export class AdminApiService extends AbstractApiRepository {
   getUsers = (city: string, dealerId?: string) => {
-    console.log(Endpoints.getUsers(city, dealerId));
     return this.apiClient.get({
       url: Endpoints.getUsers(city, dealerId),
     });

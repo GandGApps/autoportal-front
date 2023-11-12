@@ -35,9 +35,11 @@ export const Endpoints = {
 
   sendReport: (id: string) => `/report?organizationId=${id}`,
 
+  contacts: '/contacts',
+
   // FILTER
 
-  searchSubServices: (query: string) => `/services?query=${query}`,
+  searchSubServices: (query: string) => `/services/search?query=${query}`,
   cities: (query: string) => `/cities/find?city=${query}`,
   filter: (catId: string) => `/filter?categoryId=${catId}`,
 

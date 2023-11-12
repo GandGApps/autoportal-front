@@ -89,13 +89,13 @@ export const CategoriesScreen = () => {
             />
           ) : null}
 
-          {/* <MainContainer $mt={18} $mb={10}>
+          <MainContainer $mt={18} $mb={10}>
             <InputSelectUI
               value={'Поиск по названию и услуге'}
               rightIcon={<SearchIcon />}
               onPress={handleGoToSearch}
             />
-          </MainContainer> */}
+          </MainContainer>
         </MainContainer>
 
         <MainContainer $pb={120}>

@@ -10,6 +10,7 @@ import {DefaultFilterForm, FilterFormProps} from './form/FilterForm';
 import {
   getBanners,
   getCategories,
+  getContacts,
   getCreatedStatus,
   getCurrentOrganization,
   getFavoritesList,
@@ -20,14 +21,9 @@ import {
   getSearchServices,
 } from './_thunks';
 import {getReviews} from './thunks/reviews.thunk';
-import {
-  deactivateSubscribe,
-  getSubInfo,
-  resumeSubscribe,
-} from './thunks/subscribe.thunk';
+import {getSubInfo} from './thunks/subscribe.thunk';
 import {getServices} from './thunks/services.thunk';
 import {OrganizationList} from './models/OrganizationList';
-import {Notifications} from '../../template/notifications/Notifications';
 
 const initialState: OrganizationsStateModel = {
   banners: [],
@@ -38,6 +34,8 @@ const initialState: OrganizationsStateModel = {
   createForm: DefaultCreateForm,
 
   subInfo: null,
+
+  contacts: null,
 
   organizationFilter: null,
   searchServices: [],
@@ -254,6 +252,11 @@ const organizationsSlice = createSlice({
       if (!action.payload) return;
 
       state.subInfo = action.payload;
+    });
+
+    // GET Contacts
+    builder.addCase(getContacts.fulfilled, (state, action) => {
+      state.contacts = action.payload;
     });
   },
 });

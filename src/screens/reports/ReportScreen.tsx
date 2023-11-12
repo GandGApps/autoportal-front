@@ -19,7 +19,9 @@ import Navigation from '../../routes/navigation/Navigation';
 import {Screens} from '../../routes/models/Screens';
 
 export const ReportScreen = () => {
-  const {currentOrganization} = useAppSelector(selectOrganizationsValues);
+  const {currentOrganization, contacts} = useAppSelector(
+    selectOrganizationsValues,
+  );
 
   const [report, setReport] = useState('');
   const [isLoad, setIsLoad] = useState(false);
@@ -85,7 +87,11 @@ export const ReportScreen = () => {
           <CenterContainer>
             <ViewPress
               $mb={10}
-              onPress={() => Linking.openURL(`https://t.me/grigor_zh`)}>
+              onPress={() => {
+                if (contacts?.report) {
+                  Linking.openURL(contacts.report);
+                }
+              }}>
               <TelegramPressIcon />
             </ViewPress>
           </CenterContainer>

@@ -1,8 +1,5 @@
 import React, {Fragment, useEffect, useRef, useState} from 'react';
-import {
-  ColumnContainerFlex,
-  ColumnContainerFlexEnd,
-} from '../../../template/containers/ColumnContainer';
+import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {
   RowContainer,

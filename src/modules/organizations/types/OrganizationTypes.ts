@@ -14,6 +14,7 @@ import {Review} from '../models/Review';
 import {FavoriteOrganization} from '../models/FavoriteOrganization';
 import {FinanceDTO} from '../../admin/types/AdminTypes';
 import {Banner} from '../models/Banner';
+import {Contacts} from '../models/Contacts';
 
 export type SortFilterType = 'ratingASC' | 'ratingDESC';
 
@@ -36,6 +37,8 @@ export interface OrganizationsStateModel {
   reviews: Review[];
 
   createdStatus: Nullable<CreatedStatus>;
+
+  contacts: Nullable<Contacts>;
 
   isOrganizationFilter: boolean;
   isBannersLoad: boolean;

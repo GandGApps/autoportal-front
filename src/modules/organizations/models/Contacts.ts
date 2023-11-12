@@ -1,9 +1,8 @@
 import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 
-export class SearchServices extends AbstractModel {
-  title: string = '';
-  categoryId: string = '';
-  service_id: string = '';
+export class Contacts extends AbstractModel {
+  orderBanner: string = '';
+  report: string = '';
 
   constructor(props: any) {
     super();

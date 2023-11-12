@@ -82,7 +82,7 @@ export const OrgBottomMenu = ({organization}: CompProps) => {
             title={'Яндекс Карты'}
             onPress={handleOpenYandex}
           />
-          <ButtonUI title={'Googke Maps'} onPress={handleOpenGoogle} />
+          <ButtonUI title={'Google Maps'} onPress={handleOpenGoogle} />
         </MainContainer>
       </SwipeableModal>
     </AbsoluteContainer>

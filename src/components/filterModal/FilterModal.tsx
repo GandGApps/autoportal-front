@@ -92,7 +92,25 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
     switch (props.typeModal) {
       case 'typeService': {
-        setPickList(form.typeService || []);
+        let list = form.typeService || [];
+
+        if (form.typeService?.length) {
+          for (let index = 0; index < form.typeService.length; index++) {
+            const element = form.typeService[index];
+            const filter = organizationFilter?.typeService?.find(
+              item => item._id == element,
+            );
+
+            if (filter && filter.subServices?.length) {
+              list = [
+                ...list.filter(id => id !== element),
+                ...filter.subServices.map(item => item._id),
+              ];
+            }
+          }
+        }
+
+        setPickList(list);
         setList(organizationFilter?.typeService!);
         break;
       }

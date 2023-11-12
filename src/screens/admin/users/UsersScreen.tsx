@@ -4,8 +4,7 @@ import {GradientHeader} from '../../../components/GradientHeader';
 import {FlatList, StyleSheet} from 'react-native';
 import {CitiesModal} from '../../../components/CitiesModal';
 import {Modalize} from 'react-native-modalize';
-import {useAppDispatch, useAppSelector} from '../../../settings/redux/hooks';
-import {selectAdminValues} from '../../../modules/admin/AdminSlice';
+import {useAppDispatch} from '../../../settings/redux/hooks';
 import {getUsers} from '../../../modules/admin/thunks/getUsers.thunk';
 import {BorderTopUI} from '../../../template/ui/BorderTopUI';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
@@ -36,12 +35,12 @@ export const UsersScreen = () => {
   const params = useRoute<AdminUsersParams>().params;
   const cityModal = useRef<Modalize>(null);
 
-  const {dealers: data} = useAppSelector(selectAdminValues);
   const dispatch = useAppDispatch();
 
   const [users, setUsers] = useState<Dealer[]>([]);
   const [city, setCity] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   const [search, setSearch] = useState('');
 
@@ -51,28 +50,33 @@ export const UsersScreen = () => {
     setIsLoading(true);
     if (params) {
       setCity(params.city || '');
-      dispatch(
-        getUsers({city: params.city || '', dealerId: params.id}),
-      ).finally(() => {
-        setIsLoading(false);
-      });
+      dispatch(getUsers({city: params.city || '', dealerId: params.id}))
+        .then(res => {
+          setUsers(res.payload as Dealer[]);
+        })
+        .finally(() => {
+          setIsLoading(false);
+          setIsReady(true);
+        });
     } else {
-      dispatch(getUsers({city})).finally(() => {
-        setIsLoading(false);
-      });
+      dispatch(getUsers({city}))
+        .then(res => {
+          setUsers(res.payload as Dealer[]);
+        })
+        .finally(() => {
+          setIsLoading(false);
+          setIsReady(true);
+        });
     }
   }, []);
 
-  useEffect(() => {
-    if (data.length) {
-      setUsers(data);
-    }
-  }, [data]);
-
   useDebouncedEffect(
     async () => {
-      if (search.length && data.length) {
-        setIsLoading(true);
+      if (!isReady || isLoading) return;
+
+      setIsLoading(true);
+
+      if (search.length && users.length) {
         dispatch(getUsers({city}))
           .then(res => {
             const filter = (res.payload as Dealer[]).filter(dealer =>
@@ -86,8 +90,14 @@ export const UsersScreen = () => {
           .finally(() => {
             setIsLoading(false);
           });
-      } else if (data.length) {
-        setUsers(data);
+      } else {
+        dispatch(getUsers({city}))
+          .then(res => {
+            setUsers(res.payload as Dealer[]);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
       }
     },
     1000,
@@ -116,6 +126,7 @@ export const UsersScreen = () => {
             search,
           ),
         );
+
         setUsers(filter);
       })
       .finally(() => {

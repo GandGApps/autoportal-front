@@ -26,7 +26,7 @@ export class ApiOrganizationsService extends AbstractApiRepository {
   };
 
   getSearchServices = async (query: string) => {
-    return this.apiClient.get({
+    return this.apiClient.post({
       url: Endpoints.searchSubServices(query),
     });
   };
@@ -218,6 +218,12 @@ export class ApiOrganizationsService extends AbstractApiRepository {
   removeService = (id: string) => {
     return this.apiClient.delete({
       url: Endpoints.removeService(id),
+    });
+  };
+
+  getContacts = async () => {
+    return this.apiClient.get({
+      url: Endpoints.contacts,
     });
   };
 }

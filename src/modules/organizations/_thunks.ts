@@ -228,3 +228,9 @@ export const getCreatedStatus = createAsyncThunk(
     });
   },
 );
+
+export const getContacts = createAsyncThunk('contacts/info', async () => {
+  const response = await organizationService.getContacts();
+
+  return response;
+});

@@ -15,10 +15,9 @@ import {selectOrganizationsValues} from '../../modules/organizations/Organizatio
 import Navigation from '../../routes/navigation/Navigation';
 import {FirstOrganization} from './components/FirstOrganization';
 import {Screens} from '../../routes/models/Screens';
-import {UnderLineText} from '../../components/UnderLineText';
 
 export const ProfileScreen = () => {
-  const {createdStatus} = useAppSelector(selectOrganizationsValues);
+  const {createdStatus, contacts} = useAppSelector(selectOrganizationsValues);
   const insets = useSafeAreaInsets();
 
   const handleGoToScreen = (screen: string) => {
@@ -45,7 +44,9 @@ export const ProfileScreen = () => {
             <ThreeMenuItem
               title={'Разместить баннер\nна главном экране'}
               onPress={() => {
-                Linking.openURL('https://t.me/grigor_zh');
+                if (contacts?.orderBanner) {
+                  Linking.openURL(contacts.orderBanner);
+                }
               }}
             />
           ) : null}
