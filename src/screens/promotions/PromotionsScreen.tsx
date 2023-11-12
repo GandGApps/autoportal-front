@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {ColumnContainerFlex} from '../../template/containers/ColumnContainer';
 import {BottomMenu} from '../../components/bottomMenu/BottomMenu';
 import {ScrollViewScreen} from '../../template/containers/ScrollViewScreen';
@@ -19,6 +19,7 @@ import {getPromotionsList} from '../../modules/organizations/_thunks';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../../components/Loader';
 import {Ag, TextUI} from '../../template/ui/TextUI';
+import {useFocusEffect} from '@react-navigation/native';
 
 export const PromotionsScreen = () => {
   const {filterForm, promotionsList, isPromotionListLoad} = useAppSelector(
@@ -40,13 +41,15 @@ export const PromotionsScreen = () => {
     categoriesModalRef.current?.open();
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(getPromotionsList()).finally(() => {
-        setIsLoad(false);
-      });
-    }, 0);
-  }, [filterForm.category, filterForm.city]);
+  useFocusEffect(
+    useCallback(() => {
+      setTimeout(() => {
+        dispatch(getPromotionsList()).finally(() => {
+          setIsLoad(false);
+        });
+      }, 0);
+    }, [filterForm.category, filterForm.city]),
+  );
 
   return (
     <ColumnContainerFlex>

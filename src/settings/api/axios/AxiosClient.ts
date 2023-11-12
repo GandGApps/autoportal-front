@@ -11,6 +11,7 @@ export default class AxiosClient implements IApiClient {
   readonly SUCCESS_STATUSES = [200, 201];
   readonly SERVER_ERROR = 500;
   readonly VERSION_NOT_VALID = 426;
+  readonly BAN_USER = 405;
 
   api: AxiosInstance;
 
@@ -118,7 +119,8 @@ export default class AxiosClient implements IApiClient {
           Notifications.error(error.response.data.error);
         }
 
-        if (error.response?.status === this.SERVER_ERROR) {
+        if (error.response?.status === this.BAN_USER) {
+          Notifications.error('Ваш аккаунт заблокирован');
           // TODO: Сделать уведомление
           // toast.error('Ошибка сервера', {
           //   duration: 1500,
