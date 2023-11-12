@@ -33,6 +33,8 @@ export const Endpoints = {
 
   createdStatus: '/organisations/my/created',
 
+  sendReport: (id: string) => `/report?organizationId=${id}`,
+
   // FILTER
 
   searchSubServices: (query: string) => `/services?query=${query}`,
@@ -52,6 +54,7 @@ export const Endpoints = {
   checkRelease: '/subscribe/release',
   subInfo: '/subscribe/info',
   deactivate: (id: string) => `/subscribe/deactivate?organizationId=${id}`,
+  resumeSubscribe: (id: string) => `/subscribe/activate?organizationId=${id}`,
 
   // ADMIN
   finance: '/admin/sub',

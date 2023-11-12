@@ -150,3 +150,8 @@ export interface ApproveSubscribeDTO {
   id: string;
   type: string;
 }
+
+export interface ReportDTO {
+  id: string;
+  comment: string;
+}

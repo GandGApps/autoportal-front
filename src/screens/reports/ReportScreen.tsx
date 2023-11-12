@@ -14,14 +14,34 @@ import {ColumnContainerBetweenFlex} from '../../template/containers/ColumnContai
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Linking, StatusBar} from 'react-native';
 import {CenterContainer} from '../../template/containers/CenterContainer';
-import {appConfig} from '../../appConfig';
+import {organizationService} from '../../modules/organizations/services/OrganizationsService';
+import Navigation from '../../routes/navigation/Navigation';
+import {Screens} from '../../routes/models/Screens';
 
 export const ReportScreen = () => {
   const {currentOrganization} = useAppSelector(selectOrganizationsValues);
 
   const [report, setReport] = useState('');
+  const [isLoad, setIsLoad] = useState(false);
 
   const insets = useSafeAreaInsets();
+
+  const handleSendReport = async () => {
+    setIsLoad(true);
+
+    await organizationService
+      .sendReport({
+        id: currentOrganization?._id!,
+        comment: report,
+      })
+      .then(() => {
+        Navigation.pop();
+        Navigation.navigate(Screens.REPORT_CONFIRMED_MODAL);
+      })
+      .finally(() => {
+        setIsLoad(false);
+      });
+  };
 
   return (
     <ScrollViewScreen
@@ -54,7 +74,11 @@ export const ReportScreen = () => {
             $mb={20}
             ag={Ag['500_18']}>{`ID: ${currentOrganization?._id}`}</TextUI>
 
-          <ButtonUI title={'Отправить'} />
+          <ButtonUI
+            $btnDisabled={isLoad}
+            onPress={handleSendReport}
+            title={'Отправить'}
+          />
         </MainContainer>
 
         <MainContainer>

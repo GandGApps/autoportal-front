@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
 import {TouchableOpacity} from 'react-native';
 import {
@@ -22,8 +22,12 @@ import {TelegramIcon} from '../../../../template/icons/TelegramIcon';
 import {UnderLineText} from '../../../../components/UnderLineText';
 import {Notifications} from '../../../../template/notifications/Notifications';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {useAppDispatch} from '../../../../settings/redux/hooks';
-import {deactivateSubscribe} from '../../../../modules/organizations/thunks/subscribe.thunk';
+import {useAppDispatch, useAppSelector} from '../../../../settings/redux/hooks';
+import {
+  deactivateSubscribe,
+  resumeSubscribe,
+} from '../../../../modules/organizations/thunks/subscribe.thunk';
+import {selectOrganizationsValues} from '../../../../modules/organizations/OrganizationsSlice';
 
 interface OrganizationItemProps {
   item: PersonalOrganizations;
@@ -31,6 +35,7 @@ interface OrganizationItemProps {
 
 export const MyOrganization = ({item}: OrganizationItemProps) => {
   const dispatch = useAppDispatch();
+  const [isActiveLoad, setIsActiveLoad] = useState(false);
 
   const handleGoToScreen = (screen: string) => {
     Navigation.navigate(screen, {
@@ -44,6 +49,13 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
       logo: item.logo && item.logo,
       name: item.name,
       organizationId: item._id,
+    });
+  };
+
+  const handleResumeSubscribe = () => {
+    setIsActiveLoad(true);
+    dispatch(resumeSubscribe(item._id)).finally(() => {
+      setIsActiveLoad(false);
     });
   };
 
@@ -61,9 +73,17 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
         </RowContainerBeetwen>
 
         {item.isSubscribe && !item.isActive && (
-          <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
-            {'автоплатеж отменен'}
-          </TextUI>
+          <RowContainer $mb={10}>
+            <TextUI ag={Ag['500_14']}>{'автоплатеж отменен '}</TextUI>
+
+            <TouchableOpacity
+              disabled={isActiveLoad}
+              onPress={handleResumeSubscribe}>
+              <TextUI ag={Ag['500_14']} color={ColorsUI.brown}>
+                {'(возобновить)'}
+              </TextUI>
+            </TouchableOpacity>
+          </RowContainer>
         )}
 
         <RowContainer $mb={10}>
@@ -171,7 +191,10 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
                 text={'Деактивировать'}
                 color={ColorsUI.red}
                 onPress={() => {
-                  dispatch(deactivateSubscribe(item._id));
+                  if (isActiveLoad) return;
+                  dispatch(deactivateSubscribe(item._id)).finally(() => {
+                    setIsActiveLoad(false);
+                  });
                 }}
               />
             )}

@@ -6,9 +6,11 @@ import {Screens} from '../../../routes/models/Screens';
 export const ReportSendModal = () => {
   return (
     <QuestionModal
-      title={'Жалоба на рассмотрении'}
-      btnMainTitle={'На главную'}
-      onMainPress={() => Navigation.navigate(Screens.CATEGORIES)}
+      title={'Жалоба отправлена на рассмотрение'}
+      btnSecondTitle={'На главную'}
+      btnMainTitle={'Назад'}
+      onMainPress={() => Navigation.pop()}
+      onSecondPress={() => Navigation.navigate(Screens.CATEGORIES)}
     />
   );
 };

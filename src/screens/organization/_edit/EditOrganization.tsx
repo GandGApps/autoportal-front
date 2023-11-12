@@ -9,12 +9,16 @@ import {
   selectOrganizationsValues,
   setDefaultCreateForm,
 } from '../../../modules/organizations/OrganizationsSlice';
-import {getCurrentOrganization} from '../../../modules/organizations/_thunks';
+import {
+  getCurrentOrganization,
+  getOrganizationFilter,
+} from '../../../modules/organizations/_thunks';
 import {CenterContainerFlex} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
 import {OrganizationHelper} from '../../../modules/organizations/helpers/OrganizationHelper';
 import {CreateOrganizationScreen} from '../_create/CreateOrganization';
 import {DefaultCreateForm} from '../../../modules/organizations/form/CreateForm';
+import {CurrentOrganization} from '../../../modules/organizations/models/CurrentOrganization';
 
 export const EditOrganizationScreen = () => {
   const {_id} = useRoute<OrganizationEditParams>().params;
@@ -29,35 +33,32 @@ export const EditOrganizationScreen = () => {
 
   useFocusEffect(
     useCallback(() => {
-      return () => {
-        setTimeout(() => {
-          resetCreateForm();
-        }, 0);
-      };
+      setTimeout(() => {
+        setIsLoad(true);
+        resetCreateForm();
+
+        dispatch(getCurrentOrganization(_id))
+          .then(res => {
+            const organization = res.payload as CurrentOrganization;
+            if (!res.payload) return;
+            dispatch(
+              setDefaultCreateForm(
+                OrganizationHelper.getDefaultCreateForm(organization),
+              ),
+            );
+
+            dispatch(
+              getOrganizationFilter(organization.categoryId!._id),
+            ).finally(() => {
+              setIsReady(true);
+            });
+          })
+          .finally(() => {
+            setIsLoad(false);
+          });
+      }, 0);
     }, []),
   );
-
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(getCurrentOrganization(_id)).finally(() => {
-        setIsLoad(false);
-      });
-    }, 0);
-  }, []);
-
-  useEffect(() => {
-    if (currentOrganization && !isLoad) {
-      dispatch(
-        setDefaultCreateForm(
-          OrganizationHelper.getDefaultCreateForm(currentOrganization),
-        ),
-      );
-
-      setTimeout(() => {
-        setIsReady(true);
-      }, 250);
-    }
-  }, [isLoad]);
 
   const resetCreateForm = () => {
     dispatch(resetOrganizationFilter());
@@ -68,7 +69,7 @@ export const EditOrganizationScreen = () => {
     <ColumnContainerFlex>
       <GradientHeader title={'Редактирование'} isBack />
 
-      {!isReady || isCurrentOrganizationLoad ? (
+      {isLoad || !isReady || isCurrentOrganizationLoad ? (
         <CenterContainerFlex>
           <Loader size={20} />
         </CenterContainerFlex>

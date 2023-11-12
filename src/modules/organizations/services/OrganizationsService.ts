@@ -1,4 +1,4 @@
-import {UpdateServiceDTO} from './../types/OrganizationTypes';
+import {ReportDTO, UpdateServiceDTO} from './../types/OrganizationTypes';
 import {ServiceExt} from './../models/ServiceExt';
 import {PersonalOrganizations} from './../models/PersonalOrganizations';
 import {PromotionList} from './../models/PromotionList';
@@ -118,10 +118,6 @@ export class OrganizationsService extends AbstractServiceRepository {
     }
 
     const {data} = await this.api.getOrganizationList(dto);
-
-    console.log(dto);
-
-    console.log(data);
 
     return this.createList<OrganizationList>(OrganizationList, data);
   };
@@ -246,6 +242,16 @@ export class OrganizationsService extends AbstractServiceRepository {
     const {data} = await this.api.deactivateSubscribe(id);
 
     return this.create<Message>(Message, data);
+  };
+
+  sendReport = async (dto: ReportDTO) => {
+    const {data} = await this.api.sendReport(dto);
+
+    return this.create<Message>(Message, data);
+  };
+
+  resumeSubscribe = async (id: string) => {
+    return await this.api.resumeSubscribe(id);
   };
 }
 

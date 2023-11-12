@@ -20,6 +20,8 @@ import {selectOrganizationsValues} from '../../modules/organizations/Organizatio
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../../components/Loader';
 import {OrganizationHelper} from '../../modules/organizations/helpers/OrganizationHelper';
+import {MainContainer} from '../../template/containers/MainContainer';
+import {RowContainer} from '../../template/containers/RowContainer';
 
 export const SubscribeScreen = () => {
   const {organizationId} = useRoute<SubOrganizationParams>().params;
@@ -103,31 +105,47 @@ export const SubscribeScreen = () => {
 
         <ViewPress
           onPress={() => setType('year')}
-          style={compStyles.gap10}
           $borderColor={ColorsUI.black}
           $br={10}
-          $ph={20}
-          $pb={20}
-          $pt={40}>
+          $pb={20}>
+          <RowContainer $mb={10}>
+            <MainContainer
+              $bg={ColorsUI.firm}
+              $pv={10}
+              $ph={10}
+              $br={10}
+              $mr={20}>
+              <TextUI ag={Ag['500_16']}>{'Популярно'}</TextUI>
+            </MainContainer>
+            <TextUI
+              ag={Ag['500_16']}
+              color={
+                ColorsUI.green
+              }>{`Экономия ${subInfo?.percentage}%`}</TextUI>
+          </RowContainer>
+          <MainContainer $ph={20} style={compStyles.gap10}>
+            <TextUI
+              ag={Ag['500_16']}
+              color={ColorsUI.green}
+              style={{textTransform: 'uppercase'}}>
+              {'Годовая'}
+            </TextUI>
+
+            <TextUI ag={Ag['500_25']}>{`${
+              subInfo?.year_amount || 0 / 12
+            } Р / месяц*`}</TextUI>
+            <TextUI ag={Ag['500_14']} color={ColorsUI.gray.main}>
+              {`*${subInfo?.year_amount}р / год`}
+            </TextUI>
+
+            <TextUI ag={Ag['500_16']}>{'Первые два месяца бесплатно'}</TextUI>
+          </MainContainer>
+
           {type === 'year' && (
             <AbsoluteContainer $right={5} $top={5}>
               <CheckIcon />
             </AbsoluteContainer>
           )}
-          <TextUI
-            ag={Ag['500_16']}
-            color={ColorsUI.green}
-            style={{textTransform: 'uppercase'}}>
-            {'Годовая'}
-          </TextUI>
-
-          <TextUI
-            ag={Ag['500_25']}>{`${subInfo?.year_amount} Р / месяц*`}</TextUI>
-          <TextUI ag={Ag['500_14']} color={ColorsUI.gray.main}>
-            {'*1440р / год'}
-          </TextUI>
-
-          <TextUI ag={Ag['500_16']}>{'Первые два месяца бесплатно'}</TextUI>
         </ViewPress>
         <ColumnContainerFlex />
         <ButtonUI

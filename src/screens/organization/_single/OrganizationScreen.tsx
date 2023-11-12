@@ -1,5 +1,5 @@
-import {useRoute} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Platform, StatusBar} from 'react-native';
 import {OrganizationPreview} from './components/_Preview';
 import {OrganizationTitleRating} from './components/_TitleRating';
