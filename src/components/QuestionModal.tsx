@@ -37,7 +37,7 @@ export const QuestionModal = (props: QuestionModalProps) => {
           <Image
             style={{width: 150, height: 150}}
             resizeMode={'contain'}
-            source={require('./../../assets/img/logo.png')}
+            source={require('./../../assets/img/logo_transparent.png')}
           />
         </MainContainer>
 

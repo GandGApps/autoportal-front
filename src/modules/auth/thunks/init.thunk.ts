@@ -25,7 +25,6 @@ export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
   }
 
   if (token) {
-    console.log(token);
     tokenService.setAccessToken(token);
     dispatch(setIsAuth(true));
 

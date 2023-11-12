@@ -70,14 +70,16 @@ export const WelcomeScreen = () => {
       <AbsoluteContainer
         $top={0}
         $left={0}
+        $bottom={Math.max(Insets.bottom, 20)}
         $widthPX={Dimensions.get('screen').width}
         $heightPX={Dimensions.get('screen').height}>
-        <ColumnContainerFlexEnd $ph={20} $pb={Math.max(Insets.bottom, 20)}>
+        <ColumnContainerFlex $ph={20}>
+          <ColumnContainerFlex />
           <CenterContainer $mb={40}>
             <ImageUI
               style={{width: 250, height: 250}}
               resizeMode={'contain'}
-              source={require('./../../../assets/img/logo_white.png')}
+              source={require('./../../../assets/img/logo_transparent.png')}
             />
           </CenterContainer>
           <MainContainer $mb={20}>
@@ -116,7 +118,6 @@ export const WelcomeScreen = () => {
               {isError ? 'Выберите ваше местоположение' : ' '}
             </TextUI>
           </MainContainer>
-
           <ButtonUI
             $mb={10}
             $type={'border-white'}
@@ -128,7 +129,7 @@ export const WelcomeScreen = () => {
             title={'Авторизация'}
             onPress={handleGoToAuth}
           />
-        </ColumnContainerFlexEnd>
+        </ColumnContainerFlex>
       </AbsoluteContainer>
 
       <CitiesModal modalizeRef={cityModal} />
