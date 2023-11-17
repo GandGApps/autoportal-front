@@ -99,8 +99,6 @@ export class OrganizationsService extends AbstractServiceRepository {
   };
 
   getOrganizationList = async (form: FiltertFormModel) => {
-    const sortType = form.sort ? {sortType: form.sort} : {};
-
     const formatted = OrganizationHelper.formattedScheduleDTO(
       form.schedule || [],
     );
@@ -110,12 +108,19 @@ export class OrganizationsService extends AbstractServiceRepository {
     let dto: OrganizationsDTO = {
       city: form.city,
       categoryId: form.category?._id!,
-      ...sortType,
       ...scheduleFilter,
     };
 
+    if (form.sort) {
+      dto = {...dto, sortType: form.sort};
+    }
+
     if (form.typeService?.length) {
       dto = {...dto, servicesId: form.typeService};
+    }
+
+    if (form.brandCar?.length) {
+      dto = {...dto, brandsCarsId: form.brandCar};
     }
 
     const {data} = await this.api.getOrganizationList(dto);
@@ -265,6 +270,18 @@ export class OrganizationsService extends AbstractServiceRepository {
     const {data} = await this.api.getContacts();
 
     return this.create<Contacts>(Contacts, data);
+  };
+
+  getPolicy = async () => {
+    const {data} = await this.api.getPolicy();
+
+    return data as any as string;
+  };
+
+  getOffer = async () => {
+    const {data} = await this.api.getOffer();
+
+    return data as any as string;
   };
 }
 

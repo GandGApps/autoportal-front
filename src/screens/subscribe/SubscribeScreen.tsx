@@ -22,6 +22,9 @@ import {Loader} from '../../components/Loader';
 import {OrganizationHelper} from '../../modules/organizations/helpers/OrganizationHelper';
 import {MainContainer} from '../../template/containers/MainContainer';
 import {RowContainer} from '../../template/containers/RowContainer';
+import {UnderLineText} from '../../components/UnderLineText';
+import Navigation from '../../routes/navigation/Navigation';
+import {Screens} from '../../routes/models/Screens';
 
 export const SubscribeScreen = () => {
   const {organizationId} = useRoute<SubOrganizationParams>().params;
@@ -145,6 +148,11 @@ export const SubscribeScreen = () => {
             </AbsoluteContainer>
           )}
         </ViewPress>
+
+        <UnderLineText
+          text={'Договор публичной оферты'}
+          onPress={() => Navigation.navigate(Screens.OFFER_PDF)}
+        />
         <ColumnContainerFlex />
         <ButtonUI
           $btnDisabled={isSubLoading}
