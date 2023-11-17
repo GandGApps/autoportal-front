@@ -76,4 +76,8 @@ export const Endpoints = {
   changeBanner: (bannerId: string) => `/banners?bannerId=${bannerId}`,
   removeService: (id: string) => `/services?serviceId=${id}`,
   banUser: (id: string) => `/admin/ban?dealerId=${id}`,
+
+  // PDF
+  offer: '/admin/offer',
+  policy: '/admin/policy',
 };

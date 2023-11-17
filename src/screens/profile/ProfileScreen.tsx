@@ -15,6 +15,7 @@ import {selectOrganizationsValues} from '../../modules/organizations/Organizatio
 import Navigation from '../../routes/navigation/Navigation';
 import {FirstOrganization} from './components/FirstOrganization';
 import {Screens} from '../../routes/models/Screens';
+import {UnderLineText} from '../../components/UnderLineText';
 
 export const ProfileScreen = () => {
   const {createdStatus, contacts} = useAppSelector(selectOrganizationsValues);
@@ -50,6 +51,13 @@ export const ProfileScreen = () => {
               }}
             />
           ) : null}
+
+          <UnderLineText
+            $mt={20}
+            $ph={20}
+            text={'Политика конфиденциальности'}
+            onPress={() => Navigation.navigate(Screens.POLICY_PDF)}
+          />
         </MainContainer>
       </ColumnContainerBetweenFlex>
       <BottomMenu />
