@@ -22,6 +22,7 @@ import {
 import Navigation from '../../../routes/navigation/Navigation';
 import {CenterContainer} from '../../../template/containers/CenterContainer';
 import {Loader} from '../../../components/Loader';
+import {Screens} from '../../../routes/models/Screens';
 
 export const CatFilterScreens = () => {
   const {filterForm, organizationFilter} = useAppSelector(
@@ -82,7 +83,11 @@ export const CatFilterScreens = () => {
                 $mb: 10,
               }}
               value={'Марка автомобиля'}
-              onPress={() => handleOpenFilterModal('brandCar')}
+              onPress={() => {
+                Navigation.navigate(Screens.MODAL_BRANSCARS, {
+                  isCreate: false,
+                });
+              }}
             />
           ) : null}
 

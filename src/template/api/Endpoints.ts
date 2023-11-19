@@ -28,7 +28,8 @@ export const Endpoints = {
 
   deletePromotion: (id: string) => `/promotion?organisation_id=${id}`,
 
-  favorites: '/organisations/favorites',
+  favorites: (categoryId: string) =>
+    `/organisations/favorites?categoryId=${categoryId}`,
   changeFavorite: (id: string) => `/organisations/favorites?organisation=${id}`,
 
   createdStatus: '/organisations/my/created',

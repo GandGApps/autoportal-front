@@ -180,7 +180,8 @@ export const deletePromotion = createAsyncThunk(
 export const getFavoritesList = createAsyncThunk(
   'organization/favorites/list',
   async (_, {getState, dispatch}) => {
-    const {isFavoritesListLoad} = (getState() as RootState).organizationsSlice;
+    const {isFavoritesListLoad, filterForm} = (getState() as RootState)
+      .organizationsSlice;
 
     if (isFavoritesListLoad) {
       return null;
@@ -188,9 +189,11 @@ export const getFavoritesList = createAsyncThunk(
 
     dispatch(setIsFavoritesListLoad(true));
 
-    return await organizationService.getFavoritesList().finally(() => {
-      dispatch(setIsFavoritesListLoad(false));
-    });
+    return await organizationService
+      .getFavoritesList(filterForm.category?._id || '')
+      .finally(() => {
+        dispatch(setIsFavoritesListLoad(false));
+      });
   },
 );
 

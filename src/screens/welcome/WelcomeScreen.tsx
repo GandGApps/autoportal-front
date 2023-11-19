@@ -17,7 +17,6 @@ import {RowContainer} from '../../template/containers/RowContainer';
 import {LocationIcon} from '../../template/icons/LocationIcon';
 import {DownIcon} from '../../template/icons/DownIcon';
 import {CenterContainer} from '../../template/containers/CenterContainer';
-import {guestAuth} from '../../modules/auth/thunks/guest.thunks';
 import Navigation from '../../routes/navigation/Navigation';
 import {Screens} from '../../routes/models/Screens';
 import {useRef, useState} from 'react';
@@ -26,7 +25,6 @@ import {Modalize} from 'react-native-modalize';
 
 export const WelcomeScreen = () => {
   const {filterForm} = useAppSelector(selectOrganizationsValues);
-  const dispatch = useAppDispatch();
 
   const cityModal = useRef<Modalize>(null);
 

@@ -161,8 +161,8 @@ export class OrganizationsService extends AbstractServiceRepository {
     return this.create<Message>(Message, data);
   };
 
-  getFavoritesList = async () => {
-    const {data} = await this.api.getFavoritesList();
+  getFavoritesList = async (categoryId: string) => {
+    const {data} = await this.api.getFavoritesList(categoryId);
 
     return this.createList<FavoriteOrganization>(FavoriteOrganization, data);
   };
@@ -184,8 +184,6 @@ export class OrganizationsService extends AbstractServiceRepository {
     isEdit?: boolean,
   ) => {
     const dto = await OrganizationHelper.createOrganizationDto(createForm);
-
-    console.log(dto);
 
     if (isEdit) {
       const {data} = await this.api.updateOrganization(dto);
