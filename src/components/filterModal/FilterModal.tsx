@@ -2,7 +2,7 @@ import React, {FC, Fragment, RefObject, useEffect, useState} from 'react';
 import {SwipeableModal} from '../SwipbleModal';
 import {IHandles} from 'react-native-modalize/lib/options';
 import {Ag, TextUI} from '../../template/ui/TextUI';
-import {ScrollView, TouchableOpacity, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {MainContainer} from '../../template/containers/MainContainer';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
 import {
@@ -22,18 +22,12 @@ import {
 import {OrganizationHelper} from '../../modules/organizations/helpers/OrganizationHelper';
 import {Nullable} from '../../settings/types/BaseTypes';
 import {FilterModalPick} from './components/FilterModalPick';
-import {
-  RowContainer,
-  RowContainerBeetwen,
-} from '../../template/containers/RowContainer';
+import {RowContainerBeetwen} from '../../template/containers/RowContainer';
 import {ButtonUI} from '../../template/ui/ButtonUI';
 import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../Loader';
 import {MockFilterSchedule} from '../../modules/organizations/mock/MockFilterSchedule';
 import {CreatetFormModel} from '../../modules/organizations/form/CreateForm';
-import {InputUI} from '../../template/ui/InputUI';
-import {useDebouncedEffect} from '../../template/hooks/useDebouncedEffect';
-import {ColorsUI} from '../../template/styles/ColorUI';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
@@ -55,7 +49,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
   const [list, setList] = useState<TypeService[] | UnitsFilter[]>([]);
   const [pickList, setPickList] = useState<string[]>([]);
-  const [unPickList, setUnPickList] = useState<string[]>([]);
 
   const [brandName, setBrandName] = useState('');
 
@@ -68,24 +61,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
       setOpenLoad(false);
     }
   }, [openLoad]);
-
-  useDebouncedEffect(
-    () => {
-      if (props.typeModal === 'brandCar' && !openLoad) {
-        const filterBrand =
-          organizationFilter?.brandCar
-            ?.filter(
-              item =>
-                !pickList.includes(item._id) &&
-                item.title.toLowerCase().includes(brandName.toLowerCase()),
-            )
-            .map(item => item._id) || [];
-        setUnPickList(filterBrand);
-      }
-    },
-    500,
-    [brandName, openLoad],
-  );
 
   const handleOpenEffect = () => {
     setIsSort(false);
@@ -112,17 +87,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
         setPickList(list);
         setList(organizationFilter?.typeService!);
-        break;
-      }
-      case 'brandCar': {
-        setPickList(form.brandCar || []);
-        const unPick =
-          organizationFilter?.brandCar
-            ?.filter(item => !form.brandCar?.includes(item._id))
-            .map(item => item._id) || [];
-
-        setUnPickList(unPick);
-        setList(organizationFilter?.brandCar!);
         break;
       }
       case 'sort': {
@@ -153,25 +117,9 @@ export const FilterModal = (props: CitiesFilterProps) => {
     if (pickList.includes(value._id)) {
       const filterPick = pickList.filter(item => item !== value._id);
       setPickList(filterPick);
-      if (props.typeModal === 'brandCar') {
-        setUnPickList([...unPickList, value._id]);
-      }
     } else {
       setPickList([...pickList, value._id]);
-      if (props.typeModal === 'brandCar') {
-        setUnPickList(unPickList.filter(item => item !== value._id));
-      }
     }
-  };
-
-  const handlePickAllBrands = () => {
-    setPickList([...pickList, ...unPickList]);
-    setUnPickList([]);
-  };
-
-  const handleUnPickAllBrands = () => {
-    setUnPickList([...unPickList, ...pickList]);
-    setPickList([]);
   };
 
   const handleSort = (value: SortFilterType) => {
@@ -253,62 +201,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
                     onPickItem={() => handleSort('ratingDESC')}
                     sortActive={typeSort === 'ratingDESC'}
                   />
-                </>
-              ) : props.typeModal === 'brandCar' ? (
-                <>
-                  <RowContainer $mb={10}>
-                    <TextUI ag={Ag['500_14']}>{'Все марки: '}</TextUI>
-                    <TouchableOpacity onPress={handlePickAllBrands}>
-                      <TextUI ag={Ag['500_12']} color={ColorsUI.blue.second}>
-                        {'(выбрать все марки)'}
-                      </TextUI>
-                    </TouchableOpacity>
-                  </RowContainer>
-                  {list
-                    .filter(item => unPickList.includes(item._id))
-                    .map(item => (
-                      <FilterModalPick
-                        key={`${props.typeModal}-unPick-${item._id}`}
-                        item={item}
-                        onPickItem={() => handlePickItem(item)}
-                        pickList={pickList}
-                        isCatSub={
-                          props.typeModal === 'typeService' &&
-                          (item as TypeService).subServices !== undefined
-                        }
-                      />
-                    ))}
-                  <RowContainer $mt={20} $mb={10}>
-                    <TextUI ag={Ag['500_14']}>{'Выбранные марки: '}</TextUI>
-
-                    <TouchableOpacity onPress={handleUnPickAllBrands}>
-                      <TextUI ag={Ag['500_12']} color={ColorsUI.blue.second}>
-                        {'(снять все марки)'}
-                      </TextUI>
-                    </TouchableOpacity>
-                  </RowContainer>
-                  {list
-                    .filter(item => pickList.includes(item._id))
-                    .map(item => (
-                      <FilterModalPick
-                        key={`${props.typeModal}-pick-${item._id}`}
-                        item={item}
-                        onPickItem={() => handlePickItem(item)}
-                        pickList={pickList}
-                        isCatSub={
-                          props.typeModal === 'typeService' &&
-                          (item as TypeService).subServices !== undefined
-                        }
-                      />
-                    ))}
-
-                  <MainContainer $mt={20}>
-                    <InputUI
-                      value={brandName}
-                      placeholder={'Укажите название марки'}
-                      onChangeText={setBrandName}
-                    />
-                  </MainContainer>
                 </>
               ) : (
                 <>

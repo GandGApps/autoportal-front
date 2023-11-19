@@ -7,7 +7,6 @@ import {selectOrganizationsValues} from '../../modules/organizations/Organizatio
 import {GradientHeader} from '../../components/GradientHeader';
 import {StatusBar} from 'react-native';
 import {ColorsUI} from '../../template/styles/ColorUI';
-import {RowContainerBeetwen} from '../../template/containers/RowContainer';
 import {CitiesModal} from '../../components/CitiesModal';
 import {CategoriesModal} from '../../components/CategoriesModal';
 import {Modalize} from 'react-native-modalize';
@@ -60,19 +59,16 @@ export const PromotionsScreen = () => {
         contentContainerStyle={{paddingBottom: insets.bottom + 90}}
         $pt={10}
         showsVerticalScrollIndicator={false}>
-        <RowContainerBeetwen $ph={20} $mb={20}>
-          <MainContainer $mt={10} $widthPRC={48}>
-            <SelectUI text={filterForm.city} onPress={handleOpenModalCity} />
-          </MainContainer>
+        <MainContainer $ph={20} $mt={10} $widthPRC={100}>
+          <SelectUI text={filterForm.city} onPress={handleOpenModalCity} />
+        </MainContainer>
 
-          <MainContainer $mt={10} $widthPRC={48}>
-            <SelectUI
-              text={filterForm.category?.title || 'Все категории'}
-              onPress={handleOpenModalCategory}
-            />
-          </MainContainer>
-        </RowContainerBeetwen>
-
+        <MainContainer $ph={20} $mt={10} $mb={20} $widthPRC={100}>
+          <SelectUI
+            text={filterForm.category?.title || 'Все категории'}
+            onPress={handleOpenModalCategory}
+          />
+        </MainContainer>
         {isLoad || isPromotionListLoad ? (
           <CenterContainerFlex>
             <Loader size={20} />

@@ -39,7 +39,7 @@ export const FavoritesScreen = () => {
           setIsLoad(false);
         });
       }, 0);
-    }, []),
+    }, [filterForm.category]),
   );
 
   const handleOpenModalCategory = () => {

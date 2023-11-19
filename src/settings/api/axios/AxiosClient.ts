@@ -40,6 +40,7 @@ export default class AxiosClient implements IApiClient {
       config.url,
       config.data,
       config.config,
+      // {...config.config, transformRequest: (data) => data}
     );
   };
 
@@ -89,15 +90,17 @@ export default class AxiosClient implements IApiClient {
     this.api.interceptors.request.use(
       async config => {
         config.headers.set(
-          'Content-Type',
-          config.headers['Content-Type'] || 'application/json',
+          'content-type',
+          config.headers['content-type'] || 'application/json',
         );
         config.headers.set('App-Platform', Platform.OS);
         config.headers.set('App-DeviceId', appConfig.deviceId);
         config.headers.set('App-Version', appConfig.version);
-        config.headers.set('Accept-Timezone', timeZone);
 
-        return {...config, headers: config.headers};
+        return {
+          ...config,
+          headers: config.headers,
+        };
       },
       error => Promise.reject(error),
     );

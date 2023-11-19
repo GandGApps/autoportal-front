@@ -23,7 +23,7 @@ export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
     adminLocalService.setAdminStatus(adminStatus);
     dispatch(setIsAdmin(adminStatus));
   }
-  console.log(token);
+
   if (token) {
     tokenService.setAccessToken(token);
     dispatch(setIsAuth(true));

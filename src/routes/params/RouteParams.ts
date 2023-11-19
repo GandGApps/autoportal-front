@@ -53,6 +53,9 @@ export type RouteParams = {
   MODAL_USER_BAN: {
     userId: string;
   };
+  MODAL_BRANSCARS: {
+    isCreate: boolean;
+  };
 };
 
 export type OrganizationParams = RouteProp<RouteParams, 'ORGANIZATION'>;
@@ -94,3 +97,5 @@ export type AdminServiceRemoveParams = RouteProp<
 >;
 
 export type AdminUsersParams = RouteProp<RouteParams, 'ADMIN_USERS'>;
+
+export type FilterModalBrandsParams = RouteProp<RouteParams, 'MODAL_BRANSCARS'>;

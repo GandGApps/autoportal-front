@@ -132,15 +132,15 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
 
         <RowContainerBeetwen $mb={10}>
           <RowContainer>
-            <MainContainer $mr={2}>
+            {/* <MainContainer $mr={2}>
               <LocationIcon size={12} color={ColorsUI.gray.main} />
             </MainContainer>
-            <TextUI $mr={15} ag={Ag['400_14']}>{`${item.countSelect}`}</TextUI>
+            <TextUI $mr={15} ag={Ag['400_14']}>{`${item.countSelect}`}</TextUI> */}
 
-            <MainContainer $mr={2}>
+            <MainContainer $mr={5}>
               <HearthIcon size={12} isActive color={ColorsUI.gray.main} />
             </MainContainer>
-            <TextUI ag={Ag['400_14']}>{`${item.countSelect}`}</TextUI>
+            <TextUI ag={Ag['400_14']}>{`${item.countFavorites}`}</TextUI>
           </RowContainer>
 
           {item.isBaned ? (

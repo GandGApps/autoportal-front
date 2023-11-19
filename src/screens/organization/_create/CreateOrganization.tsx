@@ -240,7 +240,11 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           onChangeName={value => handleChangeForm('name', value)}
           onChangeCategories={handleOpenModalCategory}
           onChangeService={() => handleOpenFilterModal('typeService')}
-          onChangeBrandsCars={() => handleOpenFilterModal('brandCar')}
+          onChangeBrandsCars={() => {
+            Navigation.navigate(Screens.MODAL_BRANSCARS, {
+              isCreate: true,
+            });
+          }}
         />
 
         <CreateContactInfo

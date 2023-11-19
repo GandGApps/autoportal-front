@@ -11,13 +11,13 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		330027231B92421433E423A4 /* libPods-AutoPortal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E9D3AC730632F3FE4BDDEB1 /* libPods-AutoPortal.a */; };
-		48E46B8A5423D24F12197391 /* libPods-AutoPortal-AutoPortalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0397C94DEF47F01E52D74FDC /* libPods-AutoPortal-AutoPortalTests.a */; };
+		5BC83A0BCB80EBF121C8052C /* libPods-AutoPortal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 088C5AADAF19238F1144FE21 /* libPods-AutoPortal.a */; };
 		7019E9EED2824EE18231007C /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4556B498FF5847FB950CE58E /* Montserrat-SemiBold.ttf */; };
 		73367FA06B064CF5B8B2B133 /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1BBCADCA6AB49D1A1052D17 /* Montserrat-Black.ttf */; };
 		7D8C8C0193674A9EB533AC03 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E0F249B15B94BFC8234087A /* Montserrat-Light.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9B66DF387A5549D8BAA5F1E6 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5F91E42BFFC4EA5B10B2336 /* Montserrat-Medium.ttf */; };
+		A74069A9E8F1981F1B1A8254 /* libPods-AutoPortal-AutoPortalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51BFFA56402DB3A81FBC4FEA /* libPods-AutoPortal-AutoPortalTests.a */; };
 		B550DFCD2A85562400DEA356 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B550DFCC2A85562300DEA356 /* BootSplash.storyboard */; };
 		E99FB492E73347DD8ACA0FAB /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4933F150850542B2BF18D23E /* Montserrat-Bold.ttf */; };
 		F6176E4169094F8380B44388 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74188CB8567A4C9DA915487E /* Montserrat-Regular.ttf */; };
@@ -37,7 +37,7 @@
 		00E356EE1AD99517003FC87E /* AutoPortalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoPortalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* AutoPortalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoPortalTests.m; sourceTree = "<group>"; };
-		0397C94DEF47F01E52D74FDC /* libPods-AutoPortal-AutoPortalTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AutoPortal-AutoPortalTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		088C5AADAF19238F1144FE21 /* libPods-AutoPortal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AutoPortal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E0F249B15B94BFC8234087A /* Montserrat-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Light.ttf"; path = "../assets/fonts/Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* AutoPortal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoPortal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AutoPortal/AppDelegate.h; sourceTree = "<group>"; };
@@ -45,19 +45,19 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AutoPortal/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AutoPortal/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AutoPortal/main.m; sourceTree = "<group>"; };
-		1E9D3AC730632F3FE4BDDEB1 /* libPods-AutoPortal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AutoPortal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		26EC32F133D97A288F677B93 /* Pods-AutoPortal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoPortal.debug.xcconfig"; path = "Target Support Files/Pods-AutoPortal/Pods-AutoPortal.debug.xcconfig"; sourceTree = "<group>"; };
+		31932DA373704D207CA9B318 /* Pods-AutoPortal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoPortal.release.xcconfig"; path = "Target Support Files/Pods-AutoPortal/Pods-AutoPortal.release.xcconfig"; sourceTree = "<group>"; };
 		4556B498FF5847FB950CE58E /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		4933F150850542B2BF18D23E /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
-		5EB665833566EA949FBC28F7 /* Pods-AutoPortal-AutoPortalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoPortal-AutoPortalTests.release.xcconfig"; path = "Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests.release.xcconfig"; sourceTree = "<group>"; };
+		51BFFA56402DB3A81FBC4FEA /* libPods-AutoPortal-AutoPortalTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AutoPortal-AutoPortalTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74188CB8567A4C9DA915487E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = AutoPortal/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A038C1819A8F486A107850C8 /* Pods-AutoPortal-AutoPortalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoPortal-AutoPortalTests.debug.xcconfig"; path = "Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B550DFCC2A85562300DEA356 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = AutoPortal/BootSplash.storyboard; sourceTree = "<group>"; };
 		D1BBCADCA6AB49D1A1052D17 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Black.ttf"; path = "../assets/fonts/Montserrat-Black.ttf"; sourceTree = "<group>"; };
-		E1BCB6EC8D8577069C2DECFC /* Pods-AutoPortal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoPortal.release.xcconfig"; path = "Target Support Files/Pods-AutoPortal/Pods-AutoPortal.release.xcconfig"; sourceTree = "<group>"; };
+		D839B7C25A01158BDE6255D0 /* Pods-AutoPortal-AutoPortalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoPortal-AutoPortalTests.debug.xcconfig"; path = "Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E5F91E42BFFC4EA5B10B2336 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F992337FCF1F0BFC94BA5877 /* Pods-AutoPortal-AutoPortalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoPortal-AutoPortalTests.release.xcconfig"; path = "Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests.release.xcconfig"; sourceTree = "<group>"; };
+		FEAAD6CDBDCCB7F278CEC9D2 /* Pods-AutoPortal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoPortal.debug.xcconfig"; path = "Target Support Files/Pods-AutoPortal/Pods-AutoPortal.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48E46B8A5423D24F12197391 /* libPods-AutoPortal-AutoPortalTests.a in Frameworks */,
+				A74069A9E8F1981F1B1A8254 /* libPods-AutoPortal-AutoPortalTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				330027231B92421433E423A4 /* libPods-AutoPortal.a in Frameworks */,
+				5BC83A0BCB80EBF121C8052C /* libPods-AutoPortal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,8 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				1E9D3AC730632F3FE4BDDEB1 /* libPods-AutoPortal.a */,
-				0397C94DEF47F01E52D74FDC /* libPods-AutoPortal-AutoPortalTests.a */,
+				088C5AADAF19238F1144FE21 /* libPods-AutoPortal.a */,
+				51BFFA56402DB3A81FBC4FEA /* libPods-AutoPortal-AutoPortalTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -156,10 +156,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				26EC32F133D97A288F677B93 /* Pods-AutoPortal.debug.xcconfig */,
-				E1BCB6EC8D8577069C2DECFC /* Pods-AutoPortal.release.xcconfig */,
-				A038C1819A8F486A107850C8 /* Pods-AutoPortal-AutoPortalTests.debug.xcconfig */,
-				5EB665833566EA949FBC28F7 /* Pods-AutoPortal-AutoPortalTests.release.xcconfig */,
+				FEAAD6CDBDCCB7F278CEC9D2 /* Pods-AutoPortal.debug.xcconfig */,
+				31932DA373704D207CA9B318 /* Pods-AutoPortal.release.xcconfig */,
+				D839B7C25A01158BDE6255D0 /* Pods-AutoPortal-AutoPortalTests.debug.xcconfig */,
+				F992337FCF1F0BFC94BA5877 /* Pods-AutoPortal-AutoPortalTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -184,12 +184,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AutoPortalTests" */;
 			buildPhases = (
-				50BAEEF0EC1399A61D038192 /* [CP] Check Pods Manifest.lock */,
+				5088C32CF64FAAEFBC0CE0A4 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				6075B88E1843EA66DE1E8877 /* [CP] Embed Pods Frameworks */,
-				1433AAE3A25F54F21EFC1AEC /* [CP] Copy Pods Resources */,
+				667AD86FFC1EF153A5CAF3DE /* [CP] Embed Pods Frameworks */,
+				BB10344A3B7917DA60284CD1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -205,14 +205,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "AutoPortal" */;
 			buildPhases = (
-				2A9CD9385922190C3BDB8A1B /* [CP] Check Pods Manifest.lock */,
+				0C25B525F993905F6CCA8E81 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				961093324B2F4115315E3F2B /* [CP] Embed Pods Frameworks */,
-				AC6E102273F1CF5664E640FE /* [CP] Copy Pods Resources */,
+				D88C681099338E31C9B1A3B4 /* [CP] Embed Pods Frameworks */,
+				C6A6FFB571E1762E0EA1E10F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,24 +302,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		1433AAE3A25F54F21EFC1AEC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2A9CD9385922190C3BDB8A1B /* [CP] Check Pods Manifest.lock */ = {
+		0C25B525F993905F6CCA8E81 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -341,7 +324,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		50BAEEF0EC1399A61D038192 /* [CP] Check Pods Manifest.lock */ = {
+		5088C32CF64FAAEFBC0CE0A4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -363,7 +346,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6075B88E1843EA66DE1E8877 /* [CP] Embed Pods Frameworks */ = {
+		667AD86FFC1EF153A5CAF3DE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -380,24 +363,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		961093324B2F4115315E3F2B /* [CP] Embed Pods Frameworks */ = {
+		BB10344A3B7917DA60284CD1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AutoPortal/Pods-AutoPortal-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AutoPortal/Pods-AutoPortal-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AutoPortal/Pods-AutoPortal-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AutoPortal-AutoPortalTests/Pods-AutoPortal-AutoPortalTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AC6E102273F1CF5664E640FE /* [CP] Copy Pods Resources */ = {
+		C6A6FFB571E1762E0EA1E10F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -412,6 +395,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AutoPortal/Pods-AutoPortal-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D88C681099338E31C9B1A3B4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AutoPortal/Pods-AutoPortal-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AutoPortal/Pods-AutoPortal-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AutoPortal/Pods-AutoPortal-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -466,7 +466,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A038C1819A8F486A107850C8 /* Pods-AutoPortal-AutoPortalTests.debug.xcconfig */;
+			baseConfigurationReference = D839B7C25A01158BDE6255D0 /* Pods-AutoPortal-AutoPortalTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -493,7 +493,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5EB665833566EA949FBC28F7 /* Pods-AutoPortal-AutoPortalTests.release.xcconfig */;
+			baseConfigurationReference = F992337FCF1F0BFC94BA5877 /* Pods-AutoPortal-AutoPortalTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -517,7 +517,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26EC32F133D97A288F677B93 /* Pods-AutoPortal.debug.xcconfig */;
+			baseConfigurationReference = FEAAD6CDBDCCB7F278CEC9D2 /* Pods-AutoPortal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -549,7 +549,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1BCB6EC8D8577069C2DECFC /* Pods-AutoPortal.release.xcconfig */;
+			baseConfigurationReference = 31932DA373704D207CA9B318 /* Pods-AutoPortal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

@@ -101,7 +101,7 @@ export const UsersScreen = () => {
       }
     },
     1000,
-    [search],
+    [search, city],
   );
 
   const handlePickCity = (city: string) => {
@@ -109,9 +109,13 @@ export const UsersScreen = () => {
     setCity(city);
 
     setIsLoading(true);
-    dispatch(getUsers({city})).finally(() => {
-      setIsLoading(false);
-    });
+    dispatch(getUsers({city}))
+      .then(res => {
+        setUsers(res.payload as Dealer[]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const handleUpdateBanUser = async (id: string) => {

@@ -13,6 +13,7 @@ import {SubscribeScreen} from '../../screens/subscribe/SubscribeScreen';
 import {SubscribeModal} from '../../screens/subscribe/SubscribeModal';
 import {WebviewOffer} from '../../screens/webviews/WebviewOffer';
 import {WebviewPolicy} from '../../screens/webviews/WebviewPolicy';
+import {BrandsCarsModal} from '../../components/filterModal/BrandsCarsModal';
 
 const Stack = createStackNavigator();
 
@@ -88,6 +89,15 @@ export const OrganizationStack = () => {
       <Stack.Screen
         name={Screens.POLICY_PDF}
         component={WebviewPolicy}
+        options={{
+          gestureEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
+
+      <Stack.Screen
+        name={Screens.MODAL_BRANSCARS}
+        component={BrandsCarsModal}
         options={{
           gestureEnabled: true,
           ...TransitionPresets.ModalPresentationIOS,
