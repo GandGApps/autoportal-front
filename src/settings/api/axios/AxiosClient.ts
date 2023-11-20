@@ -12,6 +12,7 @@ export default class AxiosClient implements IApiClient {
   readonly SERVER_ERROR = 500;
   readonly VERSION_NOT_VALID = 426;
   readonly BAN_USER = 405;
+  readonly PAY_ERROR = 406;
 
   api: AxiosInstance;
 
@@ -124,10 +125,10 @@ export default class AxiosClient implements IApiClient {
 
         if (error.response?.status === this.BAN_USER) {
           Notifications.error('Ваш аккаунт заблокирован');
-          // TODO: Сделать уведомление
-          // toast.error('Ошибка сервера', {
-          //   duration: 1500,
-          // });
+        }
+
+        if (error.response?.status === this.PAY_ERROR) {
+          Notifications.error('Оплата не прошла');
         }
 
         return Promise.reject(error);
