@@ -114,7 +114,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       const logo: string = await fileSevice.uploadFile({
         uri: res[0].uri!,
         name: res[0].fileName || 'photouser',
-        type: res[0].type! || 'image/jpg',
+        type: res[0].type! || 'image/jpeg',
       });
 
       handleChangeForm('logo', logo);
