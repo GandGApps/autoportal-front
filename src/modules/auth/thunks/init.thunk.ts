@@ -45,6 +45,6 @@ export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
 const initCity = createAsyncThunk('auth/init/city', async (_, {dispatch}) => {
   const city = await cityLocalService.getCity();
 
-  dispatch(filterChangeForm({key: 'city', value: city || 'Москва'}));
-  dispatch(createChangeForm({key: 'city', value: city || 'Москва'}));
+  dispatch(filterChangeForm({key: 'city', value: city || 'Махачкала'}));
+  dispatch(createChangeForm({key: 'city', value: city || 'Махачкала'}));
 });

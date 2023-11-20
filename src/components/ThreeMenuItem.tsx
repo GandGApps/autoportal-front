@@ -1,7 +1,4 @@
 import React, {ReactNode} from 'react';
-import styled from 'styled-components/native';
-import {ColorsUI} from '../template/styles/ColorUI';
-import {TouchableOpacity} from 'react-native';
 import {
   RowContainer,
   RowContainerBeetwen,
@@ -10,6 +7,7 @@ import {Ag, TextUI} from '../template/ui/TextUI';
 import {RightIcon} from '../template/icons/RightIcon';
 import {MainContainer} from '../template/containers/MainContainer';
 import {BorderTopUI} from '../template/ui/BorderTopUI';
+import {ViewPress} from '../template/containers/ViewPress';
 
 interface ThreeMenuItemProps {
   leftIcon?: ReactNode;
@@ -20,18 +18,20 @@ interface ThreeMenuItemProps {
 export const ThreeMenuItem = (props: ThreeMenuItemProps) => {
   return (
     <BorderTopUI>
-      <TouchableOpacity onPress={props.onPress}>
-        <RowContainerBeetwen $heightPX={66} $ph={20}>
-          <RowContainer>
+      <ViewPress onPress={props.onPress} $ph={20}>
+        <RowContainerBeetwen $isFlex $heightPX={66}>
+          <RowContainer $isFlex>
             {props.leftIcon ? (
               <MainContainer $mr={10}>{props.leftIcon}</MainContainer>
             ) : null}
 
-            <TextUI ag={Ag['500_16']}>{props.title}</TextUI>
+            <TextUI style={{flex: 1}} ag={Ag['500_16']}>
+              {props.title}
+            </TextUI>
           </RowContainer>
           <RightIcon />
         </RowContainerBeetwen>
-      </TouchableOpacity>
+      </ViewPress>
     </BorderTopUI>
   );
 };
