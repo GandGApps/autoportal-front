@@ -107,17 +107,21 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   };
 
   const handlePickImage = async () => {
-    setIsLogoLoading(true);
-    const res = await FileHelper.pickFile({limit: 1, isLogo: true});
+    try {
+      setIsLogoLoading(true);
+      const res = await FileHelper.pickFile({limit: 1, isLogo: true});
 
-    if (res && res.length) {
-      const logo: string = await fileSevice.uploadFile({
-        uri: res[0].uri!,
-        name: res[0].fileName || 'photouser',
-        type: res[0].type! || 'image/jpeg',
-      });
+      if (res && res.length) {
+        const logo: string = await fileSevice.uploadFile({
+          uri: res[0].uri!,
+          name: res[0].fileName || 'photouser',
+          type: res[0].type! || 'image/jpeg',
+        });
 
-      handleChangeForm('logo', logo);
+        handleChangeForm('logo', logo);
+      }
+    } catch (error) {
+      Notifications.error('Не удалось загрузить файл');
     }
 
     setIsLogoLoading(false);
@@ -129,27 +133,31 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       return;
     }
 
-    setIsImageLoading(true);
+    try {
+      setIsImageLoading(true);
 
-    const res = await FileHelper.pickFile({
-      limit: 5 - createForm.photos.length,
-      isPhoto: true,
-    });
+      const res = await FileHelper.pickFile({
+        limit: 5 - createForm.photos.length,
+        isPhoto: true,
+      });
 
-    if (res && res.length) {
-      let photos: string[] = [];
+      if (res && res.length) {
+        let photos: string[] = [];
 
-      for (let index = 0; index < res.length; index++) {
-        const photo: string = await fileSevice.uploadFile({
-          uri: res[index].uri!,
-          name: res[index].fileName || 'photouser',
-          type: res[index].type! || 'image/jpg',
-        });
+        for (let index = 0; index < res.length; index++) {
+          const photo: string = await fileSevice.uploadFile({
+            uri: res[index].uri!,
+            name: res[index].fileName || 'photouser',
+            type: res[index].type! || 'image/jpg',
+          });
 
-        photos.push(photo);
+          photos.push(photo);
+        }
+
+        handleChangeForm('photos', [...createForm.photos, ...photos]);
       }
-
-      handleChangeForm('photos', [...createForm.photos, ...photos]);
+    } catch (error) {
+      Notifications.error('Не удалось загрузить файл');
     }
 
     setIsImageLoading(false);
