@@ -24,6 +24,7 @@ import {getReviews} from './thunks/reviews.thunk';
 import {getSubInfo} from './thunks/subscribe.thunk';
 import {getServices} from './thunks/services.thunk';
 import {OrganizationList} from './models/OrganizationList';
+import {checkRelease} from './thunks/create.thunk';
 
 const initialState: OrganizationsStateModel = {
   banners: [],
@@ -61,6 +62,8 @@ const initialState: OrganizationsStateModel = {
   isReviewsLoad: false,
 
   currentOrganization: null,
+
+  checkRelease: false,
 };
 
 const organizationsSlice = createSlice({
@@ -257,6 +260,11 @@ const organizationsSlice = createSlice({
     // GET Contacts
     builder.addCase(getContacts.fulfilled, (state, action) => {
       state.contacts = action.payload;
+    });
+
+    // GET Check Release
+    builder.addCase(checkRelease.fulfilled, (state, action) => {
+      state.checkRelease = action.payload.isSubscribe;
     });
   },
 });

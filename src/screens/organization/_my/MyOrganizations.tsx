@@ -17,9 +17,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
 
 export const MyOrganizationsScreen = () => {
-  const {personalOrganizations, isPersonalOrganizationsLoad} = useAppSelector(
-    selectOrganizationsValues,
-  );
+  const {personalOrganizations, isPersonalOrganizationsLoad, checkRelease} =
+    useAppSelector(selectOrganizationsValues);
 
   const dispatch = useAppDispatch();
 
@@ -46,6 +45,29 @@ export const MyOrganizationsScreen = () => {
     setActiveList(organizations.activeList);
     setDisabledList(organizations.disabledList);
   }, [personalOrganizations]);
+
+  if (!checkRelease) {
+    return (
+      <ColumnContainerFlex>
+        <MyOrganizationkHeader />
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingTop: 20,
+            paddingBottom: insets.bottom + 30,
+          }}
+          data={personalOrganizations}
+          renderItem={({item}) => (
+            <MyOrganization
+              key={`my-release-${item._id}`}
+              item={item}
+              isCheckRelease={false}
+            />
+          )}
+        />
+      </ColumnContainerFlex>
+    );
+  }
 
   return (
     <ColumnContainerFlex>

@@ -53,6 +53,8 @@ export interface OrganizationsStateModel {
   isReviewsLoad: boolean;
 
   currentOrganization: Nullable<CurrentOrganization>;
+
+  checkRelease: boolean;
 }
 
 export interface UnitsFilter {
