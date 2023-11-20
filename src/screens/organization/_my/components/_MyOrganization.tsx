@@ -22,18 +22,21 @@ import {TelegramIcon} from '../../../../template/icons/TelegramIcon';
 import {UnderLineText} from '../../../../components/UnderLineText';
 import {Notifications} from '../../../../template/notifications/Notifications';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {useAppDispatch, useAppSelector} from '../../../../settings/redux/hooks';
+import {useAppDispatch} from '../../../../settings/redux/hooks';
 import {
   deactivateSubscribe,
   resumeSubscribe,
 } from '../../../../modules/organizations/thunks/subscribe.thunk';
-import {selectOrganizationsValues} from '../../../../modules/organizations/OrganizationsSlice';
 
 interface OrganizationItemProps {
   item: PersonalOrganizations;
+  isCheckRelease?: boolean;
 }
 
-export const MyOrganization = ({item}: OrganizationItemProps) => {
+export const MyOrganization = ({
+  item,
+  isCheckRelease,
+}: OrganizationItemProps) => {
   const dispatch = useAppDispatch();
   const [isActiveLoad, setIsActiveLoad] = useState(false);
 
@@ -63,16 +66,18 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
     <BorderTopUI>
       <MainContainer $pv={10} $ph={20}>
         <RowContainerBeetwen $mb={10}>
-          <TextUI
-            ag={Ag['400_14']}
-            color={item.isSubscribe ? ColorsUI.green : ColorsUI.red}>
-            {item.isSubscribe ? `Подписка активна` : 'Подписка неактивна'}
-          </TextUI>
+          {isCheckRelease && (
+            <TextUI
+              ag={Ag['400_14']}
+              color={item.isSubscribe ? ColorsUI.green : ColorsUI.red}>
+              {item.isSubscribe ? `Подписка активна` : 'Подписка неактивна'}
+            </TextUI>
+          )}
 
           <TextUI ag={Ag['400_14']}>{item.categoryName?.title || ''}</TextUI>
         </RowContainerBeetwen>
 
-        {item.isSubscribe && !item.isActive && (
+        {isCheckRelease && item.isSubscribe && !item.isActive && (
           <RowContainer $mb={10}>
             <TextUI ag={Ag['500_14']}>{'автоплатеж отменен '}</TextUI>
 
@@ -105,7 +110,7 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
             <RowContainer>
               <LogoUI url={item.logo} $mr={10} />
 
-              <MainContainer>
+              <MainContainer $isFlex={true}>
                 <TextUI $mb={5} ag={Ag['700_14']}>
                   {item.name}
                 </TextUI>
@@ -147,7 +152,7 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
             <TextUI ag={Ag['500_12']} color={ColorsUI.red}>
               {'Заблокирован'}
             </TextUI>
-          ) : item.isSubscribe && item.isActive ? (
+          ) : isCheckRelease && item.isSubscribe && item.isActive ? (
             <ViewPress
               $bg={ColorsUI.blue.main}
               $br={47}
@@ -171,21 +176,23 @@ export const MyOrganization = ({item}: OrganizationItemProps) => {
                 <UnderLineText ag={Ag['400_12']} text={'Тех.поддержка'} />
               </RowContainer>
             ) : (
-              <UnderLineText
-                ag={Ag['400_14']}
-                color={ColorsUI.green}
-                text={'Активировать'}
-                onPress={() => {
-                  Navigation.navigate(Screens.SUB_ORGANIZATION, {
-                    organizationId: item._id,
-                  });
-                }}
-              />
+              isCheckRelease && (
+                <UnderLineText
+                  ag={Ag['400_14']}
+                  color={ColorsUI.green}
+                  text={'Активировать'}
+                  onPress={() => {
+                    Navigation.navigate(Screens.SUB_ORGANIZATION, {
+                      organizationId: item._id,
+                    });
+                  }}
+                />
+              )
             )}
           </RowContainerBeetwenEnd>
         ) : (
           <RowContainerBeetwen $pv={10}>
-            {item.isActive && (
+            {isCheckRelease && item.isActive && (
               <UnderLineText
                 ag={Ag['400_14']}
                 text={'Деактивировать'}

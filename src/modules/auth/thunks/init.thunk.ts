@@ -12,6 +12,7 @@ import {
 import {getCreatedStatus} from '../../organizations/_thunks';
 import {adminLocalService} from '../services/admin/admin.fabric';
 import {cityLocalService} from '../services/city/admin.fabric';
+import {checkRelease} from '../../organizations/thunks/create.thunk';
 
 export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
   const token = await tokenService.getTokenData();
@@ -31,6 +32,8 @@ export const initApp = createAsyncThunk('auth/init', async (_, {dispatch}) => {
     await dispatch(getUserInfo());
 
     await dispatch(getCreatedStatus());
+
+    await dispatch(checkRelease());
 
     Navigation.replace(Screens.CATEGORIES);
 
