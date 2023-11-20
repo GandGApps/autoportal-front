@@ -91,8 +91,8 @@ export default class AxiosClient implements IApiClient {
     this.api.interceptors.request.use(
       async config => {
         config.headers.set(
-          'content-type',
-          config.headers['content-type'] || 'application/json',
+          'Content-Type',
+          config.headers['Content-Type'] || 'application/json',
         );
         config.headers.set('App-Platform', Platform.OS);
         config.headers.set('App-DeviceId', appConfig.deviceId);

@@ -7,7 +7,7 @@ import {Ag, TextUI} from '../template/ui/TextUI';
 import {RightIcon} from '../template/icons/RightIcon';
 import {MainContainer} from '../template/containers/MainContainer';
 import {BorderTopUI} from '../template/ui/BorderTopUI';
-import {ViewPress} from '../template/containers/ViewPress';
+import {TouchableOpacity} from 'react-native';
 
 interface ThreeMenuItemProps {
   leftIcon?: ReactNode;
@@ -18,8 +18,8 @@ interface ThreeMenuItemProps {
 export const ThreeMenuItem = (props: ThreeMenuItemProps) => {
   return (
     <BorderTopUI>
-      <ViewPress onPress={props.onPress} $ph={20}>
-        <RowContainerBeetwen $isFlex $heightPX={66}>
+      <TouchableOpacity onPress={props.onPress} style={{paddingHorizontal: 20}}>
+        <RowContainerBeetwen $heightPX={66}>
           <RowContainer $isFlex>
             {props.leftIcon ? (
               <MainContainer $mr={10}>{props.leftIcon}</MainContainer>
@@ -31,7 +31,7 @@ export const ThreeMenuItem = (props: ThreeMenuItemProps) => {
           </RowContainer>
           <RightIcon />
         </RowContainerBeetwen>
-      </ViewPress>
+      </TouchableOpacity>
     </BorderTopUI>
   );
 };
