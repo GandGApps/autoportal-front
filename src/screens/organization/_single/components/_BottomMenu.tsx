@@ -19,9 +19,10 @@ import {ButtonUI} from '../../../../template/ui/ButtonUI';
 
 interface CompProps {
   organization: CurrentOrganization;
+  openModal: () => void;
 }
 
-export const OrgBottomMenu = ({organization}: CompProps) => {
+export const OrgBottomMenu = ({organization, openModal}: CompProps) => {
   const modalRef = useRef<Modalize>(null);
   const insets = useSafeAreaInsets();
 
@@ -57,11 +58,7 @@ export const OrgBottomMenu = ({organization}: CompProps) => {
           </RowContainerBeetwen>
         </ViewPress>
 
-        <ViewPress
-          activeOpacity={0.8}
-          onPress={() => {
-            Linking.openURL(`tel:${organization.mainPhone}`);
-          }}>
+        <ViewPress activeOpacity={0.8} onPress={openModal}>
           <PhoneIcon
             size={52}
             color={ColorsUI.black}

@@ -86,11 +86,21 @@ export const AuthCode = () => {
 
         <CenterContainer>
           <TextUI $mb={5} ag={Ag['400_16']}>
-            {'Не пришло СМС?'}
+            {'Не пришло вызов?'}
           </TextUI>
-          <ViewPress $mb={30}>
+          <ViewPress
+            disabled={isLoad || code.length !== CELL_COUNT}
+            $mb={30}
+            onPress={() => {
+              if (!isLoad && code.length === CELL_COUNT) {
+                setIsLoad(true);
+                dispatch(sendCode(code)).finally(() => {
+                  setIsLoad(false);
+                });
+              }
+            }}>
             <TextUI ag={Ag['600_16']} color={ColorsUI.green}>
-              {'Отправить код повторно'}
+              {'Отправить звонок повторно'}
             </TextUI>
           </ViewPress>
         </CenterContainer>

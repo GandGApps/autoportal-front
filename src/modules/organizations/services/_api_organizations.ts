@@ -78,7 +78,6 @@ export class ApiOrganizationsService extends AbstractApiRepository {
   };
 
   getOrganizationList = async (dto: OrganizationsDTO) => {
-    console.log(dto);
     return this.apiClient.post({
       url: Endpoints.organizations,
       data: dto,

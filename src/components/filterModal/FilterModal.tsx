@@ -122,7 +122,7 @@ export const FilterModal = (props: CitiesFilterProps) => {
     }
   };
 
-  const handleSort = (value: SortFilterType) => {
+  const handleSort = (value: SortFilterType | null) => {
     setTypeSort(value);
   };
 
@@ -191,6 +191,11 @@ export const FilterModal = (props: CitiesFilterProps) => {
             <ScrollView showsVerticalScrollIndicator={false}>
               {isSort ? (
                 <>
+                  <FilterModalPick
+                    sortTitle={'По умолчанию'}
+                    onPickItem={() => handleSort(null)}
+                    sortActive={typeSort === null}
+                  />
                   <FilterModalPick
                     sortTitle={'Рейтинг от низкого'}
                     onPickItem={() => handleSort('ratingASC')}

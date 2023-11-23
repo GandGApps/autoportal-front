@@ -16,10 +16,10 @@ import Navigation from '../../routes/navigation/Navigation';
 import {FirstOrganization} from './components/FirstOrganization';
 import {Screens} from '../../routes/models/Screens';
 import {UnderLineText} from '../../components/UnderLineText';
+import {TelegramIcon} from '../../template/icons/TelegramIcon';
 
 export const ProfileScreen = () => {
   const {createdStatus, contacts} = useAppSelector(selectOrganizationsValues);
-  const insets = useSafeAreaInsets();
 
   const handleGoToScreen = (screen: string) => {
     Navigation.navigate(screen);
@@ -51,6 +51,15 @@ export const ProfileScreen = () => {
               }}
             />
           ) : null}
+          <ThreeMenuItem
+            leftIcon={<TelegramIcon size={24} />}
+            title={'Тех.поддержка'}
+            onPress={() => {
+              if (contacts?.support) {
+                Linking.openURL(contacts.support);
+              }
+            }}
+          />
 
           <UnderLineText
             $mt={20}

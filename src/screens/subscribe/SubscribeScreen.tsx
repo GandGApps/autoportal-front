@@ -78,10 +78,11 @@ export const SubscribeScreen = () => {
         </TextUI>
         <ViewPress
           onPress={() => setType('month')}
-          style={compStyles.gap10}
+          style={[compStyles.gap10, type === 'month' && compStyles.shadow]}
           $borderColor={ColorsUI.black}
           $br={10}
           $ph={20}
+          $bg={ColorsUI.white}
           $pb={20}
           $pt={40}>
           {type === 'month' && (
@@ -101,6 +102,8 @@ export const SubscribeScreen = () => {
         </ViewPress>
 
         <ViewPress
+          $bg={ColorsUI.white}
+          style={type === 'year' && compStyles.shadow}
           onPress={() => setType('year')}
           $borderColor={ColorsUI.black}
           $br={10}
@@ -170,5 +173,16 @@ const compStyles = StyleSheet.create({
   },
   gap20: {
     gap: 20,
+  },
+  shadow: {
+    shadowColor: ColorsUI.black,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.24,
+    shadowRadius: 6.27,
+
+    elevation: 10,
   },
 });

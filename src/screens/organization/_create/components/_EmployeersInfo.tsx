@@ -24,12 +24,12 @@ export const EmployeersInfo = (props: EmployeersInfoProps) => {
       />
       <InputUI
         containerStyles={{$mb: 10}}
-        placeholder={'Имя мастера'}
+        placeholder={'Имя'}
         value={props.secondValue}
         onChangeText={props.onChangeSecond}
       />
       <InputUI
-        placeholder={'Телефон мастера'}
+        placeholder={'Телефон'}
         value={props.thirdValue}
         onChangeText={props.onChangeThird}
         keyboardType={'number-pad'}
