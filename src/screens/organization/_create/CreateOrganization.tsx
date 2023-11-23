@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {BottomMenu} from '../../../components/bottomMenu/BottomMenu';
 import {GradientHeader} from '../../../components/GradientHeader';
@@ -52,6 +52,7 @@ import {FileHelper} from '../../../modules/files/FilesHelper';
 import {fileSevice} from '../../../modules/files/api/file-service';
 import {Loader} from '../../../components/Loader';
 import {CenterContainer} from '../../../template/containers/CenterContainer';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface CreateScreenProps {
   isEdit?: boolean;
@@ -79,6 +80,12 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLogoLoading, setIsLogoLoading] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(setDefaultCreateForm(DefaultCreateForm));
+    }, []),
+  );
 
   const handleChangeForm = (key: CreateFormKeys, value: CreateFormValue) => {
     setIsError(false);

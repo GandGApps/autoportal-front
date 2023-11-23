@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {MainContainer} from '../../../../template/containers/MainContainer';
 import {ColorsUI} from '../../../../template/styles/ColorUI';
 import {CheckboxUI} from '../../../../template/ui/CheckboxUI';
@@ -9,6 +9,7 @@ import {ViewPress} from '../../../../template/containers/ViewPress';
 import {RadioUI} from '../../../../template/ui/RadioUI';
 import DatePicker from 'react-native-date-picker';
 import {ScheduleModel} from '../../../../modules/organizations/types/OrganizationTypes';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface CreateDayTimeWorkProps {
   indexDay: number;
@@ -55,6 +56,17 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
 
     props.onChangeSchedule(day, true);
   }, [isActive, isAllDay, from, to]);
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsActive(false);
+      setIsAllDay(false);
+      setOpenFrom(false);
+      setOpenTo(false);
+      setfrom('10:00');
+      setto('19:00');
+    }, []),
+  );
 
   return (
     <MainContainer

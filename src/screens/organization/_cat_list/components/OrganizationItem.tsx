@@ -36,8 +36,12 @@ export const OrganizationItem = ({
         <RowContainer $pv={20} $ph={20}>
           <LogoUI url={item.logo} $mr={10} />
 
-          <MainContainer>
-            <TextUI $mb={5} ag={Ag['700_14']}>
+          <MainContainer $isFlex={true}>
+            <TextUI
+              numberOfLines={1}
+              ellipsizeMode={'tail'}
+              $mb={5}
+              ag={Ag['700_14']}>
               {item.name}
             </TextUI>
 
@@ -45,7 +49,13 @@ export const OrganizationItem = ({
               <MainContainer $mr={5}>
                 <LocationIcon />
               </MainContainer>
-              <TextUI ag={Ag['400_16']}>{item.address}</TextUI>
+              <TextUI
+                $isFlex={true}
+                numberOfLines={1}
+                ellipsizeMode={'tail'}
+                ag={Ag['400_16']}>
+                {item.address}
+              </TextUI>
             </RowContainer>
           </MainContainer>
         </RowContainer>

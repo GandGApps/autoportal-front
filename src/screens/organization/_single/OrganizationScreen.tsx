@@ -1,5 +1,5 @@
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Platform, StatusBar} from 'react-native';
 import {OrganizationPreview} from './components/_Preview';
 import {OrganizationTitleRating} from './components/_TitleRating';
@@ -30,6 +30,8 @@ import {Ag, TextUI} from '../../../template/ui/TextUI';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
+import {ContactModal} from './components/ContactModal';
+import {Modalize} from 'react-native-modalize';
 
 export const OrganizationScreen = () => {
   const {_id} = useRoute<OrganizationParams>().params;
@@ -39,6 +41,8 @@ export const OrganizationScreen = () => {
     selectOrganizationsValues,
   );
   const {isAdmin} = useAppSelector(selectAuthValues);
+
+  const contactModal = useRef<Modalize>(null);
 
   const insets = useSafeAreaInsets();
 
@@ -169,7 +173,16 @@ export const OrganizationScreen = () => {
         />
       </ScrollViewScreen>
 
-      <OrgBottomMenu organization={currentOrganization} />
+      <OrgBottomMenu
+        organization={currentOrganization}
+        openModal={() => contactModal.current?.open()}
+      />
+      <ContactModal
+        modalizeRef={contactModal}
+        mainPhone={currentOrganization.mainPhone}
+        whatsApp={currentOrganization.whatsApp}
+        employeers={currentOrganization.employeers}
+      />
     </ColumnContainerFlex>
   );
 };

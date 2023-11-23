@@ -35,16 +35,22 @@ export const PromoOrganization = ({organization, promotion}: _Props) => {
           <RowContainer>
             <LogoUI size={45} url={organization.logo} />
 
-            <MainContainer $ml={10}>
-              <TextUI $mb={5} ag={Ag['700_14']}>
+            <MainContainer $ml={10} $isFlex={true}>
+              <TextUI $isFlex={true} $mb={5} ag={Ag['700_14']}>
                 {organization.name}
               </TextUI>
 
               <RowContainer>
                 <LocationIcon />
 
-                <MainContainer $ml={5}>
-                  <TextUI ag={Ag['500_14']}>{organization.address}</TextUI>
+                <MainContainer $isFlex={true} $ml={5}>
+                  <TextUI
+                    $isFlex={true}
+                    numberOfLines={1}
+                    ellipsizeMode={'tail'}
+                    ag={Ag['500_14']}>
+                    {organization.address}
+                  </TextUI>
                 </MainContainer>
               </RowContainer>
             </MainContainer>
