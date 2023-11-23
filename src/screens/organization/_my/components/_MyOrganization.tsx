@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
-import {TouchableOpacity} from 'react-native';
+import {Linking, TouchableOpacity} from 'react-native';
 import {
   RowContainer,
   RowContainerBeetwen,
@@ -22,11 +22,12 @@ import {TelegramIcon} from '../../../../template/icons/TelegramIcon';
 import {UnderLineText} from '../../../../components/UnderLineText';
 import {Notifications} from '../../../../template/notifications/Notifications';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {useAppDispatch} from '../../../../settings/redux/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../settings/redux/hooks';
 import {
   deactivateSubscribe,
   resumeSubscribe,
 } from '../../../../modules/organizations/thunks/subscribe.thunk';
+import {selectOrganizationsValues} from '../../../../modules/organizations/OrganizationsSlice';
 
 interface OrganizationItemProps {
   item: PersonalOrganizations;
@@ -37,6 +38,7 @@ export const MyOrganization = ({
   item,
   isCheckRelease,
 }: OrganizationItemProps) => {
+  const {contacts} = useAppSelector(selectOrganizationsValues);
   const dispatch = useAppDispatch();
   const [isActiveLoad, setIsActiveLoad] = useState(false);
 
@@ -173,7 +175,15 @@ export const MyOrganization = ({
                 <MainContainer $mr={5}>
                   <TelegramIcon size={16} />
                 </MainContainer>
-                <UnderLineText ag={Ag['400_12']} text={'Тех.поддержка'} />
+                <UnderLineText
+                  onPress={() => {
+                    if (contacts?.support) {
+                      Linking.openURL(contacts.support);
+                    }
+                  }}
+                  ag={Ag['400_12']}
+                  text={'Тех.поддержка'}
+                />
               </RowContainer>
             ) : (
               isCheckRelease && (
