@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import {MainContainer} from '../../../../template/containers/MainContainer';
 import {AbsoluteContainer} from '../../../../template/containers/AbsoluteContainer';
-import {RowContainerBeetwen} from '../../../../template/containers/RowContainer';
+import {
+  RowContainer,
+  RowContainerBeetwen,
+} from '../../../../template/containers/RowContainer';
 import {BackBtn} from '../../../../template/ui/BackBtn';
 import {ViewPress} from '../../../../template/containers/ViewPress';
 import {ColorsUI} from '../../../../template/styles/ColorUI';
@@ -12,10 +15,13 @@ import {NoImage} from '../../../../template/icons/NoImage';
 import {Ag, TextUI} from '../../../../template/ui/TextUI';
 import {LogoUI} from '../../../../components/LogoUI';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Dimensions} from 'react-native';
-import {useAppDispatch} from '../../../../settings/redux/hooks';
+import {Dimensions, Platform, View} from 'react-native';
+import {useAppDispatch, useAppSelector} from '../../../../settings/redux/hooks';
 import {changeOrganizationFavorite} from '../../../../modules/organizations/thunks/favoriteChange.thunk';
 import {Notifications} from '../../../../template/notifications/Notifications';
+import {ShareIcon} from '../../../../template/icons/ShareIcon';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {selectOrganizationsValues} from '../../../../modules/organizations/OrganizationsSlice';
 
 interface OrganizationPreviewProps {
   id: string;
@@ -29,6 +35,7 @@ interface OrganizationPreviewProps {
 
 export const OrganizationPreview = (props: OrganizationPreviewProps) => {
   const insets = useSafeAreaInsets();
+  const {contacts} = useAppSelector(selectOrganizationsValues);
   const dispatch = useAppDispatch();
 
   const carouselWidth = Dimensions.get('window').width;
@@ -54,9 +61,7 @@ export const OrganizationPreview = (props: OrganizationPreviewProps) => {
           Notifications.succes('Добавлено в избранное');
         }
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(err => {})
       .finally(() => {
         setIsLoading(false);
       });
@@ -71,9 +76,24 @@ export const OrganizationPreview = (props: OrganizationPreviewProps) => {
           $top={Math.max(insets.top, 20)}>
           <RowContainerBeetwen $ph={20}>
             <BackBtn color={ColorsUI.white} />
-            <ViewPress disabled={isLoading} onPress={handleAddToFavorite}>
-              <HearthIcon isActive={isFavorite} />
-            </ViewPress>
+            <RowContainer>
+              <ViewPress
+                $mr={24}
+                onPress={() => {
+                  Clipboard.setString(
+                    Platform.OS === 'ios'
+                      ? contacts?.storeLinkIOS!
+                      : contacts?.storeLinkAndroid!,
+                  );
+
+                  Notifications.succes('Ссылка скопирована');
+                }}>
+                <ShareIcon />
+              </ViewPress>
+              <ViewPress disabled={isLoading} onPress={handleAddToFavorite}>
+                <HearthIcon isActive={isFavorite} />
+              </ViewPress>
+            </RowContainer>
           </RowContainerBeetwen>
         </AbsoluteContainer>
 

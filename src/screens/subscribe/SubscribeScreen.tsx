@@ -51,9 +51,7 @@ export const SubscribeScreen = () => {
   const handleGetSubctibe = () => {
     setIsSubLoading(true);
     dispatch(getSubcribe({type: type, id: organizationId}))
-      .catch(e => {
-        console.log(e);
-      })
+      .catch(e => {})
       .finally(() => {
         setIsSubLoading(false);
       });

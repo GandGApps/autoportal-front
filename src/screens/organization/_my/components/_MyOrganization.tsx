@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
 import {Linking, TouchableOpacity} from 'react-native';
 import {
@@ -27,7 +27,12 @@ import {
   deactivateSubscribe,
   resumeSubscribe,
 } from '../../../../modules/organizations/thunks/subscribe.thunk';
-import {selectOrganizationsValues} from '../../../../modules/organizations/OrganizationsSlice';
+import {
+  selectOrganizationsValues,
+  setDefaultCreateForm,
+} from '../../../../modules/organizations/OrganizationsSlice';
+import {useFocusEffect} from '@react-navigation/native';
+import {DefaultCreateForm} from '../../../../modules/organizations/form/CreateForm';
 
 interface OrganizationItemProps {
   item: PersonalOrganizations;
@@ -41,6 +46,12 @@ export const MyOrganization = ({
   const {contacts} = useAppSelector(selectOrganizationsValues);
   const dispatch = useAppDispatch();
   const [isActiveLoad, setIsActiveLoad] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(setDefaultCreateForm(DefaultCreateForm));
+    }, []),
+  );
 
   const handleGoToScreen = (screen: string) => {
     Navigation.navigate(screen, {

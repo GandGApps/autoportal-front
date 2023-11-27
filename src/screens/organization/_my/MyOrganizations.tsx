@@ -102,7 +102,11 @@ export const MyOrganizationsScreen = () => {
             }}
             data={activeList}
             renderItem={({item}) => (
-              <MyOrganization key={`my-active-${item._id}`} item={item} />
+              <MyOrganization
+                key={`my-active-${item._id}`}
+                item={item}
+                isCheckRelease={checkRelease}
+              />
             )}
           />
         </>
@@ -123,7 +127,11 @@ export const MyOrganizationsScreen = () => {
             }}
             data={disabledList}
             renderItem={({item}) => (
-              <MyOrganization key={`my-disabled-${item._id}`} item={item} />
+              <MyOrganization
+                key={`my-disabled-${item._id}`}
+                item={item}
+                isCheckRelease={checkRelease}
+              />
             )}
           />
         </>

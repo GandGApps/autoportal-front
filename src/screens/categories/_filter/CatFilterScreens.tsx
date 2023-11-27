@@ -73,7 +73,7 @@ export const CatFilterScreens = () => {
               containerStyles={{
                 $mb: 10,
               }}
-              value={'Вид услуги'}
+              value={organizationFilter.titleTypeService || 'Вид услуги'}
               onPress={() => handleOpenFilterModal('typeService')}
             />
           ) : null}

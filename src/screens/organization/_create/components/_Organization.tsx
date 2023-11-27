@@ -12,6 +12,7 @@ interface CreateOrganizationProps {
   nameValue: string;
   categoryValue?: string;
 
+  titleTypeService?: Nullable<string>;
   typeServices?: Nullable<TypeService[]>;
   brandsCars?: Nullable<UnitsFilter[]>;
 
@@ -51,7 +52,7 @@ export const CreateOrganization = (props: CreateOrganizationProps) => {
           containerStyles={{
             $mt: 10,
           }}
-          value={'Вид услуги'}
+          value={props.titleTypeService || 'Вид услуги'}
           rightIcon={<DownIcon />}
           onPress={props.onChangeService}
         />

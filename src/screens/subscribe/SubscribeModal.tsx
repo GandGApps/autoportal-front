@@ -41,7 +41,6 @@ export const SubscribeModal = () => {
           setIsLoading(false);
 
           if (event.nativeEvent.url.includes('success')) {
-            dispatch(setDefaultCreateForm(DefaultCreateForm));
             dispatch(approveSubscribe({id: organizationId, type}));
           }
         }}
