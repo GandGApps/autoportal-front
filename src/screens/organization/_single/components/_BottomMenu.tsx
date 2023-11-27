@@ -11,7 +11,7 @@ import {
 } from '../../../../template/containers/RowContainer';
 import {Ag, TextUI} from '../../../../template/ui/TextUI';
 import {PhoneIcon} from '../../../../template/icons/PhoneIcon';
-import {Linking} from 'react-native';
+import {Linking, Platform} from 'react-native';
 import {CurrentOrganization} from '../../../../modules/organizations/models/CurrentOrganization';
 import {SwipeableModal} from '../../../../components/SwipbleModal';
 import {Modalize} from 'react-native-modalize';
@@ -27,6 +27,7 @@ export const OrgBottomMenu = ({organization, openModal}: CompProps) => {
   const insets = useSafeAreaInsets();
 
   const handleOpenYandex = () => {
+    console.log(`${organization.city},${organization.address}`);
     Linking.openURL(
       `https://yandex.ru/maps/?text=${organization.city},${organization.address}`,
     );
@@ -34,6 +35,12 @@ export const OrgBottomMenu = ({organization, openModal}: CompProps) => {
   const handleOpenGoogle = () => {
     Linking.openURL(
       `https://www.google.com/maps?q=${organization.city},${organization.address}`,
+    );
+  };
+
+  const handleAppleMap = () => {
+    Linking.openURL(
+      `maps://maps.apple.com/?q=${organization.city},${organization.address}`,
     );
   };
 
@@ -73,6 +80,14 @@ export const OrgBottomMenu = ({organization, openModal}: CompProps) => {
             {'Выберите навигатор'}
           </TextUI>
 
+          {Platform.OS === 'ios' && (
+            <ButtonUI
+              $mb={10}
+              title={'Apple Карты'}
+              $type={'border'}
+              onPress={handleAppleMap}
+            />
+          )}
           <ButtonUI
             $type={'firm'}
             $mb={10}
