@@ -81,12 +81,6 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const [isLogoLoading, setIsLogoLoading] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(setDefaultCreateForm(DefaultCreateForm));
-    }, []),
-  );
-
   const handleChangeForm = (key: CreateFormKeys, value: CreateFormValue) => {
     setIsError(false);
     if (key === 'category') {
@@ -250,6 +244,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
         <CreateOrganization
           nameValue={createForm.name}
           categoryValue={createForm.category?.title}
+          titleTypeService={organizationFilter?.titleTypeService}
           typeServices={organizationFilter?.typeService}
           brandsCars={organizationFilter?.brandCar}
           onChangeName={value => handleChangeForm('name', value)}
