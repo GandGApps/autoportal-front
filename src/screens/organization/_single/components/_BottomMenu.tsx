@@ -27,7 +27,6 @@ export const OrgBottomMenu = ({organization, openModal}: CompProps) => {
   const insets = useSafeAreaInsets();
 
   const handleOpenYandex = () => {
-    console.log(`${organization.city},${organization.address}`);
     Linking.openURL(
       `https://yandex.ru/maps/?text=${organization.city},${organization.address}`,
     );
