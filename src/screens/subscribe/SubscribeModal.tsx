@@ -8,8 +8,6 @@ import Navigation from '../../routes/navigation/Navigation';
 import {Loader} from '../../components/Loader';
 import {CenterContainer} from '../../template/containers/CenterContainer';
 import {useAppDispatch} from '../../settings/redux/hooks';
-import {setDefaultCreateForm} from '../../modules/organizations/OrganizationsSlice';
-import {DefaultCreateForm} from '../../modules/organizations/form/CreateForm';
 import {approveSubscribe} from '../../modules/organizations/thunks/subscribe.thunk';
 
 export const SubscribeModal = () => {
