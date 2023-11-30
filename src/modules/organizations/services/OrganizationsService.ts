@@ -138,10 +138,7 @@ export class OrganizationsService extends AbstractServiceRepository {
   };
 
   getPromotionsList = async (dto: GetPromotionDTO) => {
-    console.log(dto);
     const {data} = await this.api.getPromotionsList(dto);
-
-    console.log(data);
 
     return this.createList<PromotionList>(PromotionList, data);
   };
