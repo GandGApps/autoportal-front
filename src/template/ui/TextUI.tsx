@@ -70,5 +70,5 @@ const TextUIStyled = styled.Text<TStyledP>`
   margin-right: ${({$mr}) => $mr || 0}px;
   margin-left: ${({$ml}) => $ml || 0}px;
   font-family: ${({$family}) => $family};
-  ${({$isFlex}) => ($isFlex ? `flex: 1;` : '')}
+  ${({$isFlex}) => ($isFlex ? 'flex: 1;' : '')}
 `;

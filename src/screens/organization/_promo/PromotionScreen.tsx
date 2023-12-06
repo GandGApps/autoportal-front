@@ -44,12 +44,14 @@ export const PromotionScreen = () => {
 
   const [openStart, setOpenStart] = useState(false);
   const [openEnd, setOpenEnd] = useState(false);
-
+  const [promoIdToDelete, setPromoIdToDelete] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (params.promo) {
       setIsEdit(true);
+      setPromoIdToDelete(params.organizationId);
+
       setDescription(params.promo.description);
       setStartDate(params.promo.startPromo.replaceAll('-', '.'));
       setEndDate(params.promo.endPromo.replaceAll('-', '.'));
@@ -109,7 +111,7 @@ export const PromotionScreen = () => {
     <ColumnContainerFlex>
       <GradientHeader
         title={isEdit ? 'Редактировать акцию' : 'Создать акции'}
-        isBack
+        isBack={true}
       />
       <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
         <MainContainer>
@@ -161,22 +163,24 @@ export const PromotionScreen = () => {
         <ColumnContainerFlex />
 
         <MainContainer $mb={Math.max(insets.bottom, 20)} $ph={20}>
-          {isEdit ? (
-            <ButtonUI
-              $type={'border'}
-              $mb={10}
-              title="Удалить акцию"
-              onPress={() =>
-                Navigation.navigate(Screens.ORGANIZATION_PROMO_REMOVE)
-              }
-            />
-          ) : null}
-          <ButtonUI
-            $btnDisabled={isLoading}
-            title={isEdit ? 'Сохранить и опубликовать' : 'Создать'}
-            onPress={handleCreateUpdatePromo}
-          />
-        </MainContainer>
+  {isEdit ? (
+    <ButtonUI
+      $type={'border'}
+      $mb={10}
+      title="Удалить акцию"
+      onPress={() => {
+        
+        Navigation.navigate(Screens.ORGANIZATION_PROMO_REMOVE, { promoIdToDelete });
+      }}
+    />
+  ) : null}
+  <ButtonUI
+    $btnDisabled={isLoading}
+    title={isEdit ? 'Сохранить и опубликовать' : 'Создать'}
+    onPress={handleCreateUpdatePromo}
+  />
+</MainContainer>
+
       </KeyboardAwareScrollView>
 
       <DatePicker

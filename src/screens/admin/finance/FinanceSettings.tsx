@@ -31,7 +31,9 @@ export const FinanceSettings = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading) {
+      return;
+    }
 
     setIsInitLoading(true);
     dispatch(getSubInfo()).finally(() => {

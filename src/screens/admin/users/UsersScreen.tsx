@@ -45,7 +45,9 @@ export const UsersScreen = () => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading) {
+      return;
+    }
 
     setIsLoading(true);
     if (params) {
@@ -72,7 +74,9 @@ export const UsersScreen = () => {
 
   useDebouncedEffect(
     async () => {
-      if (!isReady || isLoading) return;
+      if (!isReady || isLoading) {
+        return;
+      }
 
       setIsLoading(true);
 
@@ -105,7 +109,9 @@ export const UsersScreen = () => {
   );
 
   const handlePickCity = (city: string) => {
-    if (isLoading) return;
+    if (isLoading) {
+      return;
+    }
     setCity(city);
 
     setIsLoading(true);
@@ -165,7 +171,7 @@ export const UsersScreen = () => {
             renderItem={({item}) => (
               <BorderTopUI style={compStyles.gep10} $pv={20}>
                 <RowContainer>
-                  <TextUI ag={Ag['400_16']}>{`ID: `}</TextUI>
+                  <TextUI ag={Ag['400_16']}>{'ID: '}</TextUI>
                   <UnderLineText
                     text={item.dealer._id}
                     color={ColorsUI.blue.second}

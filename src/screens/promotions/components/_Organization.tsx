@@ -56,7 +56,7 @@ export const PromoOrganization = ({organization, promotion}: _Props) => {
             </MainContainer>
           </RowContainer>
 
-          <MainContainer>
+          <MainContainer style={{ marginLeft: 'auto' }} >
             <TextUI $mb={5} ag={Ag['400_14']}>
               {organization.categoryName?.title || ''}
             </TextUI>

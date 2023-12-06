@@ -39,6 +39,8 @@ export const EditOrganizationScreen = () => {
 
         dispatch(getCurrentOrganization(_id))
           .then(res => {
+            console.log('API Response:', res);
+
             const organization = res.payload as CurrentOrganization;
             if (!res.payload) return;
             dispatch(

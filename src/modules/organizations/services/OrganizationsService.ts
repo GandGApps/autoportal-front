@@ -30,6 +30,7 @@ import {FinanceDTO} from '../../admin/types/AdminTypes';
 import {Banner} from '../models/Banner';
 import {Service} from '../models/Service';
 import {Contacts} from '../models/Contacts';
+import { tokenService } from '../../auth/services/token/token.fabric';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -156,12 +157,27 @@ export class OrganizationsService extends AbstractServiceRepository {
   };
 
   deletePromotion = async (id: string) => {
-    const {data} = await this.api.deletePromotion(id);
+    try {
+      // Получение текущего токена
+      const currentToken = await tokenService.getTokenData();
+      // Убедитесь, что у вас есть токен перед выполнением запроса
+      if (!currentToken) {
+        console.log('Отсутствует токен аутентификации');
+        throw new Error('Отсутствует токен аутентификации.');
+      }
+      console.log('its my token', currentToken);
+      // Устанавливаем токен в API-клиент
+      tokenService.setAccessToken(currentToken);
+      // Отправка запроса на удаление акции
+      const { data } = await this.api.deletePromotion(id);
 
-    return this.create<Message>(Message, data);
+      // Успешное удаление, можно вернуть данные
+      return this.create<Message>(Message, data);
+    } catch (error) {
+      throw error; // Пробросьте ошибку дальше для обработки в вызывающем коде
+    }
   };
-
-  getFavoritesList = async (categoryId: string) => {
+    getFavoritesList = async (categoryId: string) => {
     const {data} = await this.api.getFavoritesList(categoryId);
 
     return this.createList<FavoriteOrganization>(FavoriteOrganization, data);

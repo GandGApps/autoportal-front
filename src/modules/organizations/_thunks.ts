@@ -171,9 +171,12 @@ export const updatePromotion = createAsyncThunk(
 export const deletePromotion = createAsyncThunk(
   'organization/promotions/delete',
   async (id: string) => {
-    const response = await organizationService.deletePromotion(id);
-
-    return response;
+    try {
+      const response = await organizationService.deletePromotion(id);
+      return response;
+    } catch (error) {
+      throw error; // Перебрасываем ошибку дальше, чтобы ее можно было обработать в компоненте или другом месте
+    }
   },
 );
 
@@ -237,3 +240,25 @@ export const getContacts = createAsyncThunk('contacts/info', async () => {
 
   return response;
 });
+
+
+export const updateOrganization = createAsyncThunk(
+  'organization/update',
+  async (organization, {getState, dispatch}) => {
+    const currentOrganization = (getState() as RootState).organizationsSlice
+      .currentOrganization;
+
+    const updateOrganizationDTO = {
+      ...organization,
+      _id: currentOrganization._id,
+      brandsCars: currentOrganization.brandsCars,
+      employeers: currentOrganization.employeers,
+    };
+
+    const response = await organizationService.updateOrganization(
+      updateOrganizationDTO,
+    );
+
+    return response;
+  }
+);

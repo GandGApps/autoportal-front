@@ -152,7 +152,7 @@ export const CreateBanner = () => {
               </AbsoluteContainer>
             )}
             <CenterContainerFlex style={compStyles.gap10}>
-              {Boolean(image.length) ? (
+              {image.length ? (
                 <Fragment>
                   <ImageUI
                     $br={10}

@@ -25,7 +25,9 @@ const adminSlice = createSlice({
 
     // USER ORGANIZATIONS
     builder.addCase(getUserOrganizations.fulfilled, (state, action) => {
-      if (!action.payload) return;
+      if (!action.payload) {
+        return;
+      }
 
       state.userOrganization = action.payload;
     });

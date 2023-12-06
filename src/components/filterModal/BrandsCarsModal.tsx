@@ -1,6 +1,6 @@
 import {useRoute} from '@react-navigation/native';
 import React, {FC, useEffect, useState} from 'react';
-import {FlatList, KeyboardAvoidingView, StyleSheet} from 'react-native';
+import {FlatList, KeyboardAvoidingView} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {OrganizationHelper} from '../../modules/organizations/helpers/OrganizationHelper';
 import {TypeService} from '../../modules/organizations/models/TypeService';
@@ -22,6 +22,8 @@ import {ButtonUI} from '../../template/ui/ButtonUI';
 import {InputUI} from '../../template/ui/InputUI';
 import {Ag, TextUI} from '../../template/ui/TextUI';
 import {FilterModalPick} from './components/FilterModalPick';
+import { createOrganization } from '../../modules/organizations/thunks/create.thunk';
+import { getPersonalOrganizations } from '../../modules/organizations/_thunks';
 
 export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
   const {organizationFilter, createForm, filterForm} = useAppSelector(
@@ -71,6 +73,7 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
   };
 
   const handlePickItem = (value: any) => {
+    console.log('my picked item', value)
     if (value.subServices && value.subServices.length > 0) {
       setPickList(
         OrganizationHelper.getSubsCheckedList(pickList, value.subServices),
@@ -85,7 +88,6 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
       setPickList([...pickList, value._id]);
     }
   };
-
   const handleResetPick = () => {
     if (isCreate) {
       dispatch(
@@ -107,6 +109,7 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
   };
 
   const handleSavePick = () => {
+
     if (isCreate) {
       dispatch(
         createChangeForm({
@@ -122,7 +125,13 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
         }),
       );
     }
-
+    dispatch(createOrganization(true))
+      .then(() => {
+        dispatch(getPersonalOrganizations());
+      })
+      .catch(e => {})
+      .finally(() => {
+      });
     Navigation.pop();
   };
 
@@ -163,7 +172,7 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
         renderItem={({item}) => (
           <FilterModalPick
             item={item}
-            onPickItem={() => handlePickItem(item)}
+            onPickItem={() => {handlePickItem(item)}}
             pickList={pickList}
             isCatSub={false}
           />
@@ -184,4 +193,4 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
   );
 };
 
-const compStyles = StyleSheet.create({});
+// const compStyles = StyleSheet.create({});

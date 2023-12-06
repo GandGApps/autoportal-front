@@ -49,7 +49,9 @@ export const AdminServices = () => {
   }, [category]);
 
   const handleOpenModalCategory = () => {
-    if (isLoading) return;
+    if (isLoading) {
+      return;
+    }
 
     categoriesModalRef.current?.open();
   };
@@ -65,7 +67,7 @@ export const AdminServices = () => {
           />
         </MainContainer>
 
-        {Boolean(category) ? (
+        {category ? (
           <RowContainerBeetwen
             $mt={20}
             $ph={20}

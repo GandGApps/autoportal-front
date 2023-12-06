@@ -1,7 +1,7 @@
-import { AxiosRequestConfig } from 'axios';
+import {AxiosRequestConfig} from 'axios';
 
-import { Nullable } from '../../types/BaseTypes';
-import { IApiConfig, IApisResponse } from '../ApiInterfaces';
+import {Nullable} from '../../types/BaseTypes';
+import {IApiConfig, IApisResponse} from '../ApiInterfaces';
 
 export interface IAxiosConfig extends IApiConfig {
   data?: Object;

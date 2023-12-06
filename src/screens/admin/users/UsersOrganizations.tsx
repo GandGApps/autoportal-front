@@ -30,7 +30,9 @@ export const UsersOrganizations = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading) {
+      return;
+    }
 
     setIsLoading(true);
     dispatch(getUserOrganizations(params.id)).finally(() => {

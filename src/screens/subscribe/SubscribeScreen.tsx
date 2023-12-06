@@ -40,7 +40,9 @@ export const SubscribeScreen = () => {
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading) {
+      return;
+    }
 
     setIsLoading(true);
     dispatch(getSubInfo()).finally(() => {

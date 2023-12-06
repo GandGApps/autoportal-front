@@ -214,6 +214,7 @@ export class OrganizationHelper {
         mainPhone: MaskHelper.clearFormat(createForm.mainPhone),
       };
     }
+    
 
     if (createForm.whatsApp.length) {
       dto = {
@@ -234,6 +235,9 @@ export class OrganizationHelper {
         ...dto,
         typeServices: createForm.typeService,
       };
+    }
+    if (createForm.id) {
+      dto = { ...dto, id: createForm.id };
     }
 
     if (createForm.photos.length) {

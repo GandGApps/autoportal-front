@@ -56,7 +56,9 @@ export const CatOrganizationsScreens = () => {
 
   useDebouncedEffect(
     async () => {
-      if (isLoad || !isReady) return;
+      if (isLoad || !isReady) {
+        return;
+      }
       setIsLoad(true);
 
       dispatch(getOrganizationList())

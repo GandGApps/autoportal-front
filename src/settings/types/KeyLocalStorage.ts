@@ -1,3 +1,3 @@
 export enum KeyLocalStorage {
-  "token" = "token",
+  'token' = 'token',
 }

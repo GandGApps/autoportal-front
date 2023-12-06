@@ -28,7 +28,7 @@ export const defaultContainerCSS = css<ContainerProps>`
       : ''}
   ${({$heightPX}) => ($heightPX ? `height: ${$heightPX}px;` : '')}
 
-  ${({$isRelative}) => ($isRelative ? `position: relative;` : '')}
+  ${({$isRelative}) => ($isRelative ? 'position: relative;' : '')}
 
   ${({$bg}) => ($bg ? `background-color: ${$bg};` : '')}
 

@@ -252,7 +252,9 @@ const organizationsSlice = createSlice({
 
     // GET Subscribe info
     builder.addCase(getSubInfo.fulfilled, (state, action) => {
-      if (!action.payload) return;
+      if (!action.payload) {
+        return;
+      }
 
       state.subInfo = action.payload;
     });

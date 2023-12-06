@@ -90,7 +90,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
               <RowContainer>
                 <RadioUI isActive={!isAllDay} />
                 <MainContainer $ml={5} $mr={10}>
-                  <TextUI ag={Ag['400_14']}>{`Время`}</TextUI>
+                  <TextUI ag={Ag['400_14']}>{'Время'}</TextUI>
                 </MainContainer>
                 <MainContainer
                   $borderColor={ColorsUI.black}
@@ -100,7 +100,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
                   <TextUI ag={Ag['600_14']}>{from}</TextUI>
                 </MainContainer>
                 <MainContainer $mr={5}>
-                  <TextUI ag={Ag['400_14']}>{`до`}</TextUI>
+                  <TextUI ag={Ag['400_14']}>{'до'}</TextUI>
                 </MainContainer>
                 <MainContainer
                   $borderColor={ColorsUI.black}
@@ -115,7 +115,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
             <RowContainer $mb={10}>
               <RadioUI isActive={!isAllDay} />
               <MainContainer $ml={5} $mr={10}>
-                <TextUI ag={Ag['400_14']}>{`Время`}</TextUI>
+                <TextUI ag={Ag['400_14']}>{'Время'}</TextUI>
               </MainContainer>
               <ViewPress
                 $borderColor={ColorsUI.black}
@@ -127,7 +127,7 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
               </ViewPress>
 
               <MainContainer $mr={5}>
-                <TextUI ag={Ag['400_14']}>{`до`}</TextUI>
+                <TextUI ag={Ag['400_14']}>{'до'}</TextUI>
               </MainContainer>
               <ViewPress
                 $borderColor={ColorsUI.black}

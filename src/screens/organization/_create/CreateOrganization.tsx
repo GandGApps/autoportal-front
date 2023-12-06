@@ -88,6 +88,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
         dispatch(getOrganizationFilter((value as Category)._id));
       }, 0);
     }
+
     dispatch(createChangeForm({key, value}));
   };
 
@@ -252,7 +253,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           onChangeService={() => handleOpenFilterModal('typeService')}
           onChangeBrandsCars={() => {
             Navigation.navigate(Screens.MODAL_BRANSCARS, {
-              isCreate: true,
+              isCreate: !props.isEdit || true
             });
           }}
         />

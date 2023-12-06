@@ -11,7 +11,6 @@ const getDevideId = (): string => {
   getUniqueId().then(id => {
     deviceID = id;
   });
-
   return deviceID;
 };
 

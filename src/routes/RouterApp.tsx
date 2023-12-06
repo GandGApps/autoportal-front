@@ -67,7 +67,7 @@ export const RouterApp = () => {
 
       <Toast
         style={{marginTop: insets.top}}
-        ref={ref => (global['toast'] = ref as any)}
+        ref={ref => (global.toast = ref as any)}
       />
     </NavigationContainer>
   );

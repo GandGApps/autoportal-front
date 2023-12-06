@@ -25,9 +25,9 @@ export const OrgReport = ({organizationId}: ReportProps) => {
             <MainContainer $mr={5}>
               <ReportIcon />
             </MainContainer>
-            <TextUI
-              ag={Ag['600_12']}
-              color={ColorsUI.lightRed}>{`Жалоба`}</TextUI>
+            <TextUI ag={Ag['600_12']} color={ColorsUI.lightRed}>
+              {'Жалоба'}
+            </TextUI>
           </RowContainer>
         </ViewPress>
 

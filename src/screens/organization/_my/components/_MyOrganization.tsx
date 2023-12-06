@@ -53,6 +53,8 @@ export const MyOrganization = ({
     }, []),
   );
 
+  console.log('my organization data', item)
+
   const handleGoToScreen = (screen: string) => {
     Navigation.navigate(screen, {
       _id: item._id,
@@ -83,7 +85,7 @@ export const MyOrganization = ({
             <TextUI
               ag={Ag['400_14']}
               color={item.isSubscribe ? ColorsUI.green : ColorsUI.red}>
-              {item.isSubscribe ? `Подписка активна` : 'Подписка неактивна'}
+              {item.isSubscribe ? 'Подписка активна' : 'Подписка неактивна'}
             </TextUI>
           )}
 
@@ -219,7 +221,9 @@ export const MyOrganization = ({
                 text={'Деактивировать'}
                 color={ColorsUI.red}
                 onPress={() => {
-                  if (isActiveLoad) return;
+                  if (isActiveLoad) {
+                    return;
+                  }
                   dispatch(deactivateSubscribe(item._id)).finally(() => {
                     setIsActiveLoad(false);
                   });
