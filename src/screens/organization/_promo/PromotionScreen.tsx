@@ -50,8 +50,7 @@ export const PromotionScreen = () => {
   useEffect(() => {
     if (params.promo) {
       setIsEdit(true);
-      setPromoIdToDelete(params.organizationId);
-
+      setPromoIdToDelete(params.promo._id);
       setDescription(params.promo.description);
       setStartDate(params.promo.startPromo.replaceAll('-', '.'));
       setEndDate(params.promo.endPromo.replaceAll('-', '.'));
@@ -163,24 +162,24 @@ export const PromotionScreen = () => {
         <ColumnContainerFlex />
 
         <MainContainer $mb={Math.max(insets.bottom, 20)} $ph={20}>
-  {isEdit ? (
-    <ButtonUI
-      $type={'border'}
-      $mb={10}
-      title="Удалить акцию"
-      onPress={() => {
-        
-        Navigation.navigate(Screens.ORGANIZATION_PROMO_REMOVE, { promoIdToDelete });
-      }}
-    />
-  ) : null}
-  <ButtonUI
-    $btnDisabled={isLoading}
-    title={isEdit ? 'Сохранить и опубликовать' : 'Создать'}
-    onPress={handleCreateUpdatePromo}
-  />
-</MainContainer>
-
+          {isEdit ? (
+            <ButtonUI
+              $type={'border'}
+              $mb={10}
+              title="Удалить акцию"
+              onPress={() => {
+                Navigation.navigate(Screens.ORGANIZATION_PROMO_REMOVE, {
+                  promoIdToDelete,
+                });
+              }}
+            />
+          ) : null}
+          <ButtonUI
+            $btnDisabled={isLoading}
+            title={isEdit ? 'Сохранить и опубликовать' : 'Создать'}
+            onPress={handleCreateUpdatePromo}
+          />
+        </MainContainer>
       </KeyboardAwareScrollView>
 
       <DatePicker
