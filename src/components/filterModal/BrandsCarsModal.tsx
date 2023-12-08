@@ -73,7 +73,6 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
   };
 
   const handlePickItem = (value: any) => {
-    console.log('my picked item', value)
     if (value.subServices && value.subServices.length > 0) {
       setPickList(
         OrganizationHelper.getSubsCheckedList(pickList, value.subServices),

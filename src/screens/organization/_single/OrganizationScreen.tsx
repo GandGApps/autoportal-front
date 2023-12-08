@@ -56,11 +56,15 @@ export const OrganizationScreen = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoad(true);
-      dispatch(getCurrentOrganization(_id)).finally(() => {
-        setIsLoad(false);
-      });
+      dispatch(getCurrentOrganization(_id))
+        .then((response) => {
+        })
+        .finally(() => {
+          setIsLoad(false);
+        });
     }, 0);
   }, []);
+  
 
   const handlePressImage = () => {
     setPreviewIndex(carouselIndex);
@@ -74,6 +78,8 @@ export const OrganizationScreen = () => {
       </CenterContainerFlex>
     );
   }
+
+
 
   return (
     <ColumnContainerFlex>

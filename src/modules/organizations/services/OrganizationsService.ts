@@ -165,7 +165,6 @@ export class OrganizationsService extends AbstractServiceRepository {
         console.log('Отсутствует токен аутентификации');
         throw new Error('Отсутствует токен аутентификации.');
       }
-      console.log('its my token', currentToken);
       // Устанавливаем токен в API-клиент
       tokenService.setAccessToken(currentToken);
       // Отправка запроса на удаление акции

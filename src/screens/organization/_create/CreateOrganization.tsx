@@ -45,7 +45,7 @@ import {Category} from '../../../modules/organizations/models/Category';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
 import {MainContainer} from '../../../template/containers/MainContainer';
-import {selectEmployeersValues} from '../../../modules/employeers/EmployeersSlice';
+import {selectEmployeersValues, setFirstName, setFirstPhone, setFirstPostion, setSecondName, setSecondPhone, setSecondPostion, setThirdName, setThirdPhone, setThirdPosition} from '../../../modules/employeers/EmployeersSlice';
 import {createOrganization} from '../../../modules/organizations/thunks/create.thunk';
 import {OrganizationHelper} from '../../../modules/organizations/helpers/OrganizationHelper';
 import {FileHelper} from '../../../modules/files/FilesHelper';
@@ -64,6 +64,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     selectOrganizationsValues,
   );
 
+  console.log('createForm', createForm)
   const employeersState = useAppSelector(selectEmployeersValues);
 
   const dispatch = useAppDispatch();
@@ -210,6 +211,23 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const handleOpenModalCategory = () => {
     categoriesModalRef.current?.open();
   };
+
+  useEffect(() => {
+    const employeers = createForm.employeers || [];
+    dispatch(setFirstName(employeers[0]?.name || ''));
+    dispatch(setFirstPostion(employeers[0]?.position || ''));
+    dispatch(setFirstPhone(employeers[0]?.phone || ''));
+  
+    dispatch(setSecondName(employeers[1]?.name || ''));
+    dispatch(setSecondPostion(employeers[1]?.position || ''));
+    dispatch(setSecondPhone(employeers[1]?.phone || ''));
+  
+    dispatch(setThirdName(employeers[2]?.name || ''));
+    dispatch(setThirdPosition(employeers[2]?.position || ''));
+    dispatch(setThirdPhone(employeers[2]?.phone || ''));
+  }, [dispatch, createForm]);
+  
+
 
   return (
     <ColumnContainerFlex>

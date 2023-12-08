@@ -19,6 +19,7 @@ import {OrganizationHelper} from '../../../modules/organizations/helpers/Organiz
 import {CreateOrganizationScreen} from '../_create/CreateOrganization';
 import {DefaultCreateForm} from '../../../modules/organizations/form/CreateForm';
 import {CurrentOrganization} from '../../../modules/organizations/models/CurrentOrganization';
+import employeersSlice from '../../../modules/employeers/EmployeersSlice';
 
 export const EditOrganizationScreen = () => {
   const {_id} = useRoute<OrganizationEditParams>().params;
@@ -39,7 +40,8 @@ export const EditOrganizationScreen = () => {
 
         dispatch(getCurrentOrganization(_id))
           .then(res => {
-            console.log('API Response:', res);
+            console.log(' Emloyeers Response:', res.payload.employeers);
+
 
             const organization = res.payload as CurrentOrganization;
             if (!res.payload) return;

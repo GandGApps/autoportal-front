@@ -53,7 +53,6 @@ export const MyOrganization = ({
     }, []),
   );
 
-  console.log('my organization data', item)
 
   const handleGoToScreen = (screen: string) => {
     Navigation.navigate(screen, {

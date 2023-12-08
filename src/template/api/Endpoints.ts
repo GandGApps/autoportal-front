@@ -26,8 +26,6 @@ export const Endpoints = {
 
   updatePromotion: (id: string) => `/promotion?organizationId=${id}`,
 
-  deletePromotion: (id: string) => `/promotion?promotion_id=${id}`,
-
   favorites: (categoryId: string) =>
     `/organisations/favorites?categoryId=${categoryId}`,
   changeFavorite: (id: string) => `/organisations/favorites?organisation=${id}`,
