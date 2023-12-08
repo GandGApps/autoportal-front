@@ -26,7 +26,6 @@ function renderItem({item}: ListRenderItemInfo<Banner>) {
 
 export const AdminBanners = () => {
   const {filterForm, banners} = useAppSelector(selectOrganizationsValues);
-
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(false);

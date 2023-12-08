@@ -34,6 +34,8 @@ class AdminService extends AbstractServiceRepository {
   createUpdateBanner = async (dto: CreateBannerDTO, bannerId?: string) => {
     if (bannerId) {
       const {data} = await this.api.updateBanner(dto, bannerId);
+      console.log('my data', data);
+      console.log('my dto', dto);
 
       return this.create<Message>(Message, data);
     }

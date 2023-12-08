@@ -20,6 +20,7 @@ interface CompProps {
 export const BannerItem: FC<CompProps> = ({banner}) => {
   const [isLoading, setIsLoading] = useState(false);
 
+
   const width = Dimensions.get('window').width - 40;
   const height = width / 2.5;
 

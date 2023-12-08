@@ -37,6 +37,9 @@ import Navigation from '../../../routes/navigation/Navigation';
 export const CreateBanner = () => {
   const {filterForm} = useAppSelector(selectOrganizationsValues);
 
+  console.log('filterForm', filterForm);
+
+
   const dispatch = useAppDispatch();
 
   const params = useRoute<AdminCreateBannerParams>().params;
@@ -111,6 +114,7 @@ export const CreateBanner = () => {
       .createUpdateBanner(dto, params?.banner._id)
       .then(async () => {
         Notifications.succes(isEdit ? 'Данные обновлены' : 'Баннер создан');
+        console.log('мои даты ', from , to)
         dispatch(getBanners());
 
         if (!isEdit) {

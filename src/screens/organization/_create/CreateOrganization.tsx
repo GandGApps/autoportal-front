@@ -64,7 +64,6 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     selectOrganizationsValues,
   );
 
-  console.log('createForm', createForm)
   const employeersState = useAppSelector(selectEmployeersValues);
 
   const dispatch = useAppDispatch();

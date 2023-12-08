@@ -40,7 +40,6 @@ export const EditOrganizationScreen = () => {
 
         dispatch(getCurrentOrganization(_id))
           .then(res => {
-            console.log(' Emloyeers Response:', res.payload.employeers);
 
 
             const organization = res.payload as CurrentOrganization;
