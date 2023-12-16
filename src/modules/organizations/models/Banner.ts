@@ -5,7 +5,8 @@ export class Banner extends AbstractModel {
   title: string = '';
   image: string = '';
   organizationId: string = '';
-
+  from: string = '';
+  to: string = '';
   constructor(props: any) {
     super();
     this.load(props);

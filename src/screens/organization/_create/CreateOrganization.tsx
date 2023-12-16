@@ -213,17 +213,18 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
 
   useEffect(() => {
     const employeers = createForm.employeers || [];
-    dispatch(setFirstName(employeers[0]?.name || ''));
-    dispatch(setFirstPostion(employeers[0]?.position || ''));
-    dispatch(setFirstPhone(employeers[0]?.phone || ''));
-  
-    dispatch(setSecondName(employeers[1]?.name || ''));
-    dispatch(setSecondPostion(employeers[1]?.position || ''));
-    dispatch(setSecondPhone(employeers[1]?.phone || ''));
-  
-    dispatch(setThirdName(employeers[2]?.name || ''));
-    dispatch(setThirdPosition(employeers[2]?.position || ''));
-    dispatch(setThirdPhone(employeers[2]?.phone || ''));
+    if(props.isEdit) {
+      dispatch(setFirstName(employeers[0]?.name || ''));
+      dispatch(setFirstPostion(employeers[0]?.position || ''));
+      dispatch(setFirstPhone(employeers[0]?.phone || ''));
+      dispatch(setSecondName(employeers[1]?.name || ''));
+      dispatch(setSecondPostion(employeers[1]?.position || ''));
+      dispatch(setSecondPhone(employeers[1]?.phone || ''));
+      dispatch(setThirdName(employeers[2]?.name || ''));
+      dispatch(setThirdPosition(employeers[2]?.position || ''));
+      dispatch(setThirdPhone(employeers[2]?.phone || ''));
+    }
+   
   }, [dispatch, createForm]);
   
 

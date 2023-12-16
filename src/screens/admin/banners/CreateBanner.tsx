@@ -1,4 +1,4 @@
-import React, {Fragment, useRef, useState} from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {GradientHeader} from '../../../components/GradientHeader';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -37,20 +37,27 @@ import Navigation from '../../../routes/navigation/Navigation';
 export const CreateBanner = () => {
   const {filterForm} = useAppSelector(selectOrganizationsValues);
 
-  console.log('filterForm', filterForm);
-
-
   const dispatch = useAppDispatch();
 
   const params = useRoute<AdminCreateBannerParams>().params;
+  console.log('params promo is', params?.banner);
 
-  const isEdit = Boolean(params?.banner);
+  useEffect(() => {
+    if (params?.banner) {
+      setIsEdit(true);
+
+      setFrom(params?.banner.from.replaceAll('-', '.'));
+      setTo(params?.banner.to.replaceAll('-', '.'));
+    }
+  }, [params?.banner]);
+
+  const [isEdit, setIsEdit] = useState(false);
 
   const [city, setCity] = useState(filterForm.city);
   const [image, setImage] = useState<string>(params?.banner.image || '');
 
-  const [from, setFrom] = useState(new Date());
-  const [to, setTo] = useState(new Date());
+  const [from, setFrom] = useState(DateHelper.getToday());
+  const [to, setTo] = useState(DateHelper.getToday());
 
   const [openFrom, setOpenFrom] = useState(false);
   const [openTo, setOpenTo] = useState(false);
@@ -59,7 +66,6 @@ export const CreateBanner = () => {
   const [organizationId, setOrganizationId] = useState(
     params?.banner.organizationId || '',
   );
-
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadImage, setIsLoadImage] = useState(false);
 
@@ -89,10 +95,11 @@ export const CreateBanner = () => {
     const validDto: Omit<CreateBannerDTO, 'image'> = {
       title,
       city,
-      from: DateHelper.getFormatDtoDate(from),
-      to: DateHelper.getFormatDtoDate(to),
+      from: DateHelper.getFormatDtoDate(DateHelper.getParseDate(from)),
+      to: DateHelper.getFormatDtoDate(DateHelper.getParseDate(to)),
       organisation_id: organizationId,
     };
+
     if (!AdminHelper.isBannerValid(validDto)) {
       Notifications.error('Заполните все данные');
       return;
@@ -114,7 +121,6 @@ export const CreateBanner = () => {
       .createUpdateBanner(dto, params?.banner._id)
       .then(async () => {
         Notifications.succes(isEdit ? 'Данные обновлены' : 'Баннер создан');
-        console.log('мои даты ', from , to)
         dispatch(getBanners());
 
         if (!isEdit) {
@@ -209,17 +215,11 @@ export const CreateBanner = () => {
           <RowContainer style={compStyles.gap10}>
             <TextUI ag={Ag['500_14']}>{'C'}</TextUI>
             <MainContainer style={compStyles.gap10}>
-              <InputSelectUI
-                value={DateHelper.getFormatDate(from)}
-                onPress={() => setOpenFrom(true)}
-              />
+              <InputSelectUI value={from} onPress={() => setOpenFrom(true)} />
             </MainContainer>
             <TextUI ag={Ag['500_14']}>{'по'}</TextUI>
             <MainContainer style={compStyles.gap10}>
-              <InputSelectUI
-                value={DateHelper.getFormatDate(to)}
-                onPress={() => setOpenTo(true)}
-              />
+              <InputSelectUI value={to} onPress={() => setOpenTo(true)} />
             </MainContainer>
           </RowContainer>
         </MainContainer>
@@ -230,11 +230,12 @@ export const CreateBanner = () => {
           modal
           mode={'date'}
           open={openFrom}
-          date={from}
+          date={DateHelper.getParseDate(from)}
           onConfirm={date => {
-            setFrom(date);
-            if (date > to) {
-              setTo(date);
+            setFrom(DateHelper.getFormatDate(date));
+
+            if (DateHelper.isStartMoreEnd(date, to)) {
+              setTo(DateHelper.getFormatDate(date));
             }
             setOpenFrom(false);
           }}
@@ -249,12 +250,12 @@ export const CreateBanner = () => {
           locale={'ru'}
           is24hourSource={'locale'}
           modal
-          minimumDate={from}
+          minimumDate={DateHelper.getParseDate(from)}
           mode={'date'}
           open={openTo}
-          date={to}
+          date={DateHelper.getParseDate(to)}
           onConfirm={date => {
-            setTo(date);
+            setTo(DateHelper.getFormatDate(date));
             setOpenTo(false);
           }}
           onCancel={() => setOpenTo(false)}

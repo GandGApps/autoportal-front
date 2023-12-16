@@ -13,7 +13,6 @@
     "start": "react-native start",
     "test": "jest",
     "debug": "react-native debug"
-
   },
   "dependencies": {
     "@bam.tech/react-native-image-resizer": "3.0.7",
@@ -36,7 +35,9 @@
     "react-native-device-info": "10.3.0",
     "react-native-encrypted-storage": "4.0.3",
     "react-native-gesture-handler": "2.12.1",
+    "react-native-image-crop-picker": "^0.40.2",
     "react-native-image-picker": "5.6.1",
+    "react-native-image-resizer": "^1.4.5",
     "react-native-image-viewing": "0.2.2",
     "react-native-keyboard-aware-scroll-view": "0.9.5",
     "react-native-linear-gradient": "2.8.2",
