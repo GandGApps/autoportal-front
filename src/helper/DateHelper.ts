@@ -13,6 +13,7 @@ export const DaysOfWeek = [
   'Воскресенье',
 ];
 
+
 const defaultSchedule = {
   title: 'Закрыто',
 };
