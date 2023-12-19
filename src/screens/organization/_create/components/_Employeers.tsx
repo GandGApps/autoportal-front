@@ -22,11 +22,10 @@ import {
   setThirdPosition,
 } from '../../../../modules/employeers/EmployeersSlice';
 import {MaskHelper} from '../../../../helper/MaskHelper';
-import { selectOrganizationsValues } from '../../../../modules/organizations/OrganizationsSlice';
+import {selectOrganizationsValues} from '../../../../modules/organizations/OrganizationsSlice';
 
 export const CreateEmployeers = () => {
   const select = useAppSelector(selectEmployeersValues);
-
 
   const dispatch = useAppDispatch();
 

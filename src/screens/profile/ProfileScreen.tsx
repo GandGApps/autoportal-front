@@ -55,8 +55,12 @@ export const ProfileScreen = () => {
             leftIcon={<TelegramIcon size={24} />}
             title={'Тех.поддержка'}
             onPress={() => {
-              if (contacts?.support) {
-                Linking.openURL(contacts.support);
+              if (contacts?.supportLink) {
+                Linking.openURL(contacts.supportLink);
+              }
+              else {
+                Linking.openURL(contacts?.orderBanner)
+
               }
             }}
           />

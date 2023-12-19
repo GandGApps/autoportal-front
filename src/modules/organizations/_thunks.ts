@@ -175,7 +175,18 @@ export const deletePromotion = createAsyncThunk(
       const response = await organizationService.deletePromotion(id);
       return response;
     } catch (error) {
-      throw error; // Перебрасываем ошибку дальше, чтобы ее можно было обработать в компоненте или другом месте
+      throw error;
+    }
+  },
+);
+export const deleteOrganization = createAsyncThunk(
+  'organization/my/delete',
+  async (id: string) => {
+    try {
+      const response = await organizationService.deleteOrganization(id);
+      return response;
+    } catch (error) {
+      throw error;
     }
   },
 );
@@ -241,7 +252,6 @@ export const getContacts = createAsyncThunk('contacts/info', async () => {
   return response;
 });
 
-
 export const updateOrganization = createAsyncThunk(
   'organization/update',
   async (organization, {getState, dispatch}) => {
@@ -260,5 +270,5 @@ export const updateOrganization = createAsyncThunk(
     );
 
     return response;
-  }
+  },
 );

@@ -53,7 +53,6 @@ export const MyOrganization = ({
     }, []),
   );
 
-
   const handleGoToScreen = (screen: string) => {
     Navigation.navigate(screen, {
       _id: item._id,
@@ -189,9 +188,10 @@ export const MyOrganization = ({
                 </MainContainer>
                 <UnderLineText
                   onPress={() => {
-                    if (contacts?.support) {
-                      Linking.openURL(contacts.support);
+                    if (contacts.supportLink) {
+                      Linking.openURL(contacts.supportLink);
                     }
+                   
                   }}
                   ag={Ag['400_12']}
                   text={'Тех.поддержка'}

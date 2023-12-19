@@ -89,6 +89,11 @@ export class ApiOrganizationsService extends AbstractApiRepository {
       url: Endpoints.currentOrganization(_id),
     });
   };
+  deleteOrganization = async (id: string) => {
+    return this.apiClient.delete({
+      url: Endpoints.deleteOrganization(id),
+    });
+  };
 
   getPromotionsList = async (dto: GetPromotionDTO) => {
     return this.apiClient.get({

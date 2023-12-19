@@ -1,15 +1,27 @@
 import React from 'react';
 import {QuestionModal} from '../../../../components/QuestionModal';
-import {useAppSelector} from '../../../../settings/redux/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../settings/redux/hooks';
 import {selectOrganizationsValues} from '../../../../modules/organizations/OrganizationsSlice';
 import Navigation from '../../../../routes/navigation/Navigation';
 import {Screens} from '../../../../routes/models/Screens';
+import { deleteOrganization, getPersonalOrganizations } from '../../../../modules/organizations/_thunks';
 
 export const RemoveOrganizationModal = () => {
   const {currentOrganization} = useAppSelector(selectOrganizationsValues);
+  console.log('my organization id and name', currentOrganization?._id , currentOrganization?.name)
 
-  const handleRemoveOrganization = () => {
-    Navigation.navigate(Screens.ORGANIZATION_MY);
+  const dispatch = useAppDispatch();
+
+  const handleRemoveOrganization = async (id: string) => {
+    try {
+      await dispatch(deleteOrganization(id));
+
+      dispatch(getPersonalOrganizations());
+
+      Navigation.navigate(Screens.ORGANIZATION_MY);
+    } catch (error) {
+      console.error('Произошла ошибка при удалении организации:', error);
+    }
   };
 
   return (
@@ -19,7 +31,7 @@ export const RemoveOrganizationModal = () => {
       btnMainTitle={'Назад'}
       btnSecondTitle={'Безвозвратно удалить'}
       onMainPress={() => Navigation.pop()}
-      onSecondPress={handleRemoveOrganization}
+      onSecondPress={() => handleRemoveOrganization(currentOrganization?._id)}
     />
   );
 };

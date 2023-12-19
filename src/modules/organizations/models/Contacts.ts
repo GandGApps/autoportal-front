@@ -3,7 +3,7 @@ import AbstractModel from '../../../settings/abstrcations/models/AbstractModel';
 export class Contacts extends AbstractModel {
   orderBanner: string = '';
   report: string = '';
-  support: string = '';
+  supportLink: string = '';
   storeLinkIOS: string = '';
   storeLinkAndroid: string = '';
 

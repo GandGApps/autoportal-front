@@ -30,7 +30,7 @@ import {FinanceDTO} from '../../admin/types/AdminTypes';
 import {Banner} from '../models/Banner';
 import {Service} from '../models/Service';
 import {Contacts} from '../models/Contacts';
-import { tokenService } from '../../auth/services/token/token.fabric';
+import {tokenService} from '../../auth/services/token/token.fabric';
 
 export class OrganizationsService extends AbstractServiceRepository {
   api: ApiOrganizationsService;
@@ -138,6 +138,27 @@ export class OrganizationsService extends AbstractServiceRepository {
     );
   };
 
+  deleteOrganization = async (id: string) => {
+    try {
+      // Получение текущего токена
+      const currentToken = await tokenService.getTokenData();
+      // Убедитесь, что у вас есть токен перед выполнением запроса
+      if (!currentToken) {
+        console.log('Отсутствует токен аутентификации');
+        throw new Error('Отсутствует токен аутентификации.');
+      }
+      console.log(' токен аутентификации', currentToken);
+
+      tokenService.setAccessToken(currentToken);
+      const {data} = await this.api.deleteOrganization(id);
+
+      return this.create<Message>(Message, data);
+    } catch (error) {
+      console.log('ошибка при удалении орги', error);
+      throw error; // Пробросьте ошибку дальше для обработки в вызывающем коде
+    }
+  };
+
   getPromotionsList = async (dto: GetPromotionDTO) => {
     const {data} = await this.api.getPromotionsList(dto);
 
@@ -165,10 +186,12 @@ export class OrganizationsService extends AbstractServiceRepository {
         console.log('Отсутствует токен аутентификации');
         throw new Error('Отсутствует токен аутентификации.');
       }
+      console.log(' токен аутентификации', currentToken);
+
       // Устанавливаем токен в API-клиент
       tokenService.setAccessToken(currentToken);
       // Отправка запроса на удаление акции
-      const { data } = await this.api.deletePromotion(id);
+      const {data} = await this.api.deletePromotion(id);
 
       // Успешное удаление, можно вернуть данные
       return this.create<Message>(Message, data);
@@ -176,7 +199,7 @@ export class OrganizationsService extends AbstractServiceRepository {
       throw error; // Пробросьте ошибку дальше для обработки в вызывающем коде
     }
   };
-    getFavoritesList = async (categoryId: string) => {
+  getFavoritesList = async (categoryId: string) => {
     const {data} = await this.api.getFavoritesList(categoryId);
 
     return this.createList<FavoriteOrganization>(FavoriteOrganization, data);

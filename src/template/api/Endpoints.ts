@@ -17,6 +17,8 @@ export const Endpoints = {
   myOrganizations: '/organisations/my',
   updateOrganization: (id: string) => `/organisations?organisation_id=${id}`,
 
+  deleteOrganization: (id: string) => `/organisations/my?organisation_id=${id}`,
+
   currentOrganization: (id: string) => `/organisations?id=${id}`,
 
   promotions: (city: string, categoriId: string) =>
@@ -25,7 +27,7 @@ export const Endpoints = {
   createPromotion: (id: string) => `/promotion?organizationId=${id}`,
 
   deletePromotion: (id: string) => `/promotion?promotion_id=${id}`,
-  
+
   updatePromotion: (id: string) => `/promotion?organizationId=${id}`,
 
   favorites: (categoryId: string) =>

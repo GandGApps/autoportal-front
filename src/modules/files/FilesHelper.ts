@@ -1,5 +1,6 @@
 import ImageResizer from '@bam.tech/react-native-image-resizer';
 import {Asset, launchImageLibrary} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 interface PickFileProps {
   limit: number;
@@ -10,10 +11,25 @@ interface PickFileProps {
 
 export class FileHelper {
   static async pickFile({limit, isLogo, isPhoto, isBanner}: PickFileProps) {
-    const res = await launchImageLibrary({
+    const pickerOptions = {
       mediaType: 'photo',
       selectionLimit: limit,
-    });
+    };
+
+    if (isLogo) {
+      const logoImage = await ImagePicker.openPicker({
+        ...pickerOptions,
+        cropping: true,
+        width: 250,
+        height: 250,
+        cropperToolbarTitle: 'Редактирование',
+        freeStyleCropEnabled: true,
+        cropperCircleOverlay: true,
+      });
+
+      return [{uri: logoImage.path!, type: logoImage.mime}];
+    }
+    const res = await launchImageLibrary(pickerOptions);
 
     if (res.assets) {
       const photos: Asset[] = [];

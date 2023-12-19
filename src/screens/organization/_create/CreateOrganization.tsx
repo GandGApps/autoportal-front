@@ -53,6 +53,7 @@ import {fileSevice} from '../../../modules/files/api/file-service';
 import {Loader} from '../../../components/Loader';
 import {CenterContainer} from '../../../template/containers/CenterContainer';
 import {useFocusEffect} from '@react-navigation/native';
+import ImagePicker from 'react-native-image-crop-picker';
 
 interface CreateScreenProps {
   isEdit?: boolean;
@@ -107,28 +108,27 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
 
     handleChangeForm('schedule', [...temp]);
   };
-
   const handlePickImage = async () => {
     try {
       setIsLogoLoading(true);
-      const res = await FileHelper.pickFile({limit: 1, isLogo: true});
-
+      const res = await FileHelper.pickFile({ limit: 1, isLogo: true });
+  
       if (res && res.length) {
         const logo: string = await fileSevice.uploadFile({
           uri: res[0].uri!,
           name: res[0].fileName || 'photouser',
           type: res[0].type! || 'image/jpeg',
         });
-
+  
         handleChangeForm('logo', logo);
       }
     } catch (error) {
       Notifications.error('Не удалось загрузить файл');
     }
-
+  
     setIsLogoLoading(false);
   };
-
+  
   const handlePickImages = async () => {
     if (createForm.photos.length === 5) {
       Notifications.danger('Максимум 5 фотографий');

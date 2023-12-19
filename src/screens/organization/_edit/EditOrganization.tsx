@@ -40,10 +40,10 @@ export const EditOrganizationScreen = () => {
 
         dispatch(getCurrentOrganization(_id))
           .then(res => {
-
-
             const organization = res.payload as CurrentOrganization;
-            if (!res.payload) return;
+            if (!res.payload) {
+              return;
+            }
             dispatch(
               setDefaultCreateForm(
                 OrganizationHelper.getDefaultCreateForm(organization),
