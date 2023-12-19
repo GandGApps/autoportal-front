@@ -213,7 +213,8 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
 
   useEffect(() => {
     const employeers = createForm.employeers || [];
-    if(props.isEdit) {
+    console.log( 'is edit',props.isEdit);
+    if(props.isEdit === true) {
       dispatch(setFirstName(employeers[0]?.name || ''));
       dispatch(setFirstPostion(employeers[0]?.position || ''));
       dispatch(setFirstPhone(employeers[0]?.phone || ''));
