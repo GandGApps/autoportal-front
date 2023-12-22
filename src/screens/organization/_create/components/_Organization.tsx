@@ -7,11 +7,13 @@ import {DownIcon} from '../../../../template/icons/DownIcon';
 import {TypeService} from '../../../../modules/organizations/models/TypeService';
 import {UnitsFilter} from '../../../../modules/organizations/types/OrganizationTypes';
 import {Nullable} from '../../../../settings/types/BaseTypes';
+import { useAppSelector } from '../../../../settings/redux/hooks';
+import { selectOrganizationsValues } from '../../../../modules/organizations/OrganizationsSlice';
 
 interface CreateOrganizationProps {
   nameValue: string;
   categoryValue?: string;
-
+  noBrandsValue? : boolean;
   titleTypeService?: Nullable<string>;
   typeServices?: Nullable<TypeService[]>;
   brandsCars?: Nullable<UnitsFilter[]>;
@@ -23,6 +25,9 @@ interface CreateOrganizationProps {
 }
 
 export const CreateOrganization = (props: CreateOrganizationProps) => {
+
+  console.log('create org noBrands', props.noBrandsValue);
+
   return (
     <MainContainer $ph={20} $pb={50}>
       <TextUI $mb={15} ag={Ag['600_16']}>
@@ -58,7 +63,7 @@ export const CreateOrganization = (props: CreateOrganizationProps) => {
         />
       ) : null}
 
-      {props.brandsCars?.length ? (
+      {props.noBrandsValue === false ? (
         <InputSelectUI
           containerStyles={{
             $mt: 10,

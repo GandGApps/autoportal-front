@@ -105,6 +105,7 @@ export class OrganizationsService extends AbstractServiceRepository {
     );
 
     const scheduleFilter = formatted ? {scheduleFilter: formatted} : {};
+    console.log('schedule filter', scheduleFilter)
 
     let dto: OrganizationsDTO = {
       city: form.city,
@@ -125,7 +126,7 @@ export class OrganizationsService extends AbstractServiceRepository {
     }
 
     const {data} = await this.api.getOrganizationList(dto);
-
+    console.log('dto from server:', dto);
     return this.createList<OrganizationList>(OrganizationList, data);
   };
 

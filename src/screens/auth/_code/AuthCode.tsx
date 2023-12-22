@@ -86,7 +86,7 @@ export const AuthCode = () => {
 
         <CenterContainer>
           <TextUI $mb={5} ag={Ag['400_16']}>
-            {'Не пришло вызов?'}
+            {'Не пришел вызов?'}
           </TextUI>
           <ViewPress
             disabled={isLoad || code.length !== CELL_COUNT}

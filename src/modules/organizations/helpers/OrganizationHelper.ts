@@ -73,6 +73,7 @@ export class OrganizationHelper {
     schedules: string[],
   ): Nullable<ScheduleFilterDTO> => {
     const days = schedules.filter(day => day !== 'allTime' && day !== 'now');
+    console.log('is work now', schedules.includes('now'))
 
     let scheduleFilter: ScheduleFilterDTO = {};
 

@@ -8,7 +8,6 @@ import { deleteOrganization, getPersonalOrganizations } from '../../../../module
 
 export const RemoveOrganizationModal = () => {
   const {currentOrganization} = useAppSelector(selectOrganizationsValues);
-  console.log('my organization id and name', currentOrganization?._id , currentOrganization?.name)
 
   const dispatch = useAppDispatch();
 

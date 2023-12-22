@@ -56,8 +56,8 @@ export class FileHelper {
             width = height * aspectRatio;
           }
         } else {
-          width = 600;
-          height = 240;
+          width = 500;
+          height = 250;
         }
 
         const response = await ImageResizer.createResizedImage(

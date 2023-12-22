@@ -113,7 +113,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
       );
       return;
     }
-
     if (pickList.includes(value._id)) {
       const filterPick = pickList.filter(item => item !== value._id);
       setPickList(filterPick);

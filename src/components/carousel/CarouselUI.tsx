@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {MainContainer} from '../../template/containers/MainContainer';
 import Carousel from 'react-native-reanimated-carousel';
 import {AbsoluteContainer} from '../../template/containers/AbsoluteContainer';
@@ -20,6 +20,7 @@ interface OrganizationPreviewUIProps {
 }
 
 export const CarouselUI = (props: OrganizationPreviewUIProps) => {
+
   return (
     <MainContainer>
       <Carousel

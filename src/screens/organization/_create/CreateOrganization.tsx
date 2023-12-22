@@ -184,7 +184,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     }
     setIsLoading(true);
     dispatch(createOrganization(Boolean(props.isEdit)))
-      .then(() => {
+      .then((res) => {
         dispatch(getPersonalOrganizations());
       })
       .catch(e => {})
@@ -213,7 +213,6 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
 
   useEffect(() => {
     const employeers = createForm.employeers || [];
-    console.log( 'is edit',props.isEdit);
     if(props.isEdit === true) {
       dispatch(setFirstName(employeers[0]?.name || ''));
       dispatch(setFirstPostion(employeers[0]?.position || ''));
@@ -264,6 +263,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
         <CreateOrganization
           nameValue={createForm.name}
           categoryValue={createForm.category?.title}
+          noBrandsValue={createForm.category?.noBrands}
           titleTypeService={organizationFilter?.titleTypeService}
           typeServices={organizationFilter?.typeService}
           brandsCars={organizationFilter?.brandCar}

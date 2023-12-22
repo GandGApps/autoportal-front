@@ -40,7 +40,6 @@ export const CreateBanner = () => {
   const dispatch = useAppDispatch();
 
   const params = useRoute<AdminCreateBannerParams>().params;
-  console.log('params promo is', params?.banner);
 
   useEffect(() => {
     if (params?.banner) {

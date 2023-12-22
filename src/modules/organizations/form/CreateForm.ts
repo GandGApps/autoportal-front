@@ -26,6 +26,7 @@ export interface CreatetFormModel {
   typeService: string[];
   brandCar: string[];
   schedule: ScheduleModel[];
+  noBrands?: boolean;
   name: string;
   address: string;
   mainPhone: string;
