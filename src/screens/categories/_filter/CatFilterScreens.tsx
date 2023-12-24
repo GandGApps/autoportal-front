@@ -77,7 +77,7 @@ export const CatFilterScreens = () => {
               onPress={() => handleOpenFilterModal('typeService')}
             />
           ) : null}
-          {organizationFilter?.brandCar?.length ? (
+          {filterForm.category?.noBrands === false ? (
             <InputSelectUI
               containerStyles={{
                 $mb: 10,

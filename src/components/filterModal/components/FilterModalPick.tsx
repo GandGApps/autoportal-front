@@ -16,7 +16,6 @@ interface FilterModalPickProps {
   item?: TypeService | UnitsFilter;
 
   pickList?: string[];
-
   isCatSub?: boolean;
 
   sortTitle?: string;
@@ -47,6 +46,7 @@ export const FilterModalPick = (props: FilterModalPickProps) => {
       setIsActive(props.pickList.includes(props.item!._id));
     }
   }, [props.pickList]);
+
 
   return (
     <BorderTopUI>

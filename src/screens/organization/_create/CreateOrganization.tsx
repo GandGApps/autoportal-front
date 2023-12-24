@@ -301,7 +301,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           onChangeText={value => handleChangeForm('description', value)}
         />
 
-        <CreateSchedules onChangeSchedule={handleChangeSchedule} />
+        <CreateSchedules onChangeSchedule={handleChangeSchedule} defaultSchedule={createForm.schedule}/>
 
         {!isLogoLoading ? (
           <CreateAddLogo logo={createForm.logo} onPickImage={handlePickImage} />

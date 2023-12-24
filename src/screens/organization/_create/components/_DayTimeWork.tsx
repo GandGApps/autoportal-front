@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {MainContainer} from '../../../../template/containers/MainContainer';
 import {ColorsUI} from '../../../../template/styles/ColorUI';
 import {CheckboxUI} from '../../../../template/ui/CheckboxUI';
@@ -14,15 +14,18 @@ import {useFocusEffect} from '@react-navigation/native';
 interface CreateDayTimeWorkProps {
   indexDay: number;
   onChangeSchedule: (value: ScheduleModel, isRemove?: boolean) => void;
-  isRemove?: boolean;
+  schedule: ScheduleModel | null;
+  sch?: ScheduleModel;
 }
 
 export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
+  console.log('sch', props.sch);
+
   const [isActive, setIsActive] = useState(false);
   const [isAllDay, setIsAllDay] = useState(false);
 
-  const [from, setfrom] = useState('10:00');
-  const [to, setto] = useState('19:00');
+  const [from, setfrom] = useState(props.sch?.from || '10:00');
+  const [to, setto] = useState(props.sch?.to || '19:00');
 
   const [openFrom, setOpenFrom] = useState(false);
   const [openTo, setOpenTo] = useState(false);
@@ -56,6 +59,27 @@ export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
 
     props.onChangeSchedule(day, true);
   }, [isActive, isAllDay, from, to]);
+
+  const dayOfWeek = useMemo(() => DaysOfWeek[props.indexDay], [props.indexDay]);
+  const memoizedSch = useMemo(() => props.sch, [props.sch]);
+
+  useEffect(() => {
+    const dayInSchedule = memoizedSch && memoizedSch.some((item) => item.title === dayOfWeek);
+
+    if (dayInSchedule) {
+      const currentDay = memoizedSch.find((item) => item.title === dayOfWeek);
+      setfrom(currentDay?.from || '10:00');
+      setto(currentDay?.to || '19:00');
+      setIsAllDay(currentDay?.isAllDay || false);
+      setIsActive(true);
+    } else {
+      setfrom('10:00');
+      setto('19:00');
+      setIsAllDay(false);
+      setIsActive(false);
+    }
+  }, [dayOfWeek, memoizedSch]);
+
 
   useFocusEffect(
     useCallback(() => {

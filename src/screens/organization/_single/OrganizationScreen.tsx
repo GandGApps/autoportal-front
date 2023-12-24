@@ -42,6 +42,8 @@ export const OrganizationScreen = () => {
   );
   const {isAdmin} = useAppSelector(selectAuthValues);
 
+    console.log('Current: ', currentOrganization)
+
   const contactModal = useRef<Modalize>(null);
 
   const insets = useSafeAreaInsets();

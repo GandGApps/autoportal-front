@@ -45,8 +45,11 @@ export const CitiesModal = (props: CitiesFilterProps) => {
       dispatch(resetCities);
     }, [query]),
   );
+  console.log('my picked city', query);
 
   const handlePickCity = (city: string) => {
+    console.log("Selected city:", city);
+
     if (props.onPickCity) {
       props.onPickCity(city);
     } else {

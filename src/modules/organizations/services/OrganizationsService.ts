@@ -124,10 +124,16 @@ export class OrganizationsService extends AbstractServiceRepository {
     if (form.brandCar?.length) {
       dto = {...dto, brandsCarsId: form.brandCar};
     }
+    try {
+      const {data} = await this.api.getOrganizationList(dto);
 
-    const {data} = await this.api.getOrganizationList(dto);
-    console.log('dto from server:', dto);
-    return this.createList<OrganizationList>(OrganizationList, data);
+      return this.createList<OrganizationList>(OrganizationList, data);
+
+
+  } catch (error) {
+      console.error('Произошла ошибка при запросе:', error);
+  }
+
   };
 
   getCurrentOrganization = async (_id: string) => {
@@ -184,7 +190,7 @@ export class OrganizationsService extends AbstractServiceRepository {
       const currentToken = await tokenService.getTokenData();
       // Убедитесь, что у вас есть токен перед выполнением запроса
       if (!currentToken) {
-        console.log('Отсутствует токен аутентификации');
+        ('Отсутствует токен аутентификации');
         throw new Error('Отсутствует токен аутентификации.');
       }
       console.log(' токен аутентификации', currentToken);

@@ -26,8 +26,6 @@ interface CreateOrganizationProps {
 
 export const CreateOrganization = (props: CreateOrganizationProps) => {
 
-  console.log('create org noBrands', props.noBrandsValue);
-
   return (
     <MainContainer $ph={20} $pb={50}>
       <TextUI $mb={15} ag={Ag['600_16']}>

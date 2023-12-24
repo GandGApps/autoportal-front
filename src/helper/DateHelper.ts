@@ -29,10 +29,26 @@ interface ScheduleDayForm {
   to: string;
 }
 
+const sortWeekDays = (scheduleArray: ScheduleModel[]) => {
+  const result: ScheduleModel[] = [];
+  DaysOfWeek.forEach((day: string) => {
+    const item: ScheduleModel | undefined = scheduleArray.find(
+      scheduleDay => scheduleDay.title === day,
+    );
+    if (item) {
+      result.push(item);
+    } else {
+      result.push(defaultSchedule);
+    }
+  });
+  return result;
+};
+
 export class DateHelper {
   static buildScheduleText = (scheduleArray: ScheduleModel[]) => {
+    const sortedSchedule = sortWeekDays(scheduleArray);
     const result: FormattedSchedule[] = ShortDaysOfWeek.map((day, index) => {
-      const item = scheduleArray[index] || defaultSchedule;
+      const item = sortedSchedule[index];
       let time = 'закрыто';
 
       if (item.isAllDay) {

@@ -96,6 +96,8 @@ export const FilterModal = (props: CitiesFilterProps) => {
       }
       case 'schedule': {
         setPickList((form as FiltertFormModel).schedule || []);
+   
+
         setList(MockFilterSchedule);
         break;
       }
@@ -113,12 +115,16 @@ export const FilterModal = (props: CitiesFilterProps) => {
       );
       return;
     }
+    console.log(pickList, value._id);
     if (pickList.includes(value._id)) {
       const filterPick = pickList.filter(item => item !== value._id);
       setPickList(filterPick);
-    } else {
+    } else if (value._id === 'now') {
+      setPickList([value._id]);
+    } else if (!pickList.includes('now')) {
       setPickList([...pickList, value._id]);
     }
+
   };
 
   const handleSort = (value: SortFilterType | null) => {
@@ -259,8 +265,12 @@ const SelectList: FC<SelectListProps> = function SelectList(props) {
       <View>
         <FilterModalPick
           item={item}
-          onPickItem={() => onPickItem(item)}
-          pickList={pickList}
+          onPickItem={() => {
+            onPickItem(item);
+            console.log('picked item', item);
+            console.log('pick list',pickList)
+          }}
+                    pickList={pickList}
           isCatSub={
             props.typeModal === 'typeService' &&
             (item as TypeService).subServices !== undefined &&
