@@ -115,7 +115,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
       );
       return;
     }
-    console.log(pickList, value._id);
     if (pickList.includes(value._id)) {
       const filterPick = pickList.filter(item => item !== value._id);
       setPickList(filterPick);
@@ -267,8 +266,7 @@ const SelectList: FC<SelectListProps> = function SelectList(props) {
           item={item}
           onPickItem={() => {
             onPickItem(item);
-            console.log('picked item', item);
-            console.log('pick list',pickList)
+          
           }}
                     pickList={pickList}
           isCatSub={

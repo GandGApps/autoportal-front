@@ -82,7 +82,7 @@ export const OrganizationStack = () => {
         component={WebviewOffer}
         options={{
           gestureEnabled: true,
-          ...TransitionPresets.ModalPresentationIOS,
+          ...(Platform.OS === 'ios' ? TransitionPresets.ModalPresentationIOS : TransitionPresets.DefaultTransition),
         }}
       />
 

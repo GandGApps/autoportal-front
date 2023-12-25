@@ -11,7 +11,8 @@ interface OrgCarsBrandsProps {
 
 export const OrgCarsBrands = ({carsBrands}: OrgCarsBrandsProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  return (
+
+  return carsBrands.length ? (
     <BorderTopUI $ph={20} $pv={20}>
       <TextUI ag={Ag['600_16']} $mb={15}>
         {'Обслуживаемые марки авто'}
@@ -34,5 +35,5 @@ export const OrgCarsBrands = ({carsBrands}: OrgCarsBrandsProps) => {
         </TextUI>
       </ViewPress>
     </BorderTopUI>
-  );
+  ) : null;
 };

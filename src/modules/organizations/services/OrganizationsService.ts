@@ -105,7 +105,6 @@ export class OrganizationsService extends AbstractServiceRepository {
     );
 
     const scheduleFilter = formatted ? {scheduleFilter: formatted} : {};
-    console.log('schedule filter', scheduleFilter)
 
     let dto: OrganizationsDTO = {
       city: form.city,

@@ -19,7 +19,6 @@ interface CreateDayTimeWorkProps {
 }
 
 export const CreateDayTimeWork = (props: CreateDayTimeWorkProps) => {
-  console.log('sch', props.sch);
 
   const [isActive, setIsActive] = useState(false);
   const [isAllDay, setIsAllDay] = useState(false);

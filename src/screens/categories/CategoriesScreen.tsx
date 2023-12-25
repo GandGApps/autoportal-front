@@ -58,7 +58,6 @@ export const CategoriesScreen = () => {
   const handleGoToSearch = () => {
     Navigation.navigate(Screens.CAT_SEARCH);
   };
-
   const handlePickCategory = (category: Category) => {
     dispatch(resetFilterForm());
     dispatch(filterChangeForm({ key: 'category', value: category }));
