@@ -25,6 +25,7 @@ import {Modalize} from 'react-native-modalize';
 
 export const WelcomeScreen = () => {
   const {filterForm} = useAppSelector(selectOrganizationsValues);
+  console.log( 'filterform city',filterForm.city)
 
   const cityModal = useRef<Modalize>(null);
 

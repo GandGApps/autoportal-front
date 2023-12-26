@@ -12,7 +12,6 @@ class CityService extends AbstractServiceRepository {
 
   getCities = async (query: string) => {
     const {data} = await this.api.getCities(query);
-
     return this.createList<City>(City, data);
   };
 }
