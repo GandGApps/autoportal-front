@@ -45,7 +45,27 @@ import {Category} from '../../../modules/organizations/models/Category';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {Ag, TextUI} from '../../../template/ui/TextUI';
 import {MainContainer} from '../../../template/containers/MainContainer';
-import {selectEmployeersValues, setFirstName, setFirstPhone, setFirstPostion, setSecondName, setSecondPhone, setSecondPostion, setThirdName, setThirdPhone, setThirdPosition} from '../../../modules/employeers/EmployeersSlice';
+import {
+  selectEmployeersValues,
+  setFirstName,
+  setFirstPhone,
+  setFirstPostion,
+  setSecondName,
+  setSecondPhone,
+  setSecondPostion,
+  setThirdName,
+  setThirdPhone,
+  setThirdPosition,
+  resetFirstName,
+  resetFirstPosition,
+  resetFirstPhone,
+  resetSecondName,
+  resetSecondPosition,
+  resetSecondPhone,
+  resetThirdName,
+  resetThirdPosition,
+  resetThirdPhone,
+} from '../../../modules/employeers/EmployeersSlice';
 import {createOrganization} from '../../../modules/organizations/thunks/create.thunk';
 import {OrganizationHelper} from '../../../modules/organizations/helpers/OrganizationHelper';
 import {FileHelper} from '../../../modules/files/FilesHelper';
@@ -111,24 +131,24 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const handlePickImage = async () => {
     try {
       setIsLogoLoading(true);
-      const res = await FileHelper.pickFile({ limit: 1, isLogo: true });
-  
+      const res = await FileHelper.pickFile({limit: 1, isLogo: true});
+
       if (res && res.length) {
         const logo: string = await fileSevice.uploadFile({
           uri: res[0].uri!,
           name: res[0].fileName || 'photouser',
           type: res[0].type! || 'image/jpeg',
         });
-  
+
         handleChangeForm('logo', logo);
       }
     } catch (error) {
       Notifications.error('Не удалось загрузить файл');
     }
-  
+
     setIsLogoLoading(false);
   };
-  
+
   const handlePickImages = async () => {
     if (createForm.photos.length === 5) {
       Notifications.danger('Максимум 5 фотографий');
@@ -184,8 +204,17 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     }
     setIsLoading(true);
     dispatch(createOrganization(Boolean(props.isEdit)))
-      .then((res) => {
+      .then(res => {
         dispatch(getPersonalOrganizations());
+        dispatch(resetFirstName());
+        dispatch(resetFirstPosition());
+        dispatch(resetFirstPhone());
+        dispatch(resetSecondName());
+        dispatch(resetSecondPosition());
+        dispatch(resetSecondPhone());
+        dispatch(resetThirdName());
+        dispatch(resetThirdPosition());
+        dispatch(resetThirdPhone());
       })
       .catch(e => {})
       .finally(() => {
@@ -213,7 +242,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
 
   useEffect(() => {
     const employeers = createForm.employeers || [];
-    if(props.isEdit === true) {
+    if (props.isEdit === true) {
       dispatch(setFirstName(employeers[0]?.name || ''));
       dispatch(setFirstPostion(employeers[0]?.position || ''));
       dispatch(setFirstPhone(employeers[0]?.phone || ''));
@@ -224,10 +253,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       dispatch(setThirdPosition(employeers[2]?.position || ''));
       dispatch(setThirdPhone(employeers[2]?.phone || ''));
     }
-   
   }, [dispatch, createForm]);
-  
-
 
   return (
     <ColumnContainerFlex>
@@ -272,7 +298,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           onChangeService={() => handleOpenFilterModal('typeService')}
           onChangeBrandsCars={() => {
             Navigation.navigate(Screens.MODAL_BRANSCARS, {
-              isCreate: !props.isEdit || true
+              isCreate: !props.isEdit || true,
             });
           }}
         />
@@ -301,7 +327,10 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           onChangeText={value => handleChangeForm('description', value)}
         />
 
-        <CreateSchedules onChangeSchedule={handleChangeSchedule} defaultSchedule={createForm.schedule}/>
+        <CreateSchedules
+          onChangeSchedule={handleChangeSchedule}
+          defaultSchedule={createForm.schedule}
+        />
 
         {!isLogoLoading ? (
           <CreateAddLogo logo={createForm.logo} onPickImage={handlePickImage} />

@@ -24,6 +24,7 @@ export const FavoritesScreen = () => {
   const {filterForm, favoritesList, isFavoritesListLoad} = useAppSelector(
     selectOrganizationsValues,
   );
+
   const dispatch = useAppDispatch();
 
   const insets = useSafeAreaInsets();
@@ -40,7 +41,7 @@ export const FavoritesScreen = () => {
         });
       }, 0);
     }, [filterForm.category]),
-  );
+  ); 
 
   const handleOpenModalCategory = () => {
     categoriesModalRef.current?.open();

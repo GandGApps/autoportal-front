@@ -49,6 +49,33 @@ const employeersSlice = createSlice({
     setThirdPhone: (state, action) => {
       state.thirdPhone = action.payload;
     },
+    resetFirstName: state => {
+      state.firstName = '';
+    },
+    resetFirstPosition: state => {
+      state.firstPostion = '';
+    },
+    resetFirstPhone: state => {
+      state.firstPhone = '';
+    },
+    resetSecondName: state => {
+      state.secondName = '';
+    },
+    resetSecondPosition: state => {
+      state.secondPostion = '';
+    },
+    resetSecondPhone: state => {
+      state.secondPhone = '';
+    },
+    resetThirdName: state => {
+      state.thirdName = '';
+    },
+    resetThirdPosition: state => {
+      state.thirdPosition = '';
+    },
+    resetThirdPhone: state => {
+      state.thirdPhone = '';
+    },
   },
 });
 
@@ -62,6 +89,15 @@ export const {
   setThirdName,
   setThirdPosition,
   setThirdPhone,
+  resetFirstName,
+  resetFirstPosition,
+  resetFirstPhone,
+  resetSecondName,
+  resetSecondPosition,
+  resetSecondPhone,
+  resetThirdName,
+  resetThirdPosition,
+  resetThirdPhone,
 } = employeersSlice.actions;
 
 export const selectEmployeersValues = (state: RootState) =>

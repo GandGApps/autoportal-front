@@ -54,7 +54,7 @@ export const OrganizationPreview = (props: OrganizationPreviewProps) => {
         type: isFavorite ? 'delete' : 'add',
       }),
     )
-      .then(() => {
+      .then((res) => {
         if (isFavorite) {
           Notifications.danger('Удалено из избранного');
         } else {

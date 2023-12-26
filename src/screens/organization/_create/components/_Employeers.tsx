@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
 import {RowContainerBeetwen} from '../../../../template/containers/RowContainer';
 import {DownIcon} from '../../../../template/icons/DownIcon';
@@ -20,6 +20,15 @@ import {
   setThirdName,
   setThirdPhone,
   setThirdPosition,
+  resetFirstName,
+  resetFirstPosition,
+  resetFirstPhone,
+  resetSecondName,
+  resetSecondPosition,
+  resetSecondPhone,
+  resetThirdName,
+  resetThirdPosition,
+  resetThirdPhone,
 } from '../../../../modules/employeers/EmployeersSlice';
 import {MaskHelper} from '../../../../helper/MaskHelper';
 import {selectOrganizationsValues} from '../../../../modules/organizations/OrganizationsSlice';
@@ -27,7 +36,9 @@ import {selectOrganizationsValues} from '../../../../modules/organizations/Organ
 export const CreateEmployeers = () => {
   const select = useAppSelector(selectEmployeersValues);
 
+
   const dispatch = useAppDispatch();
+ 
 
   const [isShow, setShow] = useState(false);
 

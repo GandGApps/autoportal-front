@@ -43,18 +43,8 @@ export class FileHelper {
           width = Math.min(asset.width!, 250);
           height = width;
         } else if (isPhoto) {
-          const targetWidth = 500;
-          const targetHeight = 250;
-
-          const aspectRatio = asset.width! / asset.height!;
-
-          if (aspectRatio >= targetWidth / targetHeight) {
-            width = targetWidth;
-            height = width / aspectRatio;
-          } else {
-            height = targetHeight;
-            width = height * aspectRatio;
-          }
+          width = Math.min(asset.width!, 800);
+          height = width / 1.5;
         } else {
           width = 500;
           height = 250;
@@ -70,7 +60,7 @@ export class FileHelper {
           undefined,
           false,
           {
-            mode: 'contain',
+            mode: 'cover',
           },
         );
 
