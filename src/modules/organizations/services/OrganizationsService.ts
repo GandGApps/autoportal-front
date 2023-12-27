@@ -124,17 +124,21 @@ export class OrganizationsService extends AbstractServiceRepository {
       dto = {...dto, brandsCarsId: form.brandCar};
     }
     try {
-      const {data} = await this.api.getOrganizationList(dto);
+      const response = await this.api.getOrganizationList(dto);
+      const { data, status } = response;
+    
+      console.log('Response Data:', data);
+      console.log('Response Status:', status);
 
       return this.createList<OrganizationList>(OrganizationList, data);
 
-
-  } catch (error) {
+      
+    } catch (error) {
       console.error('Произошла ошибка при запросе:', error);
-  }
-
+    }
+    
   };
-
+  
   getCurrentOrganization = async (_id: string) => {
     const {data} = await this.api.getCurrentOrganization(_id);
 
