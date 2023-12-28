@@ -290,6 +290,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           nameValue={createForm.name}
           categoryValue={createForm.category?.title}
           noBrandsValue={createForm.category?.noBrands}
+          noServiceValue={createForm.category?.noService}
           titleTypeService={organizationFilter?.titleTypeService}
           typeServices={organizationFilter?.typeService}
           brandsCars={organizationFilter?.brandCar}

@@ -68,12 +68,12 @@ export const CatFilterScreens = () => {
       </RowContainerBeetwen>
       {!isLoading ? (
         <Fragment>
-          {organizationFilter?.typeService?.length ? (
+          {filterForm.category?.noService === false ? (
             <InputSelectUI
               containerStyles={{
                 $mb: 10,
               }}
-              value={organizationFilter.titleTypeService || 'Вид услуги'}
+              value={organizationFilter?.titleTypeService || 'Вид услуги'}
               onPress={() => handleOpenFilterModal('typeService')}
             />
           ) : null}

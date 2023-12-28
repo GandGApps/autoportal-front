@@ -13,7 +13,8 @@ import { selectOrganizationsValues } from '../../../../modules/organizations/Org
 interface CreateOrganizationProps {
   nameValue: string;
   categoryValue?: string;
-  noBrandsValue? : boolean;
+  noBrandsValue?: boolean;
+  noServiceValue?: boolean;
   titleTypeService?: Nullable<string>;
   typeServices?: Nullable<TypeService[]>;
   brandsCars?: Nullable<UnitsFilter[]>;
@@ -50,7 +51,7 @@ export const CreateOrganization = (props: CreateOrganizationProps) => {
         onPress={props.onChangeCategories}
       />
 
-      {props.typeServices?.length ? (
+      {props.noServiceValue === false ? (
         <InputSelectUI
           containerStyles={{
             $mt: 10,
