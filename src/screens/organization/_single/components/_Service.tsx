@@ -13,16 +13,17 @@ import {ColorsUI} from '../../../../template/styles/ColorUI';
 
 interface OrgServiceProps {
   service: TypeService;
+  subService: TypeService;
 }
 
-export const OrgService = ({service}: OrgServiceProps) => {
-  const isSubs = service.subServices && service.subServices?.length > 0;
+export const OrgService = ({ service, subService }: OrgServiceProps) => {
+  const filteredSubServices = subService.filter(sub => sub.service_id === service._id);
 
   const [isMore, setIsMore] = useState(false);
 
   return (
     <BorderTopUI key={`org-${service._id}`} $ph={20} $pv={10}>
-      {isSubs ? (
+      {filteredSubServices.length > 0 ? (
         <ViewPress onPress={() => setIsMore(!isMore)} activeOpacity={0.8}>
           <RowContainerBeetwen>
             <TextUI ag={Ag['400_16']}>{service.title}</TextUI>
@@ -31,14 +32,14 @@ export const OrgService = ({service}: OrgServiceProps) => {
 
           {isMore ? (
             <MainContainer $mt={10}>
-              {service.subServices?.map(sub => (
+              {filteredSubServices?.map(sub => (
                 <RowContainer key={`org-sub-${sub._id}`} $mb={5} $pl={20}>
                   <MainContainer
                     $mr={10}
                     $bg={ColorsUI.black}
                     $br={5}
-                    $heightPX={5}
-                    $widthPX={5}
+                    $heightPX={3}
+                    $widthPX={3}
                   />
                   <TextUI ag={Ag['400_16']}>{sub.title}</TextUI>
                 </RowContainer>
@@ -52,3 +53,4 @@ export const OrgService = ({service}: OrgServiceProps) => {
     </BorderTopUI>
   );
 };
+

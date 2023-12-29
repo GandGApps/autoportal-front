@@ -32,6 +32,7 @@ import Navigation from '../../../routes/navigation/Navigation';
 import {Screens} from '../../../routes/models/Screens';
 import {ContactModal} from './components/ContactModal';
 import {Modalize} from 'react-native-modalize';
+import {getServices} from '../../../modules/organizations/thunks/services.thunk';
 
 export const OrganizationScreen = () => {
   const {_id} = useRoute<OrganizationParams>().params;
@@ -41,10 +42,7 @@ export const OrganizationScreen = () => {
     selectOrganizationsValues,
   );
 
-  console.log('current organization', currentOrganization)
-
   const {isAdmin} = useAppSelector(selectAuthValues);
-
 
   const contactModal = useRef<Modalize>(null);
 
@@ -55,17 +53,23 @@ export const OrganizationScreen = () => {
 
   const [isLoad, setIsLoad] = useState(false);
 
+  let categoryID = currentOrganization?.categoryId?._id;
+  const [services, setServices] = useState();
   const [visiblePreview, setIsVisiblePreview] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoad(true);
-      dispatch(getCurrentOrganization(_id))
-        .then(response => {})
-        .finally(() => {
-          setIsLoad(false);
-        });
-    }, 0);
+    const fetchData = async () => {
+      try {
+        setIsLoad(true);
+        await dispatch(getCurrentOrganization(_id));
+        const res = await dispatch(getServices(categoryID));
+        setServices(res.payload);
+      } finally {
+        setIsLoad(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handlePressImage = () => {
@@ -145,7 +149,7 @@ export const OrganizationScreen = () => {
         />
 
         {currentOrganization.services.length ? (
-          <OrgServices services={currentOrganization.services} />
+          <OrgServices mainServices={services} services={currentOrganization.services} />
         ) : null}
 
         {currentOrganization.brandsCars ? (

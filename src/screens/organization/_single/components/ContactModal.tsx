@@ -27,8 +27,7 @@ export const ContactModal: FC<CompProps> = function ContactModal(props) {
   const formatPhoneNumber = (phoneNumber: string) => {
     return phoneNumber.replace(/\D/g, '');
   };
-console.log( 'props main phone',props.mainPhone);
-console.log('props employeers',props.employeers)
+
   return (
     <SwipeableModal modalizeRef={props.modalizeRef}>
       <View style={{paddingBottom: Insets.bottom}}>
@@ -51,9 +50,7 @@ console.log('props employeers',props.employeers)
               </TextUI>
               <ViewPress
                 onPress={() => {
-                  Linking.openURL(`tel:${props.mainPhone}`)
-                  console.log(`${props.mainPhone} and ${MaskHelper.formatPhoneNumber(props.mainPhone)}`)
-                  ;
+                  Linking.openURL(`tel:${props.mainPhone}`)                 ;
                 }}>
                 <RowContainer $mb={15}>
                   <PhoneIcon color={ColorsUI.black} size={24} />
@@ -78,7 +75,6 @@ console.log('props employeers',props.employeers)
                   onPress={() => {
                     const formattedPhone = formatPhoneNumber(item.phone);
                     Linking.openURL(`tel:${formattedPhone}`)
-                    console.log(`${formattedPhone} and ${MaskHelper.formatPhoneNumber(formattedPhone)}`)
                     ;
                   }}>
                   <RowContainer $mb={15}>

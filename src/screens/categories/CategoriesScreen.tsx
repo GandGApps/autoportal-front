@@ -79,7 +79,7 @@ export const CategoriesScreen = () => {
         <MainContainer $ph={25} $mb={20}>
           {banners.length ? (
             <Carousel
-              style={{ gap: 10 }}
+              style={{ gap: 20 }}
               loop={banners.length > 1}
               autoPlay={banners.length > 1}
               autoPlayInterval={3000}
