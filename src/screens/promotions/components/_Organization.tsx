@@ -23,7 +23,6 @@ interface _Props {
 
 export const PromoOrganization = ({organization, promotion}: _Props) => {
 
-  console.log('organization', organization)
   const handleGoToOrganization = () => {
     Navigation.navigate(Screens.ORGANIZATION, {
       _id: organization._id,

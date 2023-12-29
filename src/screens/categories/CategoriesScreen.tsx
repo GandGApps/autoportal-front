@@ -93,13 +93,13 @@ export const CategoriesScreen = () => {
 
           <MainContainer style={{ gap: 10 }}
   $mt={18} $mb={10}>
-          <SelectUI 
-      text={filterForm.city || 'Выберите город'} onPress={handleOpenModalCity} />
             <InputSelectUI
               value={'Поиск по услугам'}
               rightIcon={<SearchIcon />}
               onPress={handleGoToSearch}
             />
+                      <SelectUI 
+      text={filterForm.city || 'Выберите город'} onPress={handleOpenModalCity} />
           </MainContainer>
         </MainContainer>
 

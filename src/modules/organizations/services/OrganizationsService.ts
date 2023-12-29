@@ -127,8 +127,6 @@ export class OrganizationsService extends AbstractServiceRepository {
       const response = await this.api.getOrganizationList(dto);
       const { data, status } = response;
     
-      console.log('Response Data:', data);
-      console.log('Response Status:', status);
 
       return this.createList<OrganizationList>(OrganizationList, data);
 

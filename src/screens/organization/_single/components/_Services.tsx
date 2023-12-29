@@ -13,6 +13,7 @@ interface OrgServicesProps {
 
 export const OrgServices = ({services}: OrgServicesProps) => {
   const [isMore, setIsMore] = useState(false);
+
   return (
     <BorderTopUI $bg={ColorsUI.gray.bg} $pv={20}>
       <MainContainer $ph={20}>
