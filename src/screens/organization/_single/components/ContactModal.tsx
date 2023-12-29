@@ -51,11 +51,14 @@ export const ContactModal: FC<CompProps> = function ContactModal(props) {
               <ViewPress
                 onPress={() => {
                   Linking.openURL(`tel:${props.mainPhone}`);
+
+
                 }}>
                 <RowContainer $mb={15}>
                   <PhoneIcon color={ColorsUI.black} size={24} />
                   <TextUI $ml={10} ag={Ag['600_16']}>
                     {MaskHelper.formatPhoneNumber(props.mainPhone)}
+
                   </TextUI>
                 </RowContainer>
               </ViewPress>
