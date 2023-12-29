@@ -50,7 +50,7 @@ export const ContactModal: FC<CompProps> = function ContactModal(props) {
               </TextUI>
               <ViewPress
                 onPress={() => {
-                  Linking.openURL(`tel:${props.mainPhone}`)                 ;
+                  Linking.openURL(`tel:${props.mainPhone}`);
                 }}>
                 <RowContainer $mb={15}>
                   <PhoneIcon color={ColorsUI.black} size={24} />
@@ -74,8 +74,7 @@ export const ContactModal: FC<CompProps> = function ContactModal(props) {
                 <ViewPress
                   onPress={() => {
                     const formattedPhone = formatPhoneNumber(item.phone);
-                    Linking.openURL(`tel:${formattedPhone}`)
-                    ;
+                    Linking.openURL(`tel:+${formattedPhone}`);
                   }}>
                   <RowContainer $mb={15}>
                     <PhoneIcon color={ColorsUI.black} size={24} />
