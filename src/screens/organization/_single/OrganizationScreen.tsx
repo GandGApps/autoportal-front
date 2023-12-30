@@ -37,17 +37,16 @@ import {getServices} from '../../../modules/organizations/thunks/services.thunk'
 export const OrganizationScreen = () => {
   const {_id} = useRoute<OrganizationParams>().params;
   const dispatch = useAppDispatch();
-
   const {isCurrentOrganizationLoad, currentOrganization} = useAppSelector(
     selectOrganizationsValues,
   );
 
   const {isAdmin} = useAppSelector(selectAuthValues);
 
+
   const contactModal = useRef<Modalize>(null);
 
   const insets = useSafeAreaInsets();
-
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [previewIndex, setPreviewIndex] = useState(0);
 
@@ -57,26 +56,29 @@ export const OrganizationScreen = () => {
   const [services, setServices] = useState();
   const [visiblePreview, setIsVisiblePreview] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoad(true);
-        await dispatch(getCurrentOrganization(_id));
-        const res = await dispatch(getServices(categoryID));
-        setServices(res.payload);
-      } finally {
-        setIsLoad(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      setIsLoad(true);
+      await dispatch(getCurrentOrganization(_id));
+      const servicesResponse = await dispatch(getServices(categoryID));
+      setServices(servicesResponse.payload);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsLoad(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [_id, categoryID]);
+
+
 
   const handlePressImage = () => {
     setPreviewIndex(carouselIndex);
     setIsVisiblePreview(true);
   };
-
   if (isCurrentOrganizationLoad || !currentOrganization || isLoad) {
     return (
       <CenterContainerFlex>
@@ -84,7 +86,6 @@ export const OrganizationScreen = () => {
       </CenterContainerFlex>
     );
   }
-
   return (
     <ColumnContainerFlex>
       <StatusBar
@@ -103,14 +104,12 @@ export const OrganizationScreen = () => {
           onPressImage={handlePressImage}
           logo={currentOrganization.logo}
         />
-
         <OrganizationTitleRating
           categoryName={currentOrganization?.categoryId?.title!}
           name={currentOrganization?.name}
           rating={currentOrganization?.rating}
           countReviews={currentOrganization?.countReviews}
         />
-
         {isAdmin && (
           <ViewPress
             $pv={20}
@@ -127,7 +126,6 @@ export const OrganizationScreen = () => {
             </TextUI>
           </ViewPress>
         )}
-
         {currentOrganization?.promo ? (
           <OrganizationPromo
             description={currentOrganization.promo.description}
@@ -135,7 +133,6 @@ export const OrganizationScreen = () => {
             endPromo={currentOrganization.promo.endPromo}
           />
         ) : null}
-
         <ContactInfoContent
           mainPhone={currentOrganization.mainPhone}
           whatsApp={currentOrganization.whatsApp}
@@ -143,7 +140,6 @@ export const OrganizationScreen = () => {
           address={currentOrganization.address}
           employeers={currentOrganization.employeers}
         />
-
         <OrganizationDescription
           description={currentOrganization.description}
         />
@@ -155,13 +151,9 @@ export const OrganizationScreen = () => {
         {currentOrganization.brandsCars ? (
           <OrgCarsBrands carsBrands={currentOrganization.brandsCars} />
         ) : null}
-
         <OrgSchedules schedule={currentOrganization.schedule} />
-
         <OrgReview review={currentOrganization.lastReview} />
-
         <OrgReport organizationId={currentOrganization._id} />
-
         <ImageView
           images={
             currentOrganization?.photos.map(item => {
@@ -182,7 +174,6 @@ export const OrganizationScreen = () => {
           )}
         />
       </ScrollViewScreen>
-
       <OrgBottomMenu
         organization={currentOrganization}
         openModal={() => contactModal.current?.open()}

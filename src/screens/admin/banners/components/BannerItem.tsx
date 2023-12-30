@@ -23,6 +23,10 @@ export const BannerItem: FC<CompProps> = ({banner}) => {
   const width = Dimensions.get('window').width - 40;
   const height = width / 2;
 
+  console.log('banner height', height)
+  console.log('banner width', width)
+
+
   const handleEditBanner = () => {
     Navigation.navigate(Screens.ADMIN_CREATE_BANNER, {
       banner: banner,

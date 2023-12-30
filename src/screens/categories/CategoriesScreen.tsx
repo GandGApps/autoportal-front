@@ -76,7 +76,7 @@ export const CategoriesScreen = () => {
       <ScrollViewScreen
         $mt={Math.max(insets.top, 20)}
         showsVerticalScrollIndicator={false}>
-        <MainContainer $ph={25} $mb={20}>
+        <MainContainer $ph={20} $mb={20}>
           {banners.length ? (
             <Carousel
               style={{ gap: 20 }}

@@ -15,6 +15,7 @@ interface CreateOrganizationProps {
   categoryValue?: string;
   noBrandsValue?: boolean;
   noServiceValue?: boolean;
+  typeServiceLen?: number;
   titleTypeService?: Nullable<string>;
   typeServices?: Nullable<TypeService[]>;
   brandsCars?: Nullable<UnitsFilter[]>;
@@ -51,7 +52,7 @@ export const CreateOrganization = (props: CreateOrganizationProps) => {
         onPress={props.onChangeCategories}
       />
 
-      {props.noServiceValue === false ? (
+      {props.noServiceValue === false && props.typeServiceLen ? (
         <InputSelectUI
           containerStyles={{
             $mt: 10,

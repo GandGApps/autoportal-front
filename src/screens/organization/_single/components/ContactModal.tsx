@@ -24,6 +24,7 @@ interface CompProps {
 export const ContactModal: FC<CompProps> = function ContactModal(props) {
   // Linking.openURL(`tel:${organization.mainPhone}`);
 
+
   const formatPhoneNumber = (phoneNumber: string) => {
     return phoneNumber.replace(/\D/g, '');
   };
@@ -31,7 +32,7 @@ export const ContactModal: FC<CompProps> = function ContactModal(props) {
   return (
     <SwipeableModal modalizeRef={props.modalizeRef}>
       <View style={{paddingBottom: Insets.bottom}}>
-        {!!props.whatsApp && (
+        {!!props.whatsApp && props.whatsApp.length > 3 && (
           <Fragment>
             <TextUI $mb={10} ag={Ag['500_14']} $align={'center'}>
               {'Написать нам на WhatsApp'}
@@ -43,7 +44,7 @@ export const ContactModal: FC<CompProps> = function ContactModal(props) {
         )}
 
         <CenterContainer>
-          {!!props.mainPhone && (
+          {!!props.mainPhone && props.mainPhone.length > 3 &&  (
             <MainContainer $mb={20} $borderBottom={ColorsUI.gray.disabled}>
               <TextUI $mb={10} ag={Ag['500_14']} $align={'center'}>
                 {'Основной номер'}

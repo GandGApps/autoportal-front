@@ -48,7 +48,7 @@ export const CarouselItem: FC<CompProps> = ({
         )}
         <Image
           style={{borderRadius: 10}}
-          width={width - 10}
+          width={width}
           height={height}
           source={{uri: url}}
           onLoadStart={() => setIsLoading(true)}

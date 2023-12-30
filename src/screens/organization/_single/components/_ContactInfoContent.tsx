@@ -29,13 +29,12 @@ interface ContactInfoContentProps {
 
 export const ContactInfoContent = (props: ContactInfoContentProps) => {
   const [isMore, setIsMore] = useState(false);
-
   return (
     <BorderTopUI $ph={20} $pt={10} $pb={20}>
       <RowContainerBeetwen $mb={10}>
         <TextUI ag={Ag['600_16']}>{'Контактная информация'}</TextUI>
 
-        {props.whatsApp ? (
+        {props.whatsApp && props.whatsApp.length > 3 ? (
           <OrganizationWhatsApp phone={props.whatsApp} />
         ) : null}
       </RowContainerBeetwen>
@@ -44,7 +43,7 @@ export const ContactInfoContent = (props: ContactInfoContentProps) => {
 
       <OrgContactInfoRow icon={<LocationIcon />} text={`${props.address}`} />
 
-      {props.mainPhone ? (
+      {props.mainPhone && props.mainPhone.length > 3 ? (
         <OrgContactInfoRow
           icon={<PhoneIcon size={13} />}
           text={MaskHelper.formatPhoneNumber(props.mainPhone) || ''}

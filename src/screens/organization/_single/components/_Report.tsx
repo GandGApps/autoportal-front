@@ -11,16 +11,25 @@ import {ReportIcon} from '../../../../template/icons/ReportIcon';
 import {MainContainer} from '../../../../template/containers/MainContainer';
 import Navigation from '../../../../routes/navigation/Navigation';
 import {Screens} from '../../../../routes/models/Screens';
+import {useAppSelector} from '../../../../settings/redux/hooks';
+import {selectOrganizationsValues} from '../../../../modules/organizations/OrganizationsSlice';
+import {Linking} from 'react-native';
 
 interface ReportProps {
   organizationId: string;
 }
 
 export const OrgReport = ({organizationId}: ReportProps) => {
+  const {contacts} = useAppSelector(selectOrganizationsValues);
   return (
     <BorderTopUI $ph={20} $pv={20}>
       <RowContainerBeetwen>
-        <ViewPress onPress={() => Navigation.navigate(Screens.REPORT_MODAL)}>
+        <ViewPress
+          onPress={() => {
+            if (contacts?.report) {
+              Linking.openURL(contacts.report);
+            }
+          }}>
           <RowContainer>
             <MainContainer $mr={5}>
               <ReportIcon />
