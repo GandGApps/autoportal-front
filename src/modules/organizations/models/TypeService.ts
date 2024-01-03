@@ -4,7 +4,7 @@ import {UnitsFilter} from '../types/OrganizationTypes';
 export class TypeService extends AbstractModel {
   _id: string = '';
   title: string = '';
-  subServices?: UnitsFilter[] = [];
+  ext_services?: UnitsFilter[] = [];
 
   constructor(props: any) {
     super();

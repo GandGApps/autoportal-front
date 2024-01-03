@@ -40,9 +40,10 @@ export const OrganizationScreen = () => {
   const {isCurrentOrganizationLoad, currentOrganization} = useAppSelector(
     selectOrganizationsValues,
   );
+  console.log(currentOrganization?._id);
+  console.log('cur org services',currentOrganization?.services);
 
   const {isAdmin} = useAppSelector(selectAuthValues);
-
 
   const contactModal = useRef<Modalize>(null);
 
@@ -63,7 +64,7 @@ export const OrganizationScreen = () => {
       const servicesResponse = await dispatch(getServices(categoryID));
       setServices(servicesResponse.payload);
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     } finally {
       setIsLoad(false);
     }
@@ -72,8 +73,6 @@ export const OrganizationScreen = () => {
   useEffect(() => {
     fetchData();
   }, [_id, categoryID]);
-
-
 
   const handlePressImage = () => {
     setPreviewIndex(carouselIndex);
@@ -145,7 +144,7 @@ export const OrganizationScreen = () => {
         />
 
         {currentOrganization.services.length ? (
-          <OrgServices mainServices={services} services={currentOrganization.services} />
+          <OrgServices services={currentOrganization.services} />
         ) : null}
 
         {currentOrganization.brandsCars ? (

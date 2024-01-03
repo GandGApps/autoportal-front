@@ -53,4 +53,3 @@ export const OrgService = ({ service, subService }: OrgServiceProps) => {
     </BorderTopUI>
   );
 };
-

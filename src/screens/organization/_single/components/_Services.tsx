@@ -10,10 +10,10 @@ import {View} from 'react-native';
 
 interface OrgServicesProps {
   services: TypeService[];
-  mainServices: TypeService[];
 }
 
-export const OrgServices = ({services, mainServices}: OrgServicesProps) => {
+export const OrgServices = ({services}: OrgServicesProps) => {
+  console.log('prop 1', services);
   const [isMore, setIsMore] = useState(false);
   return (
     <BorderTopUI $bg={ColorsUI.gray.bg} $pv={20}>
@@ -23,8 +23,12 @@ export const OrgServices = ({services, mainServices}: OrgServicesProps) => {
         </TextUI>
       </MainContainer>
 
-      {mainServices?.map((service, idx) => (
-        <OrgService key={`org-${service._id}`} service={service} subService={services} />
+      {services?.map((serviceData, idx) => (
+        <OrgService
+          key={`org-${serviceData.service._id}`}
+          service={serviceData.service}
+          subService={serviceData.ext_services}
+        />
       ))}
     </BorderTopUI>
   );
