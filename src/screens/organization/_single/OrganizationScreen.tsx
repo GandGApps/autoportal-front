@@ -40,8 +40,6 @@ export const OrganizationScreen = () => {
   const {isCurrentOrganizationLoad, currentOrganization} = useAppSelector(
     selectOrganizationsValues,
   );
-  console.log(currentOrganization?._id);
-  console.log('cur org services',currentOrganization?.services);
 
   const {isAdmin} = useAppSelector(selectAuthValues);
 

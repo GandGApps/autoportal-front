@@ -148,9 +148,7 @@ export class OrganizationsService extends AbstractServiceRepository {
 
   deleteOrganization = async (id: string) => {
     try {
-      // Получение текущего токена
       const currentToken = await tokenService.getTokenData();
-      // Убедитесь, что у вас есть токен перед выполнением запроса
       if (!currentToken) {
         console.log('Отсутствует токен аутентификации');
         throw new Error('Отсутствует токен аутентификации.');
@@ -163,7 +161,7 @@ export class OrganizationsService extends AbstractServiceRepository {
       return this.create<Message>(Message, data);
     } catch (error) {
       console.log('ошибка при удалении орги', error);
-      throw error; // Пробросьте ошибку дальше для обработки в вызывающем коде
+      throw error; 
     }
   };
 

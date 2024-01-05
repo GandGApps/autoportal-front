@@ -85,9 +85,6 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     selectOrganizationsValues,
   );
 
-
-
-
   const employeersState = useAppSelector(selectEmployeersValues);
 
   const dispatch = useAppDispatch();
@@ -296,7 +293,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
           noServiceValue={createForm.category?.noService}
           typeServiceLen={organizationFilter?.typeService?.length}
           titleTypeService={organizationFilter?.titleTypeService}
-          typeServices={organizationFilter?.typeService}
+          typeService={organizationFilter?.typeService}
           brandsCars={organizationFilter?.brandCar}
           onChangeName={value => handleChangeForm('name', value)}
           onChangeCategories={handleOpenModalCategory}

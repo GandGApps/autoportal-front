@@ -58,6 +58,7 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
 
   useEffect(() => {
     setPickList(form.brandCar || []);
+    
     setList(organizationFilter?.brandCar!);
   }, []);
 
@@ -129,7 +130,7 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
       })
       .catch(e => {})
       .finally(() => {});
-    Navigation.pop();
+    // Navigation.pop();
   };
 
   return (

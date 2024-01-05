@@ -76,7 +76,6 @@ const organizationsSlice = createSlice({
         [action.payload.key]: action.payload.value,
       };
     },
-
     createChangeForm: (state, action: PayloadAction<CreateFormProps>) => {
       state.createForm = {
         ...state.createForm,

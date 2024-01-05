@@ -9,6 +9,8 @@ import {UnitsFilter} from '../../../../modules/organizations/types/OrganizationT
 import {Nullable} from '../../../../settings/types/BaseTypes';
 import { useAppSelector } from '../../../../settings/redux/hooks';
 import { selectOrganizationsValues } from '../../../../modules/organizations/OrganizationsSlice';
+import { CurrentOrganization } from '../../../../modules/organizations/models/CurrentOrganization';
+import { OrganizationHelper } from '../../../../modules/organizations/helpers/OrganizationHelper';
 
 interface CreateOrganizationProps {
   nameValue: string;
@@ -17,7 +19,7 @@ interface CreateOrganizationProps {
   noServiceValue?: boolean;
   typeServiceLen?: number;
   titleTypeService?: Nullable<string>;
-  typeServices?: Nullable<TypeService[]>;
+  typeService?: Nullable<TypeService[]>;
   brandsCars?: Nullable<UnitsFilter[]>;
 
   onChangeName: (value: string) => void;

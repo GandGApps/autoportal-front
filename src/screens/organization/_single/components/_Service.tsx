@@ -16,8 +16,10 @@ interface OrgServiceProps {
   subService: TypeService;
 }
 
-export const OrgService = ({ service, subService }: OrgServiceProps) => {
-  const filteredSubServices = subService.filter(sub => sub.service_id === service._id);
+export const OrgService = ({service, subService}: OrgServiceProps) => {
+  const filteredSubServices = subService.filter(
+    sub => sub.service_id === service._id,
+  );
 
   const [isMore, setIsMore] = useState(false);
 

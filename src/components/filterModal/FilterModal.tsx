@@ -42,6 +42,7 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
   const form = props.isCreate ? props.createForm! : props.filterForm!;
 
+
   const dispatch = useAppDispatch();
 
   const [isSort, setIsSort] = useState(false);
@@ -155,7 +156,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
         }),
       );
     }
-
     props.modalizeRef.current?.close();
   };
 

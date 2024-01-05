@@ -18,6 +18,7 @@ export const createOrganization = createAsyncThunk(
       isEdit,
     );
 
+    
     if (isEdit) {
       Navigation.pop();
       return;
