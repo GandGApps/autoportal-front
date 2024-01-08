@@ -126,6 +126,11 @@ export class ApiOrganizationsService extends AbstractApiRepository {
       url: Endpoints.favorites(categoryId),
     });
   };
+  getFavoritesAllList = async () => {
+    return this.apiClient.get({
+      url: Endpoints.favoritesAll(),
+    });
+  };
 
   getCreatedStatus = async () => {
     return this.apiClient.get({

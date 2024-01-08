@@ -185,7 +185,6 @@ export class OrganizationsService extends AbstractServiceRepository {
 
   deletePromotion = async (id: string) => {
     try {
-      // Получение текущего токена
       const currentToken = await tokenService.getTokenData();
       // Убедитесь, что у вас есть токен перед выполнением запроса
       if (!currentToken) {
@@ -207,6 +206,11 @@ export class OrganizationsService extends AbstractServiceRepository {
   };
   getFavoritesList = async (categoryId: string) => {
     const {data} = await this.api.getFavoritesList(categoryId);
+
+    return this.createList<FavoriteOrganization>(FavoriteOrganization, data);
+  };
+  getFavoritesAllList = async () => {
+    const {data} = await this.api.getFavoritesAllList();
 
     return this.createList<FavoriteOrganization>(FavoriteOrganization, data);
   };
@@ -328,3 +332,4 @@ export class OrganizationsService extends AbstractServiceRepository {
 }
 
 export const organizationService = new OrganizationsService();
+

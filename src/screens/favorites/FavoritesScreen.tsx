@@ -29,6 +29,8 @@ export const FavoritesScreen = () => {
 
   const insets = useSafeAreaInsets();
 
+  console.log('favorite List', favoritesList)
+
   const categoriesModalRef = useRef<Modalize>(null);
 
   const [isLoad, setIsLoad] = useState(true);

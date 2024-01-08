@@ -1,3 +1,4 @@
+
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {BottomMenu} from '../../../components/bottomMenu/BottomMenu';
@@ -88,7 +89,6 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const employeersState = useAppSelector(selectEmployeersValues);
 
   const dispatch = useAppDispatch();
-
   const insets = useSafeAreaInsets();
 
   const filterModalRef = useRef<Modalize>(null);
@@ -414,3 +414,4 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     </ColumnContainerFlex>
   );
 };
+

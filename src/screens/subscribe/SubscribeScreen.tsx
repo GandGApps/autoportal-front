@@ -30,6 +30,7 @@ export const SubscribeScreen = () => {
   const {organizationId} = useRoute<SubOrganizationParams>().params;
 
   const {subInfo} = useAppSelector(selectOrganizationsValues);
+
   const dispatch = useAppDispatch();
 
   const [type, setType] = useState<'month' | 'year'>('month');

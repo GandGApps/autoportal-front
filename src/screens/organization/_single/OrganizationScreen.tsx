@@ -41,6 +41,9 @@ export const OrganizationScreen = () => {
     selectOrganizationsValues,
   );
 
+  console.log('category id', currentOrganization?.categoryId?._id)
+  console.log('org id', currentOrganization?._id)
+
   const {isAdmin} = useAppSelector(selectAuthValues);
 
   const contactModal = useRef<Modalize>(null);

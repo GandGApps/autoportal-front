@@ -31,11 +31,13 @@ export const AdminServices = () => {
 
   const addServiceModal = useRef<Modalize>(null);
 
+
   const {services, filterForm} = useAppSelector(selectOrganizationsValues);
 
   const dispatch = useAppDispatch();
 
   const category = filterForm.category;
+
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -66,31 +68,39 @@ export const AdminServices = () => {
             onPress={handleOpenModalCategory}
           />
         </MainContainer>
-
+  
         {category ? (
-          <RowContainerBeetwen
-            $mt={20}
-            $ph={20}
-            $pv={20}
-            $bg={ColorsUI.gray.bg}>
-            <TextUI ag={Ag['400_16']} $isFlex>
-              {'Создать новую услугу?'}
-            </TextUI>
-            <ViewPress
-              $bg={ColorsUI.green}
-              $ml={10}
-              $pv={5}
+          category.noService === false ? (
+            <RowContainerBeetwen
+              $mt={20}
               $ph={20}
-              $br={20}
-              onPress={() => addServiceModal.current?.open()}>
-              <TextUI
-                $align={'center'}
-                ag={Ag['400_16']}
-                color={ColorsUI.white}>
-                {'Создать'}
+              $pv={20}
+              $bg={ColorsUI.gray.bg}>
+              <TextUI ag={Ag['400_16']} $isFlex>
+                {'Создать новую услугу?'}
               </TextUI>
-            </ViewPress>
-          </RowContainerBeetwen>
+              <ViewPress
+                $bg={ColorsUI.green}
+                $ml={10}
+                $pv={5}
+                $ph={20}
+                $br={20}
+                onPress={() => addServiceModal.current?.open()}>
+                <TextUI
+                  $align={'center'}
+                  ag={Ag['400_16']}
+                  color={ColorsUI.white}>
+                  {'Создать'}
+                </TextUI>
+              </ViewPress>
+            </RowContainerBeetwen>
+          ) : (
+            <MainContainer $mt={20}>
+              <TextUI ag={Ag['500_16']} $align={'center'}>
+                {'Для данной категории создание услуг не предусмотрено'}
+              </TextUI>
+            </MainContainer>
+          )
         ) : (
           <MainContainer $mt={20}>
             <TextUI ag={Ag['500_16']} $align={'center'}>
@@ -102,6 +112,7 @@ export const AdminServices = () => {
     ),
     [category],
   );
+  
 
   return (
     <ColumnContainerFlex>
@@ -114,7 +125,7 @@ export const AdminServices = () => {
           renderItem={renderItem}
           ListEmptyComponent={
             <Fragment>
-              {!isLoading && Boolean(category) && (
+              {!isLoading && Boolean(category) && category?.noService === false && (
                 <MainContainer $mt={20}>
                   <TextUI ag={Ag['500_16']} $align={'center'}>
                     {'В выбранной категории нет услуг'}
