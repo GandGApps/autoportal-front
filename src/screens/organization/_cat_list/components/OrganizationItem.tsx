@@ -30,8 +30,6 @@ export const OrganizationItem = ({
     });
   };
 
-  console.log('item', item)
-
   return (
     <BorderTopUI>
       <TouchableOpacity onPress={handleGoToOrganization}>

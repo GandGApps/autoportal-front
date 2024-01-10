@@ -130,7 +130,7 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
       })
       .catch(e => {})
       .finally(() => {});
-    // Navigation.pop();
+     Navigation.pop();
   };
 
   return (

@@ -90,8 +90,8 @@ export const getOrganizationFilter = createAsyncThunk(
 );
 export const getOrganizationList = createAsyncThunk(
   'organizations/list',
-  async (_, { getState, dispatch }) => {
-    const { isOrganizationListLoad, filterForm } = (getState() as RootState)
+  async (_, {getState, dispatch}) => {
+    const {isOrganizationListLoad, filterForm} = (getState() as RootState)
       .organizationsSlice;
 
     if (isOrganizationListLoad) {
@@ -100,13 +100,11 @@ export const getOrganizationList = createAsyncThunk(
 
     dispatch(setIsOrganizationFilter(true));
 
-    try {
-      const organizationList = await organizationService.getOrganizationList(filterForm);
-      console.log('Organization List:', organizationList); // Log the organization list to the console
-      return organizationList;
-    } finally {
-      dispatch(setIsOrganizationFilter(false));
-    }
+    return await organizationService
+      .getOrganizationList(filterForm)
+      .finally(() => {
+        dispatch(setIsOrganizationFilter(false));
+      });
   },
 );
 

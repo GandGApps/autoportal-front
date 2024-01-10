@@ -95,7 +95,7 @@ export const FavoritesScreen = () => {
 
       <BottomMenu />
 
-      <CategoriesModal modalizeRef={categoriesModalRef} />
+      <CategoriesModal fromFavorite={true} modalizeRef={categoriesModalRef} />
     </ColumnContainerFlex>
   );
 };

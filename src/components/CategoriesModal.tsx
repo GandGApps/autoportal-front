@@ -16,7 +16,7 @@ import {getFavoritesList, getOrganizationList} from '../modules/organizations/_t
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
-
+  fromFavorite?: boolean | null;
   onPickCategories?: (cat: Category) => void;
 }
 
@@ -45,15 +45,20 @@ export const CategoriesModal = (props: CitiesFilterProps) => {
       </TextUI>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Добавляем "Все категории" как первый элемент списка */}
-        <BorderTopUI>
-          <TouchableOpacity onPress={() => handlePickCity({ title: 'Все категории'})}>
-            <MainContainer $pv={8}>
-              <TextUI $align={'center'} ag={Ag['400_16']}>
-                {'Все категории'}
-              </TextUI>
-            </MainContainer>
-          </TouchableOpacity>
-        </BorderTopUI>
+          {props.fromFavorite && (
+                    <BorderTopUI>
+
+ <TouchableOpacity onPress={() => handlePickCity({ title: 'Все категории'})}>
+ <MainContainer $pv={8}>
+   <TextUI $align={'center'} ag={Ag['400_16']}>
+     {'Все категории'}
+   </TextUI>
+ </MainContainer>
+</TouchableOpacity>
+</BorderTopUI>
+
+          )}
+         
 
         {/* Рендерим остальные категории */}
         {categories.map(category => (

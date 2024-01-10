@@ -232,32 +232,16 @@ export class OrganizationsService extends AbstractServiceRepository {
     isEdit?: boolean,
   ) => {
     const dto = await OrganizationHelper.createOrganizationDto(createForm);
-  
+
     if (isEdit) {
-      console.log('Update Organization Request:', dto);
-  
-      try {
-        const { data } = await this.api.updateOrganization(dto);
-        console.log('Update Organization Response:', data);
-  
-        return this.create<Message>(Message, data);
-      } catch (error) {
-        console.error('Update Organization Error:', error);
-        throw error; // Re-throw the error after logging
-      }
+      const {data} = await this.api.updateOrganization(dto);
+
+      return this.create<Message>(Message, data);
     }
-  
-    console.log('Create Organization Request:', dto);
-  
-    try {
-      const { data } = await this.api.createOrganization(dto);
-      console.log('Create Organization Response:', data);
-  
-      return this.create<SuccessOrganization>(SuccessOrganization, data);
-    } catch (error) {
-      console.error('Create Organization Error:', error);
-      throw error; // Re-throw the error after logging
-    }
+
+    const {data} = await this.api.createOrganization(dto);
+
+    return this.create<SuccessOrganization>(SuccessOrganization, data);
   };
   
 

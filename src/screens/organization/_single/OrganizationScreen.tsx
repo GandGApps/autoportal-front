@@ -43,7 +43,7 @@ export const OrganizationScreen = () => {
 
   console.log('category id', currentOrganization?.categoryId?._id)
   console.log('org id', currentOrganization?._id)
-  console.log('cur org service', currentOrganization?.services)
+  console.log('cur org', currentOrganization)
 
 
 
