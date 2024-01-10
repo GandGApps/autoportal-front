@@ -7,7 +7,7 @@ import {ColorsUI} from '../../template/styles/ColorUI';
 import {ScrollViewScreen} from '../../template/containers/ScrollViewScreen';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useAppDispatch, useAppSelector} from '../../settings/redux/hooks';
-import {selectOrganizationsValues} from '../../modules/organizations/OrganizationsSlice';
+import {filterChangeForm, resetFilterForm, selectOrganizationsValues} from '../../modules/organizations/OrganizationsSlice';
 import {CategoriesModal} from '../../components/CategoriesModal';
 import {Modalize} from 'react-native-modalize';
 import {InputSelectUI} from '../../template/ui/InputSelectUI';
@@ -29,15 +29,18 @@ export const FavoritesScreen = () => {
 
   const insets = useSafeAreaInsets();
 
-  console.log('favorite List', favoritesList)
 
   const categoriesModalRef = useRef<Modalize>(null);
-
   const [isLoad, setIsLoad] = useState(true);
+
+  useEffect(() => {
+    dispatch(filterChangeForm({key: 'category', value: null}));
+  },[])
 
   useFocusEffect(
     useCallback(() => {
       setTimeout(() => {
+
         dispatch(getFavoritesList()).finally(() => {
           setIsLoad(false);
         });
@@ -48,6 +51,8 @@ export const FavoritesScreen = () => {
   const handleOpenModalCategory = () => {
     categoriesModalRef.current?.open();
   };
+
+  
 
   return (
     <ColumnContainerFlex>

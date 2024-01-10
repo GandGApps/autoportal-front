@@ -52,6 +52,10 @@ export const FilterModal = (props: CitiesFilterProps) => {
   const [list, setList] = useState<TypeService[] | UnitsFilter[]>([]);
   const [pickList, setPickList] = useState<string[]>([]);
 
+  console.log('pick', list)
+  console.log('pickList', pickList)
+
+
   const [brandName, setBrandName] = useState('');
 
   const [openLoad, setOpenLoad] = useState(false);

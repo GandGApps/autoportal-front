@@ -88,11 +88,10 @@ export const getOrganizationFilter = createAsyncThunk(
       });
   },
 );
-
 export const getOrganizationList = createAsyncThunk(
   'organizations/list',
-  async (_, {getState, dispatch}) => {
-    const {isOrganizationListLoad, filterForm} = (getState() as RootState)
+  async (_, { getState, dispatch }) => {
+    const { isOrganizationListLoad, filterForm } = (getState() as RootState)
       .organizationsSlice;
 
     if (isOrganizationListLoad) {
@@ -101,13 +100,16 @@ export const getOrganizationList = createAsyncThunk(
 
     dispatch(setIsOrganizationFilter(true));
 
-    return await organizationService
-      .getOrganizationList(filterForm)
-      .finally(() => {
-        dispatch(setIsOrganizationFilter(false));
-      });
+    try {
+      const organizationList = await organizationService.getOrganizationList(filterForm);
+      console.log('Organization List:', organizationList); // Log the organization list to the console
+      return organizationList;
+    } finally {
+      dispatch(setIsOrganizationFilter(false));
+    }
   },
 );
+
 
 export const getCurrentOrganization = createAsyncThunk(
   'organization/current',
@@ -176,6 +178,18 @@ export const deletePromotion = createAsyncThunk(
       return response;
     } catch (error) {
       throw error; // Перебрасываем ошибку дальше, чтобы ее можно было обработать в компоненте или другом месте
+    }
+  },
+);
+
+export const deleteOrganization = createAsyncThunk(
+  'organization/my/delete',
+  async (id: string) => {
+    try {
+      const response = await organizationService.deleteOrganization(id);
+      return response;
+    } catch (error) {
+      throw error;
     }
   },
 );

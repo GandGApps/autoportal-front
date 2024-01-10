@@ -30,6 +30,8 @@ export const OrganizationItem = ({
     });
   };
 
+  console.log('item', item)
+
   return (
     <BorderTopUI>
       <TouchableOpacity onPress={handleGoToOrganization}>
@@ -62,7 +64,7 @@ export const OrganizationItem = ({
       </TouchableOpacity>
 
       <AbsoluteContainer $top={5} $right={20}>
-        <TextUI ag={Ag['400_12']}>{categoryName}</TextUI>
+        <TextUI ag={Ag['400_12']}>{item.categoryName?.title}</TextUI>
       </AbsoluteContainer>
 
       <AbsoluteContainer $bottom={5} $right={20}>

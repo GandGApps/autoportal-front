@@ -22,8 +22,8 @@ import {ButtonUI} from '../../template/ui/ButtonUI';
 import {InputUI} from '../../template/ui/InputUI';
 import {Ag, TextUI} from '../../template/ui/TextUI';
 import {FilterModalPick} from './components/FilterModalPick';
-import { createOrganization } from '../../modules/organizations/thunks/create.thunk';
-import { getPersonalOrganizations } from '../../modules/organizations/_thunks';
+import {createOrganization} from '../../modules/organizations/thunks/create.thunk';
+import {getPersonalOrganizations} from '../../modules/organizations/_thunks';
 
 export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
   const {organizationFilter, createForm, filterForm} = useAppSelector(
@@ -58,6 +58,7 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
 
   useEffect(() => {
     setPickList(form.brandCar || []);
+    
     setList(organizationFilter?.brandCar!);
   }, []);
 
@@ -108,7 +109,6 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
   };
 
   const handleSavePick = () => {
-
     if (isCreate) {
       dispatch(
         createChangeForm({
@@ -129,9 +129,8 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
         dispatch(getPersonalOrganizations());
       })
       .catch(e => {})
-      .finally(() => {
-      });
-    Navigation.pop();
+      .finally(() => {});
+    // Navigation.pop();
   };
 
   return (
@@ -171,7 +170,9 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
         renderItem={({item}) => (
           <FilterModalPick
             item={item}
-            onPickItem={() => {handlePickItem(item)}}
+            onPickItem={() => {
+              handlePickItem(item);
+            }}
             pickList={pickList}
             isCatSub={false}
           />

@@ -12,7 +12,7 @@ import {
   selectOrganizationsValues,
 } from '../modules/organizations/OrganizationsSlice';
 import {Category} from '../modules/organizations/models/Category';
-import {getOrganizationList} from '../modules/organizations/_thunks';
+import {getFavoritesList, getOrganizationList} from '../modules/organizations/_thunks';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
@@ -39,25 +39,36 @@ export const CategoriesModal = (props: CitiesFilterProps) => {
 
   return (
     <SwipeableModal modalizeRef={props.modalizeRef}>
-      <MainContainer $pb={20}>
-        <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
-          {'Выберите категорию'}
-        </TextUI>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {categories.map(category => (
-            <BorderTopUI key={`category-${category._id}`}>
-              <TouchableOpacity
-                onPress={() => handlePickCity(category as Category)}>
-                <MainContainer $pv={8}>
-                  <TextUI $align={'center'} ag={Ag['400_16']}>
-                    {category.title}
-                  </TextUI>
-                </MainContainer>
-              </TouchableOpacity>
-            </BorderTopUI>
-          ))}
-        </ScrollView>
-      </MainContainer>
-    </SwipeableModal>
+    <MainContainer $pb={20}>
+      <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
+        {'Выберите категорию'}
+      </TextUI>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Добавляем "Все категории" как первый элемент списка */}
+        <BorderTopUI>
+          <TouchableOpacity onPress={() => handlePickCity({ title: 'Все категории'})}>
+            <MainContainer $pv={8}>
+              <TextUI $align={'center'} ag={Ag['400_16']}>
+                {'Все категории'}
+              </TextUI>
+            </MainContainer>
+          </TouchableOpacity>
+        </BorderTopUI>
+
+        {/* Рендерим остальные категории */}
+        {categories.map(category => (
+          <BorderTopUI key={`category-${category._id}`}>
+            <TouchableOpacity onPress={() => handlePickCity(category as Category)}>
+              <MainContainer $pv={8}>
+                <TextUI $align={'center'} ag={Ag['400_16']}>
+                  {category.title}
+                </TextUI>
+              </MainContainer>
+            </TouchableOpacity>
+          </BorderTopUI>
+        ))}
+      </ScrollView>
+    </MainContainer>
+  </SwipeableModal>
   );
 };
