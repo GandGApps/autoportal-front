@@ -34,6 +34,7 @@ interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
   typeModal: Nullable<FilterFormKeys>;
   isCreate?: boolean;
+  titleTypeService?: string;
   filterForm?: FiltertFormModel;
   createForm?: CreatetFormModel;
 }
@@ -43,6 +44,7 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
   const form = props.isCreate ? props.createForm! : props.filterForm!;
 
+  console.log("filter modal",props.titleTypeService)
 
   const dispatch = useAppDispatch();
 
@@ -51,9 +53,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
   const [list, setList] = useState<TypeService[] | UnitsFilter[]>([]);
   const [pickList, setPickList] = useState<string[]>([]);
-
-  console.log('pick', list)
-  console.log('pickList', pickList)
 
 
   const [brandName, setBrandName] = useState('');
@@ -194,9 +193,10 @@ export const FilterModal = (props: CitiesFilterProps) => {
       <>
         {props.typeModal ? (
           <MainContainer $pb={20}>
-            <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
-              {OrganizationHelper.getModalTitle(props.typeModal)}
-            </TextUI>
+          <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
+  {props.titleTypeService}
+</TextUI>
+
             <ScrollView showsVerticalScrollIndicator={false}>
               {isSort ? (
                 <>

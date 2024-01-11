@@ -396,7 +396,8 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       </KeyboardAwareScrollView>
 
       <FilterModal
-        isCreate
+          titleTypeService={organizationFilter?.titleTypeService}
+          isCreate
         createForm={createForm}
         typeModal={typeModal}
         modalizeRef={filterModalRef}

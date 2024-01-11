@@ -91,14 +91,14 @@ export const CategoriesScreen = () => {
             />
           ) : null}
 
-          <MainContainer style={{ gap: 10 }}
-  $mt={18} $mb={10}>
+          <MainContainer
+  $mt={20} >
             <InputSelectUI
               value={'Поиск по услугам'}
               rightIcon={<SearchIcon />}
               onPress={handleGoToSearch}
             />
-                      <SelectUI 
+                      <SelectUI   $mt={20}
       text={filterForm.city || 'Выберите город'} onPress={handleOpenModalCity} />
           </MainContainer>
         </MainContainer>
