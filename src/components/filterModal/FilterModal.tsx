@@ -44,7 +44,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
   const form = props.isCreate ? props.createForm! : props.filterForm!;
 
-  console.log("filter modal",props.titleTypeService)
 
   const dispatch = useAppDispatch();
 

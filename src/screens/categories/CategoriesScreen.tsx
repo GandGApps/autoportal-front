@@ -76,7 +76,7 @@ export const CategoriesScreen = () => {
       <ScrollViewScreen
         $mt={Math.max(insets.top, 20)}
         showsVerticalScrollIndicator={false}>
-        <MainContainer $ph={20} $mb={20}>
+        <MainContainer $ph={20} $mb={15}>
           {banners.length ? (
             <Carousel
               style={{ gap: 20 }}
@@ -92,13 +92,13 @@ export const CategoriesScreen = () => {
           ) : null}
 
           <MainContainer
-  $mt={20} >
+  $mt={15} >
             <InputSelectUI
               value={'Поиск по услугам'}
               rightIcon={<SearchIcon />}
               onPress={handleGoToSearch}
             />
-                      <SelectUI   $mt={20}
+                      <SelectUI   $mt={15}
       text={filterForm.city || 'Выберите город'} onPress={handleOpenModalCity} />
           </MainContainer>
         </MainContainer>

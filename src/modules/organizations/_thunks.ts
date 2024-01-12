@@ -52,6 +52,8 @@ export const getCategories = createAsyncThunk(
 export const getSearchServices = createAsyncThunk(
   'organizations/searchServices',
   async (query: string, {getState, dispatch}) => {
+
+    
     if (!query.length) {
       return [];
     }

@@ -119,7 +119,7 @@ export const CatFilterScreens = () => {
       />
 
       <FilterModal
-                titleTypeService={organizationFilter?.titleTypeService}
+        titleTypeService={organizationFilter?.titleTypeService}
         typeModal={typeModal}
         modalizeRef={filterModalRef}
         filterForm={filterForm}

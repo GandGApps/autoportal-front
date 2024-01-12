@@ -41,9 +41,7 @@ export const OrganizationScreen = () => {
     selectOrganizationsValues,
   );
 
-  console.log('category id', currentOrganization?.categoryId?._id)
-  console.log('org id', currentOrganization?._id)
-  console.log('cur org', currentOrganization)
+ 
 
 
 
