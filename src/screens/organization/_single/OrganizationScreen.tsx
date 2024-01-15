@@ -41,13 +41,6 @@ export const OrganizationScreen = () => {
     selectOrganizationsValues,
   );
 
- 
-
-
-
-
-
-
   const {isAdmin} = useAppSelector(selectAuthValues);
 
   const contactModal = useRef<Modalize>(null);
@@ -149,7 +142,7 @@ export const OrganizationScreen = () => {
         />
 
         {currentOrganization.services.length ? (
-          <OrgServices services={currentOrganization.services} />
+          <OrgServices titleTypeService={currentOrganization?.categoryId.titleTypeService} services={currentOrganization.services} />
         ) : null}
 
         {currentOrganization.brandsCars ? (
