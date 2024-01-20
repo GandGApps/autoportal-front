@@ -18,6 +18,7 @@ export const OrgServices = ({services,titleTypeService}: OrgServicesProps) => {
 
   let displayTitleTypeService:string;
 
+
   if(titleTypeService === 'Вид товара'){
     displayTitleTypeService = 'Товары';
   }

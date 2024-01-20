@@ -43,6 +43,7 @@ export const OrganizationScreen = () => {
 
   const {isAdmin} = useAppSelector(selectAuthValues);
 
+
   const contactModal = useRef<Modalize>(null);
 
   const insets = useSafeAreaInsets();

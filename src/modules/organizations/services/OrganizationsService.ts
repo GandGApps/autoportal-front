@@ -28,7 +28,7 @@ import {SuccessOrganization} from '../models/SuccessOrganization';
 import {SuccessSubRelease} from '../models/SuccessSubRelease';
 import {FinanceDTO} from '../../admin/types/AdminTypes';
 import {Banner} from '../models/Banner';
-import {Service} from '../models/Service';
+import {GetService, Service} from '../models/Service';
 import {Contacts} from '../models/Contacts';
 import {tokenService} from '../../auth/services/token/token.fabric';
 
@@ -55,7 +55,7 @@ export class OrganizationsService extends AbstractServiceRepository {
   getServices = async (categoryId: string) => {
     const {data} = await this.api.getServices(categoryId);
 
-    return this.createList<Service>(Service, data);
+    return this.createList<GetService>(Service, data);
   };
 
   createService = async (dto: CreateServiceDTO) => {

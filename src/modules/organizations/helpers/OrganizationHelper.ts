@@ -235,6 +235,12 @@ export class OrganizationHelper {
         typeServices: createForm.typeService,
       };
     }
+    if (!createForm.typeService.length) {
+      dto = {
+        ...dto,
+        typeServices: [],
+      };
+    }
     if (createForm.id) {
       dto = {...dto, id: createForm.id};
     }

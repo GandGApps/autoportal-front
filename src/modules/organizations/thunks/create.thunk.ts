@@ -25,7 +25,7 @@ export const createOrganization = createAsyncThunk(
     }
 
     dispatch(setDefaultCreateForm(DefaultCreateForm));
-
+ 
     if ((response as SuccessOrganization).organizationId && checkRelease) {
       Navigation.navigate(Screens.SUB_ORGANIZATION, {
         organizationId: (response as SuccessOrganization).organizationId,
@@ -36,7 +36,6 @@ export const createOrganization = createAsyncThunk(
     }
   },
 );
-
 
 
 export const checkRelease = createAsyncThunk(

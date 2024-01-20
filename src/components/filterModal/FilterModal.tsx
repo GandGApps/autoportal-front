@@ -1,4 +1,3 @@
-
 import React, {FC, Fragment, RefObject, useEffect, useState} from 'react';
 import {SwipeableModal} from '../SwipbleModal';
 import {IHandles} from 'react-native-modalize/lib/options';
@@ -29,6 +28,8 @@ import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../Loader';
 import {MockFilterSchedule} from '../../modules/organizations/mock/MockFilterSchedule';
 import {CreatetFormModel} from '../../modules/organizations/form/CreateForm';
+import { getServices } from '../../modules/organizations/thunks/services.thunk';
+import { createOrganization, createOrganizationService } from '../../modules/organizations/thunks/create.thunk';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
@@ -44,7 +45,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
   const form = props.isCreate ? props.createForm! : props.filterForm!;
 
-
   const dispatch = useAppDispatch();
 
   const [isSort, setIsSort] = useState(false);
@@ -53,10 +53,30 @@ export const FilterModal = (props: CitiesFilterProps) => {
   const [list, setList] = useState<TypeService[] | UnitsFilter[]>([]);
   const [pickList, setPickList] = useState<string[]>([]);
 
-
   const [brandName, setBrandName] = useState('');
 
   const [openLoad, setOpenLoad] = useState(false);
+
+
+  let [getCat,SetGetCat] = useState();
+
+
+  const fetchData = async () => {
+    try {
+      console.log('category id ', form.category?._id);
+      const res = await dispatch(getServices(form.category?._id));
+      SetGetCat(res.payload);
+      console.log('getCat', getCat);
+      console.log('pickList',pickList)
+    } catch (error) {
+      console.error('Error fetching services:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [form.category?._id,pickList]);
+  
 
   useEffect(() => {
     if (openLoad) {
@@ -67,6 +87,9 @@ export const FilterModal = (props: CitiesFilterProps) => {
   }, [openLoad]);
 
   const handleOpenEffect = () => {
+  
+
+
     setIsSort(false);
 
     switch (props.typeModal) {
@@ -90,6 +113,9 @@ export const FilterModal = (props: CitiesFilterProps) => {
         }
 
         setPickList(list);
+        console.log('Picklist', list)
+
+
         setList(organizationFilter?.typeService!);
         break;
       }
@@ -100,7 +126,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
       }
       case 'schedule': {
         setPickList((form as FiltertFormModel).schedule || []);
-   
 
         setList(MockFilterSchedule);
         break;
@@ -127,7 +152,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
     } else if (!pickList.includes('now')) {
       setPickList([...pickList, value._id]);
     }
-
   };
 
   const handleSort = (value: SortFilterType | null) => {
@@ -142,25 +166,33 @@ export const FilterModal = (props: CitiesFilterProps) => {
   };
 
   const handleSavePick = () => {
+    const filteredPickList = pickList.filter((value) =>
+      getCat.find((catItem) => catItem._id === value)
+    );
+  console.log('filteredPickList', filteredPickList)
+  console.log('PickList', pickList)
+
     if (props.isCreate) {
       if (props.typeModal === 'typeService' || props.typeModal === 'brandCar') {
         dispatch(
           createChangeForm({
             key: props.typeModal!,
-            value: pickList,
-          }),
+            value: filteredPickList,
+          })
         );
       }
     } else {
       dispatch(
         filterChangeForm({
           key: props.typeModal!,
-          value: props.typeModal === 'sort' ? typeSort : pickList,
-        }),
+          value: props.typeModal === 'sort' ? typeSort : filteredPickList,
+        })
       );
     }
+  
     props.modalizeRef.current?.close();
   };
+  
 
   const handleResetPick = () => {
     if (props.isCreate) {
@@ -192,9 +224,9 @@ export const FilterModal = (props: CitiesFilterProps) => {
       <>
         {props.typeModal ? (
           <MainContainer $pb={20}>
-          <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
-  {props.titleTypeService}
-</TextUI>
+            <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
+              {props.titleTypeService}
+            </TextUI>
 
             <ScrollView showsVerticalScrollIndicator={false}>
               {isSort ? (
@@ -270,9 +302,8 @@ const SelectList: FC<SelectListProps> = function SelectList(props) {
           item={item}
           onPickItem={() => {
             onPickItem(item);
-          
           }}
-                    pickList={pickList}
+          pickList={pickList}
           isCatSub={
             props.typeModal === 'typeService' &&
             (item as TypeService).subServices !== undefined &&
