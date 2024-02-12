@@ -28,14 +28,11 @@ import {CenterContainerFlex} from '../../template/containers/CenterContainer';
 import {Loader} from '../Loader';
 import {MockFilterSchedule} from '../../modules/organizations/mock/MockFilterSchedule';
 import {CreatetFormModel} from '../../modules/organizations/form/CreateForm';
-import { getServices } from '../../modules/organizations/thunks/services.thunk';
-import { createOrganization, createOrganizationService } from '../../modules/organizations/thunks/create.thunk';
 
 interface CitiesFilterProps {
   modalizeRef: RefObject<IHandles>;
   typeModal: Nullable<FilterFormKeys>;
   isCreate?: boolean;
-  titleTypeService?: string;
   filterForm?: FiltertFormModel;
   createForm?: CreatetFormModel;
 }
@@ -57,27 +54,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
 
   const [openLoad, setOpenLoad] = useState(false);
 
-
-  let [getCat,SetGetCat] = useState();
-
-
-  const fetchData = async () => {
-    try {
-      console.log('category id ', form.category?._id);
-      const res = await dispatch(getServices(form.category?._id));
-      SetGetCat(res.payload);
-      console.log('getCat', getCat);
-      console.log('pickList',pickList)
-    } catch (error) {
-      console.error('Error fetching services:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [form.category?._id,pickList]);
-  
-
   useEffect(() => {
     if (openLoad) {
       handleOpenEffect();
@@ -87,9 +63,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
   }, [openLoad]);
 
   const handleOpenEffect = () => {
-  
-
-
     setIsSort(false);
 
     switch (props.typeModal) {
@@ -113,9 +86,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
         }
 
         setPickList(list);
-        console.log('Picklist', list)
-
-
         setList(organizationFilter?.typeService!);
         break;
       }
@@ -126,7 +96,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
       }
       case 'schedule': {
         setPickList((form as FiltertFormModel).schedule || []);
-
         setList(MockFilterSchedule);
         break;
       }
@@ -144,12 +113,11 @@ export const FilterModal = (props: CitiesFilterProps) => {
       );
       return;
     }
+
     if (pickList.includes(value._id)) {
       const filterPick = pickList.filter(item => item !== value._id);
       setPickList(filterPick);
-    } else if (value._id === 'now') {
-      setPickList([value._id]);
-    } else if (!pickList.includes('now')) {
+    } else {
       setPickList([...pickList, value._id]);
     }
   };
@@ -166,33 +134,26 @@ export const FilterModal = (props: CitiesFilterProps) => {
   };
 
   const handleSavePick = () => {
-    const filteredPickList = pickList.filter((value) =>
-      getCat.find((catItem) => catItem._id === value)
-    );
-  console.log('filteredPickList', filteredPickList)
-  console.log('PickList', pickList)
-
     if (props.isCreate) {
       if (props.typeModal === 'typeService' || props.typeModal === 'brandCar') {
         dispatch(
           createChangeForm({
             key: props.typeModal!,
-            value: filteredPickList,
-          })
+            value: pickList,
+          }),
         );
       }
     } else {
       dispatch(
         filterChangeForm({
           key: props.typeModal!,
-          value: props.typeModal === 'sort' ? typeSort : filteredPickList,
-        })
+          value: props.typeModal === 'sort' ? typeSort : pickList,
+        }),
       );
     }
-  
+
     props.modalizeRef.current?.close();
   };
-  
 
   const handleResetPick = () => {
     if (props.isCreate) {
@@ -225,9 +186,8 @@ export const FilterModal = (props: CitiesFilterProps) => {
         {props.typeModal ? (
           <MainContainer $pb={20}>
             <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
-              {props.titleTypeService}
+              {OrganizationHelper.getModalTitle(props.typeModal)}
             </TextUI>
-
             <ScrollView showsVerticalScrollIndicator={false}>
               {isSort ? (
                 <>
@@ -300,9 +260,7 @@ const SelectList: FC<SelectListProps> = function SelectList(props) {
       <View>
         <FilterModalPick
           item={item}
-          onPickItem={() => {
-            onPickItem(item);
-          }}
+          onPickItem={() => onPickItem(item)}
           pickList={pickList}
           isCatSub={
             props.typeModal === 'typeService' &&
