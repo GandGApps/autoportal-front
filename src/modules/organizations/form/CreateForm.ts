@@ -3,6 +3,7 @@ import {Nullable} from '../../../settings/types/BaseTypes';
 import {FileModel} from '../../files/models/File';
 import {Category} from '../models/Category';
 import {ScheduleModel} from '../types/OrganizationTypes';
+import { TypeService } from '../models/TypeService';
 
 export type CreateFormKeys =
   | 'city'
@@ -24,6 +25,7 @@ export interface CreatetFormModel {
   city: string;
   category: Nullable<Category>;
   typeService: string[];
+  _services: TypeService[];
   brandCar: string[];
   schedule: ScheduleModel[];
   noBrands?: boolean;
@@ -70,11 +72,28 @@ export const DefaultCreateForm: CreatetFormModel = {
 };
 
 export const isFormValidation = (form: CreatetFormModel) => {
+  const words = [
+    'Помощь на дороге',
+    'Автошколы и инструкторы',
+    'Аварийный комиссар',
+    'Автоподбор',
+    'Детейлинг',
+    'Шиномонтаж',
+  ];
+  const brandCar = words.includes(form?.category?.title || '')
+    ? form.category?.noBrands
+    : !form.category?.noBrands && form.brandCar.length > 0;
+
+  const service = !form.category?.noService || !form.typeService.length;
+
   return (
     form.name.length > 0 &&
     form.city.length > 0 &&
     form.description.length > 0 &&
     form.address.length > 0 &&
+    form.schedule.length > 0 &&
+    brandCar &&
+    service &&
     form.category !== null
   );
 };

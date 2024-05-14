@@ -30,6 +30,8 @@ import {MockFilterSchedule} from '../../modules/organizations/mock/MockFilterSch
 import {CreatetFormModel} from '../../modules/organizations/form/CreateForm';
 
 interface CitiesFilterProps {
+  pickList: string[];
+  setPickList: (pickList: string[]) => void;
   modalizeRef: RefObject<IHandles>;
   typeModal: Nullable<FilterFormKeys>;
   isCreate?: boolean;
@@ -38,6 +40,7 @@ interface CitiesFilterProps {
 }
 
 export const FilterModal = (props: CitiesFilterProps) => {
+  const { pickList, setPickList } = props;
   const {organizationFilter} = useAppSelector(selectOrganizationsValues);
 
   const form = props.isCreate ? props.createForm! : props.filterForm!;
@@ -48,7 +51,6 @@ export const FilterModal = (props: CitiesFilterProps) => {
   const [typeSort, setTypeSort] = useState<Nullable<SortFilterType>>(null);
 
   const [list, setList] = useState<TypeService[] | UnitsFilter[]>([]);
-  const [pickList, setPickList] = useState<string[]>([]);
 
   const [brandName, setBrandName] = useState('');
 

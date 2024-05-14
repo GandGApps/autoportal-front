@@ -14,6 +14,7 @@ interface OrgServicesProps {
 }
 
 export const OrgServices = ({services,titleTypeService}: OrgServicesProps) => {
+  const data = [...services]
   const [isMore, setIsMore] = useState(false);
 
   let displayTitleTypeService:string;
@@ -41,6 +42,22 @@ export const OrgServices = ({services,titleTypeService}: OrgServicesProps) => {
     displayTitleTypeService = 'Виды перевозок';
   }
 
+  const removeDuplicates = (array) => {
+    const seenIds = new Set();
+    return array.filter(item => {
+      if (seenIds.has(item._id)) {
+        return false;
+      } else {
+        seenIds.add(item._id);
+        return true;
+      }
+    });
+  };
+
+  data.forEach(item => {
+    item.ext_services = removeDuplicates(item.ext_services);
+  });
+
   return (
     <BorderTopUI $bg={ColorsUI.gray.bg} $pv={20}>
       <MainContainer $ph={20}>
@@ -49,7 +66,7 @@ export const OrgServices = ({services,titleTypeService}: OrgServicesProps) => {
         </TextUI>
       </MainContainer>
 
-      {services?.map((serviceData, idx) => (
+      {data?.map((serviceData, idx) => (
         <OrgService
           key={`org-${serviceData.service._id}`}
           service={serviceData.service}

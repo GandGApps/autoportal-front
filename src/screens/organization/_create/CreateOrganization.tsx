@@ -1,4 +1,3 @@
-
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ColumnContainerFlex} from '../../../template/containers/ColumnContainer';
 import {BottomMenu} from '../../../components/bottomMenu/BottomMenu';
@@ -85,6 +84,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const {createForm, organizationFilter} = useAppSelector(
     selectOrganizationsValues,
   );
+  const [pickList, setPickList] = useState<string[]>([]);
 
   const employeersState = useAppSelector(selectEmployeersValues);
 
@@ -203,6 +203,7 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       handleChangeForm('employeers', employeers);
     }
     setIsLoading(true);
+    // createForm
     dispatch(createOrganization(Boolean(props.isEdit)))
       .then(res => {
         dispatch(getPersonalOrganizations());
@@ -384,9 +385,27 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
                 {'- Описание'}
               </TextUI>
             ) : null}
+            {!createForm.schedule.length ? (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Расписание'}
+              </TextUI>
+            ) : null}
+            {!createForm.category?.noService &&
+            !createForm.typeService.length &&
+            organizationFilter?.typeService?.length ? (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Услугу'}
+              </TextUI>
+            ) : null}
+            {!createForm.category?.noBrands && !createForm.brandCar.length ? (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Марки обслуж.авто'}
+              </TextUI>
+            ) : null}
           </MainContainer>
         ) : null}
 
+        {/*createChangeForm*/}
         <CreateSave
           isDisabled={isLoading}
           isEdit={props.isEdit}
@@ -396,8 +415,10 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       </KeyboardAwareScrollView>
 
       <FilterModal
-          titleTypeService={organizationFilter?.titleTypeService}
-          isCreate
+        pickList={pickList}
+        setPickList={setPickList}
+        titleTypeService={organizationFilter?.titleTypeService}
+        isCreate
         createForm={createForm}
         typeModal={typeModal}
         modalizeRef={filterModalRef}
@@ -415,4 +436,3 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     </ColumnContainerFlex>
   );
 };
-

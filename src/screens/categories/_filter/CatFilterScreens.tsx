@@ -25,6 +25,8 @@ import {Loader} from '../../../components/Loader';
 import {Screens} from '../../../routes/models/Screens';
 
 export const CatFilterScreens = () => {
+  const [pickList, setPickList] = useState<string[]>([]);
+
   const {filterForm, organizationFilter} = useAppSelector(
     selectOrganizationsValues,
   );
@@ -119,6 +121,8 @@ export const CatFilterScreens = () => {
       />
 
       <FilterModal
+        pickList={pickList}
+        setPickList={setPickList}
         titleTypeService={organizationFilter?.titleTypeService}
         typeModal={typeModal}
         modalizeRef={filterModalRef}

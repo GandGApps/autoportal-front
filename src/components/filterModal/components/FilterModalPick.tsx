@@ -25,6 +25,13 @@ interface FilterModalPickProps {
 
   hideSub?: () => void;
 }
+const areAllSubServicesChecked = (pickList, subServices) => {
+  if (!subServices || subServices.length === 0) {
+    return false;
+  }
+  const subServiceIds = subServices.map(sub => sub._id);
+  return subServiceIds.every(id => pickList.includes(id));
+};
 
 export const FilterModalPick = (props: FilterModalPickProps) => {
   const [isActive, setIsActive] = useState(false);
@@ -35,18 +42,21 @@ export const FilterModalPick = (props: FilterModalPickProps) => {
       return;
     }
 
-    if (props.isCatSub) {
-      setIsActive(
-        OrganizationHelper.checkCategorySub(
-          props.pickList,
-          (props.item as TypeService).subServices!,
-        ),
-      );
+    if (props.isCatSub && (props.item as TypeService).subServices) {
+      const allChecked = areAllSubServicesChecked(props.pickList, (props.item as TypeService).subServices!);
+      if (!allChecked) {
+        const anyChecked = (props.item as TypeService).subServices!.some(subService => {
+            return props.pickList.includes(subService._id);
+          },
+        );
+        setIsActive(anyChecked);
+      } else {
+        setIsActive(allChecked);
+      }
     } else {
       setIsActive(props.pickList.includes(props.item!._id));
     }
-  }, [props.pickList]);
-
+  }, [props.pickList, props.item, props.isCatSub, props.sortActive]);
 
   return (
     <BorderTopUI>
@@ -58,7 +68,6 @@ export const FilterModalPick = (props: FilterModalPickProps) => {
             ) : (
               <CheckboxUI isActive={isActive} />
             )}
-
             <MainContainer $ml={10} $pv={8}>
               <TextUI ag={Ag['400_16']}>
                 {props.sortTitle || props.item!.title}
@@ -66,11 +75,10 @@ export const FilterModalPick = (props: FilterModalPickProps) => {
             </MainContainer>
           </RowContainer>
         </TouchableOpacity>
-
         {props.isCatSub && (
           <Fragment>
             <ColumnContainerFlex />
-            <TouchableOpacity style={{padding: 5}} onPress={props.hideSub}>
+            <TouchableOpacity style={{ padding: 5 }} onPress={props.hideSub}>
               <DownIcon />
             </TouchableOpacity>
           </Fragment>

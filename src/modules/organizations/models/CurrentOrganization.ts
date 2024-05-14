@@ -18,7 +18,7 @@ export class CurrentOrganization extends AbstractModel {
   categoryId: Nullable<Category> = null;
   rating: Nullable<number> = null;
   countReviews: Nullable<number> = null;
-
+  _services: TypeService[];
   isFavorite: boolean = false;
   description: string = '';
   city: string = '';

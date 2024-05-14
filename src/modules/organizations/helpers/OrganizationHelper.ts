@@ -101,12 +101,24 @@ export class OrganizationHelper {
   static getDefaultCreateForm = (
     organization: CurrentOrganization,
   ): CreatetFormModel => {
+    const ids = new Set();
+
+    organization.services.forEach(item => {
+      ids.add(item?.service._id);
+      item.ext_services.forEach(ext_service => {
+        ids.add(ext_service._id);
+      });
+    });
+
+    const uniqueIds: string[] = Array.from(ids);
+
     return {
       id: organization._id,
       name: organization.name,
       city: organization.city,
+      _services: organization.services,
       category: organization.categoryId,
-      typeService: organization.services.map(service => service.service._id) || [],
+      typeService: uniqueIds,
       brandCar: organization.brandsCars.map(item => item._id) || [],
       schedule: organization.schedule,
       address: organization.address,

@@ -202,6 +202,7 @@ const organizationsSlice = createSlice({
       }
 
       state.currentOrganization = action.payload;
+      state.currentOrganization._services = action.payload.services
     });
 
     // GET Promotions List

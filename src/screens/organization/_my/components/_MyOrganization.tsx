@@ -1,6 +1,14 @@
 import React, {useCallback, useState} from 'react';
 import {BorderTopUI} from '../../../../template/ui/BorderTopUI';
-import {Linking, TouchableOpacity} from 'react-native';
+import {
+  TouchableOpacity,
+  Modal,
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Linking,
+} from 'react-native';
 import {
   RowContainer,
   RowContainerBeetwen,
@@ -33,6 +41,7 @@ import {
 } from '../../../../modules/organizations/OrganizationsSlice';
 import {useFocusEffect} from '@react-navigation/native';
 import {DefaultCreateForm} from '../../../../modules/organizations/form/CreateForm';
+import { ButtonUI } from '../../../../template/ui/ButtonUI';
 
 interface OrganizationItemProps {
   item: PersonalOrganizations;
@@ -46,6 +55,11 @@ export const MyOrganization = ({
   const {contacts} = useAppSelector(selectOrganizationsValues);
   const dispatch = useAppDispatch();
   const [isActiveLoad, setIsActiveLoad] = useState(false);
+  const [deactivateModalVisible, setDeactivateModalVisible] = useState(false);
+
+  const openModal = () => {
+    setDeactivateModalVisible(true);
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -219,14 +233,7 @@ export const MyOrganization = ({
                 ag={Ag['400_14']}
                 text={'Деактивировать'}
                 color={ColorsUI.red}
-                onPress={() => {
-                  if (isActiveLoad) {
-                    return;
-                  }
-                  dispatch(deactivateSubscribe(item._id)).finally(() => {
-                    setIsActiveLoad(false);
-                  });
-                }}
+                onPress={openModal}
               />
             )}
 
@@ -236,9 +243,72 @@ export const MyOrganization = ({
               text={'Редактировать'}
               color={ColorsUI.green}
             />
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={deactivateModalVisible}
+              onRequestClose={() => {
+                setDeactivateModalVisible(false);
+              }}
+            >
+              <View style={styles.modalContainer}>
+                <View style={styles.modalContent}>
+                  <Text>Вы действительно хотите деактивировать организацию?
+                    Деактивируя, вы тем самым отключаете организацию от приложения.</Text>
+                  <View style={styles.buttonContainer}>
+                    <ButtonUI
+                      $pv={6}
+                      $type="firm"
+                      $widthPX={100}
+                      $heightPX={35}
+                      fontSize={10}
+                      title="Отменить"
+                      onPress={() => setDeactivateModalVisible(false)}
+                    />
+                    <ButtonUI
+                      $pv={6}
+                      $widthPX={100}
+                      fontSize={10}
+                      $heightPX={35}
+                      title="Подтвердить"
+                      onPress={() => {
+                        if (isActiveLoad) {
+                          return;
+                        }
+                        dispatch(deactivateSubscribe(item._id)).finally(() => {
+                          setIsActiveLoad(false);
+                        });
+                      }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </Modal>
+
           </RowContainerBeetwen>
         )}
       </MainContainer>
     </BorderTopUI>
   );
 };
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5, // Тень на Android
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+});

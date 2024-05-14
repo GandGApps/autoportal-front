@@ -22,6 +22,7 @@ export const LoginContent = () => {
   return (
     <>
       <InputUI
+        defaultValue="+7 ("
         placeholder={'+7 ('}
         value={MaskHelper.formatPhoneNumber(loginForm.phone_number)}
         onChangeText={value => handleChangeForm('phone_number', value)}

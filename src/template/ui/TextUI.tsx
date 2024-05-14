@@ -33,6 +33,7 @@ export interface TTextUI extends TStyledP {
   ag: Ag;
   color?: string;
   isNoSelect?: boolean;
+  maxWidth?: number;
 }
 
 export const TextUI = (props: TTextUI) => {
@@ -63,6 +64,7 @@ export interface TStyledP extends TextProps {
 
 const TextUIStyled = styled.Text<TStyledP>`
   font-size: ${({size}) => size}px;
+  max-width: ${({ maxWidth }) => maxWidth}px;
   line-height: ${({size}) => parseInt(size!) * 1.22}px;
   color: ${({$color}) => $color || ColorsUI.black};
   margin-bottom: ${({$mb}) => $mb || 0}px;

@@ -10,6 +10,7 @@ export type TButton = 'border' | 'border-white' | 'firm' | 'black';
 interface ButtonUIProps extends ContainerProps {
   $type?: TButton;
   $btnDisabled?: boolean;
+  fontSize?: number;
   color?: string;
   title: string;
   onPress?: () => void;
@@ -26,6 +27,9 @@ export const ButtonUI = (props: ButtonUIProps) => {
       $type={type}
       $pv={props.$pv || 15}>
       <TextUI
+        style={{
+          fontSize: props.fontSize,
+        }}
         color={props.color || ButtonHelper.getTextColor(type)}
         ag={Ag['500_16']}
         $align={'center'}>

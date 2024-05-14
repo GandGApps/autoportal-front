@@ -164,8 +164,8 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
       <FlatList
         style={{flex: 1}}
         data={[
-          ...list.filter(item => pickList.includes(item._id)),
-          ...list.filter(item => !pickList.includes(item._id)),
+          ...list?.filter(item => pickList.includes(item._id)),
+          ...list?.filter(item => !pickList.includes(item._id)),
         ]}
         renderItem={({item}) => (
           <FilterModalPick

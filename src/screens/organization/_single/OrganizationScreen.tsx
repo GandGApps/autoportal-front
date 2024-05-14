@@ -143,7 +143,10 @@ export const OrganizationScreen = () => {
         />
 
         {currentOrganization.services.length ? (
-          <OrgServices titleTypeService={currentOrganization?.categoryId.titleTypeService} services={currentOrganization.services} />
+          <OrgServices
+            titleTypeService={currentOrganization?.categoryId.titleTypeService}
+            services={currentOrganization.services}
+          />
         ) : null}
 
         {currentOrganization.brandsCars ? (

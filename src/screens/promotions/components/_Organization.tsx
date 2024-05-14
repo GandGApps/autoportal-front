@@ -22,7 +22,6 @@ interface _Props {
 }
 
 export const PromoOrganization = ({organization, promotion}: _Props) => {
-
   const handleGoToOrganization = () => {
     Navigation.navigate(Screens.ORGANIZATION, {
       _id: organization._id,
@@ -36,16 +35,23 @@ export const PromoOrganization = ({organization, promotion}: _Props) => {
           <RowContainer>
             <LogoUI size={45} url={organization.logo} />
 
-            <MainContainer $ml={10} >
-              <TextUI $isFlex={true} $mb={5} ag={Ag['700_14']}>
+            <MainContainer $ml={10}>
+              <TextUI
+                maxWidth={150}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                $isFlex={true}
+                $mb={5}
+                ag={Ag['700_14']}>
                 {organization.name}
               </TextUI>
 
               <RowContainer>
                 <LocationIcon />
 
-                <MainContainer  $ml={5}>
+                <MainContainer $ml={5}>
                   <TextUI
+                    maxWidth={150}
                     $isFlex={true}
                     numberOfLines={1}
                     ellipsizeMode={'tail'}
@@ -56,9 +62,6 @@ export const PromoOrganization = ({organization, promotion}: _Props) => {
               </RowContainer>
             </MainContainer>
           </RowContainer>
-
-
-
 
           <MainContainer style={{marginLeft: 'auto'}}>
             <TextUI $mb={5} ag={Ag['400_14']}>

@@ -40,7 +40,11 @@ export const EditOrganizationScreen = () => {
 
         dispatch(getCurrentOrganization(_id))
           .then(res => {
-            const organization = res.payload as CurrentOrganization;
+            const organization = {
+              ...res.payload,
+              _services: res.payload.services,
+            } as CurrentOrganization;
+
             if (!res.payload) {
               return;
             }

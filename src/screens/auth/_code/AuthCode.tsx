@@ -18,6 +18,7 @@ import {ColorsUI} from '../../../template/styles/ColorUI';
 import {CenterContainer} from '../../../template/containers/CenterContainer';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {sendCode} from '../../../modules/auth/thunks/sendCode.thunks';
+import { getCode } from '../../../modules/auth/thunks/getCode.thunks';
 
 export const AuthCode = () => {
   const {title, registerForm, loginForm} = useAppSelector(selectAuthValues);
@@ -94,7 +95,7 @@ export const AuthCode = () => {
             onPress={() => {
               if (!isLoad && code.length === CELL_COUNT) {
                 setIsLoad(true);
-                dispatch(sendCode(code)).finally(() => {
+                dispatch(getCode()).finally(() => {
                   setIsLoad(false);
                 });
               }

@@ -109,7 +109,7 @@ export const PromotionScreen = () => {
   return (
     <ColumnContainerFlex>
       <GradientHeader
-        title={isEdit ? 'Редактировать акцию' : 'Создать акции'}
+        title={isEdit ? 'Редактировать акцию' : 'Создать акцию'}
         isBack={true}
       />
       <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
