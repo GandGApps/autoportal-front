@@ -36,7 +36,7 @@ export const Textarea = (props: TextareaProps) => {
         />
       </MainContainer>
       <RowContainerBeetwenEnd>
-        <TextUI ag={Ag['400_16']}>{`${props.value.length}/255`}</TextUI>
+        <TextUI ag={Ag['400_16']}>{`${props.value?.length}/255`}</TextUI>
       </RowContainerBeetwenEnd>
     </MainContainer>
   );

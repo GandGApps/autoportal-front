@@ -74,6 +74,7 @@ import {Loader} from '../../../components/Loader';
 import {CenterContainer} from '../../../template/containers/CenterContainer';
 import {useFocusEffect} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
+import {loadData, saveData} from '../../../utils/async-storage';
 
 interface CreateScreenProps {
   isEdit?: boolean;
@@ -85,6 +86,21 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     selectOrganizationsValues,
   );
   const [pickList, setPickList] = useState<string[]>([]);
+  const [formData, setFormData] = useState({
+    city: '',
+    category: null,
+    typeService: [],
+    brandCar: [],
+    schedule: [],
+    name: '',
+    address: '',
+    mainPhone: '',
+    whatsApp: '',
+    employeers: [],
+    description: '',
+    logo: '',
+    photos: [],
+  });
 
   const employeersState = useAppSelector(selectEmployeersValues);
 
@@ -101,9 +117,19 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLogoLoading, setIsLogoLoading] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
-
+  const [schedules, setSchedules] = useState<any[]>([]);
+  const [currentBrandCar, setCurrentBrandCar] = useState([]);
+  const [currentTypeService, setCurrentTypeService] = useState([]);
   const handleChangeForm = (key: CreateFormKeys, value: CreateFormValue) => {
     setIsError(false);
+
+    setFormData(prevState => ({
+      ...prevState,
+      [key]: value,
+      typeService: currentTypeService,
+      brandCar: currentBrandCar,
+    }));
+
     if (key === 'category') {
       setTimeout(() => {
         dispatch(getOrganizationFilter((value as Category)._id));
@@ -113,6 +139,23 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     dispatch(createChangeForm({key, value}));
   };
 
+  useEffect(() => {
+    if (createForm.typeService.length > 0) {
+      setCurrentTypeService(createForm.typeService);
+    }
+    if (createForm.brandCar.length > 0) {
+      setCurrentBrandCar(createForm.brandCar);
+    }
+  }, [createForm, currentTypeService]);
+
+  useEffect(() => {
+    if (createForm.schedule.length > 0) {
+      setSchedules(() => createForm.schedule);
+    } else {
+      createForm.schedule = schedules;
+    }
+  }, [createForm, schedules]);
+
   const resetCreateForm = () => {
     dispatch(resetOrganizationFilter());
     dispatch(setDefaultCreateForm(DefaultCreateForm));
@@ -120,7 +163,8 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   };
 
   const handleChangeSchedule = (dayWork: ScheduleModel, isRemove?: boolean) => {
-    const temp = createForm.schedule.filter(day => day.title !== dayWork.title);
+    const sh = createForm.schedule.length > 0 ? createForm.schedule : schedules;
+    const temp = sh.filter(day => day.title !== dayWork.title);
 
     if (!isRemove) {
       temp.push(dayWork);
@@ -228,6 +272,9 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   };
 
   const handleOpenFilterModal = (type: FilterFormKeys) => {
+    if (createForm.typeService.length > 0) {
+      setCurrentTypeService(createForm.typeService);
+    }
     setTypeModal(type);
 
     filterModalRef.current?.open();
@@ -240,6 +287,11 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const handleOpenModalCategory = () => {
     categoriesModalRef.current?.open();
   };
+  useEffect(() => {
+    if (Object.keys(formData).length > 0) {
+      dispatch(setDefaultCreateForm(formData));
+    }
+  }, [formData, dispatch]);
 
   useEffect(() => {
     const employeers = createForm.employeers || [];
@@ -332,7 +384,9 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
 
         <CreateSchedules
           onChangeSchedule={handleChangeSchedule}
-          defaultSchedule={createForm.schedule}
+          defaultSchedule={
+            createForm.schedule.length > 0 ? createForm.schedule : schedules
+          }
         />
 
         {!isLogoLoading ? (

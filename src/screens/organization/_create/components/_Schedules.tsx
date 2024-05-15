@@ -23,7 +23,7 @@ export const CreateSchedules = (props: CreateSchedulesProps) => {
           sch={props.defaultSchedule}
           schedule={
             props.defaultSchedule.findIndex(
-            item => item.title === DaysOfWeek[index],
+              item => item.title === DaysOfWeek[index],
             ) === index
               ? props.defaultSchedule[index]
               : null
