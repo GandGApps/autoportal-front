@@ -1,6 +1,7 @@
 import {useRoute} from '@react-navigation/native';
+import {Modal, View} from 'react-native';
 import React, {FC, useEffect, useState} from 'react';
-import {FlatList, KeyboardAvoidingView} from 'react-native';
+import {FlatList} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {OrganizationHelper} from '../../modules/organizations/helpers/OrganizationHelper';
 import {TypeService} from '../../modules/organizations/models/TypeService';
@@ -58,7 +59,7 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
 
   useEffect(() => {
     setPickList(form.brandCar || []);
-    
+
     setList(organizationFilter?.brandCar!);
   }, []);
 
@@ -88,6 +89,7 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
       setPickList([...pickList, value._id]);
     }
   };
+
   const handleResetPick = () => {
     if (isCreate) {
       dispatch(
@@ -130,67 +132,74 @@ export const BrandsCarsModal: FC = function BrandsCarsModal({}) {
       })
       .catch(e => {})
       .finally(() => {});
-     Navigation.pop();
+    Navigation.pop();
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-        paddingBottom: insets.bottom,
-      }}>
-      <TextUI ag={Ag['500_14']} $align={'center'}>
-        {'Марки'}
-      </TextUI>
-      <MainContainer $mt={20}>
-        <InputUI
-          value={brandName}
-          placeholder={'Укажите название марки'}
-          onChangeText={setBrandName}
-        />
-      </MainContainer>
-      <ViewPress $mt={10} $mb={10} onPress={handlePickAllBrands}>
-        <TextUI ag={Ag['500_12']} color={ColorsUI.blue.second}>
-          {'выбрать все марки'}
+    <Modal visible={true} transparent={true}>
+      <View
+        style={{
+          paddingHorizontal: 20,
+          paddingVertical: 20,
+          backgroundColor: 'white',
+          borderRadius: 10,
+          padding: 20,
+          flex: 1,
+        }}>
+        <TextUI ag={Ag['500_14']} $align={'center'}>
+          {'Марки'}
         </TextUI>
-      </ViewPress>
-      <ViewPress $mb={10} onPress={handleUnPickAllBrands}>
-        <TextUI ag={Ag['500_12']} color={ColorsUI.blue.second}>
-          {'снять все марки'}
-        </TextUI>
-      </ViewPress>
-      <FlatList
-        style={{flex: 1}}
-        data={[
-          ...list?.filter(item => pickList.includes(item._id)),
-          ...list?.filter(item => !pickList.includes(item._id)),
-        ]}
-        renderItem={({item}) => (
-          <FilterModalPick
-            item={item}
-            onPickItem={() => {
-              handlePickItem(item);
-            }}
-            pickList={pickList}
-            isCatSub={false}
+        <MainContainer $mt={20}>
+          <InputUI
+            value={brandName}
+            placeholder={'Укажите название марки'}
+            onChangeText={setBrandName}
           />
-        )}
-        keyExtractor={item => `brands-cars-pick-${item._id}`}
-      />
-
-      <RowContainerBeetwen $mt={20}>
-        <ButtonUI
-          $type={'border'}
-          $widthPRC={48}
-          title={'Сбросить'}
-          onPress={handleResetPick}
+        </MainContainer>
+        <ViewPress $mt={10} $mb={10} onPress={handlePickAllBrands}>
+          <TextUI ag={Ag['500_12']} color={ColorsUI.blue.second}>
+            {'выбрать все марки'}
+          </TextUI>
+        </ViewPress>
+        <ViewPress $mb={10} onPress={handleUnPickAllBrands}>
+          <TextUI ag={Ag['500_12']} color={ColorsUI.blue.second}>
+            {'снять все марки'}
+          </TextUI>
+        </ViewPress>
+        <FlatList
+          style={{flex: 1}}
+          data={[
+            ...list?.filter(item => pickList.includes(item._id)),
+            ...list?.filter(item => !pickList.includes(item._id)),
+          ]}
+          renderItem={({item}) => (
+            <FilterModalPick
+              item={item}
+              onPickItem={() => {
+                handlePickItem(item);
+              }}
+              pickList={pickList}
+              isCatSub={false}
+            />
+          )}
+          keyExtractor={item => `brands-cars-pick-${item._id}`}
+          scrollEnabled={true}
         />
-        <ButtonUI $widthPRC={48} title={'Сохранить'} onPress={handleSavePick} />
-      </RowContainerBeetwen>
-    </KeyboardAvoidingView>
+        <RowContainerBeetwen $mt={20}>
+          <ButtonUI
+            $type={'border'}
+            $widthPRC={48}
+            title={'Сбросить'}
+            onPress={handleResetPick}
+          />
+          <ButtonUI
+            $widthPRC={48}
+            title={'Сохранить'}
+            onPress={handleSavePick}
+          />
+        </RowContainerBeetwen>
+      </View>
+    </Modal>
   );
 };
-
 // const compStyles = StyleSheet.create({});
