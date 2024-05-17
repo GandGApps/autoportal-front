@@ -18,7 +18,8 @@ import {ColorsUI} from '../../../template/styles/ColorUI';
 import {CenterContainer} from '../../../template/containers/CenterContainer';
 import {ViewPress} from '../../../template/containers/ViewPress';
 import {sendCode} from '../../../modules/auth/thunks/sendCode.thunks';
-import { getCode } from '../../../modules/auth/thunks/getCode.thunks';
+import {getCode} from '../../../modules/auth/thunks/getCode.thunks';
+import {Notifications} from '../../../template/notifications/Notifications';
 
 export const AuthCode = () => {
   const {title, registerForm, loginForm} = useAppSelector(selectAuthValues);
@@ -90,17 +91,20 @@ export const AuthCode = () => {
             {'Не пришел вызов?'}
           </TextUI>
           <ViewPress
-            disabled={isLoad || code.length !== CELL_COUNT}
+            disabled={isLoad}
             $mb={30}
             onPress={() => {
-              if (!isLoad && code.length === CELL_COUNT) {
+              if (!isLoad) {
+                Notifications.succes('Звоним Вам повторно');
                 setIsLoad(true);
                 dispatch(getCode()).finally(() => {
-                  setIsLoad(false);
+                  setTimeout(() => {
+                    setIsLoad(false);
+                  }, 60000);
                 });
               }
             }}>
-            <TextUI ag={Ag['600_16']} color={ColorsUI.green}>
+            <TextUI ag={Ag['600_16']} color={isLoad ? 'gray' : ColorsUI.green}>
               {'Отправить звонок повторно'}
             </TextUI>
           </ViewPress>

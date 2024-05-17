@@ -118,8 +118,22 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
   const [isLogoLoading, setIsLogoLoading] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
   const [schedules, setSchedules] = useState<any[]>([]);
+  const [currentDesc, setCurrentDesc] = useState('');
   const [currentBrandCar, setCurrentBrandCar] = useState([]);
   const [currentTypeService, setCurrentTypeService] = useState([]);
+
+  useEffect(() => {
+    if (createForm.description.length > 0) {
+      setCurrentDesc(() => createForm.description);
+    }
+    if (createForm.typeService.length > 0) {
+      setCurrentTypeService(createForm.typeService);
+    }
+    if (createForm.brandCar.length > 0) {
+      setCurrentBrandCar(createForm.brandCar);
+    }
+  }, [createForm, currentTypeService]);
+
   const handleChangeForm = (key: CreateFormKeys, value: CreateFormValue) => {
     setIsError(false);
 
@@ -155,6 +169,14 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
       createForm.schedule = schedules;
     }
   }, [createForm, schedules]);
+
+  useEffect(() => {
+    if (createForm.description.length > 0) {
+      setCurrentDesc(() => createForm.description);
+    } else {
+      createForm.description = currentDesc;
+    }
+  }, [createForm, currentDesc]);
 
   const resetCreateForm = () => {
     dispatch(resetOrganizationFilter());
@@ -288,8 +310,10 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
     categoriesModalRef.current?.open();
   };
   useEffect(() => {
-    if (Object.keys(formData).length > 0) {
-      dispatch(setDefaultCreateForm(formData));
+    if (!props.isEdit) {
+      if (Object.keys(formData).length > 0) {
+        dispatch(setDefaultCreateForm(formData));
+      }
     }
   }, [formData, dispatch]);
 
