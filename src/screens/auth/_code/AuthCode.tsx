@@ -22,7 +22,7 @@ import {getCode} from '../../../modules/auth/thunks/getCode.thunks';
 import {Notifications} from '../../../template/notifications/Notifications';
 
 export const AuthCode = () => {
-  const {title, registerForm, loginForm} = useAppSelector(selectAuthValues);
+  const {title} = useAppSelector(selectAuthValues);
   const dispatch = useAppDispatch();
 
   const CELL_COUNT = 4;
@@ -37,13 +37,26 @@ export const AuthCode = () => {
   const [isLoad, setIsLoad] = useState(false);
 
   useEffect(() => {
-    if (!isLoad && code.length === CELL_COUNT) {
+    if (code.length === CELL_COUNT) {
       setIsLoad(true);
       dispatch(sendCode(code)).finally(() => {
         setIsLoad(false);
       });
     }
-  }, [code]);
+  }, [code, dispatch]);
+
+  const handleResendCode = () => {
+    if (!isLoad) {
+      Notifications.succes('Звоним Вам повторно');
+      setIsLoad(true);
+      setCode(''); // Reset the code input
+      dispatch(getCode()).finally(() => {
+        setTimeout(() => {
+          setIsLoad(false);
+        }, 60000);
+      });
+    }
+  };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
@@ -90,20 +103,7 @@ export const AuthCode = () => {
           <TextUI $mb={5} ag={Ag['400_16']}>
             {'Не пришел вызов?'}
           </TextUI>
-          <ViewPress
-            disabled={isLoad}
-            $mb={30}
-            onPress={() => {
-              if (!isLoad) {
-                Notifications.succes('Звоним Вам повторно');
-                setIsLoad(true);
-                dispatch(getCode()).finally(() => {
-                  setTimeout(() => {
-                    setIsLoad(false);
-                  }, 60000);
-                });
-              }
-            }}>
+          <ViewPress disabled={isLoad} $mb={30} onPress={handleResendCode}>
             <TextUI ag={Ag['600_16']} color={isLoad ? 'gray' : ColorsUI.green}>
               {'Отправить звонок повторно'}
             </TextUI>
