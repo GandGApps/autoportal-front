@@ -22,7 +22,11 @@ interface FormattedPersonal {
 type EmployeerValidKey = 'first' | 'second' | 'third';
 
 export class OrganizationHelper {
-  static getModalTitle = (typeModal: FilterFormKeys) => {
+  static getModalTitle = (typeModal: FilterFormKeys, title?: string) => {
+    if (!!title) {
+      return title;
+    }
+
     switch (typeModal) {
       case 'category':
         return 'Выберите категорию';

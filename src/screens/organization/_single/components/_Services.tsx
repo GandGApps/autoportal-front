@@ -40,6 +40,8 @@ export const OrgServices = ({services,titleTypeService}: OrgServicesProps) => {
   }
   else if(titleTypeService === 'Тип перевозки') {
     displayTitleTypeService = 'Виды перевозок';
+  } else if (titleTypeService === 'Вид техники') {
+    displayTitleTypeService = 'Виды техники';
   }
 
   const removeDuplicates = (array) => {

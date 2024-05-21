@@ -344,9 +344,9 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
               $br={50}
               $pv={5}
               $ph={10}
-              $mr={10}
+              $mr={20}
               onPress={resetCreateForm}>
-              <TextUI ag={Ag['500_14']}>{'Очистить'}</TextUI>
+              <TextUI ag={Ag['500_12']}>{'Очистить'}</TextUI>
             </ViewPress>
           }
           isBack
@@ -465,14 +465,19 @@ export const CreateOrganizationScreen = (props: CreateScreenProps) => {
             ) : null}
             {!createForm.schedule.length ? (
               <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
-                {'- Расписание'}
+                {'- График работы'}
+              </TextUI>
+            ) : null}
+            {!createForm.mainPhone.length ? (
+              <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
+                {'- Основной телефон'}
               </TextUI>
             ) : null}
             {!createForm.category?.noService &&
             !createForm.typeService.length &&
             organizationFilter?.typeService?.length ? (
               <TextUI $mb={10} ag={Ag['500_14']} color={ColorsUI.red}>
-                {'- Услугу'}
+                {`- ${organizationFilter?.titleTypeService || 'Вид услуги'}`}
               </TextUI>
             ) : null}
             {!createForm.category?.noBrands && !createForm.brandCar.length ? (

@@ -188,7 +188,7 @@ export const FilterModal = (props: CitiesFilterProps) => {
         {props.typeModal ? (
           <MainContainer $pb={20}>
             <TextUI $mb={20} $align={'center'} ag={Ag['500_16']}>
-              {OrganizationHelper.getModalTitle(props.typeModal)}
+              {OrganizationHelper.getModalTitle(props.typeModal, props?.titleTypeService)}
             </TextUI>
             <ScrollView showsVerticalScrollIndicator={false}>
               {isSort ? (
