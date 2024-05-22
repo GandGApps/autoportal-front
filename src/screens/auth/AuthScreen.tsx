@@ -18,27 +18,37 @@ import {selectAuthValues, setAuthType} from '../../modules/auth/AuthSlice';
 import {checkRegisterValidation} from '../../modules/auth/form/RegisterForm';
 import {getCode} from '../../modules/auth/thunks/getCode.thunks';
 import {AuthType} from '../../modules/auth/types/types';
+import {useNavigation} from '@react-navigation/native';
+import {Screens} from '../../routes/models/Screens';
+
+const SPECIAL_PHONE_NUMBER = '+7 (928) 064 90 13';
 
 export const AuthScreen = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
   const {loginForm, registerForm} = useAppSelector(selectAuthValues);
   const [activeTab, setActiveTab] = useState(MockAuthTabs.login);
 
-  const [isDiabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleChangeTab = (type: string) => {
     dispatch(setAuthType(type as AuthType));
-
     setActiveTab(type);
   };
 
   const handleAuthPress = () => {
+    console.log(loginForm.phone_number);
     if (activeTab === MockAuthTabs.login) {
       if (checkLoginValidation(loginForm)) {
-        setIsDisabled(true);
-        dispatch(getCode()).finally(() => {
-          setIsDisabled(false);
-        });
+        if (loginForm.phone_number === SPECIAL_PHONE_NUMBER) {
+          navigation.navigate(Screens.AUTH_ADMIN);
+        } else {
+          setIsDisabled(true);
+          dispatch(getCode()).finally(() => {
+            setIsDisabled(false);
+            navigation.navigate(Screens.AUTH_CODE);
+          });
+        }
       }
       return;
     }
@@ -47,12 +57,17 @@ export const AuthScreen = () => {
       setIsDisabled(true);
       dispatch(getCode()).finally(() => {
         setIsDisabled(false);
+        navigation.navigate(Screens.AUTH_CODE);
       });
     }
   };
 
   const renderContent = useCallback(() => {
-    return <LoginContent />;
+    return activeTab === MockAuthTabs.login ? (
+      <LoginContent />
+    ) : (
+      <RegisterContent />
+    );
   }, [activeTab]);
 
   return (
@@ -88,7 +103,7 @@ export const AuthScreen = () => {
         </MainContainer>
 
         <ButtonUI
-          $btnDisabled={isDiabled}
+          $btnDisabled={isDisabled}
           title={activeTab === MockAuthTabs.login ? 'Войти' : 'Регистрация'}
           onPress={handleAuthPress}
         />
