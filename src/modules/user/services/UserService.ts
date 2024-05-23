@@ -24,6 +24,12 @@ export class UserService extends AbstractServiceRepository {
 
     return this.create<UserInfo>(UserInfo, data);
   };
+
+  deleteUser = async () => {
+    const {data} = await this.api.deleteUser();
+
+    return this.create<UserInfo>(UserInfo, data);
+  };
 }
 
 export const userService = new UserService();

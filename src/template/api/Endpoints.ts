@@ -5,6 +5,7 @@ export const Endpoints = {
   getCode: '/users/login/dealer/make-call',
 
   editUser: '/users/login/dealer/data',
+  deleteUser: '/users/profile/dealer',
 
   adminLogin: '/admin/login',
 

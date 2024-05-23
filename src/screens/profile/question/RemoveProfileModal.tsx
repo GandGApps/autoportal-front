@@ -1,9 +1,22 @@
 import React from 'react';
+
 import {QuestionModal} from '../../../components/QuestionModal';
 import Navigation from '../../../routes/navigation/Navigation';
+import {Screens} from '../../../routes/models/Screens';
+import {deleteUser} from '../../../modules/user/thunks/delete.thunk';
+import {useAppDispatch} from '../../../settings/redux/hooks';
 
 export const RemoveProfileModal = () => {
-  const handleRemoveAccount = () => {};
+  const dispatch = useAppDispatch();
+  const handleGoToScreen = (screen: string) => {
+    Navigation.navigate(screen);
+  };
+
+  const handleRemoveAccount = () => {
+    dispatch(deleteUser()).finally(() => {
+      handleGoToScreen(Screens.WELCOME);
+    });
+  };
 
   return (
     <QuestionModal

@@ -15,4 +15,10 @@ export class ApiUser extends AbstractApiRepository {
       data: form,
     });
   };
+
+  deleteUser = () => {
+    return this.apiClient.delete({
+      url: Endpoints.deleteUser,
+    });
+  };
 }
